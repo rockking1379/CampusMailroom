@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.mainclient.OpenPageController">
+  <children>
+    <TableView fx:id="tblViewTable" layoutX="269.0" layoutY="14.0" prefHeight="680.0" prefWidth="750.0" />
+    <Button fx:id="btnScanPackage" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="250.0" text="Scan Package" />
+    <Button fx:id="btnPrint" layoutX="14.0" layoutY="169.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="250.0" text="Print" />
+    <Button fx:id="btnSearch" layoutX="14.0" layoutY="324.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="250.0" text="Search" />
+    <Button fx:id="btnSettings" layoutX="14.0" layoutY="479.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="250.0" text="Settings" />
+    <Button fx:id="btnRefresh" layoutX="14.0" layoutY="634.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="250.0" text="Refresh" />
+    <Label fx:id="lblUserLabel" layoutX="14.0" layoutY="717.0" prefHeight="37.0" prefWidth="250.0" text="&lt;first,last&gt;" />
+    <Button fx:id="btnLogout" layoutX="944.0" layoutY="715.0" mnemonicParsing="false" text="Logout" />
+    <Button fx:id="btnQuit" layoutX="880.0" layoutY="715.0" mnemonicParsing="false" text="Quit" />
+    <CheckBox fx:id="chkAutoUpdate" layoutX="770.0" layoutY="718.0" mnemonicParsing="false" text="Auto Update" />
+  </children>
+</AnchorPane>

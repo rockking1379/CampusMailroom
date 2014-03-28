@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.mainclient.LoginController">
+  <children>
+    <ImageView fitHeight="314.6202926703491" fitWidth="279.0334167480469" layoutX="372.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@../resources/Logo.jpg" />
+      </image>
+    </ImageView>
+    <TextField fx:id="txtUserName" layoutX="412.0" layoutY="373.0" prefWidth="200.0" promptText="Username" />
+    <PasswordField fx:id="pwdPassword" layoutX="412.0" layoutY="404.0" prefWidth="200.0" promptText="Password" />
+    <Button fx:id="btnLogin" layoutX="412.0" layoutY="437.0" mnemonicParsing="false" onAction="#login" prefWidth="93.0" text="Login" />
+    <Button fx:id="btnQuit" layoutX="519.0" layoutY="438.0" mnemonicParsing="false" onAction="#quit" prefWidth="93.0" text="Quit" />
+    <Label fx:id="lblLoginError" alignment="CENTER" layoutX="412.0" layoutY="470.0" prefWidth="200.0" text="Login Error" textAlignment="CENTER" textFill="RED" textOverrun="ELLIPSIS" visible="false" />
+  </children>
+</AnchorPane>
