@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 public class Package 
 {
 	private int packageId;
@@ -63,9 +64,14 @@ public class Package
 		return packageId;
 	}
 	
-	public String getTrackingNumber()
+	public String getFullTrackingNumber()
 	{
 		return trackingNumber;
+	}
+	
+	public String getTrackingNumber()
+	{
+		return "..." + trackingNumber.substring(trackingNumber.length() - 4, trackingNumber.length());
 	}
 	
 	public String getDateReceived()

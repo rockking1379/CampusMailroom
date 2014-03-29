@@ -6,9 +6,11 @@ import java.util.ResourceBundle;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import com.mailroom.common.*;
+import com.panemu.tiwulfx.*;
 
 public class LoginController implements Initializable 
 {
@@ -20,6 +22,10 @@ public class LoginController implements Initializable
 	private PasswordField pwdPassword;
 	@FXML
 	private Label lblLoginError;
+	@FXML
+	private Button btnLogin;
+	@FXML
+	private Button btnQuit;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
@@ -27,7 +33,7 @@ public class LoginController implements Initializable
 		dbManager = MainFrame.dbManager;
 	}
 	
-	public void login(ActionEvent ae)
+	public void btnLoginAction(ActionEvent ae)
 	{
 		String pwd = pwdPassword.getText();
 		int hash = (txtUserName.getText() + pwd).hashCode();
@@ -54,9 +60,23 @@ public class LoginController implements Initializable
 		}
 	}
 	
-	public void quit(ActionEvent ae)
+	public void btnQuitAction(ActionEvent ae)
 	{
+		dbManager.dispose();
+		
 		System.exit(0);
+	}
+	
+	public void keyPressedAction(KeyEvent ke)
+	{
+		if(ke.getCode() == KeyCode.ENTER)
+		{
+			btnLogin.fire();
+		}
+		if(ke.getCode() == KeyCode.ESCAPE)
+		{
+			btnQuit.fire();
+		}
 	}
 	
 	

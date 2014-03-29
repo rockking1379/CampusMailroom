@@ -685,4 +685,25 @@ public class SQLiteManager extends DatabaseManager
 		
 		return result;
 	}
+
+	//Normal Actions//
+	@Override
+	public void dispose()
+	{
+		couriers = null;
+		routes = null;
+		stops = null;
+		packages = null;
+		
+		try
+		{
+			connection.close();
+		}
+		catch(SQLException e)
+		{
+			System.err.println("Error: " + e.getMessage());
+		}
+		
+		return;
+	}
 }

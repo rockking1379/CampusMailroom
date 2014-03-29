@@ -16,12 +16,9 @@ public class MainFrame extends Application
 	
 	public static void main(String[] args)
 	{
-		Preferences prefs = Preferences.userRoot().node("/com/mailroom/config/configuration.conf");		
+		//read settings file
 		
-		if(prefs.getBoolean("SQLite", true))
-		{
-			dbManager = new SQLiteManager(prefs.get("DatabaseLocation", null));
-		}
+		dbManager = new SQLiteManager("F:/owncloud/sql/mailroom/test.db");
 		launch(args);
 	}
 

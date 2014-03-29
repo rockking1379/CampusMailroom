@@ -122,4 +122,10 @@ public class DatabaseManager
 	 {
 		 return null;
 	 }
+	 
+	 //Normal Actions
+	 public void dispose()
+	 {
+		 return;
+	 }
 }
