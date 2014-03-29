@@ -1,5 +1,6 @@
 package com.mailroom.mainclient;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -44,7 +45,7 @@ public class LoginController implements Initializable
 			try
 			{
 				MainFrame.cUser = u;
-				Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/OpenPageFx.fxml"));
+				Parent root = FXMLLoader.load(getClass().getResource("../fxml/OpenPageFx.fxml"));
 				Scene scene = new Scene(root);
 				MainFrame.stage.setScene(scene);
 			}
