@@ -1,7 +1,7 @@
 package com.mailroom.mainclient;
 
-import java.util.prefs.Preferences;
-
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.application.*;
 import javafx.fxml.*;
 import javafx.scene.*;
@@ -18,7 +18,7 @@ public class MainFrame extends Application
 	{
 		//read settings file
 		
-		dbManager = new SQLiteManager("F:/owncloud/sql/mailroom/test.db");
+		dbManager = new SQLiteManager("/home/sitz/ownCloud/sql/mailroom/test.db");
 		launch(args);
 	}
 
