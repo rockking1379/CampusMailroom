@@ -6,28 +6,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressedAction" prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.mainclient.OpenPageController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressedAction" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.mainclient.OpenPageController">
   <children>
-    <TableView fx:id="tblViewTable" layoutX="269.0" layoutY="14.0" prefHeight="680.0" prefWidth="750.0">
-      <columns>
-        <TableColumn prefWidth="75.0" resizable="false" sortable="false" text="Delivered" fx:id="clmnDelivered" />
-        <TableColumn editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="75.0" resizable="false" sortable="true" text="Tracking #" fx:id="clmnTrackingNumber" />
-        <TableColumn editable="false" prefWidth="75.0" resizable="false" sortable="true" text="First Name" fx:id="clmnFirstName" />
-        <TableColumn editable="false" prefWidth="75.0" resizable="false" text="Last Name" fx:id="clmnLastName" />
-        <TableColumn prefWidth="75.0" resizable="false" text="Stop" fx:id="clmnStop" />
-        <TableColumn editable="false" prefWidth="75.0" resizable="false" sortable="true" text="Carrier" fx:id="clmnCarrier" />
-        <TableColumn editable="false" prefWidth="75.0" resizable="false" text="Date" fx:id="clmnDate" />
-        <TableColumn editable="false" prefWidth="75.0" resizable="false" text="User" fx:id="clmnUserName" />
-      </columns>
-    </TableView>
-    <Button fx:id="btnScanPackage" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnScanPackageAction" prefHeight="150.0" prefWidth="250.0" text="Scan Package" />
-    <Button fx:id="btnPrint" layoutX="14.0" layoutY="169.0" mnemonicParsing="false" onAction="#btnPrintAction" prefHeight="150.0" prefWidth="250.0" text="Print" />
-    <Button fx:id="btnSearch" layoutX="14.0" layoutY="324.0" mnemonicParsing="false" onAction="#btnSearchAction" prefHeight="150.0" prefWidth="250.0" text="Search" />
-    <Button fx:id="btnSettings" layoutX="14.0" layoutY="479.0" mnemonicParsing="false" onAction="#btnSettingsAction" prefHeight="150.0" prefWidth="250.0" text="Settings" />
-    <Button fx:id="btnRefresh" layoutX="14.0" layoutY="634.0" mnemonicParsing="false" onAction="#btnRefreshAction" prefHeight="64.0" prefWidth="250.0" text="Refresh" />
-    <Label fx:id="lblUserLabel" layoutX="14.0" layoutY="717.0" prefHeight="37.0" prefWidth="250.0" text="&lt;first,last&gt;" />
-    <Button fx:id="btnLogout" layoutX="944.0" layoutY="715.0" mnemonicParsing="false" onAction="#btnLogoutAction" text="Logout" />
-    <Button fx:id="btnQuit" layoutX="880.0" layoutY="715.0" mnemonicParsing="false" onAction="#btnQuitAction" text="Quit" />
-    <CheckBox fx:id="chkAutoUpdate" layoutX="770.0" layoutY="718.0" mnemonicParsing="false" onAction="#chkAutoUpdateAction" text="Auto Update" />
+    <TableView fx:id="tblViewTable" layoutX="181.0" layoutY="14.0" onKeyPressed="#keyPressedAction" prefHeight="500.0" prefWidth="605.0" />
+    <Button fx:id="btnScanPackage" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnScanPackageAction" prefHeight="85.0" prefWidth="150.0" text="Scan Package" />
+    <Button fx:id="btnPrint" layoutX="14.0" layoutY="115.0" mnemonicParsing="false" onAction="#btnPrintAction" prefHeight="85.0" prefWidth="150.0" text="Print" />
+    <Button fx:id="btnSearch" layoutX="14.0" layoutY="317.0" mnemonicParsing="false" onAction="#btnSearchAction" prefHeight="85.0" prefWidth="150.0" text="Search" />
+    <Button fx:id="btnSettings" layoutX="14.0" layoutY="216.0" mnemonicParsing="false" onAction="#btnSettingsAction" prefHeight="85.0" prefWidth="150.0" text="Settings" />
+    <Button fx:id="btnRefresh" layoutX="14.0" layoutY="418.0" mnemonicParsing="false" onAction="#btnRefreshAction" prefHeight="85.0" prefWidth="150.0" text="Refresh" />
+    <Label fx:id="lblUserLabel" layoutX="14.0" layoutY="539.0" prefHeight="37.0" prefWidth="250.0" text="&lt;first,last&gt;" />
+    <Button fx:id="btnLogout" layoutX="727.0" layoutY="542.0" mnemonicParsing="false" onAction="#btnLogoutAction" text="Logout" />
+    <Button fx:id="btnQuit" layoutX="674.0" layoutY="542.0" mnemonicParsing="false" onAction="#btnQuitAction" text="Quit" />
+    <CheckBox fx:id="chkAutoUpdate" layoutX="577.0" layoutY="547.0" mnemonicParsing="false" onAction="#chkAutoUpdateAction" text="Auto Update" />
+    <Label fx:id="lblTickCount" layoutX="181.0" layoutY="547.0" text="&lt;tick count&gt;" />
   </children>
 </AnchorPane>

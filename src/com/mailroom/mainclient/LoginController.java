@@ -1,13 +1,14 @@
 package com.mailroom.mainclient;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import com.mailroom.common.*;
@@ -16,6 +17,10 @@ public class LoginController implements Initializable
 {
 	private DatabaseManager dbManager;
 	
+	@FXML
+	private AnchorPane anchorPane;
+	@FXML
+	public ImageView imgLogo;
 	@FXML
 	private TextField txtUserName;
 	@FXML
@@ -31,6 +36,8 @@ public class LoginController implements Initializable
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
 		dbManager = MainFrame.dbManager;
+		
+		imgLogo.setImage(MainFrame.imageLogo);
 	}
 	
 	public void btnLoginAction(ActionEvent ae)
@@ -45,7 +52,7 @@ public class LoginController implements Initializable
 			try
 			{
 				MainFrame.cUser = u;
-				Parent root = FXMLLoader.load(getClass().getResource("../fxml/OpenPageFx.fxml"));
+				Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/OpenPageFx.fxml"));
 				Scene scene = new Scene(root);
 				MainFrame.stage.setScene(scene);
 			}
@@ -62,6 +69,8 @@ public class LoginController implements Initializable
 	
 	public void btnQuitAction(ActionEvent ae)
 	{
+		MainFrame.saveProperties();
+		
 		dbManager.dispose();
 		
 		System.exit(0);

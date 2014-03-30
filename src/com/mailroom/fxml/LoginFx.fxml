@@ -7,17 +7,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressedAction" prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.mainclient.LoginController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="false" onKeyPressed="#keyPressedAction" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.mainclient.LoginController">
   <children>
-    <ImageView fitHeight="314.6202926703491" fitWidth="279.0334167480469" layoutX="372.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-        <Image url="@../resources/Logo.jpg" />
-      </image>
-    </ImageView>
-    <TextField fx:id="txtUserName" layoutX="412.0" layoutY="373.0" prefWidth="200.0" promptText="Username" />
-    <PasswordField fx:id="pwdPassword" layoutX="412.0" layoutY="404.0" prefWidth="200.0" promptText="Password" />
-    <Button fx:id="btnLogin" layoutX="412.0" layoutY="437.0" mnemonicParsing="false" onAction="#btnLoginAction" prefWidth="93.0" text="Login" />
-    <Button fx:id="btnQuit" layoutX="519.0" layoutY="438.0" mnemonicParsing="false" onAction="#btnQuitAction" prefWidth="93.0" text="Quit" />
-    <Label fx:id="lblLoginError" alignment="CENTER" layoutX="412.0" layoutY="470.0" prefWidth="200.0" text="Login Error" textAlignment="CENTER" textFill="RED" textOverrun="ELLIPSIS" visible="false" />
+    <ImageView fx:id="imgLogo" fitHeight="314.6202926703491" fitWidth="279.0334167480469" layoutX="260.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
+    <TextField fx:id="txtUserName" layoutX="300.0" layoutY="373.0" prefWidth="200.0" promptText="Username" />
+    <PasswordField fx:id="pwdPassword" layoutX="300.0" layoutY="404.0" prefWidth="200.0" promptText="Password" />
+    <Button fx:id="btnLogin" layoutX="300.0" layoutY="432.0" mnemonicParsing="false" onAction="#btnLoginAction" prefWidth="93.0" text="Login" />
+    <Button fx:id="btnQuit" layoutX="407.0" layoutY="432.0" mnemonicParsing="false" onAction="#btnQuitAction" prefWidth="93.0" text="Quit" />
+    <Label fx:id="lblLoginError" alignment="CENTER" layoutX="300.0" layoutY="467.0" prefWidth="200.0" text="Login Error" textAlignment="CENTER" textFill="RED" textOverrun="ELLIPSIS" visible="true" />
   </children>
 </AnchorPane>

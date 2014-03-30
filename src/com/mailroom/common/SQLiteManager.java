@@ -1,7 +1,10 @@
 package com.mailroom.common;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class SQLiteManager extends DatabaseManager
@@ -576,23 +579,29 @@ public class SQLiteManager extends DatabaseManager
 		}
 	}
 	@Override
-	public boolean updatePackage(Package p) 
+	public boolean updatePackage(int packageId, boolean atStop, boolean pickedUp) 
 	{
 		try
 		{
 			PreparedStatement stmnt = null;
 			
-			stmnt = connection.prepareStatement("update Package set At_Stop=?");
+			stmnt = connection.prepareStatement("update Package set At_Stop=? where package_id=?");
 			stmnt.setQueryTimeout(5);
-			stmnt.setBoolean(1, p.isAtStop());
+			stmnt.setBoolean(1, atStop);
+			stmnt.setInt(2, packageId);
 			stmnt.executeUpdate();
 			
-			stmnt = connection.prepareStatement("update Package set Picked_Up=?");
-			stmnt.setBoolean(1, p.isPickedUp());
+			stmnt = connection.prepareStatement("update Package set Picked_Up=? where package_id=?");
+			stmnt.setBoolean(1, pickedUp);
+			stmnt.setInt(2, packageId);
 			stmnt.executeUpdate();
 			
-			stmnt = connection.prepareStatement("update Package set Pick_Up_Date=?");
-			stmnt.setString(1, p.getDatePickedUp());
+			stmnt = connection.prepareStatement("update Package set Pick_Up_Date=? where package_id=?");
+			DateFormat format = new SimpleDateFormat("yyy-MM-dd");
+			Date now = new Date();
+			String date = format.format(now).toString();
+			stmnt.setString(1, date);
+			stmnt.setInt(2, packageId);
 			stmnt.executeUpdate();
 			
 			return true;
@@ -612,7 +621,7 @@ public class SQLiteManager extends DatabaseManager
 			stmnt.setQueryTimeout(5);
 			
 			stmnt.setString(1, p.getTrackingNumber());
-			stmnt.setString(2, p.getDateReceived());
+			stmnt.setString(2, p.getReceivedDate());
 			stmnt.setString(3, p.getEmailAddress());
 			stmnt.setString(4, p.getFirstName());
 			stmnt.setString(5, p.getLastName());

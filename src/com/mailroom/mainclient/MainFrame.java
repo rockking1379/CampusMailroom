@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javafx.application.*;
 import javafx.fxml.*;
 import javafx.scene.*;
+import javafx.scene.image.Image;
 import javafx.stage.*;
 import javafx.stage.FileChooser.ExtensionFilter;
 
@@ -21,6 +22,8 @@ public class MainFrame extends Application
 	public static DatabaseManager dbManager;
 	public static Stage stage;
 	public static User cUser;
+	public static Properties properties = null;
+	public static Image imageLogo;
 	
 	public static void main(String[] args)
 	{
@@ -34,13 +37,19 @@ public class MainFrame extends Application
 		//read settings file
 		try
 		{
-			Properties properties = new Properties();
+			properties = new Properties();
 			File propFile = new File("./configuration.properties");
 			
 			if(propFile.exists())
 			{
 				FileInputStream file = new FileInputStream(propFile);
 				properties.load(file);
+				
+//				for(String key : properties.stringPropertyNames())
+//				{
+//					String value = properties.getProperty(key);
+//					System.out.println(key + "=>" + value);
+//				}
 				
 				boolean sqlite = Boolean.valueOf(properties.getProperty("SQLITE"));
 				boolean mysql = Boolean.valueOf(properties.getProperty("MYSQL"));
@@ -70,16 +79,17 @@ public class MainFrame extends Application
 						propFile.createNewFile();
 						
 						FileChooser fChooser = new FileChooser();
-						fChooser.setSelectedExtensionFilter(new ExtensionFilter("Database", ".db"));
+						fChooser.setSelectedExtensionFilter(new ExtensionFilter("Database", "*.db"));
 						fChooser.setTitle("Select Database File");
 						
 						FileOutputStream oStream = new FileOutputStream(propFile);
 						
-						properties.setProperty("SQLITE", "true");
-						properties.setProperty("MYSQL", "false");
+						properties.setProperty("SQLITE", Boolean.toString(true));
+						properties.setProperty("MYSQL", Boolean.toString(false));
+						properties.setProperty("AUTOUPDATE", Boolean.toString(false));
 						File dbFile = fChooser.showOpenDialog(stage);
 						properties.setProperty("DATABASE", dbFile.getAbsolutePath());
-						properties.store(oStream, "No Comments");
+						properties.store(oStream, "System Configuration");
 						oStream.close();
 						
 						dbManager = new SQLiteManager(dbFile.getAbsolutePath());
@@ -104,12 +114,33 @@ public class MainFrame extends Application
 			dbManager = new SQLiteManager(":memory:");
 		}
 		
-		this.stage = stage;
-		Parent root = FXMLLoader.load(getClass().getResource("../fxml/LoginFx.fxml"));
-		Scene scene = new Scene(root, 1024, 768);
+		this.imageLogo = new Image(getClass().getResourceAsStream("/com/mailroom/resources/Logo.jpg"));
 		
+		this.stage = stage;
+		this.stage.setResizable(false);
+		this.stage.centerOnScreen();
+		Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/LoginFx.fxml"));
+		Scene scene = new Scene(root, 800, 600);
 		this.stage.setScene(scene);
 		this.stage.setTitle("Login");
 		this.stage.show();
+	}
+	
+	public static void saveProperties()
+	{
+		if(properties != null)
+		{
+			try
+			{
+				File propFile = new File("./configuration.properties");
+				FileOutputStream oStream = new FileOutputStream(propFile);
+				properties.store(oStream, "System Configuration");
+				oStream.close();
+			}
+			catch(IOException e)
+			{
+				System.err.println("Error: " + e.getMessage());
+			}
+		}
 	}
 }

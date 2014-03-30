@@ -37,6 +37,7 @@ public class Package
 		this.boxOffice = boxOffice;
 		this.stopName = stopName;
 		this.courierName = courierName;
+		this.userName = userName;
 		this.atStop = atStop;
 		this.pickedUp = pickedUp;
 		this.pickUpDate = pickUpDate;
@@ -71,10 +72,17 @@ public class Package
 	
 	public String getTrackingNumber()
 	{
-		return "..." + trackingNumber.substring(trackingNumber.length() - 4, trackingNumber.length());
+		if(trackingNumber.length() <= 4)
+		{
+			return "";
+		}
+		else
+		{
+			return "..." + trackingNumber.substring(trackingNumber.length() - 4, trackingNumber.length());
+		}
 	}
 	
-	public String getDateReceived()
+	public String getReceivedDate()
 	{
 		return receivedDate;
 	}

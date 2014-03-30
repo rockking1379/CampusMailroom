@@ -110,7 +110,7 @@ public class DatabaseManager
 	 {
 		 return;
 	 }
-	 public boolean updatePackage(Package p)
+	 public boolean updatePackage(int packageId, boolean atStop, boolean pickedUp)
 	 {
 		 return false;
 	 }
