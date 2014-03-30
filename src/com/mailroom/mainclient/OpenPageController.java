@@ -13,8 +13,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.*;
 
 import com.mailroom.common.*;
@@ -59,7 +57,6 @@ public class OpenPageController implements Initializable
 	private TextColumn<Package> clmnDateReceived;
 	private TextColumn<Package> clmnUserName;
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
@@ -119,7 +116,6 @@ public class OpenPageController implements Initializable
 		tblViewTable.getColumns().add(clmnDateReceived);
 		tblViewTable.getColumns().add(clmnUserName);
 		
-		clmnDelivered.addEventHandler(null, new customHandler());
 		lblTickCount.setText(clmnDelivered.getTickedRecords().size() + " Selected");
 		
 		dbManager.loadAllPackages();
@@ -258,17 +254,6 @@ public class OpenPageController implements Initializable
 		if(ke.getCode() == KeyCode.R)
 		{
 			btnRefresh.fire();
-		}
-	}
-
-	@SuppressWarnings("rawtypes")
-	private class customHandler implements EventHandler
-	{
-
-		@Override
-		public void handle(Event event)
-		{
-			lblTickCount.setText(clmnDelivered.getTickedRecords().size() + " Selected");
 		}
 	}
 }

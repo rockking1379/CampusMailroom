@@ -14,6 +14,6 @@
     <PasswordField fx:id="pwdPassword" layoutX="300.0" layoutY="404.0" prefWidth="200.0" promptText="Password" />
     <Button fx:id="btnLogin" layoutX="300.0" layoutY="432.0" mnemonicParsing="false" onAction="#btnLoginAction" prefWidth="93.0" text="Login" />
     <Button fx:id="btnQuit" layoutX="407.0" layoutY="432.0" mnemonicParsing="false" onAction="#btnQuitAction" prefWidth="93.0" text="Quit" />
-    <Label fx:id="lblLoginError" alignment="CENTER" layoutX="300.0" layoutY="467.0" prefWidth="200.0" text="Login Error" textAlignment="CENTER" textFill="RED" textOverrun="ELLIPSIS" visible="true" />
+    <Label fx:id="lblLoginError" alignment="CENTER" layoutX="300.0" layoutY="467.0" prefWidth="200.0" text="Login Error" textAlignment="CENTER" textFill="RED" textOverrun="ELLIPSIS" visible="false" />
   </children>
 </AnchorPane>

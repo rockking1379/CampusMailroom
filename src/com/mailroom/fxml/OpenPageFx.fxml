@@ -17,7 +17,7 @@
     <Label fx:id="lblUserLabel" layoutX="14.0" layoutY="539.0" prefHeight="37.0" prefWidth="250.0" text="&lt;first,last&gt;" />
     <Button fx:id="btnLogout" layoutX="727.0" layoutY="542.0" mnemonicParsing="false" onAction="#btnLogoutAction" text="Logout" />
     <Button fx:id="btnQuit" layoutX="674.0" layoutY="542.0" mnemonicParsing="false" onAction="#btnQuitAction" text="Quit" />
-    <CheckBox fx:id="chkAutoUpdate" layoutX="577.0" layoutY="547.0" mnemonicParsing="false" onAction="#chkAutoUpdateAction" text="Auto Update" />
-    <Label fx:id="lblTickCount" layoutX="181.0" layoutY="547.0" text="&lt;tick count&gt;" />
+    <CheckBox fx:id="chkAutoUpdate" layoutX="561.0" layoutY="545.0" mnemonicParsing="false" onAction="#chkAutoUpdateAction" text="Auto Update" />
+    <Label fx:id="lblTickCount" layoutX="450.0" layoutY="544.0" text="&lt;tick count&gt;" />
   </children>
 </AnchorPane>
