@@ -60,6 +60,8 @@ public class OpenPageController implements Initializable
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
+		MainFrame.stage.setTitle("Main Page");
+		
 		cUser = MainFrame.cUser;
 		dbManager = MainFrame.dbManager;
 		
@@ -130,10 +132,7 @@ public class OpenPageController implements Initializable
 			tblViewTable.getItems().addAll(dbManager.getPackages());
 		}
 		
-		if(chkAutoUpdate.selectedProperty().getValue())
-		{
-			chkAutoUpdate.fire();
-		}
+		chkAutoUpdate.selectedProperty().set(Boolean.valueOf(MainFrame.properties.getProperty("AUTOUPDATE")));
 	}
 	
 	public void btnScanPackageAction(ActionEvent ae)
@@ -181,7 +180,17 @@ public class OpenPageController implements Initializable
 	
 	public void btnSettingsAction(ActionEvent ae)
 	{
-		//open Settings Scene
+		try
+		{
+			Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/SettingsPageFx.fxml"));
+			Scene scene = new Scene(root);
+			MainFrame.stage.setScene(scene);
+		}
+		catch(IOException e)
+		{
+			System.err.println("Error: " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	public void btnLogoutAction(ActionEvent ae)
@@ -192,7 +201,7 @@ public class OpenPageController implements Initializable
 			{
 				try
 				{
-					Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/LoginFx.fxml"));
+					Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/LoginFx.fxml"));
 					Scene scene = new Scene(root);
 					MainFrame.stage.setScene(scene);
 				}

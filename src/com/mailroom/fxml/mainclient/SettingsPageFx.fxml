@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressedAction" prefHeight="600.0" prefWidth="800.0" style="-fx-background: #00FF00;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.mainclient.SettingsController">
+  <children>
+    <TabPane layoutX="0.0" layoutY="0.0" minWidth="-1.0" prefHeight="600.0" prefWidth="800.0" rotateGraphic="false" side="TOP" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMinHeight="24.0" tabMinWidth="110.0">
+      <tabs>
+        <Tab fx:id="tabGeneral" closable="false" disable="false" text="General">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
+              <children>
+                <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="50.0" prefWidth="150.0" text="Database Type" />
+                <RadioButton fx:id="rbtnMysql" layoutX="14.0" layoutY="64.0" mnemonicParsing="false" onAction="#rbtnMysqlAction" text="MYSQL" />
+                <RadioButton fx:id="rbtnSqlite" layoutX="110.0" layoutY="64.0" mnemonicParsing="false" onAction="#rbtnSqliteAction" text="SQLite" />
+                <TextField fx:id="txtDatabaseLocation" layoutX="14.0" layoutY="90.0" prefHeight="25.0" prefWidth="200.0" promptText="Database Location" />
+                <TextField fx:id="txtDatabaseName" layoutX="14.0" layoutY="125.0" prefHeight="25.0" prefWidth="125.0" promptText="Database Name" />
+                <TextField fx:id="txtDatabaseUserName" layoutX="149.0" layoutY="125.0" prefHeight="25.0" prefWidth="125.0" promptText="Username" />
+                <Label alignment="CENTER" layoutX="14.0" layoutY="150.0" prefHeight="50.0" prefWidth="150.0" text="Auto Update" />
+                <Button fx:id="btnBrowse" layoutX="224.0" layoutY="90.0" mnemonicParsing="false" text="Browse..." />
+                <PasswordField id="pwdPassword" fx:id="pwdDatabasePassword" layoutX="284.0" layoutY="125.0" prefHeight="25.0" prefWidth="150.0" promptText="Password" />
+                <ComboBox fx:id="cboxAutoUpdate" layoutX="14.0" layoutY="201.0" onAction="#cboxAutoUpdateAction" prefHeight="25.0" prefWidth="150.0">
+                  <items>
+                    <FXCollections fx:factory="observableArrayList">
+                      <String fx:value="Item 1" />
+                      <String fx:value="Item 2" />
+                      <String fx:value="Item 3" />
+                    </FXCollections>
+                  </items>
+                </ComboBox>
+                <Button fx:id="btnSave" layoutX="224.0" layoutY="200.0" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="25.0" prefWidth="66.0" text="Save" />
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab fx:id="tabAccountManagement" closable="false" disable="false" text="Account Management">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
+              <children>
+                <TabPane layoutX="10.0" layoutY="0.0" prefHeight="550.0" prefWidth="775.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="100.0">
+                  <tabs>
+                    <Tab fx:id="tabEditAccount" closable="false" text="Edit Account">
+                      <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="527.0" prefWidth="800.0" style="-fx-background-color: #01A217" />
+                      </content>
+                    </Tab>
+                    <Tab fx:id="tabCreateAccount" closable="false" text="Create Account">
+                      <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217" />
+                      </content>
+                    </Tab>
+                    <Tab fx:id="tabAdministrative" closable="false" text="Administrative">
+                      <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217" />
+                      </content>
+                    </Tab>
+                  </tabs>
+                </TabPane>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab fx:id="tabStopManagement" closable="false" text="Stop Management">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217" />
+          </content>
+        </Tab>
+        <Tab fx:id="tabRouteManagement" closable="false" text="Route Management">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217" />
+          </content>
+        </Tab>
+        <Tab fx:id="tabCourierManagement" closable="false" text="Courier Management">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217" />
+          </content>
+        </Tab>
+        <Tab fx:id="tabAbout" closable="false" text="About">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
+              <children>
+                <Label alignment="CENTER_LEFT" layoutX="14.0" layoutY="14.0" prefHeight="50.0" prefWidth="200.0" text="Verion: 2.0.0">
+                  <font>
+                    <Font name="System Bold" size="15.0" fx:id="x1" />
+                  </font>
+                </Label>
+                <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="64.0" prefHeight="50.0" prefWidth="200.0" text="Developer: James Sitz" />
+                <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="114.0" prefHeight="50.0" prefWidth="200.0" text="Credits" />
+                <Label alignment="CENTER" layoutX="39.0" layoutY="139.0" prefHeight="50.0" prefWidth="150.0" text="Tiwulfx: tiwulfx.panemu.com" />
+                <Label layoutX="14.0" layoutY="539.0" text="Source At: https://github.com/rockking1379/MailroomRewrite" />
+                <Label layoutX="39.0" layoutY="189.0" prefHeight="50.0" prefWidth="350.0" text="SQLite JDBC: https://bitbucket.org/xerial/sqlite-jdbc/wiki/Home" />
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+  </children>
+</AnchorPane>

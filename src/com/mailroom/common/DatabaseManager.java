@@ -10,7 +10,7 @@ public class DatabaseManager
 	 {
 		 return null;
 	 }
-	 public boolean addUser(String userName, String firstName, String lastName, int password, boolean admin)
+	 public boolean addUser(User u, int password)
 	 {
 		 return false;
 	 }

@@ -6,6 +6,6 @@ public class ConfigException extends Exception
 
 	public ConfigException(String message)
 	{
-		//throw it
+		super(message);
 	}
 }

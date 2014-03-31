@@ -67,8 +67,7 @@ public class SQLiteManager extends DatabaseManager
 		return u;
 	}
 	@Override
-	public boolean addUser(String userName, String firstName, String lastName,
-			int password, boolean admin) 
+	public boolean addUser(User u, int password)
 	{
 		//conduct insert into user table here
 		//settings option should only be available to admin
@@ -77,11 +76,11 @@ public class SQLiteManager extends DatabaseManager
 			PreparedStatement stmnt = connection.prepareStatement("insert into User(User_Name, First_Name, Last_Name, Password, Admin, Active) values(?,?,?,?,?,1)");
 			stmnt.setQueryTimeout(5);
 			
-			stmnt.setString(1, userName);
-			stmnt.setString(2, firstName);
-			stmnt.setString(3, lastName);
+			stmnt.setString(1, u.getUserName());
+			stmnt.setString(2, u.getFirstName());
+			stmnt.setString(3, u.getLastName());
 			stmnt.setInt(4, password);
-			stmnt.setBoolean(5, admin);
+			stmnt.setBoolean(5, u.getAdmin());
 			
 			if(stmnt.executeUpdate() > 0)
 			{

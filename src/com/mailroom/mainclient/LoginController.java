@@ -52,7 +52,7 @@ public class LoginController implements Initializable
 			try
 			{
 				MainFrame.cUser = u;
-				Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/OpenPageFx.fxml"));
+				Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
 				Scene scene = new Scene(root);
 				MainFrame.stage.setScene(scene);
 			}

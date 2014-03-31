@@ -119,7 +119,7 @@ public class MainFrame extends Application
 		this.stage = stage;
 		this.stage.setResizable(false);
 		this.stage.centerOnScreen();
-		Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/LoginFx.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/LoginFx.fxml"));
 		Scene scene = new Scene(root, 800, 600);
 		this.stage.setScene(scene);
 		this.stage.setTitle("Login");
