@@ -8,7 +8,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.mainclient.ScanPageController">
   <children>
     <TextField fx:id="txtTrackingNumber" layoutX="25.0" layoutY="25.0" prefHeight="25.0" prefWidth="500.0" promptText="Tracking Number" />
     <TextField fx:id="txtFirstName" layoutX="25.0" layoutY="60.0" prefHeight="25.0" prefWidth="150.0" promptText="First Name" />
@@ -50,6 +50,6 @@
       </font>
     </Button>
     <Button fx:id="btnClear" font="$x2" layoutX="200.0" layoutY="200.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Clear" />
-    <Button fx:id="btnExit" font="$x2" layoutX="375.0" layoutY="200.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Exit" />
+    <Button fx:id="btnExit" font="$x2" layoutX="375.0" layoutY="200.0" mnemonicParsing="false" onAction="#btnExitAction" prefHeight="50.0" prefWidth="150.0" text="Exit" />
   </children>
 </AnchorPane>

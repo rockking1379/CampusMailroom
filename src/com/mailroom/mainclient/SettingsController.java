@@ -22,16 +22,6 @@ import com.mailroom.common.*;
 public class SettingsController implements Initializable
 {
 	@FXML
-	private Tab tabGeneral;
-	@FXML
-	private Tab tabAccountManagement;
-	@FXML
-	private Tab tabEditAccount;
-	@FXML
-	private Tab tabCreateAccount;
-	@FXML
-	private Tab tabAdministrative;
-	@FXML
 	private Tab tabStopManagement;
 	@FXML
 	private Tab tabRouteManagement;
@@ -39,7 +29,10 @@ public class SettingsController implements Initializable
 	private Tab tabCourierManagement;
 	@FXML
 	private Tab tabAbout;
-	
+
+	//General Settings//
+	@FXML
+	private Tab tabGeneral;
 	@FXML
 	private RadioButton rbtnSqlite;
 	@FXML
@@ -58,6 +51,16 @@ public class SettingsController implements Initializable
 	private Button btnBrowse;
 	@FXML
 	private Button btnSave;
+	
+	//Account Management//
+	@FXML
+	private Tab tabAccountManagement;
+	@FXML
+	private Tab tabEditAccount;
+	@FXML
+	private Tab tabCreateAccount;
+	@FXML
+	private Tab tabAdministrative;
 	
 	private DatabaseManager dbManager;
 	private Properties prefs;

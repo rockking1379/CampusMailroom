@@ -8,7 +8,7 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressedAction" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #01A217" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.mainclient.OpenPageController">
   <children>
-    <TableView fx:id="tblViewTable" layoutX="181.0" layoutY="14.0" onKeyPressed="#keyPressedAction" prefHeight="500.0" prefWidth="605.0" />
+    <TableView fx:id="tblViewTable" layoutX="170.0" layoutY="14.0" onKeyPressed="#keyPressedAction" prefHeight="500.0" prefWidth="625.0" />
     <Button fx:id="btnScanPackage" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnScanPackageAction" prefHeight="85.0" prefWidth="150.0" text="Scan Package" />
     <Button fx:id="btnPrint" layoutX="14.0" layoutY="115.0" mnemonicParsing="false" onAction="#btnPrintAction" prefHeight="85.0" prefWidth="150.0" text="Print" />
     <Button fx:id="btnSearch" layoutX="14.0" layoutY="317.0" mnemonicParsing="false" onAction="#btnSearchAction" prefHeight="85.0" prefWidth="150.0" text="Search" />
@@ -17,7 +17,7 @@
     <Label fx:id="lblUserLabel" layoutX="14.0" layoutY="539.0" prefHeight="37.0" prefWidth="250.0" text="&lt;first,last&gt;" />
     <Button fx:id="btnLogout" layoutX="727.0" layoutY="542.0" mnemonicParsing="false" onAction="#btnLogoutAction" text="Logout" />
     <Button fx:id="btnQuit" layoutX="674.0" layoutY="542.0" mnemonicParsing="false" onAction="#btnQuitAction" text="Quit" />
-    <CheckBox fx:id="chkAutoUpdate" layoutX="561.0" layoutY="545.0" mnemonicParsing="false" onAction="#chkAutoUpdateAction" text="Auto Update" />
-    <Label fx:id="lblTickCount" layoutX="450.0" layoutY="544.0" text="&lt;tick count&gt;" />
+    <Label fx:id="lblTickCount" layoutX="418.0" layoutY="542.0" prefHeight="21.0" text="&lt;tick count&gt;" />
+    <Label fx:id="lblAutoUpdate" layoutX="514.0" layoutY="542.0" prefHeight="21.0" prefWidth="150.0" text="Auto Update Disabled" />
   </children>
 </AnchorPane>

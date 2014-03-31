@@ -41,7 +41,7 @@ public class OpenPageController implements Initializable
 	@FXML
 	private Button btnLogout;
 	@FXML
-	private CheckBox chkAutoUpdate;
+	private Label lblAutoUpdate;
 	@FXML
 	private TableView<Package> tblViewTable;
 	@FXML
@@ -91,21 +91,22 @@ public class OpenPageController implements Initializable
 		clmnUserName.setResizable(false);
 		
 		//Set Titles
-		clmnFirstName.setText("First Name");
-		clmnLastName.setText("Last Name");
+		clmnFirstName.setText("First");
+		clmnLastName.setText("Last");
 		clmnStop.setText("Stop");
-		clmnTrackingNumber.setText("Tracking #");
+		clmnTrackingNumber.setText("Tracking");
 		clmnCourier.setText("Carrier");
 		clmnDateReceived.setText("Date");
 		clmnUserName.setText("User");
 		
 		//Define Max Width
-		clmnFirstName.setMaxWidth(75);
-		clmnLastName.setMaxWidth(75);
+		clmnDelivered.setMaxWidth(30);
+		clmnFirstName.setMaxWidth(70);
+		clmnLastName.setMaxWidth(70);
 		clmnStop.setMaxWidth(100); //wider because of data contained
-		clmnTrackingNumber.setMaxWidth(75);
-		clmnCourier.setMaxWidth(75);
-		clmnDateReceived.setMaxWidth(75);
+		clmnTrackingNumber.setMaxWidth(70);
+		clmnCourier.setMaxWidth(70);
+		clmnDateReceived.setMaxWidth(100); //wider because of data contained
 		clmnUserName.setMaxWidth(75);
 		
 		//Add Columns
@@ -132,12 +133,29 @@ public class OpenPageController implements Initializable
 			tblViewTable.getItems().addAll(dbManager.getPackages());
 		}
 		
-		chkAutoUpdate.selectedProperty().set(Boolean.valueOf(MainFrame.properties.getProperty("AUTOUPDATE")));
+		if(Boolean.valueOf(MainFrame.properties.getProperty("AUTOUPDATE")))
+		{
+			lblAutoUpdate.setText("Auto Update Enabled");
+		}
+		else
+		{
+			lblAutoUpdate.setText("Auto Update Disabled");
+		}
 	}
 	
 	public void btnScanPackageAction(ActionEvent ae)
 	{
-		//open Scan Scene
+		try
+		{
+			Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/ScanPageFx.fxml"));
+			Scene scene = new Scene(root);
+			MainFrame.stage.setScene(scene);
+		}
+		catch(IOException e)
+		{
+			System.err.println("Error: " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	public void btnPrintAction(ActionEvent ae)
@@ -235,18 +253,6 @@ public class OpenPageController implements Initializable
 			{
 				break;
 			}
-		}
-	}
-	
-	public void chkAutoUpdateAction(ActionEvent ae)
-	{
-		if(chkAutoUpdate.selectedProperty().getValue())
-		{
-			MainFrame.properties.setProperty("AUTOUPDATE", Boolean.toString(true));
-		}
-		else
-		{
-			MainFrame.properties.setProperty("AUTOUPDATE", Boolean.toString(false));
 		}
 	}
 	
