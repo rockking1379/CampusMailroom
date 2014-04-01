@@ -694,6 +694,41 @@ public class SQLiteManager extends DatabaseManager
 		return result;
 	}
 
+	//Search Actions//
+	@Override
+	public List<Person> findPerson(String firstName, String lastName, String boxOffice)
+	{
+		List<Person> results = new ArrayList<Person>();
+		
+		try
+		{
+			Statement stmnt = connection.createStatement();
+			stmnt.setQueryTimeout(5);
+			
+			ResultSet rs = stmnt.executeQuery("select * from Person where First_Name like ? and Last_Name like ? and Number=?");
+			
+			//process ResultSet
+			while(rs.next())
+			{
+				for(Stop s : stops)
+				{
+					if(s.getStopId() == rs.getInt("stop_id"))
+					{
+						results.add(new Person(rs.getString("ID_Number"), rs.getString("ASU_Email"), rs.getString("First_Name"), 
+								rs.getString("Last_Name"), rs.getString("Number"), s.getStopName()));
+						break;
+					}
+				}
+			}
+		}
+		catch(SQLException e)
+		{
+			System.err.println("Error: " + e.getMessage());
+		}
+		
+		return results;
+	}
+	
 	//Normal Actions//
 	@Override
 	public void dispose()

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -141,7 +142,26 @@ public class ScanPageController implements Initializable
 		{
 			if(txtBoxOffice.focusedProperty().get())
 			{
-				//auto complete
+				ArrayList<Person> people = (ArrayList<Person>)dbManager.findPerson(txtFirstName.getText(), txtLastName.getText(), txtBoxOffice.getText());
+				
+				if(people.size() == 1)
+				{
+					Person p = people.get(0);
+					
+					txtEmailAddress.setText(p.getEmailAddress());
+					for(Stop s : cboxStops.getItems())
+					{
+						if(s.getStopName() == p.getStopName())
+						{
+							cboxStops.setValue(s);
+							break;
+						}
+					}
+				}
+				if(people.size() > 1)
+				{
+					JOptionPane.showMessageDialog(null, "Multiple Results Found");
+				}
 			}
 			else
 			{

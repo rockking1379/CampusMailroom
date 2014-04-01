@@ -123,6 +123,12 @@ public class DatabaseManager
 		 return null;
 	 }
 	 
+	 //Search Actions
+	 public List<Person> findPerson(String firstName, String lastName, String boxOffice)
+	 {
+		 return null;
+	 }
+	 
 	 //Normal Actions
 	 public void dispose()
 	 {
