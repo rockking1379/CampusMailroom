@@ -1,4 +1,4 @@
-package com.mailroom.mainclient;
+package com.mailroom.common;
 
 public class ConfigException extends Exception
 {

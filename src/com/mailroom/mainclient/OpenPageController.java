@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javax.swing.JOptionPane;
-
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -17,6 +15,8 @@ import javafx.fxml.*;
 
 import com.mailroom.common.*;
 import com.mailroom.common.Package;
+import com.panemu.tiwulfx.dialog.MessageDialog;
+import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import com.panemu.tiwulfx.table.*;
 
 public class OpenPageController implements Initializable
@@ -212,47 +212,35 @@ public class OpenPageController implements Initializable
 	}
 	
 	public void btnLogoutAction(ActionEvent ae)
-	{
-		switch(JOptionPane.showConfirmDialog(null, "Confirm Logout?", "Logout?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE))
+	{		
+		MessageDialog.Answer a = MessageDialogBuilder.confirmation().message("Confirm Logout?").title("Logout").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").noButtonText("No").show(MainFrame.stage.getScene().getWindow());
+		
+		if(a == MessageDialog.Answer.YES_OK)
 		{
-			case JOptionPane.YES_OPTION:
+			try
 			{
-				try
-				{
-					Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/LoginFx.fxml"));
-					Scene scene = new Scene(root);
-					MainFrame.stage.setScene(scene);
-				}
-				catch(IOException e)
-				{
-					System.err.println("Error: " + e.getMessage());
-				}
-				break;
+				Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/LoginFx.fxml"));
+				Scene scene = new Scene(root);
+				MainFrame.stage.setScene(scene);
 			}
-			default:
+			catch(IOException e)
 			{
-				break;
+				System.err.println("Error: " + e.getMessage());
 			}
 		}
 	}
 	
 	public void btnQuitAction(ActionEvent ae)
-	{
-		switch(JOptionPane.showConfirmDialog(null, "Confirm Quit?", "Quit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE))
+	{		
+		MessageDialog.Answer a = MessageDialogBuilder.confirmation().message("Confirm Quit?").title("Quit").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").noButtonText("No").show(MainFrame.stage.getScene().getWindow());
+		
+		if(a == MessageDialog.Answer.YES_OK)
 		{
-			case JOptionPane.YES_OPTION:
-			{
-				MainFrame.saveProperties();
-				
-				dbManager.dispose();
-				
-				System.exit(0);
-				break;
-			}
-			default:
-			{
-				break;
-			}
+			MainFrame.saveProperties();
+			
+			dbManager.dispose();
+			
+			System.exit(0);
 		}
 	}
 	

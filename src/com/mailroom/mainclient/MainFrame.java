@@ -16,6 +16,7 @@ import javafx.stage.*;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 import com.mailroom.common.*;
+import com.panemu.tiwulfx.dialog.*;
 
 public class MainFrame extends Application
 {
@@ -108,10 +109,26 @@ public class MainFrame extends Application
 				}
 			}
 		}
-		catch(IOException | ConfigException e)
+		catch(IOException e)
+		{
+			System.err.println("ERROR: " + e.getMessage());
+			System.exit(-1);
+		}
+		catch(ConfigException e)
 		{
 			System.err.println("Error: " + e.getMessage());
-			dbManager = new SQLiteManager(":memory:");
+			MessageDialog.Answer a = MessageDialogBuilder.error().message(e.getMessage() + "\nRevert to local Database Configuration?").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").show(null);
+			if(a == MessageDialog.Answer.YES_OK)
+			{
+				properties.setProperty("MYSQL", Boolean.toString(false));
+				saveProperties();
+				dbManager = new SQLiteManager(properties.getProperty("DATABASE"));
+			}
+			else
+			{
+				MessageDialog.Answer b = MessageDialogBuilder.warning().message("System will now Exit").buttonType(MessageDialog.ButtonType.OK).show(null);
+				System.exit(-1);
+			}
 		}
 		
 		this.imageLogo = new Image(getClass().getResourceAsStream("/com/mailroom/resources/Logo.jpg"));
