@@ -1,0 +1,10 @@
+===================
+||MailroomRewrite||
+===================
+
+rewrite of the original Mailroom system. uses JavaFX for UI
+TiwulFX is used as an FX UI library for many of the tables.
+Software intentions are for tracking packages across a location. currently used by Adams State University mailroom.
+Feel free to fork and extend. 
+
+Requires JavaFX 2.0+ and java 7+ to operate
