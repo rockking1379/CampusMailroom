@@ -92,6 +92,7 @@ public class MainFrame extends Application
 						properties.setProperty("AUTOUPDATE", Boolean.toString(false));
 						File dbFile = fChooser.showOpenDialog(stage);
 						properties.setProperty("DATABASE", dbFile.getAbsolutePath());
+						properties.setProperty("AUFREQ", "10.0");
 						properties.store(oStream, "System Configuration");
 						oStream.close();
 						

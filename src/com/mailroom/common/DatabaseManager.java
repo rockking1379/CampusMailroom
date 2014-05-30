@@ -18,10 +18,26 @@ public class DatabaseManager
 	 {
 		 return false;
 	 }
-	 public boolean deleteUser(String username, User admin, int password)
+	 public boolean deleteUser(String username)
 	 {
 		 return false;
 	 }
+	public boolean setUserAdmin(String username, boolean status)
+	{
+		return false;
+	}
+	public boolean reactivateUser(String username, int password)
+	{
+		return false;
+	}
+	public List<User> getDeactivatedUsers()
+	{
+		return null;
+	}
+	public List<User> getActiveUsers()
+	{
+		return null;
+	}
 	
 	//Stop Actions
 	 public void loadStops()

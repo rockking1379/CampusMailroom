@@ -181,6 +181,8 @@ public class ScanPageController implements Initializable
 						Person p = people.get(0);
 						
 						txtEmailAddress.setText(p.getEmailAddress());
+						txtFirstName.setText(p.getFirstName());
+						txtLastName.setText(p.getLastName());
 						for(String s : cboxStops.getItems())
 						{
 							if(s == p.getStopName())

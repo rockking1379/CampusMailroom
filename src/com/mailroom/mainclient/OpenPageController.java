@@ -248,7 +248,10 @@ public class OpenPageController implements Initializable
 	{
 		if(ke.getCode() == KeyCode.Q)
 		{
-			btnLogout.fire();
+			if(!ke.getSource().equals(tblViewTable))
+			{
+				btnLogout.fire();
+			}
 		}
 		if(ke.getCode() == KeyCode.ESCAPE)
 		{

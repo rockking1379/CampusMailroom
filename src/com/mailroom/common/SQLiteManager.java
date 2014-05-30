@@ -137,57 +137,161 @@ public class SQLiteManager extends DatabaseManager
 		}
 	}
 	@Override
-	public boolean deleteUser(String username, User admin, int password) 
+	public boolean deleteUser(String username) 
 	{
-		//deletes a user
-		//confirm admin status although it should only be visible to an admin in settings
+		boolean retValue = false;
 		try
 		{
 			connect();
-			PreparedStatement stmnt = connection.prepareStatement("select * from User where User_Name=? and Password=?");
-			stmnt.setQueryTimeout(5);
+			PreparedStatement stmnt = connection.prepareStatement("update User set Active=0 where User_Name=?");
 			
-			stmnt.setString(1, admin.getUserName());
-			stmnt.setInt(2, password);
+			stmnt.setString(1,username);
 			
-			ResultSet rs = stmnt.executeQuery();
-			
-			User ad = null;
-			while(rs.next())
+			if(stmnt.executeUpdate() > 0)
 			{
-				ad = new User(rs.getInt("user_id"), rs.getString("User_Name"), rs.getString("First_Name"), rs.getString("Last_Name"), rs.getBoolean("Admin"));
-			}
-			
-			if(ad != null && ad == admin)
-			{
-				stmnt = connection.prepareStatement("update User set Active=0 where User_Name=?");
-				stmnt.setQueryTimeout(5);
-				
-				stmnt.setString(1, username);
-				
-				if(stmnt.executeUpdate() > 0)
-				{
-					return true;
-				}
-				else
-				{
-					return false;
-				}
+				retValue = true;
 			}
 			else
 			{
-				return false;
+				retValue = false;
 			}
 		}
 		catch(SQLException e)
 		{
 			System.err.println("Error: " + e.getMessage());
-			return false;
+			retValue = false;
 		}
 		finally
 		{
 			disconnect();
 		}
+		
+		return retValue;
+	}
+	@Override
+	public boolean setUserAdmin(String username, boolean status)
+	{
+		boolean retValue = false;
+		try
+		{
+			connect();
+			
+			PreparedStatement stmnt = connection.prepareStatement("update User set Admin=1 where User_Name=?");
+			
+			stmnt.setString(1, username);
+			
+			if(stmnt.executeUpdate() > 0)
+			{
+				retValue = true;
+			}
+			else
+			{
+				retValue = false;
+			}
+		}
+		catch(SQLException e)
+		{
+			System.err.println("Error: " + e.getMessage());
+			retValue = false;
+		}
+		finally
+		{
+			disconnect();
+		}
+		
+		return retValue;
+	}
+	@Override
+	public boolean reactivateUser(String username, int password)
+	{
+		boolean retValue = false;
+		try
+		{
+			connect();
+			
+			PreparedStatement stmnt = connection.prepareStatement("update User set Active=1, Password=? where User_Name=?");
+			
+			stmnt.setInt(1, password);
+			stmnt.setString(2, username);
+			
+			if(stmnt.executeUpdate() > 0)
+			{
+				retValue = true;
+			}
+			else
+			{
+				retValue = false;
+			}
+		}
+		catch(SQLException e)
+		{
+			System.err.println("Error: " + e.getMessage());
+			retValue = false;
+		}
+		finally
+		{
+			disconnect();
+		}
+		
+		return retValue;
+	}
+	@Override
+	public List<User> getDeactivatedUsers()
+	{
+		List<User> result = new ArrayList<User>();
+		
+		try
+		{
+			connect();
+			
+			Statement stmnt = connection.createStatement();
+			
+			ResultSet rs = stmnt.executeQuery("select * from User where Active=0");
+			
+			while(rs.next())
+			{
+				result.add(new User(rs.getInt("user_id"), rs.getString("User_Name"), rs.getString("First_Name"), rs.getString("Last_Name"), rs.getBoolean("Admin")));
+			}
+		}
+		catch(SQLException e)
+		{
+			System.err.println("Error: " + e .getMessage());
+		}
+		finally
+		{
+			disconnect();
+		}
+		
+		return result;
+	}
+	@Override
+	public List<User> getActiveUsers()
+	{
+		List<User> result = new ArrayList<User>();
+		
+		try
+		{
+			connect();
+			
+			Statement stmnt = connection.createStatement();
+			
+			ResultSet rs = stmnt.executeQuery("select * from User where Active=1");
+			
+			while(rs.next())
+			{
+				result.add(new User(rs.getInt("user_id"), rs.getString("User_Name"), rs.getString("First_Name"), rs.getString("Last_Name"), rs.getBoolean("Admin")));
+			}
+		}
+		catch(SQLException e)
+		{
+			System.err.println("Error: " + e .getMessage());
+		}
+		finally
+		{
+			disconnect();
+		}
+		
+		return result;
 	}
 	
 	//Stop Actions//
