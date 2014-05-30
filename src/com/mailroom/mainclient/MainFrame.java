@@ -127,7 +127,7 @@ public class MainFrame extends Application
 			}
 			else
 			{
-				MessageDialog.Answer b = MessageDialogBuilder.warning().message("System will now Exit").buttonType(MessageDialog.ButtonType.OK).show(null);
+				MessageDialog.Answer b = MessageDialogBuilder.warning().message("Bad Configuration\nSystem will now Exit").buttonType(MessageDialog.ButtonType.OK).show(null);
 				if(b == MessageDialog.Answer.YES_OK)
 				{
 					System.exit(-1);
