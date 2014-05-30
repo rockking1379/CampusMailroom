@@ -553,11 +553,13 @@ public class SQLiteManager extends DatabaseManager
 			
 			ResultSet rs = stmnt.executeQuery("select * from Package where Picked_Up=0");
 			
+			packages = null;
 			packages = processPackageResult(rs);
 		}
 		catch(SQLException e)
 		{
 			System.err.println("Error: " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	@Override
@@ -671,28 +673,34 @@ public class SQLiteManager extends DatabaseManager
 			while(rs.next())
 			{
 				PreparedStatement stmnt = connection.prepareStatement("select Name from Stop where stop_id=?");
-				stmnt.setQueryTimeout(5);
 				stmnt.setInt(1, rs.getInt("stop_id"));
 				ResultSet stop = stmnt.executeQuery();
+				String stopName = stop.getString("Name");
+				stop.close();
 				
 				stmnt = connection.prepareStatement("select Name from Courier where courier_id=?");
 				stmnt.setInt(1, rs.getInt("courier_id"));
 				ResultSet courier = stmnt.executeQuery();
+				String courierName = courier.getString("Name");
+				courier.close();
 				
 				stmnt = connection.prepareStatement("select User_Name from User where user_id=?");
 				stmnt.setInt(1, rs.getInt("processor"));
 				ResultSet username = stmnt.executeQuery();
+				String uName = username.getString("User_Name");
+				username.close();
 				
 				result.add(new Package(rs.getInt("package_id"), rs.getString("Tracking_Number"), rs.getString("Date"),
 						rs.getString("ASU_Email"), rs.getString("First_Name"), rs.getString("Last_Name"),
-						rs.getString("Box_Number"), stop.getString("Name"), courier.getString("Name"),
-						username.getString("User_Name"), rs.getBoolean("At_Stop"), rs.getBoolean("Picked_Up"), 
+						rs.getString("Box_Number"), stopName, courierName,
+						uName, rs.getBoolean("At_Stop"), rs.getBoolean("Picked_Up"), 
 						rs.getString("Pick_Up_Date"), rs.getBoolean("Returned")));
 			}
 		}
 		catch(SQLException e)
 		{
 			System.err.println("Error: " + e.getMessage());
+			e.printStackTrace();
 		}
 		
 		return result;
