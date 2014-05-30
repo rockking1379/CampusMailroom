@@ -6,14 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import javax.swing.JOptionPane;
-
 import javafx.application.*;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.image.Image;
 import javafx.stage.*;
-import javafx.stage.FileChooser.ExtensionFilter;
 
 import com.mailroom.common.*;
 import com.panemu.tiwulfx.dialog.*;
@@ -25,9 +22,11 @@ public class MainFrame extends Application
 	public static User cUser;
 	public static Properties properties = null;
 	public static Image imageLogo;
+	public static String[] pubArgs;
 	
 	public static void main(String[] args)
 	{
+		pubArgs = args;
 		launch(args);
 	}
 
@@ -72,15 +71,18 @@ public class MainFrame extends Application
 			}
 			else
 			{
-				//temporary//
-				switch(JOptionPane.showConfirmDialog(null, "Use SQLite Database?", "Setup", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null))
+				//temporary//	
+				MessageDialog.Answer create = MessageDialogBuilder.confirmation().message("Create New Database?").title("Setup").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").noButtonText("No").show(null);
+				
+				if(create == MessageDialog.Answer.YES_OK)
 				{
-					case JOptionPane.YES_OPTION:
+					MessageDialog.Answer sqlite = MessageDialogBuilder.confirmation().message("Use SQLite Database?").title("Setup").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").noButtonText("No").show(null);
+					
+					if(sqlite == MessageDialog.Answer.YES_OK)
 					{
 						propFile.createNewFile();
 						
 						FileChooser fChooser = new FileChooser();
-						fChooser.setSelectedExtensionFilter(new ExtensionFilter("Database", "*.db"));
 						fChooser.setTitle("Select Database File");
 						
 						FileOutputStream oStream = new FileOutputStream(propFile);
@@ -94,18 +96,17 @@ public class MainFrame extends Application
 						oStream.close();
 						
 						dbManager = new SQLiteManager(dbFile.getAbsolutePath());
-						
-						break;
 					}
-					case JOptionPane.NO_OPTION:
+					else
 					{
 						//load new UI for setting up MYSQL
-						break;
+						//TO BE DONE LATER
 					}
-					default:
-					{
-						break;
-					}
+				}
+				else
+				{
+					//Maybe ask to be pointed towards the configuration file (might be an old one from previous setup)
+					//Then on exit, save them in working directory???
 				}
 			}
 		}
@@ -127,7 +128,14 @@ public class MainFrame extends Application
 			else
 			{
 				MessageDialog.Answer b = MessageDialogBuilder.warning().message("System will now Exit").buttonType(MessageDialog.ButtonType.OK).show(null);
-				System.exit(-1);
+				if(b == MessageDialog.Answer.YES_OK)
+				{
+					System.exit(-1);
+				}
+				else
+				{
+					System.exit(-1);
+				}
 			}
 		}
 		

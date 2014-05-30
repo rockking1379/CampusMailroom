@@ -140,7 +140,7 @@ public class ScanPageController implements Initializable
 		}
 		if(ke.getCode() == KeyCode.ENTER)
 		{
-			if(txtBoxOffice.focusedProperty().get())
+			if(txtBoxOffice.focusedProperty().get() || txtFirstName.focusedProperty().get() || txtLastName.focusedProperty().get())
 			{
 				ArrayList<Person> people = (ArrayList<Person>)dbManager.findPerson(txtFirstName.getText(), txtLastName.getText(), txtBoxOffice.getText());
 				

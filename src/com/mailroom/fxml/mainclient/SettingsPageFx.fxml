@@ -35,6 +35,7 @@
                   </items>
                 </ComboBox>
                 <Button fx:id="btnSave" layoutX="224.0" layoutY="200.0" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="25.0" prefWidth="66.0" text="Save" />
+                <Button fx:id="btnCancel" layoutX="293.0" layoutY="201.0" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="25.0" prefWidth="66.0" text="Cancel" />
               </children>
             </AnchorPane>
           </content>
