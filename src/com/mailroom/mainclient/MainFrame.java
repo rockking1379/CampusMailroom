@@ -139,9 +139,9 @@ public class MainFrame extends Application
 			}
 		}
 		
-		this.imageLogo = new Image(getClass().getResourceAsStream("/com/mailroom/resources/Logo.jpg"));
-		
+		this.imageLogo = new Image(getClass().getResourceAsStream("/com/mailroom/resources/Logo.png"));
 		this.stage = stage;
+		this.stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/mailroom/resources/Icon.png")));
 		this.stage.setResizable(false);
 		this.stage.centerOnScreen();
 		Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/LoginFx.fxml"));

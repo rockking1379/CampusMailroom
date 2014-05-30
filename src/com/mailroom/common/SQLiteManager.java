@@ -10,6 +10,7 @@ import java.util.List;
 public class SQLiteManager extends DatabaseManager
 {
 	private Connection connection;
+	private String dbLocation;
 	private List<Courier> couriers;
 	private List<Route> routes;
 	private List<Stop> stops;
@@ -18,7 +19,7 @@ public class SQLiteManager extends DatabaseManager
 	public SQLiteManager(String dbLocation)
 	{
 		dbLocation.replace('\\', '/');
-		
+		this.dbLocation = dbLocation;
 		try
 		{
 			Class.forName("org.sqlite.JDBC");
@@ -26,15 +27,6 @@ public class SQLiteManager extends DatabaseManager
 		catch(ClassNotFoundException e)
 		{
 			System.err.println("Could Not Load SQLite JDBC Driver");
-		}
-		
-		try
-		{
-			connection = DriverManager.getConnection("jdbc:sqlite:" + dbLocation);
-		}
-		catch(SQLException e)
-		{
-			System.err.println("Error Occured: " + e.getMessage());
 		}
 		
 		loadRoutes();
@@ -51,6 +43,7 @@ public class SQLiteManager extends DatabaseManager
 		//conduct login if successful recreate 'u' to valid user or return with nulls and show GUI error
 		try
 		{
+			connect();
 			PreparedStatement stmt = connection.prepareStatement("select * from User where User_Name=? and Password=? and Active=1");
 			stmt.setQueryTimeout(5);
 			stmt.setString(1, userName);
@@ -67,6 +60,10 @@ public class SQLiteManager extends DatabaseManager
 		{
 			System.err.println("Error Logging In: " + e.getMessage());
 		}
+		finally
+		{
+			disconnect();
+		}
 		
 		return u;
 	}
@@ -77,6 +74,7 @@ public class SQLiteManager extends DatabaseManager
 		//settings option should only be available to admin
 		try 
 		{
+			connect();
 			PreparedStatement stmnt = connection.prepareStatement("insert into User(User_Name, First_Name, Last_Name, Password, Admin, Active) values(?,?,?,?,?,1)");
 			stmnt.setQueryTimeout(5);
 			
@@ -100,6 +98,10 @@ public class SQLiteManager extends DatabaseManager
 			System.err.println("Error: " + e.getMessage());
 			return false;
 		}
+		finally
+		{
+			disconnect();
+		}
 	}
 	@Override
 	public boolean changePassword(User u, int oldPassword, int newPassword) 
@@ -107,6 +109,7 @@ public class SQLiteManager extends DatabaseManager
 		//allow users to change their password
 		try
 		{
+			connect();
 			PreparedStatement stmnt = connection.prepareStatement("update User set Password=? where User_Name=? and Password=?");
 			stmnt.setQueryTimeout(5);
 			
@@ -128,6 +131,10 @@ public class SQLiteManager extends DatabaseManager
 			System.err.println("Error: " + e.getMessage());
 			return false;
 		}
+		finally
+		{
+			disconnect();
+		}
 	}
 	@Override
 	public boolean deleteUser(String username, User admin, int password) 
@@ -136,6 +143,7 @@ public class SQLiteManager extends DatabaseManager
 		//confirm admin status although it should only be visible to an admin in settings
 		try
 		{
+			connect();
 			PreparedStatement stmnt = connection.prepareStatement("select * from User where User_Name=? and Password=?");
 			stmnt.setQueryTimeout(5);
 			
@@ -176,6 +184,10 @@ public class SQLiteManager extends DatabaseManager
 			System.err.println("Error: " + e.getMessage());
 			return false;
 		}
+		finally
+		{
+			disconnect();
+		}
 	}
 	
 	//Stop Actions//
@@ -184,6 +196,7 @@ public class SQLiteManager extends DatabaseManager
 	{
 		try
 		{
+			connect();
 			stops = new ArrayList<Stop>();
 			
 			Statement stmnt = connection.createStatement();
@@ -206,12 +219,17 @@ public class SQLiteManager extends DatabaseManager
 		{
 			System.err.println("Error: " + e.getMessage());
 		}
+		finally
+		{
+			disconnect();
+		}
 	}
 	@Override
 	public boolean updateStop(Stop s) 
 	{
 		try
 		{
+			connect();
 			PreparedStatement stmnt = connection.prepareStatement("update Stop set Name=? where stop_id=?");
 			stmnt.setQueryTimeout(5);
 			
@@ -231,6 +249,10 @@ public class SQLiteManager extends DatabaseManager
 			System.err.println("Error: " + e.getMessage());
 			return false;
 		}
+		finally
+		{
+			disconnect();
+		}
 	}
 	@Override
 	public boolean addStop(Stop s) 
@@ -238,6 +260,7 @@ public class SQLiteManager extends DatabaseManager
 		//the passed in stop should receive a stopId of -1(ignored on insert anyway)
 		try
 		{
+			connect();
 			PreparedStatement stmnt = connection.prepareStatement("insert into Stop(Name, route_id, Is_Used, route_order, Student) values(?,?,1,?,?)");
 			stmnt.setQueryTimeout(5);
 			
@@ -260,12 +283,17 @@ public class SQLiteManager extends DatabaseManager
 			System.err.println("Error: " + e.getMessage());
 			return false;
 		}
+		finally
+		{
+			disconnect();
+		}
 	}
 	@Override
 	public boolean deleteStop(Stop s) 
 	{
 		try
 		{
+			connect();
 			PreparedStatement stmnt = connection.prepareStatement("update Stop set Is_Used=0 where stop_id=?");
 			stmnt.setQueryTimeout(5);
 			
@@ -285,6 +313,10 @@ public class SQLiteManager extends DatabaseManager
 			System.err.println("Error: " + e.getMessage());
 			return false;
 		}
+		finally
+		{
+			disconnect();
+		}
 	}
 	@Override
 	public List<Stop> getStops() 
@@ -296,6 +328,7 @@ public class SQLiteManager extends DatabaseManager
 	{
 		try
 		{
+			connect();
 			Statement stmnt = connection.createStatement();
 			stmnt.setQueryTimeout(5);
 			
@@ -308,12 +341,17 @@ public class SQLiteManager extends DatabaseManager
 			System.err.println("Error: " + e.getMessage());
 			return null;
 		}
+		finally
+		{
+			disconnect();
+		}
 	}
 	@Override
 	public List<Stop> getStopsOnRoute(Route r) 
 	{
 		try
 		{
+			connect();
 			PreparedStatement stmnt = connection.prepareStatement("select * from Stop where route_id=?");
 			stmnt.setQueryTimeout(5);
 			
@@ -327,6 +365,10 @@ public class SQLiteManager extends DatabaseManager
 		{
 			System.err.println("Error: " + e.getMessage());
 			return null;
+		}
+		finally
+		{
+			disconnect();
 		}
 	}
 	@Override
@@ -356,6 +398,7 @@ public class SQLiteManager extends DatabaseManager
 	{
 		try
 		{
+			connect();
 			routes = new ArrayList<Route>();
 			
 			Statement stmnt = connection.createStatement();
@@ -372,6 +415,10 @@ public class SQLiteManager extends DatabaseManager
 		{
 			System.err.println("Error: " + e.getMessage());
 		}
+		finally
+		{
+			disconnect();
+		}
 	}
 	@Override
 	public List<Route> getRoutes() 
@@ -383,6 +430,7 @@ public class SQLiteManager extends DatabaseManager
 	{
 		try
 		{
+			connect();
 			PreparedStatement stmnt = connection.prepareStatement("update Route set Name=? where route_id=?");
 			stmnt.setQueryTimeout(5);
 			
@@ -403,6 +451,10 @@ public class SQLiteManager extends DatabaseManager
 			System.err.println("Erorr: " + e.getMessage());
 			return false;
 		}
+		finally
+		{
+			disconnect();
+		}
 	}
 	@Override
 	public boolean addRoute(String routeName) 
@@ -410,6 +462,7 @@ public class SQLiteManager extends DatabaseManager
 		//Assume since route is being added that it is to be used
 		try
 		{
+			connect();
 			PreparedStatement stmnt = connection.prepareStatement("insert into Route(Name, Is_Used) values(?,1)");
 			stmnt.setQueryTimeout(5);
 			
@@ -429,12 +482,17 @@ public class SQLiteManager extends DatabaseManager
 			System.err.println("Error: " + e.getMessage());
 			return false;
 		}
+		finally
+		{
+			disconnect();
+		}
 	}
 	@Override
 	public boolean deleteRoute(Route r) 
 	{
 		try
 		{
+			connect();
 			PreparedStatement stmnt = connection.prepareStatement("update Route set Is_Used=0 where route_id=?");
 			stmnt.setQueryTimeout(5);
 			
@@ -454,6 +512,10 @@ public class SQLiteManager extends DatabaseManager
 			System.err.println("Error: " + e.getMessage());
 			return false;
 		}
+		finally
+		{
+			disconnect();
+		}
 	}
 
 	//Courier Actions//
@@ -462,6 +524,7 @@ public class SQLiteManager extends DatabaseManager
 	{
 		try
 		{
+			connect();
 			couriers = new ArrayList<Courier>();
 		
 			Statement stmnt = connection.createStatement();
@@ -478,6 +541,10 @@ public class SQLiteManager extends DatabaseManager
 		{
 			System.err.println("Error: " + e.getMessage());
 		}
+		finally
+		{
+			disconnect();
+		}
 	}
 	@Override
 	public List<Courier> getCouriers() 
@@ -489,6 +556,7 @@ public class SQLiteManager extends DatabaseManager
 	{
 		try
 		{
+			connect();
 			PreparedStatement stmnt = connection.prepareStatement("update Courier set Name=? where courier_id=?");
 			stmnt.setQueryTimeout(5);
 			
@@ -509,12 +577,17 @@ public class SQLiteManager extends DatabaseManager
 			System.err.println("Error: " + e.getMessage());
 			return false;
 		}
+		finally
+		{
+			disconnect();
+		}
 	}
 	@Override
 	public boolean deleteCourier(Courier c) 
 	{
 		try
 		{
+			connect();
 			PreparedStatement stmnt = connection.prepareStatement("update Courier set Is_used=0 where courier_id=?");
 			stmnt.setQueryTimeout(5);
 			
@@ -534,6 +607,10 @@ public class SQLiteManager extends DatabaseManager
 			System.err.println("Error: " + e.getMessage());
 			return false;
 		}
+		finally
+		{
+			disconnect();
+		}
 	}
 
 	
@@ -548,6 +625,7 @@ public class SQLiteManager extends DatabaseManager
 	{
 		try
 		{
+			connect();
 			Statement stmnt = connection.createStatement();
 			stmnt.setQueryTimeout(5);
 			
@@ -559,7 +637,10 @@ public class SQLiteManager extends DatabaseManager
 		catch(SQLException e)
 		{
 			System.err.println("Error: " + e.getMessage());
-			e.printStackTrace();
+		}
+		finally
+		{
+			disconnect();
 		}
 	}
 	@Override
@@ -567,6 +648,7 @@ public class SQLiteManager extends DatabaseManager
 	{
 		try
 		{
+			connect();
 			PreparedStatement stmnt = null;;
 			
 			stmnt = connection.prepareStatement("select * from Package where Picked_Up=0 and stop_id=?");
@@ -582,12 +664,17 @@ public class SQLiteManager extends DatabaseManager
 		{
 			System.err.println("Error: " + e.getMessage());
 		}
+		finally
+		{
+			disconnect();
+		}
 	}
 	@Override
 	public boolean updatePackage(int packageId, boolean atStop, boolean pickedUp) 
 	{
 		try
 		{
+			connect();
 			PreparedStatement stmnt = null;
 			
 			stmnt = connection.prepareStatement("update Package set At_Stop=? where package_id=?");
@@ -615,12 +702,17 @@ public class SQLiteManager extends DatabaseManager
 		{
 			return false;
 		}
+		finally
+		{
+			disconnect();
+		}
 	}
 	@Override
 	public boolean addPackage(Package p, int userId) 
 	{
 		try
 		{
+			connect();
 			PreparedStatement stmnt = connection.prepareStatement("insert into Package(Tracking_Number, Date, ASU_Email, First_Name, Last_Name, Box_Number, At_Stop, Picked_Up, stop_id, courier_id, processor)"
 					+ " values(?,?,?,?,?,?,0,0,?,?,?)");
 			stmnt.setQueryTimeout(5);
@@ -662,6 +754,10 @@ public class SQLiteManager extends DatabaseManager
 		{
 			System.err.println("Error: " + e.getMessage());
 			return false;
+		}
+		finally
+		{
+			disconnect();
 		}
 	}
 	@Override
@@ -726,6 +822,7 @@ public class SQLiteManager extends DatabaseManager
 		
 		try
 		{
+			connect();
 			PreparedStatement stmnt = connection.prepareStatement("select * from Person where First_Name like ? and Last_Name like ? and Number=?");
 			stmnt.setQueryTimeout(5);
 			stmnt.setString(1, firstName);
@@ -752,6 +849,10 @@ public class SQLiteManager extends DatabaseManager
 		{
 			System.err.println("Error: " + e.getMessage());
 		}
+		finally
+		{
+			disconnect();
+		}
 		
 		return results;
 	}
@@ -760,12 +861,33 @@ public class SQLiteManager extends DatabaseManager
 	@Override
 	public void connect()
 	{
-		//establish connection to database
+		try
+		{
+			connection = DriverManager.getConnection("jdbc:sqlite:" + dbLocation);
+		}
+		catch(SQLException e)
+		{
+			System.err.println("Error Occured: " + e.getMessage());
+		}
 	}
 	@Override
 	public void disconnect()
 	{
-		//disconnect connection to database
+		if(connection != null)
+		{
+			try
+			{
+				connection.close();
+			}
+			catch(SQLException e)
+			{
+				System.err.println("Error: " + e.getMessage());
+			}
+			finally
+			{
+				connection = null;
+			}
+		}
 	}
 	@Override
 	public void dispose()
@@ -774,15 +896,6 @@ public class SQLiteManager extends DatabaseManager
 		routes = null;
 		stops = null;
 		packages = null;
-		
-		try
-		{
-			connection.close();
-		}
-		catch(SQLException e)
-		{
-			System.err.println("Error: " + e.getMessage());
-		}
 		
 		return;
 	}

@@ -130,17 +130,7 @@ public class SettingsController implements Initializable
 	{
 		if(ke.getCode() == KeyCode.ESCAPE)
 		{
-			try
-			{
-				Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
-				Scene scene = new Scene(root);
-				MainFrame.stage.setScene(scene);
-			}
-			catch(IOException e)
-			{
-				System.err.println("Error: " + e.getMessage());
-				e.printStackTrace();
-			}
+			btnCancel.fire();
 		}
 	}
 	
@@ -245,8 +235,19 @@ public class SettingsController implements Initializable
 			}
 		}
 	}
+	
 	public void btnCancelAction(ActionEvent ae)
 	{
-		//load open page, move away
+		try
+		{
+			Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
+			Scene scene = new Scene(root);
+			MainFrame.stage.setScene(scene);
+		}
+		catch(IOException e)
+		{
+			System.err.println("Error: " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 }
