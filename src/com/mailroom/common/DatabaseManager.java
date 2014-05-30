@@ -130,6 +130,14 @@ public class DatabaseManager
 	 }
 	 
 	 //Normal Actions
+	 public void connect()
+	 {
+		 return;
+	 }
+	 public void disconnect()
+	 {
+		 return;
+	 }
 	 public void dispose()
 	 {
 		 return;

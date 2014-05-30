@@ -672,22 +672,35 @@ public class SQLiteManager extends DatabaseManager
 		{
 			while(rs.next())
 			{
+				String stopName = "";
+				String courierName = "";
+				String uName = "";
+				
 				PreparedStatement stmnt = connection.prepareStatement("select Name from Stop where stop_id=?");
 				stmnt.setInt(1, rs.getInt("stop_id"));
 				ResultSet stop = stmnt.executeQuery();
-				String stopName = stop.getString("Name");
+				if(stop.next())
+				{
+					stopName = stop.getString("Name");
+				}
 				stop.close();
 				
 				stmnt = connection.prepareStatement("select Name from Courier where courier_id=?");
 				stmnt.setInt(1, rs.getInt("courier_id"));
 				ResultSet courier = stmnt.executeQuery();
-				String courierName = courier.getString("Name");
+				if(courier.next())
+				{
+					courierName = courier.getString("Name");
+				}
 				courier.close();
 				
 				stmnt = connection.prepareStatement("select User_Name from User where user_id=?");
 				stmnt.setInt(1, rs.getInt("processor"));
 				ResultSet username = stmnt.executeQuery();
-				String uName = username.getString("User_Name");
+				if(username.next())
+				{
+					uName = username.getString("User_Name");
+				}
 				username.close();
 				
 				result.add(new Package(rs.getInt("package_id"), rs.getString("Tracking_Number"), rs.getString("Date"),
@@ -700,7 +713,6 @@ public class SQLiteManager extends DatabaseManager
 		catch(SQLException e)
 		{
 			System.err.println("Error: " + e.getMessage());
-			e.printStackTrace();
 		}
 		
 		return result;
@@ -745,6 +757,16 @@ public class SQLiteManager extends DatabaseManager
 	}
 	
 	//Normal Actions//
+	@Override
+	public void connect()
+	{
+		//establish connection to database
+	}
+	@Override
+	public void disconnect()
+	{
+		//disconnect connection to database
+	}
 	@Override
 	public void dispose()
 	{
