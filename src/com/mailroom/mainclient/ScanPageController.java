@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-import javax.swing.JOptionPane;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +20,8 @@ import javafx.scene.input.KeyEvent;
 
 import com.mailroom.common.*;
 import com.mailroom.common.Package;
+import com.panemu.tiwulfx.dialog.MessageDialog;
+import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 
 public class ScanPageController implements Initializable
 {
@@ -38,9 +38,9 @@ public class ScanPageController implements Initializable
 	@FXML
 	private Label lblDate;
 	@FXML
-	private ComboBox<Stop> cboxStops;
+	private ComboBox<String> cboxStops;
 	@FXML
-	private ComboBox<Courier> cboxCourier;
+	private ComboBox<String> cboxCourier;
 	@FXML
 	private Button btnSave;
 	@FXML
@@ -60,6 +60,18 @@ public class ScanPageController implements Initializable
 		
 		cUser = MainFrame.cUser;
 		dbManager = MainFrame.dbManager;
+		
+		cboxStops.getItems().clear();
+		cboxCourier.getItems().clear();
+		
+		for(Stop s : dbManager.getStops())
+		{
+			cboxStops.getItems().add(s.getStopName());
+		}
+		for(Courier c : dbManager.getCouriers())
+		{
+			cboxCourier.getItems().add(c.getCourierName());
+		}
 	}
 	
 	public void btnExitAction(ActionEvent ae)
@@ -90,9 +102,12 @@ public class ScanPageController implements Initializable
 	
 	public void btnSaveAction(ActionEvent ae)
 	{
+		boolean verified = true;
+		
 		if(txtTrackingNumber.getText().length() < 4)
 		{
-			JOptionPane.showMessageDialog(null, "Tracking Number Not Long Enough", "Error", JOptionPane.ERROR_MESSAGE);
+			MessageDialogBuilder.error().message("Tracking Number Not Long Enough\nMust Be 4 Characters or Longer").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+			verified = false;
 		}
 		if(txtFirstName.getText() == "" && txtLastName.getText() == "")
 		{
@@ -103,29 +118,38 @@ public class ScanPageController implements Initializable
 		{
 			if(txtFirstName.getText() == "" && txtLastName.getText() != "")
 			{
-				JOptionPane.showMessageDialog(null, "No Last Name Specified", "Error", JOptionPane.ERROR_MESSAGE);
+				MessageDialogBuilder.error().message("No Last Name Specified").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+				verified = false;
 			}
 			else
 			{
 				if(txtFirstName.getText() != "" && txtLastName.getText() == "")
 				{
-					JOptionPane.showMessageDialog(null, "No First Name Specified", "Error", JOptionPane.ERROR_MESSAGE);
+					MessageDialogBuilder.error().message("No First Name Specified").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+					verified = false;
 				}
 			}
 		}
 		
 		if(txtBoxOffice.getText() == "")
 		{
-			JOptionPane.showMessageDialog(null, "No Box/Suite Number Set", "Error", JOptionPane.ERROR_MESSAGE);
+			MessageDialogBuilder.error().message("No Box/Suite Number Set").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+			verified = false;
 		}
 		
 		if(txtEmailAddress.getText() == "")
 		{
 			txtEmailAddress.setText("unknown@");
 		}
-		
-		Package p = new Package(-1, txtTrackingNumber.getText(), lblDate.getText(), txtEmailAddress.getText(), txtFirstName.getText(), txtLastName.getText(), txtBoxOffice.getText(), cboxStops.getValue().getStopName(), cboxCourier.getValue().getCourierName(), cUser.getUserName(), false, false, null, false);
-		dbManager.addPackage(p, cUser.getUserId());
+		if(verified)
+		{
+			Package p = new Package(-1, txtTrackingNumber.getText(), lblDate.getText(), txtEmailAddress.getText(), txtFirstName.getText(), txtLastName.getText(), txtBoxOffice.getText(), cboxStops.getValue(), cboxCourier.getValue(), cUser.getUserName(), false, false, null, false);
+			if(dbManager.addPackage(p, cUser.getUserId()))
+			{
+				System.out.println("Package Added");
+			}
+			btnClear.fire();
+		}
 	}
 
 	public void keyPressAction(KeyEvent ke)
@@ -140,32 +164,50 @@ public class ScanPageController implements Initializable
 		}
 		if(ke.getCode() == KeyCode.ENTER)
 		{
-			if(txtBoxOffice.focusedProperty().get() || txtFirstName.focusedProperty().get() || txtLastName.focusedProperty().get())
+			if(txtBoxOffice.focusedProperty().get())
 			{
 				ArrayList<Person> people = (ArrayList<Person>)dbManager.findPerson(txtFirstName.getText(), txtLastName.getText(), txtBoxOffice.getText());
-				
-				if(people.size() == 1)
+
+				switch(people.size())
 				{
-					Person p = people.get(0);
-					
-					txtEmailAddress.setText(p.getEmailAddress());
-					for(Stop s : cboxStops.getItems())
+					case 0:
 					{
-						if(s.getStopName() == p.getStopName())
-						{
-							cboxStops.setValue(s);
-							break;
-						}
+						MessageDialogBuilder.info().message("No Results Found").title("Info").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+						txtEmailAddress.setText("Unknown@");
+						break;
 					}
-				}
-				if(people.size() > 1)
-				{
-					JOptionPane.showMessageDialog(null, "Multiple Results Found");
+					case 1:
+					{
+						Person p = people.get(0);
+						
+						txtEmailAddress.setText(p.getEmailAddress());
+						for(String s : cboxStops.getItems())
+						{
+							if(s == p.getStopName())
+							{
+								cboxStops.setValue(s);
+								break;
+							}
+						}
+						break;
+					}
+					default:
+					{
+						MessageDialogBuilder.info().message("Multiple Results Found").title("Info").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+						break;
+					}
 				}
 			}
 			else
 			{
-				btnSave.fire();
+				if(txtFirstName.focusedProperty().get() || txtLastName.focusedProperty().get())
+				{
+					// do nothing
+				}
+				else
+				{
+					btnSave.fire();
+				}
 			}
 		}
 	}

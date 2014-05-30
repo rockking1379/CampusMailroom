@@ -13,7 +13,7 @@
     <TextField fx:id="txtTrackingNumber" layoutX="25.0" layoutY="25.0" prefHeight="25.0" prefWidth="500.0" promptText="Tracking Number" />
     <TextField fx:id="txtFirstName" layoutX="25.0" layoutY="60.0" prefHeight="25.0" prefWidth="150.0" promptText="First Name" />
     <TextField fx:id="txtLastName" layoutX="200.0" layoutY="60.0" prefHeight="25.0" prefWidth="150.0" promptText="Last Name" />
-    <TextField fx:id="txtBoxOffice" layoutX="375.0" layoutY="60.0" onKeyPressed="#keyPressAction" prefHeight="25.0" prefWidth="150.0" promptText="Box/Suite Number" />
+    <TextField fx:id="txtBoxOffice" layoutX="375.0" layoutY="60.0" prefHeight="25.0" prefWidth="150.0" promptText="Box/Suite Number" />
     <TextField fx:id="txtEmailAddress" layoutX="25.0" layoutY="95.0" prefHeight="25.0" prefWidth="500.0" promptText="Email Address" />
     <Label alignment="CENTER" layoutX="25.0" layoutY="125.0" prefHeight="25.0" prefWidth="75.0" text="Stop" textAlignment="CENTER">
       <font>

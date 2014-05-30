@@ -36,6 +36,10 @@ public class SQLiteManager extends DatabaseManager
 		{
 			System.err.println("Error Occured: " + e.getMessage());
 		}
+		
+		loadRoutes();
+		loadStops();
+		loadCouriers();
 	}
 
 	//User Actions//
@@ -357,7 +361,7 @@ public class SQLiteManager extends DatabaseManager
 			Statement stmnt = connection.createStatement();
 			stmnt.setQueryTimeout(5);
 			
-			ResultSet rs = stmnt.executeQuery("select * from Route where Is_Used=1");
+			ResultSet rs = stmnt.executeQuery("select * from Route");
 			
 			while(rs.next())
 			{
@@ -619,7 +623,7 @@ public class SQLiteManager extends DatabaseManager
 					+ " values(?,?,?,?,?,?,0,0,?,?,?)");
 			stmnt.setQueryTimeout(5);
 			
-			stmnt.setString(1, p.getTrackingNumber());
+			stmnt.setString(1, p.getFullTrackingNumber());
 			stmnt.setString(2, p.getReceivedDate());
 			stmnt.setString(3, p.getEmailAddress());
 			stmnt.setString(4, p.getFirstName());
@@ -702,10 +706,13 @@ public class SQLiteManager extends DatabaseManager
 		
 		try
 		{
-			Statement stmnt = connection.createStatement();
+			PreparedStatement stmnt = connection.prepareStatement("select * from Person where First_Name like ? and Last_Name like ? and Number=?");
 			stmnt.setQueryTimeout(5);
+			stmnt.setString(1, firstName);
+			stmnt.setString(2, lastName);
+			stmnt.setString(3, boxOffice);
 			
-			ResultSet rs = stmnt.executeQuery("select * from Person where First_Name like ? and Last_Name like ? and Number=?");
+			ResultSet rs = stmnt.executeQuery();
 			
 			//process ResultSet
 			while(rs.next())
