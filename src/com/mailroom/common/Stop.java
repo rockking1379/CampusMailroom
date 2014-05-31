@@ -41,4 +41,9 @@ public class Stop
 	{
 		return student;
 	}
+	
+	public void setStudent(boolean student)
+	{
+		this.student = student;
+	}
 }

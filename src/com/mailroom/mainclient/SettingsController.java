@@ -122,6 +122,28 @@ public class SettingsController implements Initializable
 	@FXML
 	private Button btnAdminDeactivate;
 	
+	//Stop Management//
+	@FXML
+	private ComboBox<String> cboxStopDelete;
+	@FXML
+	private Button btnStopDelete;
+	@FXML
+	private TextField txtStopName;
+	@FXML
+	private ComboBox<String> cboxStopRoute;
+	@FXML
+	private CheckBox cboxStopCreateStudent;
+	@FXML
+	private Button btnStopCreate;
+	@FXML
+	private Button btnStopClear;
+	@FXML
+	private ComboBox<String> cboxStopUpdate;
+	@FXML
+	private CheckBox cboxStopUpdateStudent;
+	@FXML
+	private Button btnStopUpdateSave;
+	
 	//Route Management//
 	@FXML
 	private ComboBox<String> cboxRouteSelect;
@@ -141,6 +163,16 @@ public class SettingsController implements Initializable
 	private TextField txtRouteName;
 	@FXML
 	private Button btnRouteCreate;
+	
+	//Courier Management//
+	@FXML
+	private ComboBox<String> cboxCourierDelete;
+	@FXML
+	private Button btnCourierDelete;
+	@FXML
+	private TextField txtCourierName;
+	@FXML
+	private Button btnCourierCreate;
 	
 	//About Tab//
 	@FXML
@@ -220,6 +252,8 @@ public class SettingsController implements Initializable
 		
 		loadAdminComboBoxes();
 		loadRouteComboBoxes();
+		loadStopComboBoxes();
+		loadCourierComboBoxes();
 	}
 	
 	public void keyPressedAction(KeyEvent ke)
@@ -230,6 +264,7 @@ public class SettingsController implements Initializable
 		}
 	}
 	
+	//General Settings//
 	public void cboxAutoUpdateAction(ActionEvent ae)
 	{
 		if(cboxAutoUpdate.getValue())
@@ -356,6 +391,7 @@ public class SettingsController implements Initializable
 		}
 	}
 	
+	//Account Management//
 	public void btnChangePwdAction(ActionEvent ae)
 	{
 		int oldPassword = 0;
@@ -366,44 +402,51 @@ public class SettingsController implements Initializable
 		String pwdConfirm = pwdChangePwdConfirm.getText();
 		boolean verified = true;
 		
-		if(oldPwd.equals(newPwd))
+		if(pwdChangePwdOld.getText().equals("") || pwdChangePwdNew.getText().equals("") || pwdChangePwdConfirm.getText().equals(""))
 		{
-			MessageDialogBuilder.error().message("New Password cannot be same as Old Password").title("Password Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-			verified = false;
-			pwdChangePwdOld.textProperty().set("");
-			pwdChangePwdNew.textProperty().set("");
-			pwdChangePwdConfirm.textProperty().set("");
+			MessageDialogBuilder.error().message("Cannot have Empty Fields").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
 		}
-		if(!newPwd.equals(pwdConfirm))
+		else
 		{
-			MessageDialogBuilder.error().message("New Password and Confirm Password are not the same").title("Password Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-			verified = false;
-			pwdChangePwdNew.textProperty().set("");
-			pwdChangePwdConfirm.textProperty().set("");
-		}
-		
-		if(verified)
-		{
-			oldPassword = (username + oldPwd).hashCode();
-			newPassword = (username + newPwd).hashCode();
-			
-			if(dbManager.changePassword(MainFrame.cUser, oldPassword, newPassword))
+			if(oldPwd.equals(newPwd))
 			{
-				MessageDialogBuilder.info().message("Password Changed Successfully\nYou will now be logged out").title("Success").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-				try
-				{
-					Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/LoginFx.fxml"));
-					Scene scene = new Scene(root);
-					MainFrame.stage.setScene(scene);
-				}
-				catch(IOException e)
-				{
-					System.err.println("Error: " + e.getMessage());
-				}
+				MessageDialogBuilder.error().message("New Password cannot be same as Old Password").title("Password Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+				verified = false;
+				pwdChangePwdOld.textProperty().set("");
+				pwdChangePwdNew.textProperty().set("");
+				pwdChangePwdConfirm.textProperty().set("");
 			}
-			else
+			if(!newPwd.equals(pwdConfirm))
 			{
-				MessageDialogBuilder.error().message("Password Change Unsuccessful").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+				MessageDialogBuilder.error().message("New Password and Confirm Password are not the same").title("Password Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+				verified = false;
+				pwdChangePwdNew.textProperty().set("");
+				pwdChangePwdConfirm.textProperty().set("");
+			}
+			
+			if(verified)
+			{
+				oldPassword = (username + oldPwd).hashCode();
+				newPassword = (username + newPwd).hashCode();
+				
+				if(dbManager.changePassword(MainFrame.cUser, oldPassword, newPassword))
+				{
+					MessageDialogBuilder.info().message("Password Changed Successfully\nYou will now be logged out").title("Success").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+					try
+					{
+						Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/LoginFx.fxml"));
+						Scene scene = new Scene(root);
+						MainFrame.stage.setScene(scene);
+					}
+					catch(IOException e)
+					{
+						System.err.println("Error: " + e.getMessage());
+					}
+				}
+				else
+				{
+					MessageDialogBuilder.error().message("Password Change Unsuccessful").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+				}
 			}
 		}
 	}
@@ -413,24 +456,30 @@ public class SettingsController implements Initializable
 		int password;
 		String pwd = pwdCreatePwd.getText();
 		String pwdConfirm = pwdCreateConfirm.getText();
-		
-		if(pwd.equals(pwdConfirm))
+		if(txtCreateFirstName.getText().equals("") || txtCreateLastName.getText().equals("") || txtCreateUserName.getText().equals("") || pwdCreatePwd.getText().equals("") || pwdCreateConfirm.getText().equals(""))
 		{
-			password = (txtCreateUserName.getText() + pwd).hashCode();
-			if(dbManager.addUser(new User(-1,txtCreateUserName.getText(),txtCreateFirstName.getText(),txtCreateLastName.getText(),cboxCreateAdmin.selectedProperty().get()), password))
-			{
-				MessageDialogBuilder.info().message("User " + txtCreateUserName.getText() + " Added").title("Success").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-			}
-			else
-			{
-				MessageDialogBuilder.error().message("Error Adding User " + txtCreateUserName.getText()).title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-			}
+			MessageDialogBuilder.error().message("Cannot have Empty Fields").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
 		}
 		else
 		{
-			MessageDialogBuilder.error().message("Passwords Do Not Match").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-			pwdCreatePwd.textProperty().set("");
-			pwdCreateConfirm.textProperty().set("");
+			if(pwd.equals(pwdConfirm))
+			{
+				password = (txtCreateUserName.getText() + pwd).hashCode();
+				if(dbManager.addUser(new User(-1,txtCreateUserName.getText(),txtCreateFirstName.getText(),txtCreateLastName.getText(),cboxCreateAdmin.selectedProperty().get()), password))
+				{
+					MessageDialogBuilder.info().message("User " + txtCreateUserName.getText() + " Added").title("Success").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+				}
+				else
+				{
+					MessageDialogBuilder.error().message("Error Adding User " + txtCreateUserName.getText()).title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+				}
+			}
+			else
+			{
+				MessageDialogBuilder.error().message("Passwords Do Not Match").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+				pwdCreatePwd.textProperty().set("");
+				pwdCreateConfirm.textProperty().set("");
+			}
 		}
 	}
 	
@@ -512,7 +561,78 @@ public class SettingsController implements Initializable
 			cboxAdminReactivate.itemsProperty().get().add(u.getUserName());
 		}
 	}
+
+	//Stop Management//
+	public void btnStopDeleteAction(ActionEvent ae)
+	{
+		MessageDialog.Answer del = MessageDialogBuilder.confirmation().message("Delete " + cboxStopDelete.getValue() + " Stop").title("Confirm").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").noButtonText("No").show(MainFrame.stage.getScene().getWindow());
+		
+		if(del == MessageDialog.Answer.YES_OK)
+		{
+			for(Stop s : dbManager.getStops())
+			{
+				if(s.getStopName().equals(cboxStopDelete.getValue()))
+				{
+					dbManager.deleteStop(s);
+					break;
+				}
+			}
+		}
+		
+		loadStopComboBoxes();
+	}
 	
+	public void btnStopCreateAction(ActionEvent ae)
+	{
+		if(txtStopName.getText().equals(""))
+		{
+			MessageDialogBuilder.error().message("Cannot have Empty Stop Name").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+		}
+		else
+		{
+			dbManager.addStop(new Stop(-1,txtStopName.getText(),cboxStopRoute.getValue(),1,cboxStopCreateStudent.isSelected()));
+			btnStopClear.fire();
+			loadStopComboBoxes();
+		}
+	}
+	
+	public void btnStopClearAction(ActionEvent ae)
+	{
+		cboxStopCreateStudent.setSelected(false);
+		txtStopName.setText("");
+	}
+	
+	public void btnStopUpdateSaveAction(ActionEvent ae)
+	{
+		for(Stop s : dbManager.getStops())
+		{
+			if(s.getStopName().equals(cboxStopUpdate.getValue()))
+			{
+				s.setStudent(cboxStopUpdateStudent.isSelected());
+				dbManager.updateStop(s);
+				break;
+			}
+		}
+	}
+	
+	private void loadStopComboBoxes()
+	{
+		cboxStopDelete.getItems().clear();
+		cboxStopUpdate.getItems().clear();
+		
+		dbManager.loadStops();
+		
+		for(Stop s : dbManager.getStops())
+		{
+			if(!s.getStopName().equals("unassigned"))
+			{
+				cboxStopDelete.getItems().add(s.getStopName());
+				cboxStopUpdate.getItems().add(s.getStopName());
+			}
+		}
+	}
+	
+	//Route Management//
 	public void cboxRouteSelectAction(ActionEvent ae)
 	{		
 		loadRouteListViews();
@@ -638,14 +758,61 @@ public class SettingsController implements Initializable
 		
 		cboxRouteSelect.getItems().clear();
 		cboxRouteDelete.getItems().clear();
+		cboxStopRoute.getItems().clear();
 		
 		for(Route r : dbManager.getRoutes())
 		{
+			cboxStopRoute.getItems().add(r.getRouteName());
 			if(!r.getRouteName().equals("unassigned"))
 			{
 				cboxRouteSelect.getItems().add(r.getRouteName());
 				cboxRouteDelete.getItems().add(r.getRouteName());
 			}
+		}
+	}
+	
+	//Courier Management//
+	public void btnCourierDeleteAction(ActionEvent ae)
+	{
+		MessageDialog.Answer del = MessageDialogBuilder.confirmation().message("Delete " + cboxCourierDelete.getValue() + " Courier").title("Confirm").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").noButtonText("No").show(MainFrame.stage.getScene().getWindow());
+		
+		if(del == MessageDialog.Answer.YES_OK)
+		{
+			for(Courier c : dbManager.getCouriers())
+			{
+				if(c.getCourierName().equals(cboxCourierDelete.getValue()))
+				{
+					dbManager.deleteCourier(c);
+					break;
+				}
+			}
+		}
+		
+		loadCourierComboBoxes();
+	}
+	
+	public void btnCourierCreateAction(ActionEvent ae)
+	{
+		if(txtCourierName.getText().equals(""))
+		{
+			MessageDialogBuilder.error().message("Cannot have Empty Courier Name").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+		}
+		else
+		{
+			dbManager.addCourier(txtCourierName.getText());
+			loadCourierComboBoxes();
+			txtCourierName.setText("");
+		}
+	}
+	
+	private void loadCourierComboBoxes()
+	{
+		dbManager.loadCouriers();
+		cboxCourierDelete.getItems().clear();
+		
+		for(Courier c : dbManager.getCouriers())
+		{
+			cboxCourierDelete.getItems().add(c.getCourierName());
 		}
 	}
 }

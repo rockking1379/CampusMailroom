@@ -108,6 +108,10 @@ public class DatabaseManager
 	 {
 		 return null;
 	 }
+	 public boolean addCourier(String courierName)
+	 {
+		 return false;
+	 }
 	 public boolean updateCourier(Courier c)
 	 {
 		 return false;

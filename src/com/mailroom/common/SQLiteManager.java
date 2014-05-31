@@ -337,10 +337,11 @@ public class SQLiteManager extends DatabaseManager
 		try
 		{
 			connect();
-			PreparedStatement stmnt = connection.prepareStatement("update Stop set Name=? where stop_id=?");
+			PreparedStatement stmnt = connection.prepareStatement("update Stop set Student=? where stop_id=?");
 			stmnt.setQueryTimeout(5);
 			
-			stmnt.setString(1, s.getStopName());
+			stmnt.setBoolean(1, s.getStudent());
+			stmnt.setInt(2, s.getStopId());
 			
 			if(stmnt.executeUpdate() > 0)
 			{
@@ -406,7 +407,14 @@ public class SQLiteManager extends DatabaseManager
 			stmnt.setQueryTimeout(5);
 			
 			stmnt.setString(1, s.getStopName());
-			stmnt.setString(2, s.getRouteName());
+			for(Route r : routes)
+			{
+				if(r.getRouteName().equals(s.getRouteName()))
+				{
+					stmnt.setInt(2, r.getRouteId());
+					break;
+				}
+			}
 			stmnt.setInt(3, s.getRouteOrder());
 			stmnt.setBoolean(4, s.getStudent());
 			
@@ -695,6 +703,40 @@ public class SQLiteManager extends DatabaseManager
 	public List<Courier> getCouriers() 
 	{
 		return couriers;
+	}
+	@Override
+	public boolean addCourier(String courierName)
+	{
+		boolean retValue = false;
+		
+		try
+		{
+			connect();
+			
+			PreparedStatement stmnt = connection.prepareStatement("insert into Courier(Name, Is_used) values(?,1)");
+			
+			stmnt.setString(1, courierName);
+			
+			if(stmnt.execute())
+			{
+				retValue = true;
+			}
+			else
+			{
+				retValue = false;
+			}
+		}
+		catch(SQLException e)
+		{
+			System.err.println("Error: " + e.getMessage());
+			retValue = false;
+		}
+		finally
+		{
+			disconnect();
+		}
+		
+		return retValue;
 	}
 	@Override
 	public boolean updateCourier(Courier c) 
