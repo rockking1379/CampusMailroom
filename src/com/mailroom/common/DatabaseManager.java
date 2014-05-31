@@ -48,6 +48,10 @@ public class DatabaseManager
 	 {
 		 return false;
 	 }
+	 public boolean addStopToRoute(Stop s, Route r)
+	 {
+		 return false;
+	 }
 	 public boolean addStop(Stop s)
 	 {
 		 return false;
@@ -60,7 +64,7 @@ public class DatabaseManager
 	 {
 		 return null;
 	 }
-	 public List<Stop> getUnassignedstops()
+	 public List<Stop> getUnassignedStops()
 	 {
 		 return null;
 	 }
@@ -157,5 +161,9 @@ public class DatabaseManager
 	 public void dispose()
 	 {
 		 return;
+	 }
+	 public boolean create(boolean insertDev)
+	 {
+		 return false;
 	 }
 }

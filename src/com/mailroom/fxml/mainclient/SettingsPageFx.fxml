@@ -135,7 +135,56 @@
         </Tab>
         <Tab fx:id="tabRouteManagement" closable="false" text="Route Management">
           <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217" />
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
+              <children>
+                <TabPane layoutX="14.0" layoutY="0.0" prefHeight="541.0" prefWidth="772.0" tabClosingPolicy="UNAVAILABLE">
+                  <tabs>
+                    <Tab text="Edit Route">
+                      <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
+                          <children>
+                            <ListView fx:id="lviewRouteUnassigned" layoutX="111.0" layoutY="75.0" prefHeight="400.0" prefWidth="200.0" />
+                            <ListView fx:id="lviewRouteOnRoute" layoutX="461.0" layoutY="75.0" prefHeight="400.0" prefWidth="200.0" />
+                            <Button fx:id="btnRouteAdd" layoutX="337.0" layoutY="233.0" mnemonicParsing="false" onAction="#btnRouteAddAction" prefHeight="25.0" prefWidth="99.0" text="Add -&gt;" />
+                            <Button fx:id="btnRouteRemove" layoutX="337.0" layoutY="293.0" mnemonicParsing="false" onAction="#btnRouteRemoveAction" prefHeight="25.0" prefWidth="99.0" text="&lt;- Remove" />
+                            <ComboBox fx:id="cboxRouteSelect" layoutX="311.0" layoutY="35.0" onAction="#cboxRouteSelectAction" prefHeight="40.0" prefWidth="150.0">
+                              <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                  <String fx:value="Item 1" />
+                                  <String fx:value="Item 2" />
+                                  <String fx:value="Item 3" />
+                                </FXCollections>
+                              </items>
+                            </ComboBox>
+                          </children>
+                        </AnchorPane>
+                      </content>
+                    </Tab>
+                    <Tab text="Manage Routes">
+                      <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
+                          <children>
+                            <Label layoutX="64.0" layoutY="14.0" prefHeight="50.0" prefWidth="150.0" text="Delete Route" />
+                            <ComboBox fx:id="cboxRouteDelete" layoutX="14.0" layoutY="64.0" prefHeight="40.0" prefWidth="150.0">
+                              <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                  <String fx:value="Item 1" />
+                                  <String fx:value="Item 2" />
+                                  <String fx:value="Item 3" />
+                                </FXCollections>
+                              </items>
+                            </ComboBox>
+                            <Button fx:id="btnRouteDelete" layoutX="186.0" layoutY="64.0" mnemonicParsing="false" onAction="#btnRouteDeleteAction" prefHeight="40.0" prefWidth="99.0" text="Delete" />
+                            <Button fx:id="btnRouteCreate" layoutX="186.0" layoutY="154.0" mnemonicParsing="false" onAction="#btnRouteCreateAction" prefHeight="40.0" prefWidth="99.0" text="Create" />
+                            <TextField fx:id="txtRouteName" layoutX="14.0" layoutY="154.0" prefHeight="40.0" prefWidth="150.0" promptText="Route Name" />
+                          </children>
+                        </AnchorPane>
+                      </content>
+                    </Tab>
+                  </tabs>
+                </TabPane>
+              </children>
+            </AnchorPane>
           </content>
         </Tab>
         <Tab fx:id="tabCourierManagement" closable="false" text="Courier Management">

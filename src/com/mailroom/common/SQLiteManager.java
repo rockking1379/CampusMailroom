@@ -9,6 +9,9 @@ import java.util.List;
 
 public class SQLiteManager extends DatabaseManager
 {
+	private static final String createString = "CREATE TABLE Route(route_id INTEGER PRIMARY KEY AUTOINCREMENT,Name varchar(50) NOT NULL,Is_Used BOOLEAN NOT NULL);CREATE TABLE Stop(stop_id INTEGER PRIMARY KEY AUTOINCREMENT,Name varchar(50) NOT NULL,route_id int,Is_Used BOOLEAN NOT NULL,route_order int,Student BOOLEAN,FOREIGN KEY(route_id) REFERENCES Route(route_id));CREATE TABLE Courier(courier_id INTEGER PRIMARY KEY AUTOINCREMENT,Name varchar(50) NOT NULL,Is_used BOOLEAN NOT NULL);CREATE TABLE Package(package_id INTEGER PRIMARY KEY AUTOINCREMENT,Tracking_Number varchar(50) NOT NULL,Date DATE NOT NULL,ASU_Email varchar(50) NOT NULL,First_Name varchar(50) NOT NULL,	Last_Name varchar(50) NOT NULL,Box_Number varchar(50) NOT NULL,At_Stop BOOLEAN NOT NULL,Picked_Up BOOLEAN NOT NULL,Pick_Up_Date DATE,stop_id int,courier_id int,processor int,Returned BOOLEAN,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id),FOREIGN KEY(courier_id) REFERENCES Courier(courier_id)FOREIGN KEY(processor) REFERENCES User(user_id));CREATE TABLE Person(id INTEGER PRIMARY KEY AUTOINCREMENT,ID_Number varchar(50),ASU_Email varchar(50),First_Name varchar(50) NOT NULL,Last_Name varchar(50) NOT NULL,Number varchar(50),stop_id int,Forward_Address varchar(150),FOREIGN KEY(stop_id) REFERENCES Stop(stop_id));CREATE TABLE User(user_id INTEGER PRIMARY KEY AUTOINCREMENT,User_Name varchar(50) NOT NULL,First_Name varchar(50) NOT NULL,Last_Name varchar(50) NOT NULL,Password INTEGER NOT NULL,Admin BOOLEAN NOT NULL,Active BOOLEAN);insert into Route(Name, Is_Used) values('unassigned', 1);";
+	private static final String devString = "insert into User(User_Name, First_Name, Last_Name, Password, Admin, Active) values('DEV', 'Developer', 'Access', -2017346997,1,1);";
+
 	private Connection connection;
 	private String dbLocation;
 	private List<Courier> couriers;
@@ -359,6 +362,40 @@ public class SQLiteManager extends DatabaseManager
 		}
 	}
 	@Override
+	public boolean addStopToRoute(Stop s, Route r)
+	{
+		boolean retValue = false;
+		
+		try
+		{
+			connect();
+			PreparedStatement stmnt = connection.prepareStatement("update Stop set route_id=? where stop_id=?");
+			
+			stmnt.setInt(1, r.getRouteId());
+			stmnt.setInt(2, s.getStopId());
+			
+			if(stmnt.executeUpdate() > 0)
+			{
+				retValue = true;
+			}
+			else
+			{
+				retValue = false;
+			}
+		}
+		catch(SQLException e)
+		{
+			System.err.println("Error: " + e.getMessage());
+			retValue = false;
+		}
+		finally
+		{
+			disconnect();
+		}
+		
+		return retValue;
+	}
+	@Override
 	public boolean addStop(Stop s) 
 	{
 		//the passed in stop should receive a stopId of -1(ignored on insert anyway)
@@ -428,7 +465,7 @@ public class SQLiteManager extends DatabaseManager
 		return stops;
 	}
 	@Override
-	public List<Stop> getUnassignedstops() 
+	public List<Stop> getUnassignedStops() 
 	{
 		try
 		{
@@ -436,7 +473,7 @@ public class SQLiteManager extends DatabaseManager
 			Statement stmnt = connection.createStatement();
 			stmnt.setQueryTimeout(5);
 			
-			ResultSet rs = stmnt.executeQuery("select * from Stop where route_id=1");
+			ResultSet rs = stmnt.executeQuery("select * from Stop where route_id=1 and Is_Used=1");
 			
 			return processStopResult(rs, "unassigned");
 		}
@@ -456,7 +493,7 @@ public class SQLiteManager extends DatabaseManager
 		try
 		{
 			connect();
-			PreparedStatement stmnt = connection.prepareStatement("select * from Stop where route_id=?");
+			PreparedStatement stmnt = connection.prepareStatement("select * from Stop where route_id=? and Is_Used=1");
 			stmnt.setQueryTimeout(5);
 			
 			stmnt.setInt(1, r.getRouteId());
@@ -508,7 +545,7 @@ public class SQLiteManager extends DatabaseManager
 			Statement stmnt = connection.createStatement();
 			stmnt.setQueryTimeout(5);
 			
-			ResultSet rs = stmnt.executeQuery("select * from Route");
+			ResultSet rs = stmnt.executeQuery("select * from Route where Is_Used=1;");
 			
 			while(rs.next())
 			{
@@ -604,6 +641,10 @@ public class SQLiteManager extends DatabaseManager
 			
 			if(stmnt.executeUpdate() > 0)
 			{
+				stmnt = connection.prepareStatement("update Stop set route_id=1 where route_id=?");
+				stmnt.setInt(1, r.getRouteId());
+				
+				stmnt.executeUpdate();
 				return true;
 			}
 			else
@@ -1002,5 +1043,39 @@ public class SQLiteManager extends DatabaseManager
 		packages = null;
 		
 		return;
+	}
+	@Override
+	public boolean create(boolean insertDev)
+	{
+		boolean retValue = false;
+		try
+		{
+			connect();
+			
+			Statement stmnt = connection.createStatement();
+			if(stmnt.execute(createString))
+			{
+				retValue = true;
+			}
+			
+			if(insertDev)
+			{
+				if(stmnt.execute(devString))
+				{
+					retValue = true;
+				}
+			}
+		}
+		catch(SQLException e)
+		{
+			System.err.println("Error: " + e.getMessage());
+			retValue = false;
+		}
+		finally
+		{
+			disconnect();
+		}
+		
+		return retValue;
 	}
 }

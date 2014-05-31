@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.net.URL;
+import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -121,6 +122,26 @@ public class SettingsController implements Initializable
 	@FXML
 	private Button btnAdminDeactivate;
 	
+	//Route Management//
+	@FXML
+	private ComboBox<String> cboxRouteSelect;
+	@FXML
+	private ListView<String> lviewRouteUnassigned;
+	@FXML
+	private ListView<String> lviewRouteOnRoute;
+	@FXML
+	private Button btnRouteAdd;
+	@FXML
+	private Button btnRouteRemove;
+	@FXML
+	private ComboBox<String> cboxRouteDelete;
+	@FXML
+	private Button btnRouteDelete;
+	@FXML
+	private TextField txtRouteName;
+	@FXML
+	private Button btnRouteCreate;
+	
 	//About Tab//
 	@FXML
 	private Label lblAboutVersion;
@@ -189,7 +210,16 @@ public class SettingsController implements Initializable
 		
 		lblAboutVersion.setText("Version: " + prefs.getProperty("VERSION"));
 		
+		for(Stop s : dbManager.getUnassignedStops())
+		{
+			lviewRouteUnassigned.getItems().add(s.getStopName());
+		}
+		
+		lviewRouteOnRoute.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		lviewRouteUnassigned.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
 		loadAdminComboBoxes();
+		loadRouteComboBoxes();
 	}
 	
 	public void keyPressedAction(KeyEvent ke)
@@ -480,6 +510,142 @@ public class SettingsController implements Initializable
 		for(User u : dbManager.getDeactivatedUsers())
 		{
 			cboxAdminReactivate.itemsProperty().get().add(u.getUserName());
+		}
+	}
+	
+	public void cboxRouteSelectAction(ActionEvent ae)
+	{		
+		loadRouteListViews();
+	}
+	
+	public void btnRouteDeleteAction(ActionEvent ae)
+	{
+		MessageDialog.Answer del = MessageDialogBuilder.confirmation().message("Delete " + cboxRouteDelete.getValue() + " Route").title("Confirm").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").noButtonText("No").show(MainFrame.stage.getScene().getWindow());
+		
+		if(del == MessageDialog.Answer.YES_OK)
+		{
+			for(Route r : dbManager.getRoutes())
+			{
+				if(r.getRouteName().equals(cboxRouteDelete.getValue()))
+				{
+					dbManager.deleteRoute(r);
+					break;
+				}
+			}
+		}
+		
+		loadRouteComboBoxes();
+	}
+	
+	public void btnRouteCreateAction(ActionEvent ae)
+	{
+		if(txtRouteName.getText().equals(""))
+		{
+			MessageDialogBuilder.error().message("Cannot have Empty Route Name").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+		}
+		else
+		{
+			if(dbManager.addRoute(txtRouteName.getText()))
+			{
+				loadRouteComboBoxes();
+				txtRouteName.setText("");
+			}
+		}
+	}
+	
+	public void btnRouteAddAction(ActionEvent ae)
+	{
+		List<String> selected = lviewRouteUnassigned.selectionModelProperty().getValue().getSelectedItems(); 
+		
+		for(String st : selected)
+		{
+			for(Stop s : dbManager.getUnassignedStops())
+			{
+				if(s.getStopName().equals(st))
+				{
+					for(Route r : dbManager.getRoutes())
+					{
+						if(r.getRouteName().equals(cboxRouteSelect.getValue()))
+						{
+							dbManager.addStopToRoute(s, r);
+						}
+					}
+				}
+			}
+		}
+		
+		loadRouteListViews();
+	}
+	
+	public void btnRouteRemoveAction(ActionEvent ae)
+	{
+		List<String> selected = lviewRouteOnRoute.selectionModelProperty().get().getSelectedItems();
+		List<Stop> stops = null;
+		
+		for(Route r : dbManager.getRoutes())
+		{
+			if(r.getRouteName().equals(cboxRouteSelect.getValue()))
+			{
+				stops = dbManager.getStopsOnRoute(r);
+				break;
+			}
+		}
+		
+		for(String st : selected)
+		{
+			for(Stop s : stops)
+			{
+				if(s.getStopName().equals(st))
+				{
+					dbManager.addStopToRoute(s, new Route(1,"unassigned"));
+				}
+			}
+		}
+		
+		loadRouteListViews();
+	}
+	
+	private void loadRouteListViews()
+	{
+		dbManager.loadStops();
+		
+		lviewRouteUnassigned.getItems().clear();
+		lviewRouteOnRoute.getItems().clear();
+		
+		for(Stop s : dbManager.getUnassignedStops())
+		{
+			lviewRouteUnassigned.getItems().add(s.getStopName());
+		}
+		for(Route r : dbManager.getRoutes())
+		{
+			if(r.getRouteName().equals(cboxRouteSelect.getValue()))
+			{
+				List<Stop> stops = dbManager.getStopsOnRoute(r);
+				
+				for(Stop s1 : stops)
+				{
+					lviewRouteOnRoute.getItems().add(s1.getStopName());
+				}
+				
+				break;
+			}
+		}
+	}
+	
+	private void loadRouteComboBoxes()
+	{
+		dbManager.loadRoutes();
+		
+		cboxRouteSelect.getItems().clear();
+		cboxRouteDelete.getItems().clear();
+		
+		for(Route r : dbManager.getRoutes())
+		{
+			if(!r.getRouteName().equals("unassigned"))
+			{
+				cboxRouteSelect.getItems().add(r.getRouteName());
+				cboxRouteDelete.getItems().add(r.getRouteName());
+			}
 		}
 	}
 }
