@@ -242,11 +242,6 @@ public class SettingsController implements Initializable
 		
 		lblAboutVersion.setText("Version: " + prefs.getProperty("VERSION"));
 		
-		for(Stop s : dbManager.getUnassignedStops())
-		{
-			lviewRouteUnassigned.getItems().add(s.getStopName());
-		}
-		
 		lviewRouteOnRoute.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		lviewRouteUnassigned.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		
