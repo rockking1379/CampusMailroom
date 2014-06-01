@@ -734,7 +734,10 @@ public class SettingsController implements Initializable
 		
 		for(Stop s : dbManager.getUnassignedStops())
 		{
-			lviewRouteUnassigned.getItems().add(s.getStopName());
+			if(s.getStopId() != 1)
+			{
+				lviewRouteUnassigned.getItems().add(s.getStopName());
+			}
 		}
 		for(Route r : dbManager.getRoutes())
 		{
