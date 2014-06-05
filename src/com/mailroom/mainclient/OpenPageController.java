@@ -160,7 +160,17 @@ public class OpenPageController implements Initializable
 	
 	public void btnPrintAction(ActionEvent ae)
 	{
-		//open Print Scene
+		try
+		{
+			Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/PrintPageFx.fxml"));
+			Scene scene = new Scene(root);
+			MainFrame.stage.setScene(scene);
+		}
+		catch(IOException e)
+		{
+			System.err.println("Error: " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	public void btnSearchAction(ActionEvent ae)

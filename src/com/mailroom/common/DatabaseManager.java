@@ -142,6 +142,10 @@ public class DatabaseManager
 	 {
 		 return false;
 	 }
+	 public List<Package> getPackagesForStop(Stop s)
+	 {
+		 return null;
+	 }
 	 List<Package> processPackageResult(ResultSet rs)
 	 {
 		 return null;

@@ -948,6 +948,38 @@ public class SQLiteManager extends DatabaseManager
 		}
 	}
 	@Override
+	public List<Package> getPackagesForStop(Stop s)
+	{
+		ArrayList<Package> result = null;
+		try
+		{
+			connect();
+			
+			PreparedStatement stmnt = connection.prepareStatement("select * from Package where Date=? and stop_id=? and At_Stop=0");
+			
+			Date d = new Date();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			
+			stmnt.setString(1, format.format(d).toString());
+			stmnt.setInt(2, s.getStopId());
+			
+			ResultSet rs = stmnt.executeQuery();
+			
+			result = (ArrayList<Package>) processPackageResult(rs);
+		}
+		catch(SQLException e)
+		{
+			System.err.println("Error: " + e.getMessage());
+			result = null;
+		}
+		finally
+		{
+			disconnect();
+		}
+		
+		return result;
+	}
+	@Override
 	List<Package> processPackageResult(ResultSet rs) 
 	{
 		List<Package> result = new ArrayList<Package>();

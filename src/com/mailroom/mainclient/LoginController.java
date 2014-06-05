@@ -43,7 +43,7 @@ public class LoginController implements Initializable
 	public void btnLoginAction(ActionEvent ae)
 	{
 		String pwd = pwdPassword.getText();
-		int hash = (txtUserName.getText() + pwd).hashCode();
+		int hash = txtUserName.getText().hashCode() + pwd.hashCode();
 		
 		User u = dbManager.login(txtUserName.getText(), hash);
 		
