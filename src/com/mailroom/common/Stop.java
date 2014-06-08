@@ -46,4 +46,10 @@ public class Stop
 	{
 		this.student = student;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return stopName;
+	}
 }

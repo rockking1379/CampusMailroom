@@ -140,15 +140,15 @@ public class SQLiteManager extends DatabaseManager
 		}
 	}
 	@Override
-	public boolean deleteUser(String username) 
+	public boolean deleteUser(User u) 
 	{
 		boolean retValue = false;
 		try
 		{
 			connect();
-			PreparedStatement stmnt = connection.prepareStatement("update Users set active=0 where user_name=?");
+			PreparedStatement stmnt = connection.prepareStatement("update Users set active=0 where user_id=?");
 			
-			stmnt.setString(1,username);
+			stmnt.setInt(1,u.getUserId());
 			
 			if(stmnt.executeUpdate() > 0)
 			{
@@ -172,16 +172,16 @@ public class SQLiteManager extends DatabaseManager
 		return retValue;
 	}
 	@Override
-	public boolean setUserAdmin(String username, boolean status)
+	public boolean setUserAdmin(User u, boolean status)
 	{
 		boolean retValue = false;
 		try
 		{
 			connect();
 			
-			PreparedStatement stmnt = connection.prepareStatement("update Users set administrator=1 where user_name=?");
+			PreparedStatement stmnt = connection.prepareStatement("update Users set administrator=1 where user_id=?");
 			
-			stmnt.setString(1, username);
+			stmnt.setInt(1, u.getUserId());
 			
 			if(stmnt.executeUpdate() > 0)
 			{
@@ -205,17 +205,17 @@ public class SQLiteManager extends DatabaseManager
 		return retValue;
 	}
 	@Override
-	public boolean reactivateUser(String username, int password)
+	public boolean reactivateUser(User u, int password)
 	{
 		boolean retValue = false;
 		try
 		{
 			connect();
 			
-			PreparedStatement stmnt = connection.prepareStatement("update Users set active=1, password=? where user_name=?");
+			PreparedStatement stmnt = connection.prepareStatement("update Users set active=1, password=? where user_id=?");
 			
 			stmnt.setInt(1, password);
-			stmnt.setString(2, username);
+			stmnt.setInt(2, u.getUserId());
 			
 			if(stmnt.executeUpdate() > 0)
 			{
@@ -498,6 +498,11 @@ public class SQLiteManager extends DatabaseManager
 	@Override
 	public List<Stop> getStopsOnRoute(Route r) 
 	{
+		if(r == null)
+		{
+			return null;
+		}
+		
 		try
 		{
 			connect();

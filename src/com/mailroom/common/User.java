@@ -49,4 +49,10 @@ public class User
 	{
 		return admin;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return userName;
+	}
 }

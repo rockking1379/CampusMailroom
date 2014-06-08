@@ -104,11 +104,11 @@ public class SettingsController implements Initializable
 
 	//Administrative//
 	@FXML
-	private ComboBox<String> cboxAdminChange;
+	private ComboBox<User> cboxAdminChange;
 	@FXML
-	private ComboBox<String> cboxAdminReactivate;
+	private ComboBox<User> cboxAdminReactivate;
 	@FXML
-	private ComboBox<String> cboxAdminDeactivate;
+	private ComboBox<User> cboxAdminDeactivate;
 	@FXML
 	private CheckBox cboxAdminAdminStatus;
 	@FXML
@@ -124,13 +124,13 @@ public class SettingsController implements Initializable
 	
 	//Stop Management//
 	@FXML
-	private ComboBox<String> cboxStopDelete;
+	private ComboBox<Stop> cboxStopDelete;
 	@FXML
 	private Button btnStopDelete;
 	@FXML
 	private TextField txtStopName;
 	@FXML
-	private ComboBox<String> cboxStopRoute;
+	private ComboBox<Route> cboxStopRoute;
 	@FXML
 	private CheckBox cboxStopCreateStudent;
 	@FXML
@@ -138,7 +138,7 @@ public class SettingsController implements Initializable
 	@FXML
 	private Button btnStopClear;
 	@FXML
-	private ComboBox<String> cboxStopUpdate;
+	private ComboBox<Stop> cboxStopUpdate;
 	@FXML
 	private CheckBox cboxStopUpdateStudent;
 	@FXML
@@ -146,17 +146,17 @@ public class SettingsController implements Initializable
 	
 	//Route Management//
 	@FXML
-	private ComboBox<String> cboxRouteSelect;
+	private ComboBox<Route> cboxRouteSelect;
 	@FXML
-	private ListView<String> lviewRouteUnassigned;
+	private ListView<Stop> lviewRouteUnassigned;
 	@FXML
-	private ListView<String> lviewRouteOnRoute;
+	private ListView<Stop> lviewRouteOnRoute;
 	@FXML
 	private Button btnRouteAdd;
 	@FXML
 	private Button btnRouteRemove;
 	@FXML
-	private ComboBox<String> cboxRouteDelete;
+	private ComboBox<Route> cboxRouteDelete;
 	@FXML
 	private Button btnRouteDelete;
 	@FXML
@@ -166,7 +166,7 @@ public class SettingsController implements Initializable
 	
 	//Courier Management//
 	@FXML
-	private ComboBox<String> cboxCourierDelete;
+	private ComboBox<Courier> cboxCourierDelete;
 	@FXML
 	private Button btnCourierDelete;
 	@FXML
@@ -463,6 +463,8 @@ public class SettingsController implements Initializable
 				if(dbManager.addUser(new User(-1,txtCreateUserName.getText(),txtCreateFirstName.getText(),txtCreateLastName.getText(),cboxCreateAdmin.selectedProperty().get()), password))
 				{
 					MessageDialogBuilder.info().message("User " + txtCreateUserName.getText() + " Added").title("Success").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+					btnCreateCancel.fire();
+					loadAdminComboBoxes();
 				}
 				else
 				{
@@ -491,6 +493,7 @@ public class SettingsController implements Initializable
 	public void btnAdminChangeSaveAction(ActionEvent ae)
 	{
 		dbManager.setUserAdmin(cboxAdminChange.getValue(), cboxAdminAdminStatus.isSelected());
+		loadAdminComboBoxes();
 	}
 	
 	public void btnAdminReactivateAction(ActionEvent ae)
@@ -548,12 +551,12 @@ public class SettingsController implements Initializable
 		
 		for(User u : dbManager.getActiveUsers())
 		{
-			cboxAdminChange.itemsProperty().get().add(u.getUserName());
-			cboxAdminDeactivate.itemsProperty().get().add(u.getUserName());
+			cboxAdminChange.itemsProperty().get().add(u);
+			cboxAdminDeactivate.itemsProperty().get().add(u);
 		}
 		for(User u : dbManager.getDeactivatedUsers())
 		{
-			cboxAdminReactivate.itemsProperty().get().add(u.getUserName());
+			cboxAdminReactivate.itemsProperty().get().add(u);
 		}
 	}
 
@@ -564,17 +567,11 @@ public class SettingsController implements Initializable
 		
 		if(del == MessageDialog.Answer.YES_OK)
 		{
-			for(Stop s : dbManager.getStops())
-			{
-				if(s.getStopName().equals(cboxStopDelete.getValue()))
-				{
-					dbManager.deleteStop(s);
-					break;
-				}
-			}
+			dbManager.deleteStop(cboxStopDelete.getValue());
 		}
 		
 		loadStopComboBoxes();
+		loadRouteComboBoxes();
 	}
 	
 	public void btnStopCreateAction(ActionEvent ae)
@@ -585,9 +582,10 @@ public class SettingsController implements Initializable
 		}
 		else
 		{
-			dbManager.addStop(new Stop(-1,txtStopName.getText(),cboxStopRoute.getValue(),1,cboxStopCreateStudent.isSelected()));
+			dbManager.addStop(new Stop(-1,txtStopName.getText(),cboxStopRoute.getValue().getRouteName(),1,cboxStopCreateStudent.isSelected()));
 			btnStopClear.fire();
 			loadStopComboBoxes();
+			loadRouteComboBoxes();
 		}
 	}
 	
@@ -599,15 +597,8 @@ public class SettingsController implements Initializable
 	
 	public void btnStopUpdateSaveAction(ActionEvent ae)
 	{
-		for(Stop s : dbManager.getStops())
-		{
-			if(s.getStopName().equals(cboxStopUpdate.getValue()))
-			{
-				s.setStudent(cboxStopUpdateStudent.isSelected());
-				dbManager.updateStop(s);
-				break;
-			}
-		}
+		dbManager.updateStop(cboxStopUpdate.getValue());
+		loadRouteComboBoxes();
 	}
 	
 	private void loadStopComboBoxes()
@@ -621,8 +612,8 @@ public class SettingsController implements Initializable
 		{
 			if(!s.getStopName().equals("unassigned"))
 			{
-				cboxStopDelete.getItems().add(s.getStopName());
-				cboxStopUpdate.getItems().add(s.getStopName());
+				cboxStopDelete.getItems().add(s);
+				cboxStopUpdate.getItems().add(s);
 			}
 		}
 	}
@@ -670,23 +661,11 @@ public class SettingsController implements Initializable
 	
 	public void btnRouteAddAction(ActionEvent ae)
 	{
-		List<String> selected = lviewRouteUnassigned.selectionModelProperty().getValue().getSelectedItems(); 
+		List<Stop> selected = lviewRouteUnassigned.selectionModelProperty().getValue().getSelectedItems(); 
 		
-		for(String st : selected)
+		for(Stop s : selected)
 		{
-			for(Stop s : dbManager.getUnassignedStops())
-			{
-				if(s.getStopName().equals(st))
-				{
-					for(Route r : dbManager.getRoutes())
-					{
-						if(r.getRouteName().equals(cboxRouteSelect.getValue()))
-						{
-							dbManager.addStopToRoute(s, r);
-						}
-					}
-				}
-			}
+			dbManager.addStopToRoute(s, cboxRouteSelect.getValue());
 		}
 		
 		loadRouteListViews();
@@ -694,27 +673,11 @@ public class SettingsController implements Initializable
 	
 	public void btnRouteRemoveAction(ActionEvent ae)
 	{
-		List<String> selected = lviewRouteOnRoute.selectionModelProperty().get().getSelectedItems();
-		List<Stop> stops = null;
+		List<Stop> selected = lviewRouteOnRoute.selectionModelProperty().get().getSelectedItems();
 		
-		for(Route r : dbManager.getRoutes())
+		for(Stop s : selected)
 		{
-			if(r.getRouteName().equals(cboxRouteSelect.getValue()))
-			{
-				stops = dbManager.getStopsOnRoute(r);
-				break;
-			}
-		}
-		
-		for(String st : selected)
-		{
-			for(Stop s : stops)
-			{
-				if(s.getStopName().equals(st))
-				{
-					dbManager.addStopToRoute(s, new Route(1,"unassigned"));
-				}
-			}
+			dbManager.addStopToRoute(s, new Route(1,"unassigned"));
 		}
 		
 		loadRouteListViews();
@@ -731,22 +694,18 @@ public class SettingsController implements Initializable
 		{
 			if(s.getStopId() != 1)
 			{
-				lviewRouteUnassigned.getItems().add(s.getStopName());
+				lviewRouteUnassigned.getItems().add(s);
 			}
 		}
-		for(Route r : dbManager.getRoutes())
+		
+		if(cboxRouteSelect.getValue() != null)
 		{
-			if(r.getRouteName().equals(cboxRouteSelect.getValue()))
+			List<Stop> stops = dbManager.getStopsOnRoute(cboxRouteSelect.getValue());
+		
+			for(Stop s1 : stops)
 			{
-				List<Stop> stops = dbManager.getStopsOnRoute(r);
-				
-				for(Stop s1 : stops)
-				{
-					lviewRouteOnRoute.getItems().add(s1.getStopName());
-				}
-				
-				break;
-			}
+				lviewRouteOnRoute.getItems().add(s1);
+			}	
 		}
 	}
 	
@@ -760,11 +719,11 @@ public class SettingsController implements Initializable
 		
 		for(Route r : dbManager.getRoutes())
 		{
-			cboxStopRoute.getItems().add(r.getRouteName());
+			cboxStopRoute.getItems().add(r);
 			if(!r.getRouteName().equals("unassigned"))
 			{
-				cboxRouteSelect.getItems().add(r.getRouteName());
-				cboxRouteDelete.getItems().add(r.getRouteName());
+				cboxRouteSelect.getItems().add(r);
+				cboxRouteDelete.getItems().add(r);
 			}
 		}
 	}
@@ -810,7 +769,7 @@ public class SettingsController implements Initializable
 		
 		for(Courier c : dbManager.getCouriers())
 		{
-			cboxCourierDelete.getItems().add(c.getCourierName());
+			cboxCourierDelete.getItems().add(c);
 		}
 	}
 }

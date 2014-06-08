@@ -20,4 +20,10 @@ public class Courier
 	{
 		return courierName;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return courierName;
+	}
 }

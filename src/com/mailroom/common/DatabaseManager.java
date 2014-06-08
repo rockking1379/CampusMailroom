@@ -18,15 +18,15 @@ public class DatabaseManager
 	 {
 		 return false;
 	 }
-	 public boolean deleteUser(String username)
+	 public boolean deleteUser(User u)
 	 {
 		 return false;
 	 }
-	public boolean setUserAdmin(String username, boolean status)
+	public boolean setUserAdmin(User u, boolean status)
 	{
 		return false;
 	}
-	public boolean reactivateUser(String username, int password)
+	public boolean reactivateUser(User u, int password)
 	{
 		return false;
 	}
