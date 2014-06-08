@@ -45,12 +45,6 @@ public class MainFrame extends Application
 				FileInputStream file = new FileInputStream(propFile);
 				properties.load(file);
 				
-//				for(String key : properties.stringPropertyNames())
-//				{
-//					String value = properties.getProperty(key);
-//					System.out.println(key + "=>" + value);
-//				}
-				
 				boolean sqlite = Boolean.valueOf(properties.getProperty("SQLITE"));
 				boolean mysql = Boolean.valueOf(properties.getProperty("MYSQL"));
 				

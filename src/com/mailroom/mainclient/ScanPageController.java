@@ -38,9 +38,9 @@ public class ScanPageController implements Initializable
 	@FXML
 	private Label lblDate;
 	@FXML
-	private ComboBox<String> cboxStops;
+	private ComboBox<Stop> cboxStops;
 	@FXML
-	private ComboBox<String> cboxCourier;
+	private ComboBox<Courier> cboxCourier;
 	@FXML
 	private Button btnSave;
 	@FXML
@@ -66,11 +66,11 @@ public class ScanPageController implements Initializable
 		
 		for(Stop s : dbManager.getStops())
 		{
-			cboxStops.getItems().add(s.getStopName());
+			cboxStops.getItems().add(s);
 		}
 		for(Courier c : dbManager.getCouriers())
 		{
-			cboxCourier.getItems().add(c.getCourierName());
+			cboxCourier.getItems().add(c);
 		}
 	}
 	
@@ -143,7 +143,7 @@ public class ScanPageController implements Initializable
 		}
 		if(verified)
 		{
-			Package p = new Package(-1, txtTrackingNumber.getText(), lblDate.getText(), txtEmailAddress.getText(), txtFirstName.getText(), txtLastName.getText(), txtBoxOffice.getText(), cboxStops.getValue(), cboxCourier.getValue(), cUser.getUserName(), false, false, null, false);
+			Package p = new Package(-1, txtTrackingNumber.getText(), lblDate.getText(), txtEmailAddress.getText(), txtFirstName.getText(), txtLastName.getText(), txtBoxOffice.getText(), cboxStops.getValue().getStopName(), cboxCourier.getValue().getCourierName(), cUser.getUserName(), false, false, null, false);
 			if(dbManager.addPackage(p, cUser.getUserId()))
 			{
 				System.out.println("Package Added");
@@ -183,9 +183,9 @@ public class ScanPageController implements Initializable
 						txtEmailAddress.setText(p.getEmailAddress());
 						txtFirstName.setText(p.getFirstName());
 						txtLastName.setText(p.getLastName());
-						for(String s : cboxStops.getItems())
+						for(Stop s : cboxStops.getItems())
 						{
-							if(s == p.getStopName())
+							if(s.getStopName().equals(p.getStopName()))
 							{
 								cboxStops.setValue(s);
 								break;
