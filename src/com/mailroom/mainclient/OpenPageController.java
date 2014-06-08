@@ -23,6 +23,7 @@ public class OpenPageController implements Initializable
 {
 	private DatabaseManager dbManager;
 	private User cUser;
+	private AutoUpdater au;
 	
 	@FXML
 	private Label lblUserLabel;
@@ -136,10 +137,12 @@ public class OpenPageController implements Initializable
 		if(Boolean.valueOf(MainFrame.properties.getProperty("AUTOUPDATE")))
 		{
 			lblAutoUpdate.setText("Auto Update Enabled");
+			au = new AutoUpdater(btnRefresh);
 		}
 		else
 		{
 			lblAutoUpdate.setText("Auto Update Disabled");
+			au = null;
 		}
 	}
 	
@@ -147,6 +150,7 @@ public class OpenPageController implements Initializable
 	{
 		try
 		{
+			au.stop();
 			Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/ScanPageFx.fxml"));
 			Scene scene = new Scene(root);
 			MainFrame.stage.setScene(scene);
@@ -162,6 +166,7 @@ public class OpenPageController implements Initializable
 	{
 		try
 		{
+			au.stop();
 			Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/PrintPageFx.fxml"));
 			Scene scene = new Scene(root);
 			MainFrame.stage.setScene(scene);
@@ -210,6 +215,7 @@ public class OpenPageController implements Initializable
 	{
 		try
 		{
+			au.stop();
 			Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/SettingsPageFx.fxml"));
 			Scene scene = new Scene(root);
 			MainFrame.stage.setScene(scene);
@@ -229,6 +235,7 @@ public class OpenPageController implements Initializable
 		{
 			try
 			{
+				au.stop();
 				Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/LoginFx.fxml"));
 				Scene scene = new Scene(root);
 				MainFrame.stage.setScene(scene);
@@ -247,6 +254,8 @@ public class OpenPageController implements Initializable
 		if(a == MessageDialog.Answer.YES_OK)
 		{
 			MainFrame.saveProperties();
+			
+			au.stop();
 			
 			dbManager.dispose();
 			
@@ -270,6 +279,44 @@ public class OpenPageController implements Initializable
 		if(ke.getCode() == KeyCode.R)
 		{
 			btnRefresh.fire();
+		}
+	}
+	
+	private class AutoUpdater implements Runnable
+	{
+		Button btnRefresh = null;
+		private boolean running;
+		
+		public AutoUpdater(Button btn)
+		{
+			this.btnRefresh = btn;
+			new Thread(this).start();
+			running = true;
+		}
+		
+		public void run()
+		{
+			while(running)
+			{
+				try
+				{
+					Thread.sleep((long) (Double.valueOf(MainFrame.properties.getProperty("AUFREQ")) * 1000));
+					btnRefresh.fire();
+				}
+				catch (NumberFormatException e)
+				{
+					System.err.println("Error: " + e.getMessage());
+				}
+				catch (InterruptedException e)
+				{
+					System.err.println("Error: " + e.getMessage());
+				}
+			}
+		}
+		
+		public void stop()
+		{
+			running = false;
 		}
 	}
 }

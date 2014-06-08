@@ -9,8 +9,8 @@ import java.util.List;
 
 public class SQLiteManager extends DatabaseManager
 {
-	private static final String createString = "CREATE TABLE Route(route_id INTEGER PRIMARY KEY AUTOINCREMENT,Name varchar(50) NOT NULL,Is_Used BOOLEAN NOT NULL);CREATE TABLE Stop(stop_id INTEGER PRIMARY KEY AUTOINCREMENT,Name varchar(50) NOT NULL,route_id int,Is_Used BOOLEAN NOT NULL,route_order int,Student BOOLEAN,FOREIGN KEY(route_id) REFERENCES Route(route_id));CREATE TABLE Courier(courier_id INTEGER PRIMARY KEY AUTOINCREMENT,Name varchar(50) NOT NULL,Is_used BOOLEAN NOT NULL);CREATE TABLE Package(package_id INTEGER PRIMARY KEY AUTOINCREMENT,Tracking_Number varchar(50) NOT NULL,Date DATE NOT NULL,ASU_Email varchar(50) NOT NULL,First_Name varchar(50) NOT NULL,	Last_Name varchar(50) NOT NULL,Box_Number varchar(50) NOT NULL,At_Stop BOOLEAN NOT NULL,Picked_Up BOOLEAN NOT NULL,Pick_Up_Date DATE,stop_id int,courier_id int,processor int,Returned BOOLEAN,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id),FOREIGN KEY(courier_id) REFERENCES Courier(courier_id)FOREIGN KEY(processor) REFERENCES User(user_id));CREATE TABLE Person(id INTEGER PRIMARY KEY AUTOINCREMENT,ID_Number varchar(50),ASU_Email varchar(50),First_Name varchar(50) NOT NULL,Last_Name varchar(50) NOT NULL,Number varchar(50),stop_id int,Forward_Address varchar(150),FOREIGN KEY(stop_id) REFERENCES Stop(stop_id));CREATE TABLE User(user_id INTEGER PRIMARY KEY AUTOINCREMENT,User_Name varchar(50) NOT NULL,First_Name varchar(50) NOT NULL,Last_Name varchar(50) NOT NULL,Password INTEGER NOT NULL,Admin BOOLEAN NOT NULL,Active BOOLEAN);insert into Route(Name, Is_Used) values('unassigned', 1);insert into Stop(Name,route_id,Is_Used,route_order,Student) values('unassigned',1,1,0,0);";
-	private static final String devString = "insert into User(User_Name, First_Name, Last_Name, Password, Admin, Active) values('DEV', 'Developer', 'Access', -2017346997,1,1);";
+	private static final String createString = "CREATE TABLE Route(route_id INTEGER PRIMARY KEY AUTOINCREMENT,route_name varchar(50) NOT NULL,is_used BOOLEAN NOT NULL);CREATE TABLE Stop(stop_id INTEGER PRIMARY KEY AUTOINCREMENT,stop_name varchar(50) NOT NULL,route_id int,is_used BOOLEAN NOT NULL,route_order int,Student BOOLEAN,FOREIGN KEY(route_id) REFERENCES Route(route_id));CREATE TABLE Courier(courier_id INTEGER PRIMARY KEY AUTOINCREMENT,courier_name varchar(50) NOT NULL,is_used BOOLEAN NOT NULL);CREATE TABLE Package(package_id INTEGER PRIMARY KEY AUTOINCREMENT,tracking_number varchar(50) NOT NULL,Date DATE NOT NULL,email_address varchar(50) NOT NULL,first_name varchar(50) NOT NULL,	last_name varchar(50) NOT NULL,box_number varchar(50) NOT NULL,at_stop BOOLEAN NOT NULL,picked_up BOOLEAN NOT NULL,pick_up_date DATE,stop_id int,courier_id int,user_id int,returned BOOLEAN,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id),FOREIGN KEY(courier_id) REFERENCES Courier(courier_id)FOREIGN KEY(user_id) REFERENCES Users(user_id));CREATE TABLE Person(id INTEGER PRIMARY KEY AUTOINCREMENT,id_number varchar(50),email_address varchar(50),first_name varchar(50) NOT NULL,last_name varchar(50) NOT NULL,Number varchar(50),stop_id int,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id));CREATE TABLE Users(user_id INTEGER PRIMARY KEY AUTOINCREMENT,user_name varchar(50) NOT NULL,first_name varchar(50) NOT NULL,last_name varchar(50) NOT NULL,Password INTEGER NOT NULL,administrator BOOLEAN NOT NULL,active BOOLEAN);insert into Route(Name, is_used) values('unassigned', 1);insert into Stop(Name,route_id,is_used,route_order,Student) values('unassigned',1,1,0,0);";
+	private static final String devString = "insert into Users(user_name, first_name, last_name, Password, administrator, active) values('DEV', 'Developer', 'Access', 2145483,1,1);";
 
 	private Connection connection;
 	private String dbLocation;
@@ -47,7 +47,7 @@ public class SQLiteManager extends DatabaseManager
 		try
 		{
 			connect();
-			PreparedStatement stmt = connection.prepareStatement("select * from User where User_Name=? and Password=? and Active=1");
+			PreparedStatement stmt = connection.prepareStatement("select * from Users where user_name=? and password=? and active=1");
 			stmt.setQueryTimeout(5);
 			stmt.setString(1, userName);
 			stmt.setInt(2, password);
@@ -56,7 +56,7 @@ public class SQLiteManager extends DatabaseManager
 			
 			while(rs.next())
 			{
-				u = new User(rs.getInt("user_id"), rs.getString("User_Name"), rs.getString("First_Name"), rs.getString("Last_Name"), rs.getBoolean("Admin"));
+				u = new User(rs.getInt("user_id"), rs.getString("user_name"), rs.getString("first_name"), rs.getString("last_name"), rs.getBoolean("administrator"));
 			}
 		}
 		catch(SQLException e)
@@ -78,7 +78,7 @@ public class SQLiteManager extends DatabaseManager
 		try 
 		{
 			connect();
-			PreparedStatement stmnt = connection.prepareStatement("insert into User(User_Name, First_Name, Last_Name, Password, Admin, Active) values(?,?,?,?,?,1)");
+			PreparedStatement stmnt = connection.prepareStatement("insert into Users(user_name, first_name, last_name, password, administrator, active) values(?,?,?,?,?,1)");
 			stmnt.setQueryTimeout(5);
 			
 			stmnt.setString(1, u.getUserName());
@@ -113,7 +113,7 @@ public class SQLiteManager extends DatabaseManager
 		try
 		{
 			connect();
-			PreparedStatement stmnt = connection.prepareStatement("update User set Password=? where User_Name=? and Password=?");
+			PreparedStatement stmnt = connection.prepareStatement("update Users set password=? where user_name=? and password=?");
 			stmnt.setQueryTimeout(5);
 			
 			stmnt.setInt(1, newPassword);
@@ -146,7 +146,7 @@ public class SQLiteManager extends DatabaseManager
 		try
 		{
 			connect();
-			PreparedStatement stmnt = connection.prepareStatement("update User set Active=0 where User_Name=?");
+			PreparedStatement stmnt = connection.prepareStatement("update Users set active=0 where user_name=?");
 			
 			stmnt.setString(1,username);
 			
@@ -179,7 +179,7 @@ public class SQLiteManager extends DatabaseManager
 		{
 			connect();
 			
-			PreparedStatement stmnt = connection.prepareStatement("update User set Admin=1 where User_Name=?");
+			PreparedStatement stmnt = connection.prepareStatement("update Users set administrator=1 where user_name=?");
 			
 			stmnt.setString(1, username);
 			
@@ -212,7 +212,7 @@ public class SQLiteManager extends DatabaseManager
 		{
 			connect();
 			
-			PreparedStatement stmnt = connection.prepareStatement("update User set Active=1, Password=? where User_Name=?");
+			PreparedStatement stmnt = connection.prepareStatement("update Users set active=1, password=? where user_name=?");
 			
 			stmnt.setInt(1, password);
 			stmnt.setString(2, username);
@@ -249,11 +249,11 @@ public class SQLiteManager extends DatabaseManager
 			
 			Statement stmnt = connection.createStatement();
 			
-			ResultSet rs = stmnt.executeQuery("select * from User where Active=0");
+			ResultSet rs = stmnt.executeQuery("select * from Users where active=0");
 			
 			while(rs.next())
 			{
-				result.add(new User(rs.getInt("user_id"), rs.getString("User_Name"), rs.getString("First_Name"), rs.getString("Last_Name"), rs.getBoolean("Admin")));
+				result.add(new User(rs.getInt("user_id"), rs.getString("user_name"), rs.getString("first_name"), rs.getString("last_name"), rs.getBoolean("administrator")));
 			}
 		}
 		catch(SQLException e)
@@ -278,11 +278,11 @@ public class SQLiteManager extends DatabaseManager
 			
 			Statement stmnt = connection.createStatement();
 			
-			ResultSet rs = stmnt.executeQuery("select * from User where Active=1");
+			ResultSet rs = stmnt.executeQuery("select * from Users where active=1");
 			
 			while(rs.next())
 			{
-				result.add(new User(rs.getInt("user_id"), rs.getString("User_Name"), rs.getString("First_Name"), rs.getString("Last_Name"), rs.getBoolean("Admin")));
+				result.add(new User(rs.getInt("user_id"), rs.getString("user_name"), rs.getString("first_name"), rs.getString("last_name"), rs.getBoolean("administrator")));
 			}
 		}
 		catch(SQLException e)
@@ -309,7 +309,7 @@ public class SQLiteManager extends DatabaseManager
 			Statement stmnt = connection.createStatement();
 			stmnt.setQueryTimeout(5);
 			
-			ResultSet rs = stmnt.executeQuery("select * from Stop where Is_Used=1");
+			ResultSet rs = stmnt.executeQuery("select * from Stop where is_used=1");
 			
 			while(rs.next())
 			{
@@ -317,7 +317,7 @@ public class SQLiteManager extends DatabaseManager
 				{
 					if(routes.get(i).getRouteId() == rs.getInt("route_id"))
 					{
-						stops.add(new Stop(rs.getInt("stop_id"), rs.getString("Name"), routes.get(i).getRouteName(), rs.getInt("route_order"), rs.getBoolean("Student")));
+						stops.add(new Stop(rs.getInt("stop_id"), rs.getString("stop_name"), routes.get(i).getRouteName(), rs.getInt("route_order"), rs.getBoolean("Student")));
 					}
 				}
 			}
@@ -403,7 +403,7 @@ public class SQLiteManager extends DatabaseManager
 		try
 		{
 			connect();
-			PreparedStatement stmnt = connection.prepareStatement("insert into Stop(Name, route_id, Is_Used, route_order, Student) values(?,?,1,?,?)");
+			PreparedStatement stmnt = connection.prepareStatement("insert into Stop(stop_name, route_id, is_used, route_order, Student) values(?,?,1,?,?)");
 			stmnt.setQueryTimeout(5);
 			
 			stmnt.setString(1, s.getStopName());
@@ -443,7 +443,7 @@ public class SQLiteManager extends DatabaseManager
 		try
 		{
 			connect();
-			PreparedStatement stmnt = connection.prepareStatement("update Stop set Is_Used=0 where stop_id=?");
+			PreparedStatement stmnt = connection.prepareStatement("update Stop set is_used=0 where stop_id=?");
 			stmnt.setQueryTimeout(5);
 			
 			stmnt.setInt(1, s.getStopId());
@@ -481,7 +481,7 @@ public class SQLiteManager extends DatabaseManager
 			Statement stmnt = connection.createStatement();
 			stmnt.setQueryTimeout(5);
 			
-			ResultSet rs = stmnt.executeQuery("select * from Stop where route_id=1 and Is_Used=1");
+			ResultSet rs = stmnt.executeQuery("select * from Stop where route_id=1 and is_used=1");
 			
 			return processStopResult(rs, "unassigned");
 		}
@@ -501,7 +501,7 @@ public class SQLiteManager extends DatabaseManager
 		try
 		{
 			connect();
-			PreparedStatement stmnt = connection.prepareStatement("select * from Stop where route_id=? and Is_Used=1");
+			PreparedStatement stmnt = connection.prepareStatement("select * from Stop where route_id=? and is_used=1");
 			stmnt.setQueryTimeout(5);
 			
 			stmnt.setInt(1, r.getRouteId());
@@ -521,7 +521,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 	}
 	@Override
-	List<Stop> processStopResult(ResultSet rs, String routeName)
+	List<Stop> processStopResult(ResultSet rs, String routestop_name)
 	{
 		List<Stop> results = new ArrayList<Stop>();
 		
@@ -529,7 +529,7 @@ public class SQLiteManager extends DatabaseManager
 		{
 			while(rs.next())
 			{
-				results.add(new Stop(rs.getInt("stop_id"), rs.getString("Name"), routeName, rs.getInt("route_order"), rs.getBoolean("Student")));
+				results.add(new Stop(rs.getInt("stop_id"), rs.getString("stop_name"), routestop_name, rs.getInt("route_order"), rs.getBoolean("Student")));
 			}
 		}
 		catch(SQLException e)
@@ -553,11 +553,11 @@ public class SQLiteManager extends DatabaseManager
 			Statement stmnt = connection.createStatement();
 			stmnt.setQueryTimeout(5);
 			
-			ResultSet rs = stmnt.executeQuery("select * from Route where Is_Used=1;");
+			ResultSet rs = stmnt.executeQuery("select * from Route where is_used=1;");
 			
 			while(rs.next())
 			{
-				routes.add(new Route(rs.getInt("route_id"), rs.getString("Name")));
+				routes.add(new Route(rs.getInt("route_id"), rs.getString("route_name")));
 			}
 		}
 		catch(SQLException e)
@@ -580,7 +580,7 @@ public class SQLiteManager extends DatabaseManager
 		try
 		{
 			connect();
-			PreparedStatement stmnt = connection.prepareStatement("update Route set Name=? where route_id=?");
+			PreparedStatement stmnt = connection.prepareStatement("update Route set route_name=? where route_id=?");
 			stmnt.setQueryTimeout(5);
 			
 			stmnt.setString(1, r.getRouteName());
@@ -606,16 +606,16 @@ public class SQLiteManager extends DatabaseManager
 		}
 	}
 	@Override
-	public boolean addRoute(String routeName) 
+	public boolean addRoute(String routeroute_name) 
 	{
 		//Assume since route is being added that it is to be used
 		try
 		{
 			connect();
-			PreparedStatement stmnt = connection.prepareStatement("insert into Route(Name, Is_Used) values(?,1)");
+			PreparedStatement stmnt = connection.prepareStatement("insert into Route(route_name, is_used) values(?,1)");
 			stmnt.setQueryTimeout(5);
 			
-			stmnt.setString(1, routeName);
+			stmnt.setString(1, routeroute_name);
 			
 			if(stmnt.executeUpdate() > 0)
 			{
@@ -642,7 +642,7 @@ public class SQLiteManager extends DatabaseManager
 		try
 		{
 			connect();
-			PreparedStatement stmnt = connection.prepareStatement("update Route set Is_Used=0 where route_id=?");
+			PreparedStatement stmnt = connection.prepareStatement("update Route set is_used=0 where route_id=?");
 			stmnt.setQueryTimeout(5);
 			
 			stmnt.setInt(1, r.getRouteId());
@@ -683,11 +683,11 @@ public class SQLiteManager extends DatabaseManager
 			Statement stmnt = connection.createStatement();
 			stmnt.setQueryTimeout(5);
 		
-			ResultSet rs = stmnt.executeQuery("select * from Courier where Is_used=1");
+			ResultSet rs = stmnt.executeQuery("select * from Courier where is_used=1");
 		
 			while(rs.next())
 			{
-				couriers.add(new Courier(rs.getInt("courier_id"), rs.getString("Name")));
+				couriers.add(new Courier(rs.getInt("courier_id"), rs.getString("courier_name")));
 			}
 		}
 		catch(SQLException e)
@@ -705,7 +705,7 @@ public class SQLiteManager extends DatabaseManager
 		return couriers;
 	}
 	@Override
-	public boolean addCourier(String courierName)
+	public boolean addCourier(String couriercourier_name)
 	{
 		boolean retValue = false;
 		
@@ -713,9 +713,9 @@ public class SQLiteManager extends DatabaseManager
 		{
 			connect();
 			
-			PreparedStatement stmnt = connection.prepareStatement("insert into Courier(Name, Is_used) values(?,1)");
+			PreparedStatement stmnt = connection.prepareStatement("insert into Courier(courier_name, is_used) values(?,1)");
 			
-			stmnt.setString(1, courierName);
+			stmnt.setString(1, couriercourier_name);
 			
 			if(stmnt.execute())
 			{
@@ -744,7 +744,7 @@ public class SQLiteManager extends DatabaseManager
 		try
 		{
 			connect();
-			PreparedStatement stmnt = connection.prepareStatement("update Courier set Name=? where courier_id=?");
+			PreparedStatement stmnt = connection.prepareStatement("update Courier set courier_name=? where courier_id=?");
 			stmnt.setQueryTimeout(5);
 			
 			stmnt.setString(1, c.getCourierName());
@@ -775,7 +775,7 @@ public class SQLiteManager extends DatabaseManager
 		try
 		{
 			connect();
-			PreparedStatement stmnt = connection.prepareStatement("update Courier set Is_used=0 where courier_id=?");
+			PreparedStatement stmnt = connection.prepareStatement("update Courier set is_used=0 where courier_id=?");
 			stmnt.setQueryTimeout(5);
 			
 			stmnt.setInt(1, c.getCourierId());
@@ -816,7 +816,7 @@ public class SQLiteManager extends DatabaseManager
 			Statement stmnt = connection.createStatement();
 			stmnt.setQueryTimeout(5);
 			
-			ResultSet rs = stmnt.executeQuery("select * from Package where Picked_Up=0");
+			ResultSet rs = stmnt.executeQuery("select * from Package where picked_up=0");
 			
 			packages = null;
 			packages = processPackageResult(rs);
@@ -838,7 +838,7 @@ public class SQLiteManager extends DatabaseManager
 			connect();
 			PreparedStatement stmnt = null;;
 			
-			stmnt = connection.prepareStatement("select * from Package where Picked_Up=0 and stop_id=?");
+			stmnt = connection.prepareStatement("select * from Package where picked_up=0 and stop_id=?");
 			stmnt.setInt(1, stopId);
 
 			stmnt.setQueryTimeout(5);
@@ -864,19 +864,19 @@ public class SQLiteManager extends DatabaseManager
 			connect();
 			PreparedStatement stmnt = null;
 			
-			stmnt = connection.prepareStatement("update Package set At_Stop=? where package_id=?");
+			stmnt = connection.prepareStatement("update Package set at_stop=? where package_id=?");
 			stmnt.setQueryTimeout(5);
 			stmnt.setBoolean(1, atStop);
 			stmnt.setInt(2, packageId);
 			stmnt.executeUpdate();
 			
-			stmnt = connection.prepareStatement("update Package set Picked_Up=? where package_id=?");
+			stmnt = connection.prepareStatement("update Package set picked_up=? where package_id=?");
 			stmnt.setBoolean(1, pickedUp);
 			stmnt.setInt(2, packageId);
 			stmnt.executeUpdate();
 			
-			stmnt = connection.prepareStatement("update Package set Pick_Up_Date=? where package_id=?");
-			DateFormat format = new SimpleDateFormat("yyy-MM-dd");
+			stmnt = connection.prepareStatement("update Package set pick_up_date=? where package_id=?");
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			Date now = new Date();
 			String date = format.format(now).toString();
 			stmnt.setString(1, date);
@@ -900,7 +900,7 @@ public class SQLiteManager extends DatabaseManager
 		try
 		{
 			connect();
-			PreparedStatement stmnt = connection.prepareStatement("insert into Package(Tracking_Number, Date, ASU_Email, First_Name, Last_Name, Box_Number, At_Stop, Picked_Up, stop_id, courier_id, processor)"
+			PreparedStatement stmnt = connection.prepareStatement("insert into Package(tracking_number, receive_date, email_address, first_name, last_name, box_number, at_stop, picked_up, stop_id, courier_id, user_id)"
 					+ " values(?,?,?,?,?,?,0,0,?,?,?)");
 			stmnt.setQueryTimeout(5);
 			
@@ -955,7 +955,7 @@ public class SQLiteManager extends DatabaseManager
 		{
 			connect();
 			
-			PreparedStatement stmnt = connection.prepareStatement("select * from Package where Date=? and stop_id=? and At_Stop=0");
+			PreparedStatement stmnt = connection.prepareStatement("select * from Package where Date=? and stop_id=? and at_stop=0");
 			
 			Date d = new Date();
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -991,38 +991,38 @@ public class SQLiteManager extends DatabaseManager
 				String courierName = "";
 				String uName = "";
 				
-				PreparedStatement stmnt = connection.prepareStatement("select Name from Stop where stop_id=?");
+				PreparedStatement stmnt = connection.prepareStatement("select stop_name from Stop where stop_id=?");
 				stmnt.setInt(1, rs.getInt("stop_id"));
 				ResultSet stop = stmnt.executeQuery();
 				if(stop.next())
 				{
-					stopName = stop.getString("Name");
+					stopName = stop.getString("stop_name");
 				}
 				stop.close();
 				
-				stmnt = connection.prepareStatement("select Name from Courier where courier_id=?");
+				stmnt = connection.prepareStatement("select courier_name from Courier where courier_id=?");
 				stmnt.setInt(1, rs.getInt("courier_id"));
 				ResultSet courier = stmnt.executeQuery();
 				if(courier.next())
 				{
-					courierName = courier.getString("Name");
+					courierName = courier.getString("courier_name");
 				}
 				courier.close();
 				
-				stmnt = connection.prepareStatement("select User_Name from User where user_id=?");
-				stmnt.setInt(1, rs.getInt("processor"));
+				stmnt = connection.prepareStatement("select user_name from Users where user_id=?");
+				stmnt.setInt(1, rs.getInt("user_id"));
 				ResultSet username = stmnt.executeQuery();
 				if(username.next())
 				{
-					uName = username.getString("User_Name");
+					uName = username.getString("user_name");
 				}
 				username.close();
 				
-				result.add(new Package(rs.getInt("package_id"), rs.getString("Tracking_Number"), rs.getString("Date"),
-						rs.getString("ASU_Email"), rs.getString("First_Name"), rs.getString("Last_Name"),
-						rs.getString("Box_Number"), stopName, courierName,
-						uName, rs.getBoolean("At_Stop"), rs.getBoolean("Picked_Up"), 
-						rs.getString("Pick_Up_Date"), rs.getBoolean("Returned")));
+				result.add(new Package(rs.getInt("package_id"), rs.getString("tracking_number"), rs.getString("receive_date"),
+						rs.getString("email_address"), rs.getString("first_name"), rs.getString("last_name"),
+						rs.getString("box_number"), stopName, courierName,
+						uName, rs.getBoolean("at_stop"), rs.getBoolean("picked_up"), 
+						rs.getString("pick_up_date"), rs.getBoolean("returned")));
 			}
 		}
 		catch(SQLException e)
@@ -1042,7 +1042,7 @@ public class SQLiteManager extends DatabaseManager
 		try
 		{
 			connect();
-			PreparedStatement stmnt = connection.prepareStatement("select * from Person where First_Name like ? and Last_Name like ? and Number=?");
+			PreparedStatement stmnt = connection.prepareStatement("select * from Person where first_name like ? and last_name like ? and box_number=?");
 			stmnt.setQueryTimeout(5);
 			stmnt.setString(1, firstName);
 			stmnt.setString(2, lastName);
@@ -1057,8 +1057,8 @@ public class SQLiteManager extends DatabaseManager
 				{
 					if(s.getStopId() == rs.getInt("stop_id"))
 					{
-						results.add(new Person(rs.getString("ID_Number"), rs.getString("ASU_Email"), rs.getString("First_Name"), 
-								rs.getString("Last_Name"), rs.getString("Number"), s.getStopName()));
+						results.add(new Person(rs.getString("id_number"), rs.getString("email_address"), rs.getString("first_name"), 
+								rs.getString("last_name"), rs.getString("box_number"), s.getStopName()));
 						break;
 					}
 				}
