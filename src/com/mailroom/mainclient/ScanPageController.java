@@ -143,11 +143,8 @@ public class ScanPageController implements Initializable
 		}
 		if(verified)
 		{
-			Package p = new Package(-1, txtTrackingNumber.getText(), lblDate.getText(), txtEmailAddress.getText(), txtFirstName.getText(), txtLastName.getText(), txtBoxOffice.getText(), cboxStops.getValue().getStopName(), cboxCourier.getValue().getCourierName(), cUser.getUserName(), false, false, null, false);
-			if(dbManager.addPackage(p, cUser.getUserId()))
-			{
-				System.out.println("Package Added");
-			}
+			Package p = new Package(-1, txtTrackingNumber.getText(), lblDate.getText(), txtEmailAddress.getText(), txtFirstName.getText(), txtLastName.getText(), txtBoxOffice.getText(), cboxStops.getValue(), cboxCourier.getValue(), cUser, false, false, null, false);
+			dbManager.addPackage(p);
 			btnClear.fire();
 		}
 	}

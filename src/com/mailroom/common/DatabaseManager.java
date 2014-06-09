@@ -138,7 +138,7 @@ public class DatabaseManager
 	 {
 		 return false;
 	 }
-	 public boolean addPackage(Package p, int userId)
+	 public boolean addPackage(Package p)
 	 {
 		 return false;
 	 }

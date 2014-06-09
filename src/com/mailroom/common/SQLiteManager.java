@@ -611,7 +611,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 	}
 	@Override
-	public boolean addRoute(String routeroute_name) 
+	public boolean addRoute(String route_name) 
 	{
 		//Assume since route is being added that it is to be used
 		try
@@ -620,7 +620,7 @@ public class SQLiteManager extends DatabaseManager
 			PreparedStatement stmnt = connection.prepareStatement("insert into Route(route_name, is_used) values(?,1)");
 			stmnt.setQueryTimeout(5);
 			
-			stmnt.setString(1, routeroute_name);
+			stmnt.setString(1, route_name);
 			
 			if(stmnt.executeUpdate() > 0)
 			{
@@ -900,7 +900,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 	}
 	@Override
-	public boolean addPackage(Package p, int userId) 
+	public boolean addPackage(Package p) 
 	{
 		try
 		{
@@ -915,23 +915,9 @@ public class SQLiteManager extends DatabaseManager
 			stmnt.setString(4, p.getFirstName());
 			stmnt.setString(5, p.getLastName());
 			stmnt.setString(6, p.getBoxOffice());
-			for(int i=0; i<stops.size(); i++)
-			{
-				if(stops.get(i).getStopName() == p.getStopName())
-				{
-					stmnt.setInt(7, stops.get(i).getStopId());
-					break;
-				}
-			}
-			for(int i=0; i<couriers.size(); i++)
-			{
-				if(couriers.get(i).getCourierName() == p.getCourierName())
-				{
-					stmnt.setInt(8, couriers.get(i).getCourierId());
-					break;
-				}
-			}
-			stmnt.setInt(9, userId);
+			stmnt.setInt(7, p.getStop().getStopId());
+			stmnt.setInt(8, p.getCourier().getCourierId());
+			stmnt.setInt(9, p.getUser().getUserId());
 			
 			if(stmnt.executeUpdate() > 0)
 			{
@@ -960,7 +946,7 @@ public class SQLiteManager extends DatabaseManager
 		{
 			connect();
 			
-			PreparedStatement stmnt = connection.prepareStatement("select * from Package where Date=? and stop_id=? and at_stop=0");
+			PreparedStatement stmnt = connection.prepareStatement("select * from Package where receive_date=? and stop_id=? and at_stop=0");
 			
 			Date d = new Date();
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -992,41 +978,40 @@ public class SQLiteManager extends DatabaseManager
 		{
 			while(rs.next())
 			{
-				String stopName = "";
-				String courierName = "";
-				String uName = "";
+				Stop stop = null;
+				Courier courier = null;
+				User user = null;
 				
-				PreparedStatement stmnt = connection.prepareStatement("select stop_name from Stop where stop_id=?");
-				stmnt.setInt(1, rs.getInt("stop_id"));
-				ResultSet stop = stmnt.executeQuery();
-				if(stop.next())
+				for(Stop s : stops)
 				{
-					stopName = stop.getString("stop_name");
+					if(s.getStopId() == rs.getInt("stop_id"))
+					{
+						stop = s;
+					}
 				}
-				stop.close();
 				
-				stmnt = connection.prepareStatement("select courier_name from Courier where courier_id=?");
+				PreparedStatement stmnt = connection.prepareStatement("select * from Courier where courier_id=?");
 				stmnt.setInt(1, rs.getInt("courier_id"));
-				ResultSet courier = stmnt.executeQuery();
-				if(courier.next())
+				ResultSet c = stmnt.executeQuery();
+				if(c.next())
 				{
-					courierName = courier.getString("courier_name");
+					courier = new Courier(c.getInt("courier_id"), c.getString("courier_name"));
 				}
-				courier.close();
+				c.close();
 				
-				stmnt = connection.prepareStatement("select user_name from Users where user_id=?");
+				stmnt = connection.prepareStatement("select * from Users where user_id=?");
 				stmnt.setInt(1, rs.getInt("user_id"));
-				ResultSet username = stmnt.executeQuery();
-				if(username.next())
+				ResultSet u = stmnt.executeQuery();
+				if(u.next())
 				{
-					uName = username.getString("user_name");
+					user = new User(u.getInt("user_id"), u.getString("user_name"), u.getString("first_name"), u.getString("last_name"), u.getBoolean("administrator"));
 				}
-				username.close();
+				u.close();
 				
 				result.add(new Package(rs.getInt("package_id"), rs.getString("tracking_number"), rs.getString("receive_date"),
 						rs.getString("email_address"), rs.getString("first_name"), rs.getString("last_name"),
-						rs.getString("box_number"), stopName, courierName,
-						uName, rs.getBoolean("at_stop"), rs.getBoolean("picked_up"), 
+						rs.getString("box_number"), stop, courier,
+						user, rs.getBoolean("at_stop"), rs.getBoolean("picked_up"), 
 						rs.getString("pick_up_date"), rs.getBoolean("returned")));
 			}
 		}

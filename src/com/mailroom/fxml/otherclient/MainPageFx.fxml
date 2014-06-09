@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #01A217" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.otherclient.MainPageController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressAction" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #01A217" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.otherclient.MainPageController">
   <children>
-    <TableView fx:id="tblViewTable" layoutX="14.0" layoutY="64.0" prefHeight="450.0" prefWidth="772.0" />
+    <TableView fx:id="tblViewTable" layoutX="14.0" layoutY="64.0" onKeyPressed="#keyPressAction" prefHeight="450.0" prefWidth="772.0" />
     <TextField fx:id="txtQuickSearch" layoutX="14.0" layoutY="524.0" prefHeight="25.0" prefWidth="300.0" promptText="Quick Search" />
-    <Button fx:id="btnExit" layoutX="720.0" layoutY="524.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Exit" />
-    <Button fx:id="btnAdvSearch" layoutX="578.0" layoutY="524.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="132.0" text="Advanced Search" />
-    <Button fx:id="btnRefresh" layoutX="502.0" layoutY="524.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Refresh" />
-    <ComboBox fx:id="cboxStopSelect" layoutX="325.0" layoutY="14.0" prefHeight="40.0" prefWidth="150.0">
+    <Button fx:id="btnExit" layoutX="720.0" layoutY="524.0" mnemonicParsing="false" onAction="#btnExitAction" prefHeight="25.0" prefWidth="66.0" text="Exit" />
+    <Button fx:id="btnAdvSearch" layoutX="578.0" layoutY="524.0" mnemonicParsing="false" onAction="#btnAdvSearchAction" prefHeight="25.0" prefWidth="132.0" text="Advanced Search" />
+    <Button fx:id="btnRefresh" layoutX="502.0" layoutY="524.0" mnemonicParsing="false" onAction="#btnRefreshAction" prefHeight="25.0" prefWidth="66.0" text="Refresh" />
+    <ComboBox fx:id="cboxStopSelect" layoutX="325.0" layoutY="14.0" onAction="#cboxStopSelectAction" onKeyPressed="#keyPressAction" prefHeight="40.0" prefWidth="150.0">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="Item 1" />

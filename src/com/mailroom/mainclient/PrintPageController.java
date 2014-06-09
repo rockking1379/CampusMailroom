@@ -1,6 +1,7 @@
 package com.mailroom.mainclient;
 
-import java.awt.print.PrinterJob;
+import java.awt.Font;
+import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
+
+import javax.swing.JTextArea;
 
 import com.mailroom.common.*;
 import com.mailroom.common.Package;
@@ -39,8 +42,7 @@ public class PrintPageController implements Initializable
 	private TextArea txtAreaReport;
 	@FXML
 	private Button btnPrintReport;
-	
-	private String strReport;
+	private ArrayList<String> strReport;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
@@ -129,7 +131,7 @@ public class PrintPageController implements Initializable
 	public void btnCreateReportAction(ActionEvent ae)
 	{
 		txtAreaReport.setText("");
-		strReport = "";
+		strReport = new ArrayList<String>();
 		
 		for(CheckBox c : routeBoxes)
 		{
@@ -137,7 +139,7 @@ public class PrintPageController implements Initializable
 			{
 				String head = "";
 				
-				for(int i=0; i<=25;i++)
+				for(int i=0; i<=15;i++)
 				{
 					head += " ";
 				}
@@ -149,12 +151,10 @@ public class PrintPageController implements Initializable
 				Date d = new Date();
 				SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
 				head += format.format(d).toString();
-				head += "\n";
-				
-				txtAreaReport.setText(txtAreaReport.getText() + head);
 				
 				for(Route r : dbManager.getRoutes())
 				{
+					boolean added = false;
 					if(r.getRouteName().equals(c.getText()))
 					{
 						for(Stop s : dbManager.getStopsOnRoute(r))
@@ -163,23 +163,29 @@ public class PrintPageController implements Initializable
 							
 							if(packages.size() > 0)
 							{
+								if(!added)
+								{
+									strReport.add(head + "\n");
+									added = true;
+								}
+								
 								String stopHead = "";
-								String last = "Last          ";
-								String first = "First         ";
-								String box = "Box#          ";
-								String track = "Track#        ";
+								String last = "Last      ";
+								String first = "First     ";
+								String box = "Box#      ";
+								String track = "Track#    ";
 								String sign = "Sign Here\n";
 								
 								stopHead += "Package Delivery for ";
 								stopHead += s.getStopName();
-								stopHead += "\n";
+								strReport.add(stopHead + "\n");
+								stopHead = "";
 								stopHead += last;
 								stopHead += first;
 								stopHead += box;
 								stopHead += track;
 								stopHead += sign;
-								
-								strReport += stopHead;
+								strReport.add(stopHead);
 								
 								for(Package p : packages)
 								{
@@ -206,7 +212,7 @@ public class PrintPageController implements Initializable
 									}
 									strPackage += "_____________________________________\n";
 									
-									strReport += strPackage;
+									strReport.add(strPackage);
 								}
 							}
 						}
@@ -215,7 +221,11 @@ public class PrintPageController implements Initializable
 			}
 		}
 		
-		txtAreaReport.setText(strReport);
+		for(String s : strReport)
+		{
+			txtAreaReport.setText(txtAreaReport.getText() + s + "\n");
+		}
+		
 		btnPrintReport.setDisable(false);
 	}
 	
@@ -242,20 +252,57 @@ public class PrintPageController implements Initializable
 				FileOutputStream ostream = new FileOutputStream(f.getAbsolutePath());
 				OutputStreamWriter owriter = new OutputStreamWriter(ostream, "UTF-8");
 				
-				owriter.write(strReport);
+				for(String s : strReport)
+				{
+					owriter.write(s + "\n");
+				}
 				
 				owriter.close();
 				ostream.close();
 				
-				PrinterJob job = PrinterJob.getPrinterJob();
+				JTextArea jtext = new JTextArea();
+				jtext.setSize(470, 277);
+				jtext.setText("");
+				jtext.setFont(new Font("Monospaced", Font.PLAIN, 12));
+				for(String s : strReport)
+				{
+					jtext.setText(jtext.getText() + s + "\n");
+				}
 				
+				try
+				{
+					jtext.print();
+				}
+				catch(PrinterException e)
+				{
+					System.err.println("Error: " + e.getMessage());
+				}
 			}
 			catch(IOException e)
 			{
-				//System.err.println("Error: " + e.getMessage());
-				e.printStackTrace();
+				System.err.println("Error: " + e.getMessage());
 			}
 		}
 		
+		if(MessageDialogBuilder.confirmation().message("Exit to Open Screen?").title("Confirm").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").show(MainFrame.stage.getScene().getWindow()) == MessageDialog.Answer.YES_OK)
+		{
+			try
+			{
+				Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
+				Scene scene = new Scene(root);
+				MainFrame.stage.setScene(scene);
+			}
+			catch(IOException e)
+			{
+				System.err.println("Error: " + e.getMessage());
+			}
+		}
+		else
+		{
+			for(CheckBox c : routeBoxes)
+			{
+				c.setSelected(false);
+			}
+		}
 	}
 }

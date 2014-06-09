@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressedAction" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #01A217" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.mainclient.OpenPageController">
+<AnchorPane id="AnchorPane" fx:id="apaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressedAction" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #01A217" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.mainclient.OpenPageController">
   <children>
     <TableView fx:id="tblViewTable" layoutX="170.0" layoutY="14.0" onKeyPressed="#keyPressedAction" prefHeight="500.0" prefWidth="625.0" />
     <Button fx:id="btnScanPackage" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnScanPackageAction" prefHeight="85.0" prefWidth="150.0" text="Scan Package" />

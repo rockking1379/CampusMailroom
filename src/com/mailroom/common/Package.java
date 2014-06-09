@@ -14,9 +14,9 @@ public class Package
 	private String firstName;
 	private String lastName;
 	private String boxOffice;
-	private String stopName;
-	private String courierName;
-	private String userName;
+	private Stop stop;
+	private Courier courier;
+	private User user;
 	private boolean atStop;
 	private boolean pickedUp;
 	private String pickUpDate;
@@ -24,8 +24,8 @@ public class Package
 	
 	public Package(int packageId, String trackingNumber, String receivedDate,
 			String emailAddress, String firstName, String lastName,
-			String boxOffice, String stopName, String courierName,
-			String userName, boolean atStop, boolean pickedUp, 
+			String boxOffice, Stop stop, Courier courier,
+			User user, boolean atStop, boolean pickedUp, 
 			String pickUpDate, boolean returned)
 	{
 		this.packageId = packageId;
@@ -35,9 +35,9 @@ public class Package
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.boxOffice = boxOffice;
-		this.stopName = stopName;
-		this.courierName = courierName;
-		this.userName = userName;
+		this.stop = stop;
+		this.courier = courier;
+		this.user = user;
 		this.atStop = atStop;
 		this.pickedUp = pickedUp;
 		this.pickUpDate = pickUpDate;
@@ -54,7 +54,7 @@ public class Package
 		this.pickedUp = pickedUp;
 		if(pickedUp)
 		{
-			DateFormat format = new SimpleDateFormat("yyy-MM-dd");
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			Date now = new Date();
 			this.pickUpDate = format.format(now).toString();
 		}
@@ -72,14 +72,22 @@ public class Package
 	
 	public String getTrackingNumber()
 	{
-		if(trackingNumber.length() <= 4)
+		String strReturn = null;
+		
+		if(trackingNumber.length() < 4)
 		{
-			return "";
+			strReturn = "";
 		}
-		else
+		if(trackingNumber.length() == 4)
 		{
-			return "..." + trackingNumber.substring(trackingNumber.length() - 4, trackingNumber.length());
+			strReturn = "..." + trackingNumber;
 		}
+		if(trackingNumber.length() > 4)
+		{
+			strReturn = "..." + trackingNumber.substring(trackingNumber.length() - 4, trackingNumber.length());
+		}
+		
+		return strReturn;
 	}
 	
 	public String getReceivedDate()
@@ -107,19 +115,19 @@ public class Package
 		return boxOffice;
 	}
 	
-	public String getStopName()
+	public Stop getStop()
 	{
-		return stopName;
+		return stop;
 	}
 	
-	public String getCourierName()
+	public Courier getCourier()
 	{
-		return courierName;
+		return courier;
 	}
 	
-	public String getUserName()
+	public User getUser()
 	{
-		return userName;
+		return user;
 	}
 	
 	public boolean isAtStop()
