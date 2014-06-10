@@ -124,7 +124,6 @@ public class AdvSearchController implements Initializable
 		startDate.setLayoutY(204);
 		startDate.setMaxWidth(137);
 		startDate.setMinHeight(25);
-		startDate.setMinDate(new Date());
 		startDate.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
 		startDate.promptTextProperty().set("Start Date");
 		startDate.setDisable(true);
@@ -135,8 +134,8 @@ public class AdvSearchController implements Initializable
 		endDate.setLayoutY(239);
 		endDate.setMaxWidth(137);
 		endDate.setMinHeight(25);
-		endDate.setMinDate(startDate.getValue());
 		endDate.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
+		endDate.setMaxDate(new Date());
 		endDate.promptTextProperty().set("End Date");
 		endDate.setDisable(true);
 		apaneAnchor.getChildren().add(endDate);
@@ -166,10 +165,12 @@ public class AdvSearchController implements Initializable
 					if(MainFrame.dbManager != null)
 					{
 						MessageDialogBuilder.error().message("End Date Must Be After Start Date").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+						return;
 					}
 					else
 					{
 						MessageDialogBuilder.error().message("End Date Must Be After Start Date").title("Error").buttonType(MessageDialog.ButtonType.OK).show(OtherMainFrame.stage.getScene().getWindow());
+						return;
 					}
 				}
 			}
@@ -179,31 +180,43 @@ public class AdvSearchController implements Initializable
 				{				
 					if(!txtTrackingNumber.getText().equals(""))
 					{
-						for(Package p : dbManager.searchPackages(txtTrackingNumber.getText(), dbManager.SEARCH_CONTAINS))
+						for(Package p : dbManager.searchPackages(txtTrackingNumber.getText(), DatabaseManager.SearchType.SEARCH_CONTAINS))
 						{
 							if(!results.contains(p))
 							{
 								results.add(p);
+							}
+							else
+							{
+								System.out.println("Found Previous");
 							}
 						}
 					}
 					if(!txtFirstName.getText().equals(""))
 					{
-						for(Package p : dbManager.searchPackages(txtFirstName.getText(), dbManager.SEARCH_CONTAINS))
+						for(Package p : dbManager.searchPackages(txtFirstName.getText(), DatabaseManager.SearchType.SEARCH_CONTAINS))
 						{
 							if(!results.contains(p))
 							{
 								results.add(p);
 							}
+							else
+							{
+								System.out.println("Found Previous");
+							}
 						}
 					}
 					if(!txtLastName.getText().equals(""))
 					{
-						for(Package p : dbManager.searchPackages(txtLastName.getText(), dbManager.SEARCH_CONTAINS))
+						for(Package p : dbManager.searchPackages(txtLastName.getText(), DatabaseManager.SearchType.SEARCH_CONTAINS))
 						{
 							if(!results.contains(p))
 							{
 								results.add(p);
+							}
+							else
+							{
+								System.out.println("Found Previous");
 							}
 						}
 					}
@@ -215,37 +228,52 @@ public class AdvSearchController implements Initializable
 					
 					if(!txtTrackingNumber.getText().equals(""))
 					{
-						for(Package p : dbManager.searchPackages(txtTrackingNumber.getText(), start, end, dbManager.SEARCH_CONTAINS))
+						for(Package p : dbManager.searchPackages(txtTrackingNumber.getText(), start, end, DatabaseManager.SearchType.SEARCH_CONTAINS))
 						{
 							if(!results.contains(p))
 							{
 								results.add(p);
+							}
+							else
+							{
+								System.out.println("Found Previous");
 							}
 						}
 					}
 					if(!txtFirstName.getText().equals(""))
 					{
-						for(Package p : dbManager.searchPackages(txtFirstName.getText(), start, end, dbManager.SEARCH_CONTAINS))
+						for(Package p : dbManager.searchPackages(txtFirstName.getText(), start, end, DatabaseManager.SearchType.SEARCH_CONTAINS))
 						{
 							if(!results.contains(p))
 							{
 								results.add(p);
+							}
+							else
+							{
+								System.out.println("Found Previous");
 							}
 						}
 					}
 					if(!txtLastName.getText().equals(""))
 					{
-						for(Package p : dbManager.searchPackages(txtLastName.getText(), start, end, dbManager.SEARCH_CONTAINS))
+						for(Package p : dbManager.searchPackages(txtLastName.getText(), start, end, DatabaseManager.SearchType.SEARCH_CONTAINS))
 						{
 							if(!results.contains(p))
 							{
 								results.add(p);
 							}
+							else
+							{
+								System.out.println("Found Previous");
+							}
 						}
 					}
 				}
-				
-				tblViewTable.getItems().addAll(results);
+			}
+			
+			for(Package p : results)
+			{
+				tblViewTable.getItems().add(p);
 			}
 		}
 		catch(NullPointerException e)
@@ -303,7 +331,9 @@ public class AdvSearchController implements Initializable
 		{
 			startDate.setDisable(true);
 			endDate.setDisable(true);
+			
+			startDate.setValue(null);
+			endDate.setValue(null);
 		}
 	}
-
 }

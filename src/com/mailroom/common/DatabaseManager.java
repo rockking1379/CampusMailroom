@@ -4,10 +4,8 @@ import java.sql.ResultSet;
 import java.util.List;
 
 public class DatabaseManager 
-{
-	public final int SEARCH_BEGINS_WITH = 0;
-	public final int SEARCH_CONTAINS = 1;
-	public final int SEARCH_ENDS_WITH = 2;
+{	
+	public enum SearchType { SEARCH_BEGINS_WITH, SEARCH_CONTAINS, SEARCH_ENDS_WITH };
 	
 	//User Actions
 	 public User login(String userName, int password)
@@ -161,12 +159,12 @@ public class DatabaseManager
 		 return null;
 	 }
 	 
-	 public List<Package> searchPackages(String search, int location)
+	 public List<Package> searchPackages(String search, SearchType sType)
 	 {
 		 return null;
 	 }
 	 
-	 public List<Package> searchPackages(String search, String startDate, String endDate, int location)
+	 public List<Package> searchPackages(String search, String startDate, String endDate, SearchType sType)
 	 {
 		 return null;
 	 }
