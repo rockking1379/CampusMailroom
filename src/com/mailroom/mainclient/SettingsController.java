@@ -558,6 +558,10 @@ public class SettingsController implements Initializable
 		{
 			cboxAdminReactivate.itemsProperty().get().add(u);
 		}
+		
+		cboxAdminChange.setValue(cboxAdminChange.itemsProperty().get().get(0));
+		cboxAdminDeactivate.setValue(cboxAdminDeactivate.itemsProperty().get().get(0));
+		cboxAdminReactivate.setValue(cboxAdminReactivate.itemsProperty().get().get(0));
 	}
 
 	//Stop Management//
@@ -610,12 +614,15 @@ public class SettingsController implements Initializable
 		
 		for(Stop s : dbManager.getStops())
 		{
-			if(!s.getStopName().equals("unassigned"))
+			if(s.getStopId() != 1)
 			{
 				cboxStopDelete.getItems().add(s);
 				cboxStopUpdate.getItems().add(s);
 			}
 		}
+		
+		cboxStopDelete.setValue(cboxStopDelete.itemsProperty().get().get(0));
+		cboxStopUpdate.setValue(cboxStopUpdate.itemsProperty().get().get(0));
 	}
 	
 	//Route Management//
@@ -707,6 +714,10 @@ public class SettingsController implements Initializable
 				lviewRouteOnRoute.getItems().add(s1);
 			}	
 		}
+		else
+		{
+			cboxRouteSelect.setValue(cboxRouteSelect.itemsProperty().get().get(0));
+		}
 	}
 	
 	private void loadRouteComboBoxes()
@@ -720,12 +731,16 @@ public class SettingsController implements Initializable
 		for(Route r : dbManager.getRoutes())
 		{
 			cboxStopRoute.getItems().add(r);
-			if(!r.getRouteName().equals("unassigned"))
+			if(r.getRouteId() != 1)
 			{
 				cboxRouteSelect.getItems().add(r);
 				cboxRouteDelete.getItems().add(r);
 			}
 		}
+		
+		cboxRouteSelect.setValue(cboxRouteSelect.itemsProperty().get().get(0));
+		cboxRouteDelete.setValue(cboxRouteDelete.itemsProperty().get().get(0));
+		cboxStopRoute.setValue(cboxStopRoute.itemsProperty().get().get(0));
 	}
 	
 	//Courier Management//
@@ -771,5 +786,7 @@ public class SettingsController implements Initializable
 		{
 			cboxCourierDelete.getItems().add(c);
 		}
+		
+		cboxCourierDelete.setValue(cboxCourierDelete.itemsProperty().get().get(0));
 	}
 }

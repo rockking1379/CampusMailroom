@@ -5,6 +5,10 @@ import java.util.List;
 
 public class DatabaseManager 
 {
+	public final int SEARCH_BEGINS_WITH = 0;
+	public final int SEARCH_CONTAINS = 1;
+	public final int SEARCH_ENDS_WITH = 2;
+	
 	//User Actions
 	 public User login(String userName, int password)
 	 {
@@ -153,6 +157,16 @@ public class DatabaseManager
 	 
 	 //Search Actions
 	 public List<Person> findPerson(String firstName, String lastName, String boxOffice)
+	 {
+		 return null;
+	 }
+	 
+	 public List<Package> searchPackages(String search, int location)
+	 {
+		 return null;
+	 }
+	 
+	 public List<Package> searchPackages(String search, String startDate, String endDate, int location)
 	 {
 		 return null;
 	 }

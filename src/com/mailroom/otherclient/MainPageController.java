@@ -7,13 +7,17 @@ import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import com.panemu.tiwulfx.table.TextColumn;
 import com.panemu.tiwulfx.table.TickColumn;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
@@ -210,7 +214,17 @@ public class MainPageController implements Initializable
 	
 	public void btnAdvSearchAction(ActionEvent ae)
 	{
-		
+		try
+		{
+			Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/common/AdvSearchFx.fxml"));
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add("tiwulfx.css");
+			OtherMainFrame.stage.setScene(scene);
+		}
+		catch(IOException e)
+		{
+			System.err.println("Error: " + e.getMessage());
+		}
 	}
 	
 	public void cboxStopSelectAction(ActionEvent ae)

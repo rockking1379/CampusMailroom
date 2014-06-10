@@ -202,13 +202,21 @@ public class OpenPageController implements Initializable
 		catch(IOException e)
 		{
 			System.err.println("Error: " + e.getMessage());
-			e.printStackTrace();
 		}
 	}
 	
 	public void btnSearchAction(ActionEvent ae)
 	{
-		//open Search Scene
+		try
+		{
+			Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/common/AdvSearchFx.fxml"));
+			Scene scene = new Scene(root);
+			MainFrame.stage.setScene(scene);
+		}
+		catch(IOException e)
+		{
+			System.err.println("Error: " + e.getMessage());
+		}
 	}
 	
 	public void btnRefreshAction(ActionEvent ae)
@@ -312,12 +320,12 @@ public class OpenPageController implements Initializable
 	
 	private class AutoUpdater implements Runnable
 	{
-		Button btnRefresh = null;
+		Button btn = null;
 		private boolean running;
 		
 		public AutoUpdater(Button btn)
 		{
-			this.btnRefresh = btn;
+			this.btn = btn;
 			new Thread(this).start();
 			running = true;
 		}
@@ -329,7 +337,7 @@ public class OpenPageController implements Initializable
 				try
 				{
 					Thread.sleep((long) (Double.valueOf(MainFrame.properties.getProperty("AUFREQ")) * 1000));
-					btnRefresh.fire();
+					btn.fire();
 				}
 				catch (NumberFormatException e)
 				{
