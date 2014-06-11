@@ -981,13 +981,25 @@ public class SQLiteManager extends DatabaseManager
 				Stop stop = null;
 				Courier courier = null;
 				User user = null;
+				PreparedStatement stmnt = null;
 				
-				PreparedStatement stmnt = connection.prepareStatement("select * from Stop where stop_id=?");
-				stmnt.setInt(1, rs.getInt("stop_id"));
-				ResultSet s = stmnt.executeQuery();
-				if(s.next())
+				for(Stop s : stops)
 				{
-					stop = new Stop(s.getInt("stop_id"), s.getString("stop_name"),"Unknown", 0, s.getBoolean("student"));
+					if(s.getStopId() == rs.getInt("stop_id"))
+					{
+						stop = s;
+						break;
+					}
+				}
+				if(stop == null)
+				{
+					stmnt = connection.prepareStatement("select * from Stop where stop_id=?");
+					stmnt.setInt(1, rs.getInt("stop_id"));
+					ResultSet s = stmnt.executeQuery();
+					if(s.next())
+					{
+						stop = new Stop(s.getInt("stop_id"), s.getString("stop_name"),"Unknown", 0, s.getBoolean("student"));
+					}
 				}
 				
 				stmnt = connection.prepareStatement("select * from Courier where courier_id=?");
