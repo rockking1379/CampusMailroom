@@ -249,6 +249,25 @@
             </AnchorPane>
           </content>
         </Tab>
+        <Tab fx:id="tabSoftwareUpdate" closable="false" text="Software Update">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
+              <children>
+                <Label id="lblCurrentVersion" fx:id="lblUpdateCurrentVersion" layoutX="14.0" layoutY="14.0" prefHeight="75.0" prefWidth="300.0" text="Current Version: 2.0.0 InDev">
+                  <font>
+                    <Font size="24.0" fx:id="x2" />
+                  </font>
+                </Label>
+                <Label id="lblAvailableVersion" fx:id="lblUpdateAvailableVersion" font="$x2" layoutX="14.0" layoutY="89.0" prefHeight="75.0" prefWidth="300.0" text="Version Available: 2.0.1" />
+                <Button fx:id="btnUpdate" disable="false" layoutX="89.0" layoutY="164.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="150.0" text="Update" textFill="BLACK">
+                  <font>
+                    <Font size="20.0" />
+                  </font>
+                </Button>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
         <Tab fx:id="tabAbout" closable="false" text="About">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">

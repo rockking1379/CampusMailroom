@@ -31,7 +31,6 @@ public class OtherMainFrame extends Application
 		launch(args);
 	}
 	
-	@SuppressWarnings("static-access")
 	@Override
 	public void start(Stage stage) throws Exception
 	{
@@ -79,14 +78,14 @@ public class OtherMainFrame extends Application
 			System.err.println("Error: " + e.getMessage());
 		}
 		
-		this.stage = stage;
-		this.stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/mailroom/resources/Icon.png")));
-		this.stage.setResizable(false);
-		this.stage.centerOnScreen();
+		OtherMainFrame.stage = stage;
+		OtherMainFrame.stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/mailroom/resources/Icon.png")));
+		OtherMainFrame.stage.setResizable(false);
+		OtherMainFrame.stage.centerOnScreen();
 		Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/otherclient/MainPageFx.fxml"));
 		Scene scene = new Scene(root, 800, 600);
-		this.stage.setScene(scene);
-		this.stage.setTitle("Main Page");
-		this.stage.show();
+		OtherMainFrame.stage.setScene(scene);
+		OtherMainFrame.stage.setTitle("Main Page");
+		OtherMainFrame.stage.show();
 	}
 }

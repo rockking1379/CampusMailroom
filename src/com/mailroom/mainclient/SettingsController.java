@@ -1,12 +1,19 @@
 package com.mailroom.mainclient;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.management.ManagementFactory;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
+
+import org.json.simple.*;
+import org.json.simple.parser.*;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,6 +38,8 @@ public class SettingsController implements Initializable
 	private Tab tabRouteManagement;
 	@FXML
 	private Tab tabCourierManagement;
+	@FXML
+	private Tab tabSoftwareUpdate;
 	@FXML
 	private Tab tabAbout;
 	@FXML
@@ -174,6 +183,14 @@ public class SettingsController implements Initializable
 	@FXML
 	private Button btnCourierCreate;
 	
+	//Software Update//
+	@FXML
+	private Label lblUpdateCurrentVersion;
+	@FXML
+	private Label lblUpdateAvailableVersion;
+	@FXML
+	private Button btnUpdate;
+	
 	//About Tab//
 	@FXML
 	private Label lblAboutVersion;
@@ -241,6 +258,66 @@ public class SettingsController implements Initializable
 		sldrAutoUpdateFreq.valueProperty().set(Double.valueOf(prefs.getProperty("AUFREQ")));
 		
 		lblAboutVersion.setText("Version: " + prefs.getProperty("VERSION"));
+		lblUpdateCurrentVersion.setText("Current Version: " + prefs.getProperty("VERSION"));
+		
+		if(!prefs.getProperty("VERSION").endsWith("InDev"))
+		{
+			try
+			{
+				URL url = new URL("http://minecraft.math.adams.edu/ptracker/version.php");
+				HttpURLConnection con = (HttpURLConnection) url.openConnection();
+				con.setRequestMethod("GET");
+				con.setRequestProperty("Accept",  "txt/plain");
+				con.connect();
+				
+				int statusCode = con.getResponseCode();
+				
+				if(statusCode == HttpURLConnection.HTTP_OK)
+				{
+					InputStreamReader isr = new InputStreamReader(con.getInputStream());
+					BufferedReader br = new BufferedReader(isr);
+					String json = br.readLine();
+					
+					JSONParser parser = new JSONParser();
+					
+					Object obj = parser.parse(json);
+					JSONObject version = (JSONObject) obj;
+					
+					String availVersion = version.get("major") + "." + version.get("minor") + "." + version.get("revision");
+					
+					if(!availVersion.equals(prefs.getProperty("VERSION")))
+					{
+						lblUpdateAvailableVersion.setText("Available Version: " + availVersion);
+					}
+					else
+					{
+						tabpaneMainPane.getTabs().remove(tabSoftwareUpdate);
+					}
+				}
+				else
+				{
+					MessageDialogBuilder.error().message("Error Reaching Update Server").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+				}			
+			}
+			catch (MalformedURLException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch(IOException e)
+			{
+				e.printStackTrace();
+			}
+			catch (ParseException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else
+		{
+			tabpaneMainPane.getTabs().remove(tabSoftwareUpdate);
+		}
 		
 		lviewRouteOnRoute.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		lviewRouteUnassigned.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -775,6 +852,12 @@ public class SettingsController implements Initializable
 			loadCourierComboBoxes();
 			txtCourierName.setText("");
 		}
+	}
+	
+	//Software Update//
+	public void btnUpdateAction(ActionEvent ae)
+	{
+		//throw message dialog, 
 	}
 	
 	private void loadCourierComboBoxes()

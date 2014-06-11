@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: #01A217" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.updater.UpdaterController">
+  <children>
+    <ProgressIndicator id="" fx:id="pindicatorProgress" layoutX="132.0" layoutY="82.0" progress="0.0" />
+    <Label fx:id="lblDownload" layoutX="103.0" layoutY="14.0" text="Downloading" visible="false">
+      <font>
+        <Font size="16.0" fx:id="x1" />
+      </font>
+    </Label>
+    <Label fx:id="lblWaiting" font="$x1" layoutX="104.0" layoutY="36.0" text="Please Wait..." visible="false" />
+    <Label fx:id="lblFinished" layoutX="103.0" layoutY="22.0" prefWidth="-1.0" text="Finished" textFill="BLACK" visible="false">
+      <font>
+        <Font size="24.0" />
+      </font>
+    </Label>
+    <Button fx:id="btnUpdate" layoutX="114.0" layoutY="120.0" mnemonicParsing="false" onAction="#btnUpdateAction" prefWidth="66.0" text="Update" />
+    <Button fx:id="btnExit" layoutX="114.0" layoutY="151.0" mnemonicParsing="false" onAction="#btnExitAction" prefWidth="66.0" text="Exit" visible="false" />
+  </children>
+</AnchorPane>
