@@ -47,16 +47,21 @@ public class MainFrame extends Application
 				
 				boolean sqlite = Boolean.valueOf(properties.getProperty("SQLITE"));
 				boolean mysql = Boolean.valueOf(properties.getProperty("MYSQL"));
+				boolean postgresql = Boolean.valueOf(properties.getProperty("POSTGRE"));
 				
-				if(sqlite && !mysql)
+				if(sqlite && !mysql && !postgresql)
 				{
 					dbManager = new SQLiteManager(properties.getProperty("DATABASE"));
 				}
-				if(mysql && !sqlite)
+				if(mysql && !sqlite && !postgresql)
 				{
-					//create DBM with mysql info
+					dbManager = new MysqlManager(properties.getProperty("DATABASE"), properties.getProperty("USERNAME"), properties.getProperty("PASSWORD"), properties.getProperty("DBNAME"));
 				}
-				if(mysql && sqlite)
+				if(postgresql && !sqlite && !mysql)
+				{
+					dbManager = new PostgreSQLManager(properties.getProperty("DATABASE"), properties.getProperty("USERNAME"), properties.getProperty("PASSWORD"), properties.getProperty("DBNAME"));
+				}
+				if(mysql && sqlite && postgresql)
 				{
 					throw new ConfigException("Invalid Database Configuration");
 				}

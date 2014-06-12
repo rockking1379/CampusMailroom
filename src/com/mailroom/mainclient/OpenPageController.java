@@ -178,7 +178,10 @@ public class OpenPageController implements Initializable
 	{
 		try
 		{
-			au.stop();
+			if(au != null)
+			{
+				au.stop();
+			}
 			Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/ScanPageFx.fxml"));
 			Scene scene = new Scene(root);
 			MainFrame.stage.setScene(scene);
@@ -194,7 +197,10 @@ public class OpenPageController implements Initializable
 	{
 		try
 		{
-			au.stop();
+			if(au != null)
+			{
+				au.stop();
+			}
 			Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/PrintPageFx.fxml"));
 			Scene scene = new Scene(root);
 			MainFrame.stage.setScene(scene);
@@ -251,7 +257,10 @@ public class OpenPageController implements Initializable
 	{
 		try
 		{
-			au.stop();
+			if(au != null)
+			{
+				au.stop();
+			}
 			Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/SettingsPageFx.fxml"));
 			Scene scene = new Scene(root);
 			MainFrame.stage.setScene(scene);
@@ -271,7 +280,10 @@ public class OpenPageController implements Initializable
 		{
 			try
 			{
-				au.stop();
+				if(au != null)
+				{
+					au.stop();
+				}
 				Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/LoginFx.fxml"));
 				Scene scene = new Scene(root);
 				MainFrame.stage.setScene(scene);
@@ -291,7 +303,10 @@ public class OpenPageController implements Initializable
 		{
 			MainFrame.saveProperties();
 			
-			au.stop();
+			if(au != null)
+			{
+				au.stop();
+			}
 			
 			dbManager.dispose();
 			

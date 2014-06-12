@@ -215,7 +215,7 @@ public class SettingsController implements Initializable
 			txtDatabaseUserName.setDisable(true);
 			pwdDatabasePassword.setDisable(true);
 		}
-		if(Boolean.valueOf(prefs.getProperty("MYSQL")))
+		else
 		{			
 			rbtnMysql.setSelected(true);
 			rbtnSqlite.setSelected(false);
@@ -227,6 +227,11 @@ public class SettingsController implements Initializable
 			txtDatabaseName.setText(prefs.getProperty("DBNAME"));
 			txtDatabaseUserName.setText(prefs.getProperty("USERNAME"));
 			pwdDatabasePassword.setText(prefs.getProperty("PASSWORD"));
+		}
+		
+		if(Boolean.valueOf(prefs.getProperty("POSTGRE")))
+		{
+			rbtnMysql.setText("POSTGRE");
 		}
 		
 		if(MainFrame.cUser.getAdmin())
@@ -257,10 +262,9 @@ public class SettingsController implements Initializable
 		cboxAutoUpdate.setValue(Boolean.valueOf(prefs.getProperty("AUTOUPDATE")));
 		sldrAutoUpdateFreq.valueProperty().set(Double.valueOf(prefs.getProperty("AUFREQ")));
 		
-		lblAboutVersion.setText("Version: " + prefs.getProperty("VERSION"));
-		lblUpdateCurrentVersion.setText("Current Version: " + prefs.getProperty("VERSION"));
+		lblAboutVersion.setText("Version: " + prefs.getProperty("VERSION") + " Build " + prefs.getProperty("BUILD"));
 		
-		if(!prefs.getProperty("VERSION").endsWith("InDev"))
+		if(!prefs.getProperty("VERSION").endsWith("InDev") && MainFrame.cUser.getAdmin())
 		{
 			try
 			{
@@ -284,10 +288,14 @@ public class SettingsController implements Initializable
 					JSONObject version = (JSONObject) obj;
 					
 					String availVersion = version.get("major") + "." + version.get("minor") + "." + version.get("revision");
+					String curVersion = prefs.getProperty("VERSION");
+					String availBuild = version.get("build").toString();
+					String curBuild = prefs.getProperty("BUILD");
 					
-					if(!availVersion.equals(prefs.getProperty("VERSION")))
+					if(!availVersion.equals(prefs.getProperty("VERSION")) || !curBuild.equals(availBuild))
 					{
-						lblUpdateAvailableVersion.setText("Available Version: " + availVersion);
+						lblUpdateCurrentVersion.setText("Current Version:  " + curVersion + " Build " + curBuild);
+						lblUpdateAvailableVersion.setText("Available Version: " + availVersion + " Build " + availBuild);
 					}
 					else
 					{
@@ -536,7 +544,7 @@ public class SettingsController implements Initializable
 		{
 			if(pwd.equals(pwdConfirm))
 			{
-				password = (txtCreateUserName.getText() + pwd).hashCode();
+				password = txtCreateUserName.getText().hashCode() + pwd.hashCode();
 				if(dbManager.addUser(new User(-1,txtCreateUserName.getText(),txtCreateFirstName.getText(),txtCreateLastName.getText(),cboxCreateAdmin.selectedProperty().get()), password))
 				{
 					MessageDialogBuilder.info().message("User " + txtCreateUserName.getText() + " Added").title("Success").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
@@ -581,7 +589,7 @@ public class SettingsController implements Initializable
 		
 		if(pwd.equals(pwdConfirm))
 		{
-			password = (cboxAdminReactivate.getValue() + pwd).hashCode();
+			password = cboxAdminReactivate.getValue().getUserName().hashCode() + pwd.hashCode();
 			if(dbManager.reactivateUser(cboxAdminReactivate.getValue(), password))
 			{
 				MessageDialogBuilder.info().message("User " + cboxAdminReactivate.getValue() + " reactivated").title("Success").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
@@ -636,9 +644,18 @@ public class SettingsController implements Initializable
 			cboxAdminReactivate.itemsProperty().get().add(u);
 		}
 		
-		cboxAdminChange.setValue(cboxAdminChange.itemsProperty().get().get(0));
-		cboxAdminDeactivate.setValue(cboxAdminDeactivate.itemsProperty().get().get(0));
-		cboxAdminReactivate.setValue(cboxAdminReactivate.itemsProperty().get().get(0));
+		if(cboxAdminChange.getItems().size() > 0)
+		{
+			cboxAdminChange.setValue(cboxAdminChange.itemsProperty().get().get(0));
+		}
+		if(cboxAdminDeactivate.getItems().size() > 0)
+		{
+			cboxAdminDeactivate.setValue(cboxAdminDeactivate.itemsProperty().get().get(0));
+		}
+		if(cboxAdminReactivate.getItems().size() > 0)
+		{
+			cboxAdminReactivate.setValue(cboxAdminReactivate.itemsProperty().get().get(0));
+		}
 	}
 
 	//Stop Management//
@@ -698,8 +715,14 @@ public class SettingsController implements Initializable
 			}
 		}
 		
-		cboxStopDelete.setValue(cboxStopDelete.itemsProperty().get().get(0));
-		cboxStopUpdate.setValue(cboxStopUpdate.itemsProperty().get().get(0));
+		if(cboxStopDelete.getItems().size() > 0)
+		{
+			cboxStopDelete.setValue(cboxStopDelete.itemsProperty().get().get(0));
+		}
+		if(cboxStopUpdate.getItems().size() > 0)
+		{
+			cboxStopUpdate.setValue(cboxStopUpdate.itemsProperty().get().get(0));
+		}
 	}
 	
 	//Route Management//
@@ -793,7 +816,10 @@ public class SettingsController implements Initializable
 		}
 		else
 		{
-			cboxRouteSelect.setValue(cboxRouteSelect.itemsProperty().get().get(0));
+			if(cboxRouteSelect.getItems().size() > 0)
+			{
+				cboxRouteSelect.setValue(cboxRouteSelect.itemsProperty().get().get(0));
+			}
 		}
 	}
 	
@@ -815,9 +841,18 @@ public class SettingsController implements Initializable
 			}
 		}
 		
-		cboxRouteSelect.setValue(cboxRouteSelect.itemsProperty().get().get(0));
-		cboxRouteDelete.setValue(cboxRouteDelete.itemsProperty().get().get(0));
-		cboxStopRoute.setValue(cboxStopRoute.itemsProperty().get().get(0));
+		if(cboxRouteSelect.getItems().size() > 0)
+		{
+			cboxRouteSelect.setValue(cboxRouteSelect.itemsProperty().get().get(0));
+		}
+		if(cboxRouteDelete.getItems().size() > 0)
+		{
+			cboxRouteDelete.setValue(cboxRouteDelete.itemsProperty().get().get(0));
+		}
+		if(cboxStopRoute.getItems().size() > 0)
+		{
+			cboxStopRoute.setValue(cboxStopRoute.itemsProperty().get().get(0));
+		}
 	}
 	
 	//Courier Management//
@@ -870,6 +905,9 @@ public class SettingsController implements Initializable
 			cboxCourierDelete.getItems().add(c);
 		}
 		
-		cboxCourierDelete.setValue(cboxCourierDelete.itemsProperty().get().get(0));
+		if(cboxCourierDelete.getItems().size() > 0)
+		{
+			cboxCourierDelete.setValue(cboxCourierDelete.itemsProperty().get().get(0));
+		}
 	}
 }

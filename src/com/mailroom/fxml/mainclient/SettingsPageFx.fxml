@@ -253,12 +253,12 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
               <children>
-                <Label id="lblCurrentVersion" fx:id="lblUpdateCurrentVersion" layoutX="14.0" layoutY="14.0" prefHeight="75.0" prefWidth="300.0" text="Current Version: 2.0.0 InDev">
+                <Label id="lblCurrentVersion" fx:id="lblUpdateCurrentVersion" layoutX="14.0" layoutY="14.0" prefHeight="75.0" prefWidth="500.0" text="Current Version:">
                   <font>
                     <Font size="24.0" fx:id="x2" />
                   </font>
                 </Label>
-                <Label id="lblAvailableVersion" fx:id="lblUpdateAvailableVersion" font="$x2" layoutX="14.0" layoutY="89.0" prefHeight="75.0" prefWidth="300.0" text="Version Available: 2.0.1" />
+                <Label id="lblAvailableVersion" fx:id="lblUpdateAvailableVersion" font="$x2" layoutX="14.0" layoutY="89.0" prefHeight="75.0" prefWidth="500.0" text="Version Available:" />
                 <Button fx:id="btnUpdate" disable="false" layoutX="89.0" layoutY="164.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="150.0" text="Update" textFill="BLACK">
                   <font>
                     <Font size="20.0" />
@@ -279,9 +279,11 @@
                 </Label>
                 <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="64.0" prefHeight="50.0" prefWidth="200.0" text="Developer: James Sitz" />
                 <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="114.0" prefHeight="50.0" prefWidth="200.0" text="Credits" />
-                <Label alignment="CENTER" layoutX="39.0" layoutY="139.0" prefHeight="50.0" prefWidth="150.0" text="Tiwulfx: tiwulfx.panemu.com" />
+                <Label alignment="CENTER_LEFT" layoutX="39.0" layoutY="139.0" prefHeight="50.0" prefWidth="350.0" text="Tiwulfx: tiwulfx.panemu.com" />
                 <Label layoutX="14.0" layoutY="539.0" text="Source At: https://github.com/rockking1379/MailroomRewrite" />
                 <Label layoutX="39.0" layoutY="189.0" prefHeight="50.0" prefWidth="350.0" text="SQLite JDBC: https://bitbucket.org/xerial/sqlite-jdbc/wiki/Home" />
+                <Label layoutX="39.0" layoutY="239.0" prefHeight="50.0" prefWidth="350.0" text="PostgreSQL JDBC: http://jdbc.postgresql.org" />
+                <Label layoutX="39.0" layoutY="289.0" prefHeight="50.0" prefWidth="350.0" text="Many Others" />
               </children>
             </AnchorPane>
           </content>

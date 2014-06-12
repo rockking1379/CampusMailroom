@@ -132,6 +132,7 @@ public class UpdaterController implements Initializable
 							rbc.close();
 							
 							properties.setProperty("VERSION", availVersion);
+							properties.setProperty("BUILD", version.get("build").toString());
 							
 							try
 							{
@@ -164,7 +165,7 @@ public class UpdaterController implements Initializable
 				}
 				else
 				{
-					MessageDialogBuilder.error().message("No Config Found!\nPlease Run Other Program First").buttonType(MessageDialog.ButtonType.OK).show(null);
+					MessageDialogBuilder.error().message("No Config Found!\nPlease Run MainClient Program First").buttonType(MessageDialog.ButtonType.OK).show(null);
 					System.exit(-1);
 				}
 			}
