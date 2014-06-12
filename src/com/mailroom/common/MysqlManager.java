@@ -22,6 +22,17 @@ public class MysqlManager extends DatabaseManager
 	
 	public MysqlManager(String dbLocation, String dbUsername, String dbPassword, String dbName)
 	{		
+		
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+		}
+		catch(ClassNotFoundException e)
+		{
+			System.err.println("Error: " + e.getMessage());
+			e.printStackTrace();
+		}
+		
 		conString = "jdbc:mysql://" + dbLocation + "/" + dbName + "?user=" + dbUsername + "&password=" + dbPassword;
 		loadRoutes();
 		loadStops();
