@@ -29,6 +29,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 
+/**
+ * Controls UpdaterFx.fxml in com.mailroom.fxml.updater
+ * @author James
+ *
+ */
 public class UpdaterController implements Initializable
 {
 	Properties properties;

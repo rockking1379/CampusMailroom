@@ -1,5 +1,10 @@
 package com.mailroom.common;
 
+/**
+ * Represents a Route For Stops and Packages
+ * @author James
+ *
+ */
 public class Route 
 {
 	private int routeId;

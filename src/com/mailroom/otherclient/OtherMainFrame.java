@@ -18,6 +18,11 @@ import com.mailroom.common.SQLiteManager;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 
+/**
+ * Defines Main Entry Point for OtherClient
+ * @author James
+ *
+ */
 public class OtherMainFrame extends Application
 {
 	public static DatabaseManager dbManager;

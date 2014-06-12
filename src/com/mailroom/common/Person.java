@@ -1,5 +1,12 @@
 package com.mailroom.common;
 
+/**
+ * Represents a Person
+ * <br>
+ * Used for AutoFill
+ * @author James
+ *
+ */
 public class Person 
 {
 	private String idNumber;

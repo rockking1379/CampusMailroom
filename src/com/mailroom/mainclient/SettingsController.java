@@ -29,6 +29,11 @@ import com.mailroom.common.*;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 
+/**
+ * Controls SettingsPageFx.fxml in com.mailroom.fxml.mainclient
+ * 
+ * @author James
+ */
 public class SettingsController implements Initializable
 {
 	//Tab Views//

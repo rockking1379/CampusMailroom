@@ -15,6 +15,11 @@ import javafx.stage.*;
 import com.mailroom.common.*;
 import com.panemu.tiwulfx.dialog.*;
 
+/**
+ * Main Entry Point for MainClient
+ * 
+ * @author James
+ */
 public class MainFrame extends Application
 {
 	public static DatabaseManager dbManager;

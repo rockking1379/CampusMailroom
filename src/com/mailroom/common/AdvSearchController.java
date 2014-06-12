@@ -31,6 +31,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * Controls AdvSearchFx.fxml in com.mailroom.fxml.common
+ * 
+ * @author James
+ *
+ */
 public class AdvSearchController implements Initializable
 {
 	@FXML

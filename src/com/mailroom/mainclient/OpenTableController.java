@@ -5,6 +5,13 @@ import java.util.List;
 import com.panemu.tiwulfx.common.TableData;
 import com.panemu.tiwulfx.table.TableController;
 
+/**
+ * Controls TableView in OpenPage
+ * <br>
+ * Not Finished Yet
+ * 
+ * @author James
+ */
 public class OpenTableController extends TableController<Package>
 {
 

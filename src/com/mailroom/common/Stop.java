@@ -1,5 +1,10 @@
 package com.mailroom.common;
 
+/**
+ * Represents A Stop for Packages
+ * @author James
+ *
+ */
 public class Stop 
 {
 	private int stopId;

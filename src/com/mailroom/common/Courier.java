@@ -1,5 +1,10 @@
 package com.mailroom.common;
 
+/**
+ * Represents A Courier
+ * @author James
+ *
+ */
 public class Courier 
 {
 	private int courierId;

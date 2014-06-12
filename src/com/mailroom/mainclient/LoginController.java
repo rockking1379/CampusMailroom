@@ -13,6 +13,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import com.mailroom.common.*;
 
+/**
+ * Controls LoginFx.fxml in com.mailroom.fxml.mainclient
+ * 
+ * @author James
+ */
 public class LoginController implements Initializable 
 {
 	private DatabaseManager dbManager;

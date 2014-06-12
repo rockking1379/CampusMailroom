@@ -1,5 +1,11 @@
 package com.mailroom.mainclient;
 
+/**
+ * Controls OpenPageFx.fxml in com.mailroom.fxml.mainclient
+ * 
+ * @author James
+ */
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,6 +26,11 @@ import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import com.panemu.tiwulfx.table.*;
 
+/**
+ * Controls OpenPageFx.fxml in com.mailroom.fxml.mainclient
+ * 
+ * @author James
+ */
 public class OpenPageController implements Initializable
 {
 	private DatabaseManager dbManager;

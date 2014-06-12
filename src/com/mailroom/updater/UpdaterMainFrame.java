@@ -7,6 +7,11 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+/**
+ * Defines Main Entry Point for Updater
+ * @author James
+ *
+ */
 public class UpdaterMainFrame extends Application
 {
 	public static Stage stage;

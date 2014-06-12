@@ -25,6 +25,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+/**
+ * Controls MainPageFx.fxml in com.mailroom.fxml.otherclient
+ * @author James
+ *
+ */
 public class MainPageController implements Initializable
 {
 	private DatabaseManager dbManager;

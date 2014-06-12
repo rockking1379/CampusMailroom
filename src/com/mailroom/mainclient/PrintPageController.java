@@ -31,6 +31,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.FlowPane;
 
+/**
+ * Controls PrintPageFx.fxml in com.mailroom.fxml.mainclient
+ * 
+ * @author James
+ */
 public class PrintPageController implements Initializable
 {
 	private DatabaseManager dbManager;

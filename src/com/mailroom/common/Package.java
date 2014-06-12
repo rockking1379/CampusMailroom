@@ -4,7 +4,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
+/**
+ * Represents A Received Package
+ * @author James
+ *
+ */
 public class Package 
 {
 	private int packageId;

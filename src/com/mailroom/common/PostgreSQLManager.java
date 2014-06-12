@@ -7,6 +7,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * A Database Manager for PostgreSQL Server
+ * <br>
+ * Extends DatabaseManager
+ * @author James
+ *
+ */
 public class PostgreSQLManager extends DatabaseManager
 {
 	private static final String createString = "CREATE TABLE Route(route_id INTEGER PRIMARY KEY AUTOINCREMENT,route_name varchar(50) NOT NULL,is_used BOOLEAN NOT NULL);CREATE TABLE Stop(stop_id INTEGER PRIMARY KEY AUTOINCREMENT,stop_name varchar(50) NOT NULL,route_id int,is_used BOOLEAN NOT NULL,route_order int,Student BOOLEAN,FOREIGN KEY(route_id) REFERENCES Route(route_id));CREATE TABLE Courier(courier_id INTEGER PRIMARY KEY AUTOINCREMENT,courier_name varchar(50) NOT NULL,is_used BOOLEAN NOT NULL);CREATE TABLE Package(package_id INTEGER PRIMARY KEY AUTOINCREMENT,tracking_number varchar(50) NOT NULL,Date DATE NOT NULL,email_address varchar(50) NOT NULL,first_name varchar(50) NOT NULL,	last_name varchar(50) NOT NULL,box_number varchar(50) NOT NULL,at_stop BOOLEAN NOT NULL,picked_up BOOLEAN NOT NULL,pick_up_date DATE,stop_id int,courier_id int,user_id int,returned BOOLEAN,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id),FOREIGN KEY(courier_id) REFERENCES Courier(courier_id)FOREIGN KEY(user_id) REFERENCES Users(user_id));CREATE TABLE Person(id INTEGER PRIMARY KEY AUTOINCREMENT,id_number varchar(50),email_address varchar(50),first_name varchar(50) NOT NULL,last_name varchar(50) NOT NULL,Number varchar(50),stop_id int,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id));CREATE TABLE Users(user_id INTEGER PRIMARY KEY AUTOINCREMENT,user_name varchar(50) NOT NULL,first_name varchar(50) NOT NULL,last_name varchar(50) NOT NULL,password INTEGER NOT NULL,administrator BOOLEAN NOT NULL,active BOOLEAN);insert into Route(Name, is_used) values('unassigned', true);insert into Stop(Name,route_id,is_used,route_order,Student) values('unassigned',1,true,0,0);";

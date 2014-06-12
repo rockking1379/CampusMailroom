@@ -1,5 +1,12 @@
 package com.mailroom.common;
 
+/**
+ * Represents A User
+ * <br>
+ * Used for Checking In Packages, Settings Permissions, etc.
+ * @author James
+ *
+ */
 public class User 
 {
 	private int userId;

@@ -23,6 +23,11 @@ import com.mailroom.common.Package;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 
+/**
+ * Controls ScanPageFx.fxml in com.mailroom.fxml.mainclient
+ * 
+ * @author James
+ */
 public class ScanPageController implements Initializable
 {
 	@FXML
