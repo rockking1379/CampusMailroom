@@ -33,6 +33,11 @@ public class DatabaseManager
 		 * Delcares That Field(s) end with Query
 		 */
 		SEARCH_ENDS_WITH };
+		
+	/**
+	 * Used in Settings database to identify database manager type to create
+	 */
+	public static final int dbId = -1;
 	
 	//User Actions
 	
