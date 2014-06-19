@@ -20,9 +20,13 @@ public class SQLiteManager extends DatabaseManager
 	private static final String devString = "insert into Users(user_name, first_name, last_name, password, administrator, active) values('DEV', 'Developer', 'Access', 2145483,1,1);";
 
 	/**
-	 * Used in Settings database to identify database manager type to create
+	 * Used in config file to identify database manager type to create
 	 */
 	public static final int dbId = 0;
+	/**
+	 * Used in Settings for displaying name
+	 */
+	public static final String dbName = "0:SQLite";
 	
 	private Connection connection;
 	private String dbLocation;

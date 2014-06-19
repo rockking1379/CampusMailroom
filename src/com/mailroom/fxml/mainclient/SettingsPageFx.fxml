@@ -16,16 +16,13 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
               <children>
-                <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="50.0" prefWidth="150.0" text="Database Type" />
-                <RadioButton fx:id="rbtnMysql" layoutX="14.0" layoutY="64.0" mnemonicParsing="false" onAction="#rbtnMysqlAction" text="MYSQL" />
-                <RadioButton fx:id="rbtnSqlite" layoutX="110.0" layoutY="64.0" mnemonicParsing="false" onAction="#rbtnSqliteAction" text="SQLite" />
-                <TextField fx:id="txtDatabaseLocation" layoutX="14.0" layoutY="90.0" prefHeight="25.0" prefWidth="200.0" promptText="Database Location" />
-                <TextField fx:id="txtDatabaseName" layoutX="14.0" layoutY="125.0" prefHeight="25.0" prefWidth="125.0" promptText="Database Name" />
-                <TextField fx:id="txtDatabaseUserName" layoutX="149.0" layoutY="125.0" prefHeight="25.0" prefWidth="125.0" promptText="Username" />
-                <Label alignment="CENTER" layoutX="14.0" layoutY="150.0" prefHeight="50.0" prefWidth="150.0" text="Auto Update" />
-                <Button fx:id="btnBrowse" layoutX="224.0" layoutY="90.0" mnemonicParsing="false" text="Browse..." />
-                <PasswordField id="pwdPassword" fx:id="pwdDatabasePassword" layoutX="284.0" layoutY="125.0" prefHeight="25.0" prefWidth="150.0" promptText="Password" />
-                <ComboBox fx:id="cboxAutoUpdate" layoutX="14.0" layoutY="201.0" onAction="#cboxAutoUpdateAction" prefHeight="25.0" prefWidth="150.0">
+                <TextField fx:id="txtDatabaseLocation" layoutX="14.0" layoutY="134.0" prefHeight="25.0" prefWidth="200.0" promptText="Database Location" />
+                <TextField fx:id="txtDatabaseName" layoutX="14.0" layoutY="169.0" prefHeight="25.0" prefWidth="125.0" promptText="Database Name" />
+                <TextField fx:id="txtDatabaseUserName" layoutX="149.0" layoutY="169.0" prefHeight="25.0" prefWidth="125.0" promptText="Username" />
+                <Label alignment="CENTER" layoutX="14.0" layoutY="194.0" prefHeight="50.0" prefWidth="150.0" text="Auto Update" />
+                <Button fx:id="btnBrowse" layoutX="224.0" layoutY="134.0" mnemonicParsing="false" onAction="#btnBrowseAction" text="Browse..." />
+                <PasswordField id="pwdPassword" fx:id="pwdDatabasePassword" layoutX="284.0" layoutY="169.0" prefHeight="25.0" prefWidth="150.0" promptText="Password" />
+                <ComboBox fx:id="cboxAutoUpdate" layoutX="14.0" layoutY="245.0" onAction="#cboxAutoUpdateAction" prefHeight="25.0" prefWidth="150.0">
                   <items>
                     <FXCollections fx:factory="observableArrayList">
                       <String fx:value="Item 1" />
@@ -34,10 +31,19 @@
                     </FXCollections>
                   </items>
                 </ComboBox>
-                <Button fx:id="btnSave" layoutX="224.0" layoutY="200.0" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="25.0" prefWidth="66.0" text="Save" />
-                <Button fx:id="btnCancel" layoutX="293.0" layoutY="201.0" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="25.0" prefWidth="66.0" text="Cancel" />
-                <Slider fx:id="sldrAutoUpdateFreq" blockIncrement="1.0" layoutX="14.0" layoutY="285.0" majorTickUnit="1.0" max="30.0" min="5.0" minorTickCount="0" prefWidth="371.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="10.0" />
-                <Label layoutX="14.0" layoutY="235.0" prefHeight="50.0" prefWidth="150.0" text="Auto Update Frequency" />
+                <Button fx:id="btnSave" layoutX="224.0" layoutY="244.0" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="25.0" prefWidth="66.0" text="Save" />
+                <Button fx:id="btnCancel" layoutX="293.0" layoutY="245.0" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="25.0" prefWidth="66.0" text="Cancel" />
+                <Slider fx:id="sldrAutoUpdateFreq" blockIncrement="1.0" layoutX="14.0" layoutY="329.0" majorTickUnit="1.0" max="30.0" min="5.0" minorTickCount="0" prefWidth="371.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="10.0" />
+                <Label layoutX="14.0" layoutY="279.0" prefHeight="50.0" prefWidth="150.0" text="Auto Update Frequency" />
+                <ComboBox fx:id="cboxDatabaseType" layoutX="14.0" layoutY="65.0" prefHeight="50.0" prefWidth="200.0" promptText="Database Type">
+                  <items>
+                    <FXCollections fx:factory="observableArrayList">
+                      <String fx:value="Item 1" />
+                      <String fx:value="Item 2" />
+                      <String fx:value="Item 3" />
+                    </FXCollections>
+                  </items>
+                </ComboBox>
               </children>
             </AnchorPane>
           </content>

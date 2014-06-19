@@ -38,9 +38,12 @@ public class DatabaseManager
 	 * Used in Settings database to identify database manager type to create
 	 */
 	public static final int dbId = -1;
+	/**
+	 * Used in Settings for displaying name
+	 */
+	public static final String dbName = "Base Class";
 	
-	//User Actions
-	
+	//User Actions//	
 	/**
 	 * Allows User to Login into System
 	 * Only called from MainClient
@@ -132,7 +135,7 @@ public class DatabaseManager
 		return null;
 	}
 	
-	//Stop Actions
+	//Stop Actions//
 	/**
 	 * Loads Stops from Database
 	 */
@@ -232,7 +235,7 @@ public class DatabaseManager
 		 return null;
 	 }
 	
-	//Route Actions
+	//Route Actions//
 	 /**
 	  * Loads Routes from Database
 	  */
@@ -285,8 +288,7 @@ public class DatabaseManager
 		 return false;
 	 }
 	
-	//Courier Actions
-	 
+	//Courier Actions//	 
 	 /**
 	  * Loads Couriers from Database
 	  */
@@ -338,7 +340,7 @@ public class DatabaseManager
 		 return false;
 	 }
 	
-	//Package Actions
+	//Package Actions//
 	 /**
 	  * Gets List of Loaded Packages
 	  * 
@@ -413,7 +415,7 @@ public class DatabaseManager
 		 return null;
 	 }
 	 
-	 //Search Actions
+	 //Search Actions//
 	 /**
 	  * Searches for Person in Database
 	  * 
@@ -453,7 +455,7 @@ public class DatabaseManager
 		 return null;
 	 }
 	 
-	 //Normal Actions
+	 //Normal Actions//
 	 /**
 	  * Opens Connection to Database
 	  */

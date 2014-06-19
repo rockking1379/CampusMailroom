@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 
 import com.mailroom.common.ConfigException;
 import com.mailroom.common.DatabaseManager;
+import com.mailroom.common.MysqlManager;
+import com.mailroom.common.PostgreSQLManager;
 import com.mailroom.common.SQLiteManager;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
@@ -30,6 +32,10 @@ public class OtherMainFrame extends Application
 	public static String[] pubArgs;
 	public static Properties properties;
 	
+	/**
+	 * Main Entry Point for Other Client
+	 * @param args Command Line Arguments
+	 */
 	public static void main(String[] args)
 	{
 		pubArgs = args;
@@ -49,20 +55,27 @@ public class OtherMainFrame extends Application
 				FileInputStream file = new FileInputStream(propFile);
 				properties.load(file);
 				
-				boolean sqlite = Boolean.valueOf(properties.getProperty("SQLITE"));
-				boolean mysql = Boolean.valueOf(properties.getProperty("MYSQL"));
-				
-				if(sqlite && !mysql)
+				switch(Integer.valueOf(properties.getProperty("DBTYPE")))
 				{
-					dbManager = new SQLiteManager(properties.getProperty("DATABASE"));
-				}
-				if(mysql && !sqlite)
-				{
-					//create DBM with mysql info
-				}
-				if(mysql && sqlite)
-				{
-					throw new ConfigException("Invalid Database Configuration");
+					case SQLiteManager.dbId:
+					{
+						dbManager = new SQLiteManager(properties.getProperty("DATABASE"));
+						break;
+					}
+					case MysqlManager.dbId:
+					{
+						dbManager = new MysqlManager(properties.getProperty("DATABASE"), properties.getProperty("USERNAME"), properties.getProperty("PASSWORD"), properties.getProperty("DBNAME"));
+						break;
+					}
+					case PostgreSQLManager.dbId:
+					{
+						dbManager = new PostgreSQLManager(properties.getProperty("DATABASE"), properties.getProperty("USERNAME"), properties.getProperty("PASSWORD"), properties.getProperty("DBNAME"));
+						break;
+					}
+					default:
+					{
+						throw new ConfigException("Configuration Error\nUnknown Database Type");
+					}
 				}
 				
 				file.close();

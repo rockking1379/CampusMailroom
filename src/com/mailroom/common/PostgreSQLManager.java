@@ -23,6 +23,10 @@ public class PostgreSQLManager extends DatabaseManager
 	 * Used in Settings database to identify database manager type to create
 	 */
 	public static final int dbId = 2;
+	/**
+	 * Used in Settings for displaying name
+	 */
+	public static final String dbName = "2:PostgreSQL";
 	
 	private Connection connection;
 	private String conString;

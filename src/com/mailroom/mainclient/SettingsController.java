@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.FileChooser;
 
 import com.mailroom.common.*;
 import com.panemu.tiwulfx.dialog.MessageDialog;
@@ -54,9 +55,7 @@ public class SettingsController implements Initializable
 	@FXML
 	private Tab tabGeneral;
 	@FXML
-	private RadioButton rbtnSqlite;
-	@FXML
-	private RadioButton rbtnMysql;
+	private ComboBox<String> cboxDatabaseType; 
 	@FXML
 	private TextField txtDatabaseLocation;
 	@FXML
@@ -211,32 +210,40 @@ public class SettingsController implements Initializable
 		this.dbManager = MainFrame.dbManager;
 		this.prefs = MainFrame.properties;
 		
-		if(Boolean.valueOf(prefs.getProperty("SQLITE")))
-		{
-			rbtnMysql.setSelected(false);
-			rbtnSqlite.setSelected(true);
-			txtDatabaseLocation.setText(prefs.getProperty("DATABASE"));
-			txtDatabaseName.setDisable(true);
-			txtDatabaseUserName.setDisable(true);
-			pwdDatabasePassword.setDisable(true);
-		}
-		else
-		{			
-			rbtnMysql.setSelected(true);
-			rbtnSqlite.setSelected(false);
-			txtDatabaseLocation.setText(prefs.getProperty("DATABASE"));
-			txtDatabaseName.setDisable(false);
-			txtDatabaseUserName.setDisable(false);
-			pwdDatabasePassword.setDisable(false);
-			
-			txtDatabaseName.setText(prefs.getProperty("DBNAME"));
-			txtDatabaseUserName.setText(prefs.getProperty("USERNAME"));
-			pwdDatabasePassword.setText(prefs.getProperty("PASSWORD"));
-		}
+		cboxDatabaseType.getItems().clear();
 		
-		if(Boolean.valueOf(prefs.getProperty("POSTGRE")))
+		switch(Integer.valueOf(prefs.getProperty("DBTYPE")))
 		{
-			rbtnMysql.setText("POSTGRE");
+			case SQLiteManager.dbId:
+			{
+				cboxDatabaseType.getItems().add(SQLiteManager.dbName);
+				cboxDatabaseType.getItems().add(MysqlManager.dbName);
+				cboxDatabaseType.getItems().add(PostgreSQLManager.dbName);
+				
+				cboxDatabaseType.setValue(cboxDatabaseType.getItems().get(0));
+				
+				break;
+			}
+			case MysqlManager.dbId:
+			{
+				cboxDatabaseType.getItems().add(MysqlManager.dbName);
+				cboxDatabaseType.getItems().add(SQLiteManager.dbName);
+				cboxDatabaseType.getItems().add(PostgreSQLManager.dbName);
+				
+				cboxDatabaseType.setValue(cboxDatabaseType.getItems().get(0));
+				
+				break;
+			}
+			case PostgreSQLManager.dbId:
+			{
+				cboxDatabaseType.getItems().add(PostgreSQLManager.dbName);
+				cboxDatabaseType.getItems().add(SQLiteManager.dbName);
+				cboxDatabaseType.getItems().add(MysqlManager.dbName);
+				
+				cboxDatabaseType.setValue(cboxDatabaseType.getItems().get(0));
+				
+				break;
+			}
 		}
 		
 		if(MainFrame.cUser.getAdmin())
@@ -364,57 +371,119 @@ public class SettingsController implements Initializable
 		MainFrame.properties.setProperty("AUTOUPDATE", cboxAutoUpdate.getValue().toString());
 	}
 	
-	public void rbtnMysqlAction(ActionEvent ae)
+	public void cboxDatabaseTypeAction(ActionEvent ae)
 	{
-		rbtnMysql.setSelected(true);
-		rbtnSqlite.setSelected(false);
-		txtDatabaseName.setDisable(false);
-		txtDatabaseUserName.setDisable(false);
-		pwdDatabasePassword.setDisable(false);
-		
-		txtDatabaseLocation.setText("");
-		txtDatabaseUserName.setText("");
-		txtDatabaseName.setText("");
-		pwdDatabasePassword.setText("");
+		switch(Integer.valueOf(cboxDatabaseType.getValue().charAt(0)))
+		{
+			case SQLiteManager.dbId:
+			{
+				btnBrowse.setDisable(false);
+				txtDatabaseLocation.setText("");
+				txtDatabaseName.setText("");
+				txtDatabaseUserName.setText("");
+				pwdDatabasePassword.setText("");
+				
+				txtDatabaseName.setDisable(true);
+				txtDatabaseUserName.setDisable(true);
+				pwdDatabasePassword.setDisable(true);
+				
+				break;
+			}
+			case MysqlManager.dbId:
+			{
+				btnBrowse.setDisable(true);
+				txtDatabaseLocation.setText("");
+				txtDatabaseName.setText("");
+				txtDatabaseUserName.setText("");
+				pwdDatabasePassword.setText("");
+				
+				txtDatabaseName.setDisable(false);
+				txtDatabaseUserName.setDisable(false);
+				pwdDatabasePassword.setDisable(false);
+				
+				break;
+			}
+			case PostgreSQLManager.dbId:
+			{
+				btnBrowse.setDisable(true);
+				txtDatabaseLocation.setText("");
+				txtDatabaseName.setText("");
+				txtDatabaseUserName.setText("");
+				pwdDatabasePassword.setText("");
+				
+				txtDatabaseName.setDisable(false);
+				txtDatabaseUserName.setDisable(false);
+				pwdDatabasePassword.setDisable(false);
+				break;
+			}
+			default:
+			{
+				MessageDialogBuilder.error().message("Unsupported Database Selected").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+				break;
+			}
+		}
 	}
 	
-	public void rbtnSqliteAction(ActionEvent ae)
+	public void btnBrowseAction(ActionEvent ae)
 	{
-		rbtnMysql.setSelected(false);
-		rbtnSqlite.setSelected(true);
-		txtDatabaseName.setDisable(true);
-		txtDatabaseUserName.setDisable(true);
-		pwdDatabasePassword.setDisable(true);
+		FileChooser fChooser = new FileChooser();
+		fChooser.setTitle("Select Database File");
 		
-		txtDatabaseLocation.setText("");
-		txtDatabaseUserName.setText("");
-		txtDatabaseName.setText("");
-		pwdDatabasePassword.setText("");
+		File dbFile = fChooser.showOpenDialog(MainFrame.stage);
+		
+		if(dbFile != null)
+		{
+			txtDatabaseLocation.setText(dbFile.getAbsolutePath());
+		}
+		else
+		{
+			MessageDialogBuilder.error().message("No File Selected").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+		}
 	}
 	
 	public void btnSaveAction(ActionEvent ae)
-	{
-		if(rbtnSqlite.selectedProperty().getValue())
+	{		
+		switch(Integer.valueOf(cboxDatabaseType.getValue().charAt(0)))
 		{
-			MainFrame.properties.setProperty("SQLITE", Boolean.toString(true));
-			MainFrame.properties.setProperty("MYSQL", Boolean.toString(false));
-			MainFrame.properties.setProperty("DATABASE", txtDatabaseLocation.getText());
-			MainFrame.properties.setProperty("USERNAME", "");
-			MainFrame.properties.setProperty("PASSWORD", "");
-			MainFrame.properties.setProperty("DBNAME", "");
-			MainFrame.properties.setProperty("AUTOUPDATE", Boolean.toString(cboxAutoUpdate.getValue()));
-			MainFrame.properties.setProperty("AUFREQ", sldrAutoUpdateFreq.valueProperty().getValue().toString());
-		}
-		if(rbtnMysql.selectedProperty().getValue())
-		{
-			MainFrame.properties.setProperty("SQLITE", Boolean.toString(false));
-			MainFrame.properties.setProperty("MYSQL", Boolean.toString(true));
-			MainFrame.properties.setProperty("DATABASE", txtDatabaseLocation.getText());
-			MainFrame.properties.setProperty("USERNAME", txtDatabaseUserName.getText());
-			MainFrame.properties.setProperty("PASSWORD", pwdDatabasePassword.getText());
-			MainFrame.properties.setProperty("DBNAME", txtDatabaseName.getText());
-			MainFrame.properties.setProperty("AUTOUPDATE", Boolean.toString(cboxAutoUpdate.getValue()));
-			MainFrame.properties.setProperty("AUFREQ", sldrAutoUpdateFreq.valueProperty().getValue().toString());
+			case SQLiteManager.dbId:
+			{
+				MainFrame.properties.setProperty("DBTYPE", String.valueOf(0));
+				MainFrame.properties.setProperty("DATABASE", txtDatabaseLocation.getText());
+				MainFrame.properties.setProperty("USERNAME", "");
+				MainFrame.properties.setProperty("PASSWORD", "");
+				MainFrame.properties.setProperty("DBNAME", "");
+				MainFrame.properties.setProperty("AUTOUPDATE", Boolean.toString(cboxAutoUpdate.getValue()));
+				MainFrame.properties.setProperty("AUFREQ", sldrAutoUpdateFreq.valueProperty().getValue().toString());
+				
+				break;
+			}
+			case MysqlManager.dbId:
+			{
+				MainFrame.properties.setProperty("DBTYPE", String.valueOf(1));
+				MainFrame.properties.setProperty("DATABASE", txtDatabaseLocation.getText());
+				MainFrame.properties.setProperty("USERNAME", txtDatabaseUserName.getText());
+				MainFrame.properties.setProperty("PASSWORD", pwdDatabasePassword.getText());
+				MainFrame.properties.setProperty("DBNAME", txtDatabaseName.getText());
+				MainFrame.properties.setProperty("AUTOUPDATE", Boolean.toString(cboxAutoUpdate.getValue()));
+				MainFrame.properties.setProperty("AUFREQ", sldrAutoUpdateFreq.valueProperty().getValue().toString());
+				break;
+			}
+			case PostgreSQLManager.dbId:
+			{
+				MainFrame.properties.setProperty("DBTYPE", String.valueOf(2));
+				MainFrame.properties.setProperty("DATABASE", txtDatabaseLocation.getText());
+				MainFrame.properties.setProperty("USERNAME", txtDatabaseUserName.getText());
+				MainFrame.properties.setProperty("PASSWORD", pwdDatabasePassword.getText());
+				MainFrame.properties.setProperty("DBNAME", txtDatabaseName.getText());
+				MainFrame.properties.setProperty("AUTOUPDATE", Boolean.toString(cboxAutoUpdate.getValue()));
+				MainFrame.properties.setProperty("AUFREQ", sldrAutoUpdateFreq.valueProperty().getValue().toString());
+				break;
+			}
+			default:
+			{
+				MessageDialogBuilder.error().message("Unsupported Database Selected").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+				break;
+			}
 		}
 		
 		MainFrame.saveProperties();

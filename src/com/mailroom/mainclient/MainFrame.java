@@ -22,13 +22,37 @@ import com.panemu.tiwulfx.dialog.*;
  */
 public class MainFrame extends Application
 {
+	/**
+	 * Database Manaager for Instance of Main Client
+	 */
 	public static DatabaseManager dbManager;
+	/**
+	 * Sate for Instance of Main Client
+	 */
 	public static Stage stage;
+	/**
+	 * Currently Logged In User
+	 */
 	public static User cUser;
+	/**
+	 * Software Configuration Properties
+	 */
 	public static Properties properties = null;
+	/**
+	 * Logo Image to be displayed in Login
+	 */
 	public static Image imageLogo;
+	/**
+	 * Command Line arguments
+	 * <br>
+	 * Used to Restart in Settings
+	 */
 	public static String[] pubArgs;
 	
+	/**
+	 * Main Entry Point for Main Client
+	 * @param args Command Line Arguments
+	 */
 	public static void main(String[] args)
 	{
 		pubArgs = args;
@@ -50,25 +74,27 @@ public class MainFrame extends Application
 				FileInputStream file = new FileInputStream(propFile);
 				properties.load(file);
 				
-				boolean sqlite = Boolean.valueOf(properties.getProperty("SQLITE"));
-				boolean mysql = Boolean.valueOf(properties.getProperty("MYSQL"));
-				boolean postgresql = Boolean.valueOf(properties.getProperty("POSTGRE"));
-				
-				if(sqlite && !mysql && !postgresql)
+				switch(Integer.valueOf(properties.getProperty("DBTYPE")))
 				{
-					dbManager = new SQLiteManager(properties.getProperty("DATABASE"));
-				}
-				if(mysql && !sqlite && !postgresql)
-				{
-					dbManager = new MysqlManager(properties.getProperty("DATABASE"), properties.getProperty("USERNAME"), properties.getProperty("PASSWORD"), properties.getProperty("DBNAME"));
-				}
-				if(postgresql && !sqlite && !mysql)
-				{
-					dbManager = new PostgreSQLManager(properties.getProperty("DATABASE"), properties.getProperty("USERNAME"), properties.getProperty("PASSWORD"), properties.getProperty("DBNAME"));
-				}
-				if(mysql && sqlite && postgresql)
-				{
-					throw new ConfigException("Invalid Database Configuration");
+					case SQLiteManager.dbId:
+					{
+						dbManager = new SQLiteManager(properties.getProperty("DATABASE"));
+						break;
+					}
+					case MysqlManager.dbId:
+					{
+						dbManager = new MysqlManager(properties.getProperty("DATABASE"), properties.getProperty("USERNAME"), properties.getProperty("PASSWORD"), properties.getProperty("DBNAME"));
+						break;
+					}
+					case PostgreSQLManager.dbId:
+					{
+						dbManager = new PostgreSQLManager(properties.getProperty("DATABASE"), properties.getProperty("USERNAME"), properties.getProperty("PASSWORD"), properties.getProperty("DBNAME"));
+						break;
+					}
+					default:
+					{
+						throw new ConfigException("Configuration Error\nUnknown Database Type");
+					}
 				}
 				
 				file.close();
@@ -123,7 +149,7 @@ public class MainFrame extends Application
 		catch(ConfigException e)
 		{
 			System.err.println("Error: " + e.getMessage());
-			MessageDialog.Answer a = MessageDialogBuilder.error().message(e.getMessage() + "\nRevert to local Database Configuration?").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").show(null);
+			MessageDialog.Answer a = MessageDialogBuilder.error().message(e.getMessage() + "\nRevert to SQLite Database Configuration?").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").show(null);
 			if(a == MessageDialog.Answer.YES_OK)
 			{
 				properties.setProperty("MYSQL", Boolean.toString(false));
@@ -156,6 +182,11 @@ public class MainFrame extends Application
 		this.stage.show();
 	}
 	
+	/**
+	 * Saves Properties out to file
+	 * <br>
+	 * Called from various locations throughout Main Client
+	 */
 	public static void saveProperties()
 	{
 		if(properties != null)
@@ -163,6 +194,10 @@ public class MainFrame extends Application
 			try
 			{
 				File propFile = new File("./configuration.properties");
+				if(!propFile.exists())
+				{
+					propFile.createNewFile();
+				}
 				FileOutputStream oStream = new FileOutputStream(propFile);
 				properties.store(oStream, "System Configuration");
 				oStream.close();

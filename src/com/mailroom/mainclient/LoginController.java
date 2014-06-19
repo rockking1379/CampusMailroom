@@ -52,7 +52,7 @@ public class LoginController implements Initializable
 		
 		User u = dbManager.login(txtUserName.getText(), hash);
 		
-		if(u.getUserId() > 0)
+		if(u.getUserId() > 0 && u != null)
 		{
 			try
 			{

@@ -23,6 +23,10 @@ public class MysqlManager extends DatabaseManager
 	 * Used in Settings database to identify database manager type to create
 	 */
 	public static final int dbId = 1;
+	/**
+	 * Used in Settings for displaying name
+	 */
+	public static final String dbName = "1:MySQL";
 	
 	private Connection connection;
 	private String conString;
