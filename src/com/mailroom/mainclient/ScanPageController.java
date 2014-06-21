@@ -161,11 +161,9 @@ public class ScanPageController implements Initializable
 	{
 		String tnum = MainFrame.properties.getProperty("TNUMPREFIX");
 		
-		Random r = new Random();
-		
 		for(int i=0; i<16; i++)
-		{
-			tnum += String.valueOf(r.nextInt(10));
+		{			
+			tnum += generate();
 		}
 		
 		txtTrackingNumber.setText(tnum);
@@ -231,5 +229,25 @@ public class ScanPageController implements Initializable
 				}
 			}
 		}
+	}
+
+	private char generate()
+	{
+		int val;
+		
+		Random r = new Random();
+		
+		val = r.nextInt(74) + 48;
+		
+		if(val >= 58 && val <= 64)
+		{
+			val = (int)generate();
+		}
+		if(val >= 91 && val <= 96)
+		{
+			val = (int)generate();
+		}
+		
+		return (char)val;
 	}
 }
