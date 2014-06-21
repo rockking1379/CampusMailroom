@@ -10,7 +10,8 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressAction" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #01A217" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.mainclient.ScanPageController">
   <children>
-    <TextField fx:id="txtTrackingNumber" layoutX="25.0" layoutY="25.0" prefHeight="25.0" prefWidth="500.0" promptText="Tracking Number" />
+    <TextField fx:id="txtTrackingNumber" layoutX="25.0" layoutY="25.0" prefHeight="25.0" prefWidth="396.0" promptText="Tracking Number" />
+    <Button fx:id="btnRandomGenerate" layoutX="426.0" layoutY="25.0" mnemonicParsing="false" onAction="#btnRandomGenerateAction" prefHeight="25.0" prefWidth="99.0" text="Generate" />
     <TextField fx:id="txtFirstName" layoutX="25.0" layoutY="60.0" prefHeight="25.0" prefWidth="150.0" promptText="First Name" />
     <TextField fx:id="txtLastName" layoutX="200.0" layoutY="60.0" prefHeight="25.0" prefWidth="150.0" promptText="Last Name" />
     <TextField fx:id="txtBoxOffice" layoutX="375.0" layoutY="60.0" prefHeight="25.0" prefWidth="150.0" promptText="Box/Suite Number" />

@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -52,6 +53,8 @@ public class ScanPageController implements Initializable
 	private Button btnClear;
 	@FXML
 	private Button btnExit;
+	@FXML
+	private Button btnRandomGenerate;
 	
 	private DatabaseManager dbManager;
 	private User cUser;
@@ -152,6 +155,20 @@ public class ScanPageController implements Initializable
 			dbManager.addPackage(p);
 			btnClear.fire();
 		}
+	}
+	
+	public void btnRandomGenerateAction(ActionEvent ae)
+	{
+		String tnum = MainFrame.properties.getProperty("TNUMPREFIX");
+		
+		Random r = new Random();
+		
+		for(int i=0; i<16; i++)
+		{
+			tnum += String.valueOf(r.nextInt(10));
+		}
+		
+		txtTrackingNumber.setText(tnum);
 	}
 
 	public void keyPressAction(KeyEvent ke)
