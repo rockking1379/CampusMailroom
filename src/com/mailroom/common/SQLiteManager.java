@@ -45,7 +45,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(ClassNotFoundException e)
 		{
-			System.err.println("Could Not Load SQLite JDBC Driver");
+			Logger.log(e);
 		}
 		
 		loadRoutes();
@@ -77,7 +77,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error Logging In: " + e.getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -114,7 +114,7 @@ public class SQLiteManager extends DatabaseManager
 		} 
 		catch (SQLException e) 
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -147,7 +147,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -177,7 +177,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			retValue = false;
 		}
 		finally
@@ -210,7 +210,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			retValue = false;
 		}
 		finally
@@ -244,7 +244,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			retValue = false;
 		}
 		finally
@@ -274,7 +274,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e .getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -303,7 +303,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e .getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -340,7 +340,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -370,7 +370,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -402,7 +402,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			retValue = false;
 		}
 		finally
@@ -445,7 +445,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -475,7 +475,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -503,7 +503,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return null;
 		}
 		finally
@@ -533,7 +533,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return null;
 		}
 		finally
@@ -555,7 +555,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return null;
 		}
 		
@@ -583,7 +583,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -618,7 +618,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Erorr: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -649,7 +649,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -683,7 +683,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -713,7 +713,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -749,7 +749,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			retValue = false;
 		}
 		finally
@@ -782,7 +782,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -812,7 +812,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -844,7 +844,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -870,7 +870,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -946,7 +946,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -976,7 +976,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			result = null;
 		}
 		finally
@@ -1045,7 +1045,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 		}
 		
 		return result;
@@ -1084,7 +1084,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -1132,7 +1132,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -1182,7 +1182,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -1202,7 +1202,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error Occured: " + e.getMessage());
+			Logger.log(e);
 		}
 	}
 	@Override
@@ -1216,7 +1216,7 @@ public class SQLiteManager extends DatabaseManager
 			}
 			catch(SQLException e)
 			{
-				System.err.println("Error: " + e.getMessage());
+				Logger.log(e);
 			}
 			finally
 			{
@@ -1258,7 +1258,7 @@ public class SQLiteManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			retValue = false;
 		}
 		finally

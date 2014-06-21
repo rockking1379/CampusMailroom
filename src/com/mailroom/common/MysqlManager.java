@@ -53,7 +53,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(ClassNotFoundException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 		}
 		
@@ -91,7 +91,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error Logging In: " + e.getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -128,7 +128,7 @@ public class MysqlManager extends DatabaseManager
 		} 
 		catch (SQLException e) 
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -161,7 +161,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -191,7 +191,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			retValue = false;
 		}
 		finally
@@ -224,7 +224,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			retValue = false;
 		}
 		finally
@@ -258,7 +258,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			retValue = false;
 		}
 		finally
@@ -288,7 +288,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e .getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -317,7 +317,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e .getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -354,7 +354,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -384,7 +384,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -416,7 +416,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			retValue = false;
 		}
 		finally
@@ -459,7 +459,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -489,7 +489,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -517,7 +517,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return null;
 		}
 		finally
@@ -547,7 +547,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return null;
 		}
 		finally
@@ -569,7 +569,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return null;
 		}
 		
@@ -597,7 +597,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -632,7 +632,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Erorr: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -663,7 +663,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -697,7 +697,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -727,7 +727,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -763,7 +763,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			retValue = false;
 		}
 		finally
@@ -796,7 +796,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -826,7 +826,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -858,7 +858,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -884,7 +884,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -960,7 +960,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			return false;
 		}
 		finally
@@ -990,7 +990,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			result = null;
 		}
 		finally
@@ -1059,7 +1059,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 		}
 		
 		return result;
@@ -1098,7 +1098,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -1146,7 +1146,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -1196,7 +1196,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 		}
 		finally
 		{
@@ -1216,7 +1216,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error Occured: " + e.getMessage());
+			Logger.log(e);
 		}
 	}
 	@Override
@@ -1230,7 +1230,7 @@ public class MysqlManager extends DatabaseManager
 			}
 			catch(SQLException e)
 			{
-				System.err.println("Error: " + e.getMessage());
+				Logger.log(e);
 			}
 			finally
 			{
@@ -1272,7 +1272,7 @@ public class MysqlManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			retValue = false;
 		}
 		finally

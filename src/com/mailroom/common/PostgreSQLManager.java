@@ -46,7 +46,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(ClassNotFoundException e)
 		{
-			System.err.println("Could Not Load PostgreSQL JDBC Driver");
+			Logger.log(e);
 		}
 		
 		conString = "jdbc:postgresql://" + dbLocation + "/" + dbName;
@@ -82,7 +82,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error Logging In: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 		}
 		finally
@@ -120,7 +120,7 @@ public class PostgreSQLManager extends DatabaseManager
 		} 
 		catch (SQLException e) 
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 			return false;
 		}
@@ -154,7 +154,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 			return false;
 		}
@@ -185,7 +185,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 			retValue = false;
 		}
@@ -219,7 +219,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 			retValue = false;
 		}
@@ -254,7 +254,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 			retValue = false;
 		}
@@ -285,7 +285,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e .getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 		}
 		finally
@@ -315,7 +315,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e .getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 		}
 		finally
@@ -353,7 +353,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 		}
 		finally
@@ -384,7 +384,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 			return false;
 		}
@@ -417,7 +417,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 			retValue = false;
 		}
@@ -461,7 +461,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 			return false;
 		}
@@ -492,7 +492,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 			return false;
 		}
@@ -521,7 +521,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 			return null;
 		}
@@ -552,7 +552,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 			return null;
 		}
@@ -575,7 +575,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 			return null;
 		}
@@ -604,7 +604,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 		}
 		finally
@@ -640,7 +640,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Erorr: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 			return false;
 		}
@@ -672,7 +672,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 			return false;
 		}
@@ -707,7 +707,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 			return false;
 		}
@@ -738,7 +738,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 		}
 		finally
@@ -775,7 +775,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 			retValue = false;
 		}
@@ -809,7 +809,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 			return false;
 		}
@@ -840,7 +840,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 			return false;
 		}
@@ -873,7 +873,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 		}
 		finally
@@ -900,7 +900,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 		}
 		finally
@@ -977,7 +977,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 			return false;
 		}
@@ -1008,7 +1008,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 			result = null;
 		}
@@ -1078,7 +1078,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 		}
 		
@@ -1118,7 +1118,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 		}
 		finally
@@ -1167,7 +1167,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 		}
 		finally
@@ -1218,7 +1218,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 		}
 		finally
@@ -1239,7 +1239,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error Occured: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 		}
 	}
@@ -1254,7 +1254,7 @@ public class PostgreSQLManager extends DatabaseManager
 			}
 			catch(SQLException e)
 			{
-				System.err.println("Error: " + e.getMessage());
+				Logger.log(e);
 				e.printStackTrace();
 			}
 			finally
@@ -1297,7 +1297,7 @@ public class PostgreSQLManager extends DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			e.printStackTrace();
 			retValue = false;
 		}

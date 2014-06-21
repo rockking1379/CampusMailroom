@@ -113,7 +113,7 @@ public class PrintPageController implements Initializable
 					}
 					catch(IOException e)
 					{
-						System.err.println("Error: " + e.getMessage());
+						Logger.log(e);
 					}
 				}
 			}
@@ -127,7 +127,7 @@ public class PrintPageController implements Initializable
 				}
 				catch(IOException e)
 				{
-					System.err.println("Error: " + e.getMessage());
+					Logger.log(e);
 				}
 			}
 		}
@@ -236,6 +236,13 @@ public class PrintPageController implements Initializable
 	
 	public void btnPrintReportAction(ActionEvent ae)
 	{
+		File dir = new File("./Prints");
+		
+		if(!dir.exists())
+		{
+			dir.mkdir();
+		}
+		
 		Date d = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
 		String fileName = "";
@@ -280,12 +287,12 @@ public class PrintPageController implements Initializable
 				}
 				catch(PrinterException e)
 				{
-					System.err.println("Error: " + e.getMessage());
+					Logger.log(e);
 				}
 			}
 			catch(IOException e)
 			{
-				System.err.println("Error: " + e.getMessage());
+				Logger.log(e);
 			}
 		}
 		
@@ -299,7 +306,7 @@ public class PrintPageController implements Initializable
 			}
 			catch(IOException e)
 			{
-				System.err.println("Error: " + e.getMessage());
+				Logger.log(e);
 			}
 		}
 		else

@@ -228,7 +228,7 @@ public class MainPageController implements Initializable
 		}
 		catch(IOException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 		}
 	}
 	
@@ -291,11 +291,11 @@ public class MainPageController implements Initializable
 				}
 				catch (NumberFormatException e)
 				{
-					System.err.println("Error: " + e.getMessage());
+					Logger.log(e);
 				}
 				catch (InterruptedException e)
 				{
-					System.err.println("Error: " + e.getMessage());
+					Logger.log(e);
 				}
 			}
 		}

@@ -63,7 +63,7 @@ public class LoginController implements Initializable
 			}
 			catch(IOException e)
 			{
-				System.err.println("Error: " + e.getMessage());
+				Logger.log(e);
 			}
 		}
 		else

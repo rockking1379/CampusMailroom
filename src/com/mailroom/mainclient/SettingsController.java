@@ -510,7 +510,7 @@ public class SettingsController implements Initializable
 			}
 			catch (IOException e)
 			{
-				System.err.println("Error: " + e.getMessage());
+				Logger.log(e);
 			}
 	        dbManager.dispose();
 	        System.exit(0);
@@ -525,7 +525,7 @@ public class SettingsController implements Initializable
 			}
 			catch(IOException e)
 			{
-				System.err.println("Error: " + e.getMessage());
+				Logger.log(e);
 				e.printStackTrace();
 			}
 		}
@@ -541,7 +541,7 @@ public class SettingsController implements Initializable
 		}
 		catch(IOException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 		}
 	}
 	
@@ -594,7 +594,7 @@ public class SettingsController implements Initializable
 					}
 					catch(IOException e)
 					{
-						System.err.println("Error: " + e.getMessage());
+						Logger.log(e);
 					}
 				}
 				else

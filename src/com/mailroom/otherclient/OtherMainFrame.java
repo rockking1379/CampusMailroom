@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import com.mailroom.common.ConfigException;
 import com.mailroom.common.DatabaseManager;
+import com.mailroom.common.Logger;
 import com.mailroom.common.MysqlManager;
 import com.mailroom.common.PostgreSQLManager;
 import com.mailroom.common.SQLiteManager;
@@ -88,12 +89,12 @@ public class OtherMainFrame extends Application
 		}
 		catch(IOException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			System.exit(-1);
 		}
 		catch(ConfigException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 		}
 		
 		OtherMainFrame.stage = stage;

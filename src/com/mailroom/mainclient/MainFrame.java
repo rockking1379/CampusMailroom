@@ -143,12 +143,12 @@ public class MainFrame extends Application
 		}
 		catch(IOException e)
 		{
-			System.err.println("ERROR: " + e.getMessage());
+			Logger.log(e);
 			System.exit(-1);
 		}
 		catch(ConfigException e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Logger.log(e);
 			MessageDialog.Answer a = MessageDialogBuilder.error().message(e.getMessage() + "\nRevert to SQLite Database Configuration?").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").show(null);
 			if(a == MessageDialog.Answer.YES_OK)
 			{
@@ -204,7 +204,7 @@ public class MainFrame extends Application
 			}
 			catch(IOException e)
 			{
-				System.err.println("Error: " + e.getMessage());
+				Logger.log(e);
 			}
 		}
 	}
