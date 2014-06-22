@@ -13,17 +13,12 @@ import java.util.ResourceBundle;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*; 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.*;
-import jfxtras.labs.scene.menu.CirclePopupMenu;
 
 import com.mailroom.common.*;
 import com.mailroom.common.Package;
@@ -204,86 +199,6 @@ public class OpenPageController implements Initializable
 			lblAutoUpdate.setText("Auto Update Disabled");
 			au = null;
 		}
-		
-		//Popup Menu//
-		MenuItem mainMenu = new MenuItem("Main Menu", new ImageView(new Image(this.getClass().getResourceAsStream("/com/mailroom/resources/icon_main.png"))));
-		mainMenu.setOnAction(new EventHandler<ActionEvent>()
-				{
-					public void handle(ActionEvent ae)
-					{
-						try
-						{
-							Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
-							Scene scene = new Scene(root);
-							MainFrame.stage.setScene(scene);
-						}
-						catch(IOException e)
-						{
-							Logger.log(e);
-						}
-					}
-				}
-			);
-		MenuItem scanMenu = new MenuItem("Scan Package", new ImageView(new Image(this.getClass().getResourceAsStream("/com/mailroom/resources/icon_scan.png"))));
-		scanMenu.setOnAction(new EventHandler<ActionEvent>()
-				{
-					public void handle(ActionEvent ae)
-					{
-						try
-						{
-							Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/ScanPageFx.fxml"));
-							Scene scene = new Scene(root);
-							MainFrame.stage.setScene(scene);
-						}
-						catch(IOException e)
-						{
-							Logger.log(e);
-						}
-					}
-				}
-			);
-		MenuItem searchMenu = new MenuItem("Search", new ImageView(new Image(this.getClass().getResourceAsStream("/com/mailroom/resources/icon_search.png"))));
-		searchMenu.setOnAction(new EventHandler<ActionEvent>()
-				{
-					public void handle(ActionEvent ae)
-					{
-						try
-						{
-							Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/common/AdvSearchFx.fxml"));
-							Scene scene = new Scene(root);
-							MainFrame.stage.setScene(scene);
-						}
-						catch(IOException e)
-						{
-							Logger.log(e);
-						}
-					}
-				}
-			);
-		MenuItem logoutMenu = new MenuItem("Logout", new ImageView(new Image(this.getClass().getResourceAsStream("/com/mailroom/resources/icon_logout.png"))));
-		logoutMenu.setOnAction(new EventHandler<ActionEvent>()
-				{
-					public void handle(ActionEvent ae)
-					{
-						try
-						{
-							Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/LoginFx.fxml"));
-							Scene scene = new Scene(root);
-							MainFrame.stage.setScene(scene);
-						}
-						catch(IOException e)
-						{
-							Logger.log(e);
-						}
-					}
-				}
-			);
-		
-		CirclePopupMenu popup = new CirclePopupMenu(apaneAnchor, MouseButton.SECONDARY);
-		popup.getItems().add(mainMenu);
-		popup.getItems().add(scanMenu);
-		popup.getItems().add(searchMenu);
-		popup.getItems().add(logoutMenu);
 	}
 	
 	public void btnScanPackageAction(ActionEvent ae)
