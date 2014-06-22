@@ -75,6 +75,15 @@ public class Package
 	}
 	
 	/**
+	 * Sets Courier who brought the package
+	 * @param c Courier who brought the package
+	 */
+	public void setCourier(Courier c)
+	{
+		this.courier = c;
+	}
+	
+	/**
 	 * Sets wether Package is at Stop or not
 	 * @param atStop wether package is at stop or not
 	 */

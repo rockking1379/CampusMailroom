@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.*; 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -66,14 +66,14 @@ public class OpenPageController implements Initializable
 	private TickColumn<Package> clmnDelivered;
 	private TextColumn<Package> clmnFirstName;
 	private TextColumn<Package> clmnLastName;
-	private TextColumn<Package> clmnStop;
+	private ComboBoxColumn<Package, Stop> clmnStop;
 	private TextColumn<Package> clmnTrackingNumber;
-	private TextColumn<Package> clmnCourier;
+	private ComboBoxColumn<Package, Courier> clmnCourier;
 	private TextColumn<Package> clmnDateReceived;
 	private TextColumn<Package> clmnUserName;
 	
-//	private TableControl<Package> tblCntrlTable;
-//	private TableController<Package> tblController;
+	private TableControl<Package> tblCntrlTable;
+	private OpenTableController<Package> tblController;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
@@ -86,18 +86,22 @@ public class OpenPageController implements Initializable
 		String name = "Welcome " + cUser.getFirstName() + " " + cUser.getLastName();
 		lblUserLabel.setText(name);
 		
-		tblViewTable.setEditable(false);
-		
+//		tblViewTable.setEditable(false);
+//		
 		//Create Columns
 		clmnDelivered = new TickColumn<Package>();
 		clmnFirstName = new TextColumn<Package>("firstName");
 		clmnLastName = new TextColumn<Package>("lastName");
-		clmnStop = new TextColumn<Package>("stop");
+		clmnStop = new ComboBoxColumn<Package, Stop>("stop");
 		clmnTrackingNumber = new TextColumn<Package>("trackingNumber");
-		clmnCourier = new TextColumn<Package>("courier");
-		//clmnCourier = new ComboBoxColumn<Package, String>("courier");
+		clmnCourier = new ComboBoxColumn<Package, Courier>("courier");
 		clmnDateReceived = new TextColumn<Package>("receivedDate");
 		clmnUserName = new TextColumn<Package>("user");
+		
+		for(Stop s : dbManager.getStops())
+		{
+			clmnStop.addItem(s.toString(), s);
+		}
 		
 		//Set Resizable False
 		clmnDelivered.setResizable(false);
@@ -127,41 +131,53 @@ public class OpenPageController implements Initializable
 		clmnCourier.setMaxWidth(70);
 		clmnDateReceived.setMaxWidth(100); //wider because of data contained
 		clmnUserName.setMaxWidth(75);
-		
-		//Add Columns
-		tblViewTable.getColumns().add(clmnDelivered);
-		tblViewTable.getColumns().add(clmnFirstName);
-		tblViewTable.getColumns().add(clmnLastName);
-		tblViewTable.getColumns().add(clmnStop);
-		tblViewTable.getColumns().add(clmnTrackingNumber);
-		tblViewTable.getColumns().add(clmnCourier);
-		tblViewTable.getColumns().add(clmnDateReceived);
-		tblViewTable.getColumns().add(clmnUserName);
-		
-//		tblCntrlTable = new TableControl<Package>();
-//		tblCntrlTable.minWidth(500);
-//		tblCntrlTable.minHeight(625);
-//		tblCntrlTable.setLayoutX(170);
-//		tblCntrlTable.setLayoutY(14);
-//		tblCntrlTable.setVisible(true);
-//		tblCntrlTable.setRecordClass(Package.class);
 //		
-//		tblCntrlTable.addColumn(clmnDelivered);
-//		tblCntrlTable.addColumn(clmnFirstName);
-//		tblCntrlTable.addColumn(clmnLastName);
-//		tblCntrlTable.addColumn(clmnStop);
-//		tblCntrlTable.addColumn(clmnTrackingNumber);
-//		tblCntrlTable.addColumn(clmnCourier);
-//		tblCntrlTable.addColumn(clmnDateReceived);
-//		tblCntrlTable.addColumn(clmnUserName);
+//		//Add Columns
+//		tblViewTable.getColumns().add(clmnDelivered);
+//		tblViewTable.getColumns().add(clmnFirstName);
+//		tblViewTable.getColumns().add(clmnLastName);
+//		tblViewTable.getColumns().add(clmnStop);
+//		tblViewTable.getColumns().add(clmnTrackingNumber);
+//		tblViewTable.getColumns().add(clmnCourier);
+//		tblViewTable.getColumns().add(clmnDateReceived);
+//		tblViewTable.getColumns().add(clmnUserName);
 //		
-//		apaneAnchor.getChildren().add(tblCntrlTable);
-//		
-//		tblViewTable.setVisible(false);
+		tblCntrlTable = new TableControl<Package>();
+		tblCntrlTable.minWidth(500);
+		tblCntrlTable.minHeight(625);
+		tblCntrlTable.setLayoutX(170);
+		tblCntrlTable.setLayoutY(14);
+		tblCntrlTable.setVisible(true);
+		tblCntrlTable.setRecordClass(Package.class);
+
+		tblCntrlTable.addColumn(clmnDelivered);
+		tblCntrlTable.addColumn(clmnFirstName);
+		tblCntrlTable.addColumn(clmnLastName);
+		tblCntrlTable.addColumn(clmnStop);
+		tblCntrlTable.addColumn(clmnTrackingNumber);
+		tblCntrlTable.addColumn(clmnCourier);
+		tblCntrlTable.addColumn(clmnDateReceived);
+		tblCntrlTable.addColumn(clmnUserName);
 		
-		lblTickCount.setText(clmnDelivered.getTickedRecords().size() + " Selected");
+		apaneAnchor.getChildren().add(tblCntrlTable);
+		
+		tblViewTable.setVisible(false);
+//		
+//		lblTickCount.setText(clmnDelivered.getTickedRecords().size() + " Selected");
 		
 		dbManager.loadAllPackages();
+		
+//		if(dbManager.getPackages().size() == 0)
+//		{
+//			Package p = new Package(-1, "", "", "", "", "", "", null, null, null, false, false, "", false);
+//			tblViewTable.getItems().add(p);
+//		}
+//		else
+//		{
+//			tblViewTable.getItems().addAll(dbManager.getPackages());
+//		}
+		
+		tblController = new OpenTableController<Package>();
 		
 		if(dbManager.getPackages().size() == 0)
 		{
@@ -170,7 +186,7 @@ public class OpenPageController implements Initializable
 		}
 		else
 		{
-			tblViewTable.getItems().addAll(dbManager.getPackages());
+			tblController.insert(dbManager.getPackages());
 		}
 		
 		if(Boolean.valueOf(MainFrame.properties.getProperty("AUTOUPDATE")))

@@ -12,7 +12,7 @@ import com.panemu.tiwulfx.table.TableController;
  * 
  * @author James
  */
-public class OpenTableController extends TableController<Package>
+public class OpenTableController<T> extends TableController<T>
 {
 
 	@Override
@@ -20,6 +20,14 @@ public class OpenTableController extends TableController<Package>
 			List sortedColumns, List sortingOrders, int maxResult)
 	{
 		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	
+	@Override
+	public List<T> insert(List<T> items)
+	{
 		return null;
 	}
 
