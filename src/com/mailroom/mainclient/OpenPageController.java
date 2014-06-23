@@ -66,14 +66,11 @@ public class OpenPageController implements Initializable
 	private TickColumn<Package> clmnDelivered;
 	private TextColumn<Package> clmnFirstName;
 	private TextColumn<Package> clmnLastName;
-	private ComboBoxColumn<Package, Stop> clmnStop;
+	private TextColumn<Package> clmnStop;
 	private TextColumn<Package> clmnTrackingNumber;
-	private ComboBoxColumn<Package, Courier> clmnCourier;
+	private TextColumn<Package> clmnCourier;
 	private TextColumn<Package> clmnDateReceived;
 	private TextColumn<Package> clmnUserName;
-	
-	private TableControl<Package> tblCntrlTable;
-	private OpenTableController<Package> tblController;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
@@ -92,16 +89,11 @@ public class OpenPageController implements Initializable
 		clmnDelivered = new TickColumn<Package>();
 		clmnFirstName = new TextColumn<Package>("firstName");
 		clmnLastName = new TextColumn<Package>("lastName");
-		clmnStop = new ComboBoxColumn<Package, Stop>("stop");
+		clmnStop = new TextColumn<Package>("stop");
 		clmnTrackingNumber = new TextColumn<Package>("trackingNumber");
-		clmnCourier = new ComboBoxColumn<Package, Courier>("courier");
+		clmnCourier = new TextColumn<Package>("courier");
 		clmnDateReceived = new TextColumn<Package>("receivedDate");
 		clmnUserName = new TextColumn<Package>("user");
-		
-		for(Stop s : dbManager.getStops())
-		{
-			clmnStop.addItem(s.toString(), s);
-		}
 		
 		//Set Resizable False
 		clmnDelivered.setResizable(false);
@@ -131,53 +123,21 @@ public class OpenPageController implements Initializable
 		clmnCourier.setMaxWidth(70);
 		clmnDateReceived.setMaxWidth(100); //wider because of data contained
 		clmnUserName.setMaxWidth(75);
-//		
-//		//Add Columns
-//		tblViewTable.getColumns().add(clmnDelivered);
-//		tblViewTable.getColumns().add(clmnFirstName);
-//		tblViewTable.getColumns().add(clmnLastName);
-//		tblViewTable.getColumns().add(clmnStop);
-//		tblViewTable.getColumns().add(clmnTrackingNumber);
-//		tblViewTable.getColumns().add(clmnCourier);
-//		tblViewTable.getColumns().add(clmnDateReceived);
-//		tblViewTable.getColumns().add(clmnUserName);
-//		
-		tblCntrlTable = new TableControl<Package>();
-		tblCntrlTable.minWidth(500);
-		tblCntrlTable.minHeight(625);
-		tblCntrlTable.setLayoutX(170);
-		tblCntrlTable.setLayoutY(14);
-		tblCntrlTable.setVisible(true);
-		tblCntrlTable.setRecordClass(Package.class);
-
-		tblCntrlTable.addColumn(clmnDelivered);
-		tblCntrlTable.addColumn(clmnFirstName);
-		tblCntrlTable.addColumn(clmnLastName);
-		tblCntrlTable.addColumn(clmnStop);
-		tblCntrlTable.addColumn(clmnTrackingNumber);
-		tblCntrlTable.addColumn(clmnCourier);
-		tblCntrlTable.addColumn(clmnDateReceived);
-		tblCntrlTable.addColumn(clmnUserName);
 		
-		apaneAnchor.getChildren().add(tblCntrlTable);
-		
-		tblViewTable.setVisible(false);
+		//Add Columns
+		tblViewTable.getColumns().add(clmnDelivered);
+		tblViewTable.getColumns().add(clmnFirstName);
+		tblViewTable.getColumns().add(clmnLastName);
+		tblViewTable.getColumns().add(clmnStop);
+		tblViewTable.getColumns().add(clmnTrackingNumber);
+		tblViewTable.getColumns().add(clmnCourier);
+		tblViewTable.getColumns().add(clmnDateReceived);
+		tblViewTable.getColumns().add(clmnUserName);
 //		
 //		lblTickCount.setText(clmnDelivered.getTickedRecords().size() + " Selected");
+		lblTickCount.setVisible(false);
 		
 		dbManager.loadAllPackages();
-		
-//		if(dbManager.getPackages().size() == 0)
-//		{
-//			Package p = new Package(-1, "", "", "", "", "", "", null, null, null, false, false, "", false);
-//			tblViewTable.getItems().add(p);
-//		}
-//		else
-//		{
-//			tblViewTable.getItems().addAll(dbManager.getPackages());
-//		}
-		
-		tblController = new OpenTableController<Package>();
 		
 		if(dbManager.getPackages().size() == 0)
 		{
@@ -186,7 +146,7 @@ public class OpenPageController implements Initializable
 		}
 		else
 		{
-			tblController.insert(dbManager.getPackages());
+			tblViewTable.getItems().addAll(dbManager.getPackages());
 		}
 		
 		if(Boolean.valueOf(MainFrame.properties.getProperty("AUTOUPDATE")))
