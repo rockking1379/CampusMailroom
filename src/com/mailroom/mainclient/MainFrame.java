@@ -23,7 +23,7 @@ import com.panemu.tiwulfx.dialog.*;
 public class MainFrame extends Application
 {
 	/**
-	 * Database Manaager for Instance of Main Client
+	 * Database Manager for Instance of Main Client
 	 */
 	public static DatabaseManager dbManager;
 	/**
