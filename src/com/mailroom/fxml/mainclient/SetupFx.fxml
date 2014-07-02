@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #01A217" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <TabPane layoutX="0.0" layoutY="0.0" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+        <Tab fx:id="tabDatabaseSetup" closable="false" text="Database Setup">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
+              <children>
+                <ComboBox fx:id="cboxDbSetupDbType" layoutX="14.0" layoutY="50.0" prefHeight="50.0" prefWidth="200.0" promptText="Database Type">
+                  <items>
+                    <FXCollections fx:factory="observableArrayList">
+                      <String fx:value="Item 1" />
+                      <String fx:value="Item 2" />
+                      <String fx:value="Item 3" />
+                    </FXCollections>
+                  </items>
+                </ComboBox>
+                <TextField fx:id="txtDbSetupDbLocation" layoutX="14.0" layoutY="105.0" prefHeight="25.0" prefWidth="200.0" promptText="Database Location" />
+                <Button fx:id="btnDbSetupBrowse" layoutX="219.0" layoutY="107.0" mnemonicParsing="false" text="Browse..." />
+                <TextField fx:id="txtDbSetupDbName" disable="true" layoutX="14.0" layoutY="135.0" prefHeight="25.0" prefWidth="125.0" promptText="Database Name" />
+                <TextField fx:id="txtDbSetupDbUsername" disable="true" layoutX="144.0" layoutY="135.0" prefHeight="25.0" prefWidth="125.0" promptText="Username" />
+                <PasswordField fx:id="pwdDbSetupDbPassword" disable="true" layoutX="274.0" layoutY="135.0" prefHeight="25.0" prefWidth="125.0" promptText="Password" />
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab fx:id="tabAccountSetup" closable="false" disable="true" text="Account Creation">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217" />
+          </content>
+        </Tab>
+        <Tab fx:id="tabCourierSetup" closable="false" disable="true" text="Courier Setup">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217" />
+          </content>
+        </Tab>
+        <Tab fx:id="tabStopSetup" closable="false" disable="true" text="Stop Setup">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217" />
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+  </children>
+</AnchorPane>
