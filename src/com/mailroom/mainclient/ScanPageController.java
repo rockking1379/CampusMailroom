@@ -58,6 +58,8 @@ public class ScanPageController implements Initializable
 	
 	private DatabaseManager dbManager;
 	private User cUser;
+	private String stopSearch = "";
+	private String courierSearch = "";
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
@@ -106,6 +108,8 @@ public class ScanPageController implements Initializable
 		txtEmailAddress.setText("");
 		cboxStops.setValue(cboxStops.getItems().get(0));
 		cboxCourier.setValue(cboxCourier.getItems().get(0));
+		stopSearch = "";
+		courierSearch = "";
 	}
 	
 	public void btnSaveAction(ActionEvent ae)
@@ -231,6 +235,82 @@ public class ScanPageController implements Initializable
 		}
 	}
 
+	public void cboxStopsKeyPressAction(KeyEvent ke)
+	{
+		if(ke.getCode() == KeyCode.BACK_SPACE)
+		{
+			stopSearch = "";
+			courierSearch = "";
+		}
+		else
+		{
+			if(ke.getCode() == KeyCode.TAB && ke.isShiftDown())
+			{
+				txtEmailAddress.requestFocus();
+			}
+			else
+			{
+				if(ke.getCode() == KeyCode.TAB && !ke.isShiftDown())
+				{
+					stopSearch = "";
+					courierSearch = "";
+					cboxCourier.requestFocus();
+				}
+				else
+				{
+					stopSearch += ke.getCode().toString();
+					
+					for(Stop s : cboxStops.getItems())
+					{
+						if(s.getStopName().toUpperCase().startsWith(stopSearch.toUpperCase()))
+						{
+							cboxStops.setValue(s);
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public void cboxCourierKeyPressAction(KeyEvent ke)
+	{
+		if(ke.getCode() == KeyCode.BACK_SPACE)
+		{
+			stopSearch = "";
+			courierSearch = "";
+		}
+		else
+		{
+			if(ke.getCode() == KeyCode.TAB && !ke.isShiftDown())
+			{
+				btnSave.requestFocus();
+			}
+			else
+			{
+				if(ke.getCode() == KeyCode.TAB && ke.isShiftDown())
+				{
+					stopSearch = "";
+					courierSearch = "";
+					cboxStops.requestFocus();
+				}
+				else
+				{
+					courierSearch += ke.getCode().toString();
+					
+					for(Courier c : cboxCourier.getItems())
+					{
+						if(c.getCourierName().toUpperCase().startsWith(courierSearch.toUpperCase()))
+						{
+							cboxCourier.setValue(c);
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+	
 	private char generate()
 	{
 		int val;
