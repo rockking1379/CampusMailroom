@@ -184,54 +184,13 @@ public class UpdaterController implements Initializable
 								properties.store(oStream, "System Configuration");
 								oStream.close();
 								
-								try
-								{
-									lblDownload.setVisible(false);
-								}
-								catch(IllegalStateException ise)
-								{
-									Logger.log(ise);
-								}
-								try
-								{
-									lblWaiting.setVisible(false);
-								}
-								catch(IllegalStateException ise)
-								{
-									Logger.log(ise);
-								}
-								try
-								{
-									lblFinished.setVisible(true);
-								}
-								catch(IllegalStateException ise)
-								{
-									Logger.log(ise);
-								}
-								try
-								{
-									pindicatorProgress.setVisible(false);
-								}
-								catch(IllegalStateException ise)
-								{
-									Logger.log(ise);
-								}
-								try
-								{	
-									btnExit.setVisible(true);
-								}
-								catch(IllegalStateException ise)
-								{
-									Logger.log(ise);
-								}
-								try
-								{
-									btnUpdate.setVisible(false);
-								}
-								catch(IllegalStateException ise)
-								{
-									Logger.log(ise);
-								}
+								lblDownload.setVisible(false);
+								lblWaiting.setVisible(false);
+								lblFinished.setVisible(true);
+								btnExit.setVisible(true);
+								btnUpdate.setVisible(false);
+								pindicatorProgress.setProgress(1.0);
+								
 								break;
 							}
 							case HttpURLConnection.HTTP_NOT_FOUND:

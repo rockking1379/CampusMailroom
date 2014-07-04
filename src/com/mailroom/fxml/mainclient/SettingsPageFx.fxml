@@ -151,7 +151,7 @@
                   </items>
                 </ComboBox>
                 <Button fx:id="btnStopDelete" layoutX="182.0" layoutY="72.0" mnemonicParsing="false" onAction="#btnStopDeleteAction" prefHeight="25.0" prefWidth="66.0" text="Delete" />
-                <TextField fx:id="txtStopName" layoutX="14.0" layoutY="154.0" prefWidth="150.0" promptText="Stop Name" />
+                <TextField fx:id="txtStopName" layoutX="14.0" layoutY="154.0" prefHeight="25.0" prefWidth="150.0" promptText="Stop Name" />
                 <ComboBox fx:id="cboxStopRoute" layoutX="181.0" layoutY="145.0" prefHeight="40.0" prefWidth="150.0">
                   <items>
                     <FXCollections fx:factory="observableArrayList">
@@ -265,7 +265,7 @@
                   </font>
                 </Label>
                 <Label id="lblAvailableVersion" fx:id="lblUpdateAvailableVersion" font="$x2" layoutX="14.0" layoutY="89.0" prefHeight="75.0" prefWidth="500.0" text="Version Available:" />
-                <Button fx:id="btnUpdate" disable="false" layoutX="89.0" layoutY="164.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="150.0" text="Update" textFill="BLACK">
+                <Button fx:id="btnUpdate" disable="false" layoutX="89.0" layoutY="164.0" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="75.0" prefWidth="150.0" text="Update" textFill="BLACK">
                   <font>
                     <Font size="20.0" />
                   </font>
