@@ -39,6 +39,8 @@ public class SettingsController implements Initializable
 {
 	//Tab Views//
 	@FXML
+	private Tab tabGeneral;
+	@FXML
 	private Tab tabStopManagement;
 	@FXML
 	private Tab tabRouteManagement;
@@ -52,8 +54,6 @@ public class SettingsController implements Initializable
 	private TabPane tabpaneMainPane;
 
 	//General Settings//
-	@FXML
-	private Tab tabGeneral;
 	@FXML
 	private ComboBox<String> cboxDatabaseType; 
 	@FXML
@@ -966,7 +966,16 @@ public class SettingsController implements Initializable
 	//Software Update//
 	public void btnUpdateAction(ActionEvent ae)
 	{
-		//throw message dialog, 
+        try
+		{
+        	File f = new File("./Updater.jar");
+			Runtime.getRuntime().exec("java -jar " + f.getAbsolutePath());
+			System.exit(0);
+		}
+		catch (IOException e)
+		{
+			Logger.log(e);
+		}
 	}
 	
 	private void loadCourierComboBoxes()

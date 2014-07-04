@@ -491,4 +491,13 @@ public class DatabaseManager
 	 {
 		 return false;
 	 }
+	 
+	 /**
+	  * Verifies status of database
+	  * @return Verification Status
+	  */
+	 public boolean verify()
+	 {
+		 return false;
+	 }
 }

@@ -63,6 +63,7 @@ public class MainFrame extends Application
 	@Override
 	public void start(Stage stage) throws Exception 
 	{
+		boolean setup = true;
 		//read settings file
 		try
 		{
@@ -71,6 +72,8 @@ public class MainFrame extends Application
 			
 			if(propFile.exists())
 			{
+				setup = false;
+				
 				FileInputStream file = new FileInputStream(propFile);
 				properties.load(file);
 				
@@ -101,44 +104,7 @@ public class MainFrame extends Application
 			}
 			else
 			{
-				//temporary//	
-				MessageDialog.Answer create = MessageDialogBuilder.confirmation().message("Create New Database?").title("Setup").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").noButtonText("No").show(null);
-				
-				if(create == MessageDialog.Answer.YES_OK)
-				{
-					MessageDialog.Answer sqlite = MessageDialogBuilder.confirmation().message("Use SQLite Database?").title("Setup").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").noButtonText("No").show(null);
-					
-					if(sqlite == MessageDialog.Answer.YES_OK)
-					{
-						propFile.createNewFile();
-						
-						FileChooser fChooser = new FileChooser();
-						fChooser.setTitle("Select Database File");
-						
-						FileOutputStream oStream = new FileOutputStream(propFile);
-						
-						properties.setProperty("SQLITE", Boolean.toString(true));
-						properties.setProperty("MYSQL", Boolean.toString(false));
-						properties.setProperty("AUTOUPDATE", Boolean.toString(false));
-						File dbFile = fChooser.showOpenDialog(stage);
-						properties.setProperty("DATABASE", dbFile.getAbsolutePath());
-						properties.setProperty("AUFREQ", "10.0");
-						properties.store(oStream, "System Configuration");
-						oStream.close();
-						
-						dbManager = new SQLiteManager(dbFile.getAbsolutePath());
-					}
-					else
-					{
-						//load new UI for setting up MYSQL
-						//TO BE DONE LATER
-					}
-				}
-				else
-				{
-					//Maybe ask to be pointed towards the configuration file (might be an old one from previous setup)
-					//Then on exit, save them in working directory???
-				}
+				setup = true;
 			}
 		}
 		catch(IOException e)
@@ -149,37 +115,46 @@ public class MainFrame extends Application
 		catch(ConfigException e)
 		{
 			Logger.log(e);
-			MessageDialog.Answer a = MessageDialogBuilder.error().message(e.getMessage() + "\nRevert to SQLite Database Configuration?").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").show(null);
-			if(a == MessageDialog.Answer.YES_OK)
-			{
-				properties.setProperty("MYSQL", Boolean.toString(false));
-				saveProperties();
-				dbManager = new SQLiteManager(properties.getProperty("DATABASE"));
-			}
-			else
-			{
-				MessageDialog.Answer b = MessageDialogBuilder.warning().message("Bad Configuration\nSystem will now Exit").buttonType(MessageDialog.ButtonType.OK).show(null);
-				if(b == MessageDialog.Answer.YES_OK)
-				{
-					System.exit(-1);
-				}
-				else
-				{
-					System.exit(-1);
-				}
-			}
+			MessageDialogBuilder.warning().message("Bad Configuration Found!\nYou Will Be Directed to the Setup Page").buttonType(MessageDialog.ButtonType.OK).yesOkButtonText("OK").show(null);
+			this.imageLogo = new Image(getClass().getResourceAsStream("/com/mailroom/resources/Logo.png"));
+			this.stage = stage;
+			this.stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/mailroom/resources/Icon.png")));
+			this.stage.setResizable(false);
+			this.stage.centerOnScreen();
+			Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/SetupFx.fxml"));
+			Scene scene = new Scene(root, 800, 600);
+			this.stage.setScene(scene);
+			this.stage.setTitle("Setup");
+			this.stage.show();
 		}
 		
-		this.imageLogo = new Image(getClass().getResourceAsStream("/com/mailroom/resources/Logo.png"));
-		this.stage = stage;
-		this.stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/mailroom/resources/Icon.png")));
-		this.stage.setResizable(false);
-		this.stage.centerOnScreen();
-		Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/LoginFx.fxml"));
-		Scene scene = new Scene(root, 800, 600);
-		this.stage.setScene(scene);
-		this.stage.setTitle("Login");
-		this.stage.show();
+		if(setup)
+		{
+			MessageDialogBuilder.warning().message("No Configuration Found!\nYou Will Be Directed to the Setup Page").buttonType(MessageDialog.ButtonType.OK).yesOkButtonText("OK").show(null);
+			this.imageLogo = new Image(getClass().getResourceAsStream("/com/mailroom/resources/Logo.png"));
+			this.stage = stage;
+			this.stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/mailroom/resources/Icon.png")));
+			this.stage.setResizable(false);
+			this.stage.centerOnScreen();
+			Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/SetupFx.fxml"));
+			Scene scene = new Scene(root, 800, 600);
+			this.stage.setScene(scene);
+			this.stage.setTitle("Setup");
+			this.stage.show();
+		}
+		else
+		{
+			this.imageLogo = new Image(getClass().getResourceAsStream("/com/mailroom/resources/Logo.png"));
+			this.stage = stage;
+			this.stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/mailroom/resources/Icon.png")));
+			this.stage.setResizable(false);
+			this.stage.centerOnScreen();
+			Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/LoginFx.fxml"));
+			Scene scene = new Scene(root, 800, 600);
+			this.stage.setScene(scene);
+			this.stage.setTitle("Login");
+			this.stage.show();
+		}
 	}
 	
 	/**

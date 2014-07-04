@@ -1282,4 +1282,27 @@ public class MysqlManager extends DatabaseManager
 		
 		return retValue;
 	}
+	@Override
+	public boolean verify()
+	{
+		try
+		{
+			connect();
+			if(!connection.isClosed())
+			{
+				disconnect();
+				return true;
+			}
+			else
+			{
+				disconnect();
+				return false;
+			}
+		}
+		catch (SQLException e)
+		{
+			Logger.log(e);
+			return false;
+		}
+	}
 }
