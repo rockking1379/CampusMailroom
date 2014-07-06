@@ -6,7 +6,7 @@ import java.util.Date;
 
 /**
  * Represents A Received Package
- * @author James
+ * @author James sitzja@grizzlies.adams.edu
  *
  */
 public class Package 

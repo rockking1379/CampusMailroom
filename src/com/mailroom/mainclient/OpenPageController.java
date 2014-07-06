@@ -29,7 +29,7 @@ import com.panemu.tiwulfx.table.*;
 /**
  * Controls OpenPageFx.fxml in com.mailroom.fxml.mainclient
  * 
- * @author James
+ * @author James sitzja@grizzlies.adams.edu
  */
 public class OpenPageController implements Initializable
 {

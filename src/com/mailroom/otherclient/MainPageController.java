@@ -27,7 +27,7 @@ import javafx.scene.input.KeyEvent;
 
 /**
  * Controls MainPageFx.fxml in com.mailroom.fxml.otherclient
- * @author James
+ * @author James sitzja@grizzlies.adams.edu
  *
  */
 public class MainPageController implements Initializable

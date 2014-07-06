@@ -31,7 +31,7 @@ import javafx.scene.control.ProgressIndicator;
 
 /**
  * Controls UpdaterFx.fxml in com.mailroom.fxml.updater
- * @author James
+ * @author James sitzja@grizzlies.adams.edu
  *
  */
 public class UpdaterController implements Initializable

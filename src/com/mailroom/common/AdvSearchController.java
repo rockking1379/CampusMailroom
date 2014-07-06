@@ -34,7 +34,7 @@ import javafx.scene.layout.AnchorPane;
 /**
  * Controls AdvSearchFx.fxml in com.mailroom.fxml.common
  * 
- * @author James
+ * @author James sitzja@grizzlies.adams.edu
  *
  */
 public class AdvSearchController implements Initializable

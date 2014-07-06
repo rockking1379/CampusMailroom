@@ -8,7 +8,7 @@ import java.util.List;
  * All Classes Extending this one should Override ALL methods
  * This class should never be directly instantiated
  * 
- * @author James
+ * @author James sitzja@grizzlies.adams.edu
  */
 public class DatabaseManager 
 {

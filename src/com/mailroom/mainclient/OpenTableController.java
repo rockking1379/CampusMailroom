@@ -10,7 +10,7 @@ import com.panemu.tiwulfx.table.TableController;
  * <br>
  * Not Finished Yet
  * 
- * @author James
+ * @author James sitzja@grizzlies.adams.edu
  */
 public class OpenTableController<T> extends TableController<T>
 {

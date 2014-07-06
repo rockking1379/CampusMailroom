@@ -34,7 +34,7 @@ import javafx.scene.layout.FlowPane;
 /**
  * Controls PrintPageFx.fxml in com.mailroom.fxml.mainclient
  * 
- * @author James
+ * @author James sitzja@grizzlies.adams.edu
  */
 public class PrintPageController implements Initializable
 {

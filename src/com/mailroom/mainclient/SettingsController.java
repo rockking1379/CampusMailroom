@@ -33,7 +33,7 @@ import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 /**
  * Controls SettingsPageFx.fxml in com.mailroom.fxml.mainclient
  * 
- * @author James
+ * @author James sitzja@grizzlies.adams.edu
  */
 public class SettingsController implements Initializable
 {

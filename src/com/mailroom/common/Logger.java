@@ -13,7 +13,7 @@ import java.util.Date;
  * Custom Logger Class for logging Errors and Exceptions
  * <br>
  * Will put them into a database located in logs
- * @author James
+ * @author James sitzja@grizzlies.adams.edu
  *
  */
 public class Logger

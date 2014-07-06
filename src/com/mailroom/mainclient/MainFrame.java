@@ -18,7 +18,7 @@ import com.panemu.tiwulfx.dialog.*;
 /**
  * Main Entry Point for MainClient
  * 
- * @author James
+ * @author James sitzja@grizzlies.adams.edu
  */
 public class MainFrame extends Application
 {

@@ -16,6 +16,11 @@ import com.mailroom.common.*;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 
+/**
+ * Controls SetupFx.fxml in com.mailroom.fxml.mainclient
+ * @author James sitzja@grizzlies.adams.edu
+ *
+ */
 public class SetupController implements Initializable
 {	
 	//Tabs//
@@ -349,7 +354,7 @@ public class SetupController implements Initializable
 	
 	/**
 	 * Changes Tabs from Account over to Courier
-	 * @param ae
+	 * @param ae ActionEvent from OS
 	 */
 	public void btnAccSetupNextAction(ActionEvent ae)
 	{

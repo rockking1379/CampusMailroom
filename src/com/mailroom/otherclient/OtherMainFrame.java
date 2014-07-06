@@ -23,7 +23,7 @@ import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 
 /**
  * Defines Main Entry Point for OtherClient
- * @author James
+ * @author James sitzja@grizzlies.adams.edu
  *
  */
 public class OtherMainFrame extends Application

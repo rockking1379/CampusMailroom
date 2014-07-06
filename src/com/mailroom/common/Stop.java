@@ -2,7 +2,7 @@ package com.mailroom.common;
 
 /**
  * Represents A Stop for Packages
- * @author James
+ * @author James sitzja@grizzlies.adams.edu
  *
  */
 public class Stop 

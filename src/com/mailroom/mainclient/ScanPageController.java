@@ -27,7 +27,7 @@ import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 /**
  * Controls ScanPageFx.fxml in com.mailroom.fxml.mainclient
  * 
- * @author James
+ * @author James sitzja@grizzlies.adams.edu
  */
 public class ScanPageController implements Initializable
 {

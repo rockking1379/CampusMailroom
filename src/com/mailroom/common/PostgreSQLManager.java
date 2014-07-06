@@ -11,7 +11,7 @@ import java.util.List;
  * A Database Manager for PostgreSQL Server
  * <br>
  * Extends DatabaseManager
- * @author James
+ * @author James sitzja@grizzlies.adams.edu
  *
  */
 public class PostgreSQLManager extends DatabaseManager
