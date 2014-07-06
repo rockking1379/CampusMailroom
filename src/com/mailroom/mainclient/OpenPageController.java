@@ -33,10 +33,12 @@ import com.panemu.tiwulfx.table.*;
  */
 public class OpenPageController implements Initializable
 {
+	//Misc//
 	private DatabaseManager dbManager;
 	private User cUser;
 	private AutoUpdater au;
 	
+	//UI Elements//
 	@FXML
 	private AnchorPane apaneAnchor;
 	@FXML
@@ -62,7 +64,7 @@ public class OpenPageController implements Initializable
 	@FXML
 	private Label lblTickCount;
 	
-	//Columns
+	//Columns//
 	private TickColumn<Package> clmnDelivered;
 	private TextColumn<Package> clmnFirstName;
 	private TextColumn<Package> clmnLastName;
@@ -82,9 +84,7 @@ public class OpenPageController implements Initializable
 		
 		String name = "Welcome " + cUser.getFirstName() + " " + cUser.getLastName();
 		lblUserLabel.setText(name);
-		
-//		tblViewTable.setEditable(false);
-//		
+			
 		//Create Columns
 		clmnDelivered = new TickColumn<Package>();
 		clmnFirstName = new TextColumn<Package>("firstName");
