@@ -159,6 +159,9 @@ public class OpenPageController implements Initializable
 			lblAutoUpdate.setText("Auto Update Disabled");
 			au = null;
 		}
+		
+		PackageEditWindow w = new PackageEditWindow();
+		w.show();
 	}
 	
 	public void btnScanPackageAction(ActionEvent ae)

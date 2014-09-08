@@ -383,6 +383,16 @@ public class DatabaseManager
 	 }
 	 
 	 /**
+	  * Updates Package with data in p
+	  * @param p Package Data to Update with
+	  * @return Status of SQL Execution
+	  */
+	 public boolean updatePackage(Package p)
+	 {
+		 return false;
+	 }
+	 
+	 /**
 	  * Adds new Package to Database
 	  * 
 	  * @param p Package to be Added

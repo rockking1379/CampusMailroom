@@ -916,6 +916,32 @@ public class SQLiteManager extends DatabaseManager
 		}
 	}
 	@Override
+	 public boolean updatePackage(Package p)
+	 {
+		 try
+		 {
+			 connect();
+			 
+			 PreparedStatement stmnt = null;
+			 
+			 stmnt = connection.prepareStatement("update Package set at_stop=? where package_id=?");
+			 stmnt.setQueryTimeout(5);
+			 stmnt.setBoolean(1, p.isAtStop());
+			 stmnt.setInt(2, p.getPackageId());
+			 stmnt.executeUpdate();
+			 
+			 return true;
+		 }
+		 catch(SQLException e)
+		 {
+			 return false;
+		 }
+		 finally
+		 {
+			 disconnect();
+		 }
+	 }
+	@Override
 	public boolean addPackage(Package p) 
 	{
 		try
