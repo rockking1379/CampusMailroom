@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import com.mailroom.mainclient.MainFrame;
+import com.mailroom.mainclient.PackageEditWindow;
 import com.mailroom.otherclient.OtherMainFrame;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
@@ -16,7 +17,6 @@ import com.panemu.tiwulfx.table.CheckBoxColumn;
 import com.panemu.tiwulfx.table.TextColumn;
 
 import extfx.scene.control.DatePicker;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +29,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -60,6 +61,7 @@ public class AdvSearchController implements Initializable
 	private DatePicker endDate;
 	
 	private DatabaseManager dbManager;
+	private PackageEditWindow editWindow;
 	
 	//Columns//
 	private CheckBoxColumn<Package> clmnDelivered;
@@ -154,6 +156,8 @@ public class AdvSearchController implements Initializable
 		{
 			this.dbManager = OtherMainFrame.dbManager;
 		}
+		
+		editWindow = MainFrame.editWindow;
 	}
 	
 	public void btnSearchAction(ActionEvent ae)
@@ -168,16 +172,8 @@ public class AdvSearchController implements Initializable
 			{
 				if(endDate.getValue().before(startDate.getValue()))
 				{
-					if(MainFrame.dbManager != null)
-					{
-						MessageDialogBuilder.error().message("End Date Must Be After Start Date").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-						return;
-					}
-					else
-					{
-						MessageDialogBuilder.error().message("End Date Must Be After Start Date").title("Error").buttonType(MessageDialog.ButtonType.OK).show(OtherMainFrame.stage.getScene().getWindow());
-						return;
-					}
+					MessageDialogBuilder.error().message("End Date Must Be After Start Date").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+					return;
 				}
 			}
 			else
@@ -340,6 +336,14 @@ public class AdvSearchController implements Initializable
 			
 			startDate.setValue(null);
 			endDate.setValue(null);
+		}
+	}
+	
+	public void tblMouseClickAction(MouseEvent me)
+	{
+		if(me.getClickCount() >= 2)
+		{
+			editWindow.show(tblViewTable.getItems().get(tblViewTable.getSelectionModel().getSelectedIndex()));
 		}
 	}
 }

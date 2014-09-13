@@ -12,11 +12,9 @@ import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 public class PackageEditController implements Initializable
 {
 	Package curPackage;
@@ -41,11 +39,30 @@ public class PackageEditController implements Initializable
 	private Button btnSave;
 	@FXML
 	private Button btnCancel;
+	@FXML
+	private CheckBox cboxAtStop;
+	@FXML
+	private CheckBox cboxPickedUp;
+	@FXML
+	private CheckBox cboxReturned;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
 		curPackage = PackageEditWindow.getPackage();
+		
+		//need to fill combo boxes
+		cboxStops.getItems().clear();
+		for(Stop s : MainFrame.dbManager.getStops())
+		{
+			cboxStops.getItems().add(s);
+		}
+
+		cboxCourier.getItems().clear();
+		for(Courier c : MainFrame.dbManager.getCouriers())
+		{
+			cboxCourier.getItems().add(c);
+		}
 		
 		if(curPackage != null)
 		{
@@ -55,8 +72,12 @@ public class PackageEditController implements Initializable
 			txtLastName.setText(curPackage.getLastName());
 			txtBoxOffice.setText(curPackage.getBoxOffice());
 			txtEmailAddress.setText(curPackage.getEmailAddress());
-		}
-		//need to fill combo boxes
+			cboxAtStop.setSelected(curPackage.isAtStop());
+			cboxPickedUp.setSelected(curPackage.isPickedUp());
+			cboxReturned.setSelected(curPackage.isReturned());
+			cboxStops.setValue(curPackage.getStop());
+			cboxCourier.setValue(curPackage.getCourier());
+		}		
 	}
 	
 	/**
@@ -65,9 +86,10 @@ public class PackageEditController implements Initializable
 	 */
 	public void btnSaveAction(ActionEvent ae)
 	{
-		if(MainFrame.dbManager.updatePackage(new Package(curPackage.getPackageId(), txtTrackingNumber.getText(), curPackage.getReceivedDate(), txtEmailAddress.getText(), txtFirstName.getText(), txtLastName.getText(), txtBoxOffice.getText(), cboxStops.getValue(), cboxCourier.getValue(), curPackage.getUser(), curPackage.isAtStop(), curPackage.isPickedUp(), curPackage.getDatePickedUp(), curPackage.isReturned())))
+		if(MainFrame.dbManager.updatePackage(new Package(curPackage.getPackageId(), txtTrackingNumber.getText(), curPackage.getReceivedDate(), txtEmailAddress.getText(), txtFirstName.getText(), txtLastName.getText(), txtBoxOffice.getText(), cboxStops.getValue(), cboxCourier.getValue(), curPackage.getUser(), cboxAtStop.isSelected(), cboxPickedUp.isSelected(), curPackage.getDatePickedUp(), cboxReturned.isSelected())))
 		{
 			MessageDialogBuilder.info().title("Success").buttonType(MessageDialog.ButtonType.OK).message("Package Updated").show(MainFrame.stage.getScene().getWindow());
+			PackageEditWindow.getWindow().hide();
 		}
 		else
 		{
@@ -91,6 +113,15 @@ public class PackageEditController implements Initializable
 			txtEmailAddress.setText(curPackage.getEmailAddress());
 			cboxStops.setValue(curPackage.getStop());
 			cboxCourier.setValue(curPackage.getCourier());
+		}
+		PackageEditWindow.getWindow().hide();
+	}
+	
+	public void keyPressedAction(KeyEvent ke)
+	{
+		if(ke.getCode() == KeyCode.ESCAPE)
+		{
+			btnCancel.fire();
 		}
 	}
 	

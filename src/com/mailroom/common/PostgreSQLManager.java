@@ -866,7 +866,7 @@ public class PostgreSQLManager extends DatabaseManager
 			Statement stmnt = connection.createStatement();
 			stmnt.setQueryTimeout(5);
 			
-			ResultSet rs = stmnt.executeQuery("select * from Package where picked_up=false");
+			ResultSet rs = stmnt.executeQuery("select * from Package where picked_up=false and returned=false");
 			
 			packages = null;
 			packages = processPackageResult(rs);
@@ -889,7 +889,7 @@ public class PostgreSQLManager extends DatabaseManager
 			connect();
 			PreparedStatement stmnt = null;;
 			
-			stmnt = connection.prepareStatement("select * from Package where picked_up=false and stop_id=?");
+			stmnt = connection.prepareStatement("select * from Package where picked_up=false and returned=false and stop_id=?");
 			stmnt.setInt(1, stopId);
 
 			stmnt.setQueryTimeout(5);
@@ -955,10 +955,19 @@ public class PostgreSQLManager extends DatabaseManager
 			 
 			 PreparedStatement stmnt = null;
 			 
-			 stmnt = connection.prepareStatement("update Package set at_stop=? where package_id=?");
+			 stmnt = connection.prepareStatement("update Package set tracking_number=?, email_address=?, first_name=?, last_name=?, box_number=?, at_stop=?, picked_up=?, stop_id=?, courier_id=?, returned=? where package_id=?");
 			 stmnt.setQueryTimeout(5);
-			 stmnt.setBoolean(1, p.isAtStop());
-			 stmnt.setInt(2, p.getPackageId());
+			 stmnt.setString(1, p.getFullTrackingNumber());
+			 stmnt.setString(2, p.getEmailAddress());
+			 stmnt.setString(3, p.getFirstName());
+			 stmnt.setString(4, p.getLastName());
+			 stmnt.setString(5, p.getBoxOffice());
+			 stmnt.setBoolean(6, p.isAtStop());
+			 stmnt.setBoolean(7, p.isPickedUp());
+			 stmnt.setInt(8, p.getStop().getStopId());
+			 stmnt.setInt(9, p.getCourier().getCourierId());
+			 stmnt.setBoolean(10, p.isReturned());
+			 stmnt.setInt(11, p.getPackageId());
 			 stmnt.executeUpdate();
 			 
 			 return true;
@@ -978,8 +987,8 @@ public class PostgreSQLManager extends DatabaseManager
 		try
 		{
 			connect();
-			PreparedStatement stmnt = connection.prepareStatement("insert into Package(tracking_number, receive_date, email_address, first_name, last_name, box_number, at_stop, picked_up, stop_id, courier_id, user_id)"
-					+ " values(?,?,?,?,?,?,false,false,?,?,?)");
+			PreparedStatement stmnt = connection.prepareStatement("insert into Package(tracking_number, receive_date, email_address, first_name, last_name, box_number, at_stop, picked_up, stop_id, courier_id, user_id, returned)"
+					+ " values(?,?,?,?,?,?,false,false,?,?,?,false)");
 			stmnt.setQueryTimeout(5);
 			
 			stmnt.setString(1, p.getFullTrackingNumber());			

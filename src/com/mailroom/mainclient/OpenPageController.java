@@ -38,6 +38,7 @@ public class OpenPageController implements Initializable
 	private DatabaseManager dbManager;
 	private User cUser;
 	private AutoUpdater au;
+	private PackageEditWindow editWindow;
 	
 	//UI Elements//
 	@FXML
@@ -160,6 +161,8 @@ public class OpenPageController implements Initializable
 			lblAutoUpdate.setText("Auto Update Disabled");
 			au = null;
 		}
+		
+		editWindow = MainFrame.editWindow;
 	}
 	
 	public void btnScanPackageAction(ActionEvent ae)
@@ -325,8 +328,7 @@ public class OpenPageController implements Initializable
 	{
 		if(me.getClickCount() >= 2)
 		{
-			PackageEditWindow w = new PackageEditWindow();
-			w.show(tblViewTable.getItems().get(tblViewTable.getSelectionModel().getSelectedIndex()));
+			editWindow.show(tblViewTable.getItems().get(tblViewTable.getSelectionModel().getSelectedIndex()));
 		}
 	}
 	

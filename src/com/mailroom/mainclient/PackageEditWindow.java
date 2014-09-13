@@ -19,6 +19,7 @@ public class PackageEditWindow extends Window
 {
 	Stage stg;
 	static Package curPackage;
+	static Window win;
 	
 	/**
 	 * Constructs new Edit Window for a Package
@@ -27,6 +28,7 @@ public class PackageEditWindow extends Window
 	{
 		stg = new Stage();
 		stg.setResizable(false);
+		win = this;
 	}
 	
 	/**
@@ -42,17 +44,17 @@ public class PackageEditWindow extends Window
 			root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/PackageEditFx.fxml"));
 			Scene scene = new Scene(root, 256, 600);
 			stg.setScene(scene);
+			
+			MainFrame.stage.setX(MainFrame.stage.getX() - stg.getScene().getWindow().getWidth());
+			
+			stg.show();
+			stg.setX(MainFrame.stage.getX() + MainFrame.stage.getScene().getWindow().getWidth());
+			stg.setY(MainFrame.stage.getY());
 		} 
 		catch (IOException e) 
 		{
 			Logger.log(e);
 		}
-		
-		MainFrame.stage.setX(MainFrame.stage.getX() - stg.getWidth());
-		
-		stg.show();
-		stg.setX(MainFrame.stage.getX() + MainFrame.stage.getScene().getWidth());
-		stg.setY(MainFrame.stage.getY());
 	}
 	
 	/**
@@ -68,5 +70,9 @@ public class PackageEditWindow extends Window
 	public static Package getPackage()
 	{
 		return curPackage;
+	}
+	public static Window getWindow()
+	{
+		return win;
 	}
 }

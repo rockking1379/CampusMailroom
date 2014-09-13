@@ -27,6 +27,10 @@ public class MainFrame extends Application
 	 */
 	public static DatabaseManager dbManager;
 	/**
+	 * Package Edit Window for Program Instance
+	 */
+	public static PackageEditWindow editWindow;
+	/**
 	 * Sate for Instance of Main Client
 	 */
 	public static Stage stage;
@@ -143,7 +147,7 @@ public class MainFrame extends Application
 			this.stage.show();
 		}
 		else
-		{
+		{			
 			this.imageLogo = new Image(getClass().getResourceAsStream("/com/mailroom/resources/Logo.png"));
 			this.stage = stage;
 			this.stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/mailroom/resources/Icon.png")));
@@ -154,6 +158,10 @@ public class MainFrame extends Application
 			this.stage.setScene(scene);
 			this.stage.setTitle("Login");
 			this.stage.show();
+			
+			editWindow = new PackageEditWindow();
+			editWindow.show(null);
+			editWindow.hide();
 		}
 	}
 	

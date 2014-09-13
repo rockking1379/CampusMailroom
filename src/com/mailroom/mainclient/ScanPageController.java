@@ -121,21 +121,21 @@ public class ScanPageController implements Initializable
 			MessageDialogBuilder.error().message("Tracking Number Not Long Enough\nMust Be 4 Characters or Longer").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
 			verified = false;
 		}
-		if(txtFirstName.getText() == "" && txtLastName.getText() == "")
+		if(txtFirstName.getText().equals("") && txtLastName.getText().equals(""))
 		{
 			txtFirstName.setText("DEPARTMENT");
 			txtLastName.setText("DEPARTMENT");
 		}
 		else
 		{
-			if(txtFirstName.getText() == "" && txtLastName.getText() != "")
+			if(txtFirstName.getText().equals("") && !txtLastName.getText().equals(""))
 			{
 				MessageDialogBuilder.error().message("No Last Name Specified").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
 				verified = false;
 			}
 			else
 			{
-				if(txtFirstName.getText() != "" && txtLastName.getText() == "")
+				if(!txtFirstName.getText().equals("") && txtLastName.getText().equals(""))
 				{
 					MessageDialogBuilder.error().message("No First Name Specified").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
 					verified = false;
@@ -143,15 +143,19 @@ public class ScanPageController implements Initializable
 			}
 		}
 		
-		if(txtBoxOffice.getText() == "")
+		if(txtBoxOffice.getText().equals("") && txtFirstName.getText().equals("DEPARTMENT"))
+		{
+			txtBoxOffice.setText("---");
+		}
+		else
 		{
 			MessageDialogBuilder.error().message("No Box/Suite Number Set").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
 			verified = false;
 		}
 		
-		if(txtEmailAddress.getText() == "")
+		if(txtEmailAddress.getText().equals(""))
 		{
-			txtEmailAddress.setText("unknown@");
+			txtEmailAddress.setText("Unknown@");
 		}
 		if(verified)
 		{
