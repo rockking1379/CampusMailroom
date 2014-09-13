@@ -220,6 +220,11 @@ public class SettingsController implements Initializable
 				cboxDatabaseType.getItems().add(MysqlManager.dbName);
 				cboxDatabaseType.getItems().add(PostgreSQLManager.dbName);
 				
+				txtDatabaseLocation.setText(prefs.getProperty("DATABASE"));
+				txtDatabaseName.setDisable(true);
+				txtDatabaseUserName.setDisable(true);
+				pwdDatabasePassword.setDisable(true);
+				
 				cboxDatabaseType.setValue(cboxDatabaseType.getItems().get(0));
 				
 				break;
@@ -230,6 +235,11 @@ public class SettingsController implements Initializable
 				cboxDatabaseType.getItems().add(SQLiteManager.dbName);
 				cboxDatabaseType.getItems().add(PostgreSQLManager.dbName);
 				
+				txtDatabaseLocation.setText(prefs.getProperty("DATABASE"));
+				txtDatabaseName.setText(prefs.getProperty("DBNAME"));
+				txtDatabaseUserName.setText(prefs.getProperty("USERNAME"));
+				pwdDatabasePassword.setText(prefs.getProperty("PASSWORD"));
+				
 				cboxDatabaseType.setValue(cboxDatabaseType.getItems().get(0));
 				
 				break;
@@ -239,6 +249,11 @@ public class SettingsController implements Initializable
 				cboxDatabaseType.getItems().add(PostgreSQLManager.dbName);
 				cboxDatabaseType.getItems().add(SQLiteManager.dbName);
 				cboxDatabaseType.getItems().add(MysqlManager.dbName);
+				
+				txtDatabaseLocation.setText(prefs.getProperty("DATABASE"));
+				txtDatabaseName.setText(prefs.getProperty("DBNAME"));
+				txtDatabaseUserName.setText(prefs.getProperty("USERNAME"));
+				pwdDatabasePassword.setText(prefs.getProperty("PASSWORD"));
 				
 				cboxDatabaseType.setValue(cboxDatabaseType.getItems().get(0));
 				

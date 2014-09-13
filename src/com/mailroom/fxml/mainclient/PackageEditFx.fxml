@@ -7,10 +7,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="256.0" style="-fx-background-color: #01A217" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="256.0" style="-fx-background-color: #01A217" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.mainclient.PackageEditController">
   <children>
     <TextField fx:id="txtTrackingNumber" layoutX="14.0" layoutY="44.0" prefHeight="25.0" prefWidth="228.0" promptText="Tracking Number" />
-    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="227.99990000000253" text="Package ID" textAlignment="CENTER" />
+    <Label fx:id="lblPackageId" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="227.99990000000253" text="Package ID" textAlignment="CENTER" />
     <TextField fx:id="txtFirstName" layoutX="14.0" layoutY="74.0" prefHeight="25.0" prefWidth="228.0" promptText="First Name" />
     <TextField fx:id="txtLastName" layoutX="14.0" layoutY="104.0" prefHeight="25.0" prefWidth="228.0" promptText="Last Name" />
     <TextField fx:id="txtBoxOffice" layoutX="14.0" layoutY="134.0" prefHeight="25.0" prefWidth="228.0" promptText="Box/Office" />
@@ -33,7 +33,7 @@
         </FXCollections>
       </items>
     </ComboBox>
-    <Button fx:id="btnSave" layoutX="14.0" layoutY="291.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" text="Save" />
-    <Button fx:id="btnCancel" layoutX="132.0" layoutY="291.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" text="Cancel" />
+    <Button fx:id="btnSave" layoutX="14.0" layoutY="291.0" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="40.0" prefWidth="110.0" text="Save" />
+    <Button fx:id="btnCancel" layoutX="132.0" layoutY="291.0" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="40.0" prefWidth="110.0" text="Cancel" />
   </children>
 </AnchorPane>

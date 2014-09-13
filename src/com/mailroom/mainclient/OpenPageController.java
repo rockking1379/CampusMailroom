@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*; 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -159,9 +160,6 @@ public class OpenPageController implements Initializable
 			lblAutoUpdate.setText("Auto Update Disabled");
 			au = null;
 		}
-		
-		PackageEditWindow w = new PackageEditWindow();
-		w.show();
 	}
 	
 	public void btnScanPackageAction(ActionEvent ae)
@@ -320,6 +318,15 @@ public class OpenPageController implements Initializable
 		if(ke.getCode() == KeyCode.R)
 		{
 			btnRefresh.fire();
+		}
+	}
+	
+	public void tblMouseClickAction(MouseEvent me)
+	{
+		if(me.getClickCount() >= 2)
+		{
+			PackageEditWindow w = new PackageEditWindow();
+			w.show(tblViewTable.getItems().get(tblViewTable.getSelectionModel().getSelectedIndex()));
 		}
 	}
 	
