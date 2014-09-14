@@ -336,9 +336,12 @@ public class AdvSearchController implements Initializable
 	
 	public void tblMouseClickAction(MouseEvent me)
 	{
-		if(me.getClickCount() >= 2)
+		if(MainFrame.stage != null)
 		{
-			editWindow.show(tblViewTable.getItems().get(tblViewTable.getSelectionModel().getSelectedIndex()));
+			if(me.getClickCount() >= 2)
+			{
+				editWindow.show(tblViewTable.getItems().get(tblViewTable.getSelectionModel().getSelectedIndex()));
+			}
 		}
 	}
 }
