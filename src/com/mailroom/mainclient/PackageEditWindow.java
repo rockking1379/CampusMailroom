@@ -33,6 +33,7 @@ public class PackageEditWindow extends Window
 	
 	/**
 	 * Shows the Window with old Package data
+	 * @param p Package to be Shown
 	 */
 	public void show(Package p)
 	{
