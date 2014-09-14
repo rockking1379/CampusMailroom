@@ -191,6 +191,16 @@ public class DatabaseManager
 	 }
 	 
 	 /**
+	  * Sets Stop to be Default selection for OtherClient
+	  * @param s Stop to be Default
+	  * @return SQL execution status
+	  */
+	 public boolean setStopDefault(Stop s)
+	 {
+		 return false;
+	 }
+	 
+	 /**
 	  * Gets Loaded Stops
 	  * 
 	  * @return Loaded Stops

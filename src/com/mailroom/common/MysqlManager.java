@@ -498,6 +498,40 @@ public class MysqlManager extends DatabaseManager
 		}
 	}
 	@Override
+	 public boolean setStopDefault(Stop s)
+	 {
+		 try
+		 {
+			 connect();
+			 PreparedStatement stmnt = connection.prepareStatement("update Stop set default=0");
+			 stmnt.setQueryTimeout(5);
+			 
+			 if(stmnt.executeUpdate() > 0)
+			 {
+				 stmnt = connection.prepareStatement("update Stop set default=1 where stop_id=?");
+				 stmnt.setInt(1, s.getStopId());
+				 
+				 if(stmnt.executeUpdate() > 0)
+				 {
+					 return true;
+				 }
+				 else
+				 {
+					 return false;
+				 }
+			 }
+			 else
+			 {
+				 return false;
+			 }
+		 }
+		 catch(SQLException e)
+		 {
+			 Logger.log(e);
+			 return false;
+		 }
+	 }
+	@Override
 	public List<Stop> getStops() 
 	{
 		return stops;

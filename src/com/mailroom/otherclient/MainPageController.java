@@ -18,10 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -33,7 +30,7 @@ import javafx.scene.input.KeyEvent;
 public class MainPageController implements Initializable
 {
 	private DatabaseManager dbManager;
-	private AutoUpdater au;
+	private AutoUpdater au = null;
 	
 	@FXML
 	private TextField txtQuickSearch;
@@ -47,6 +44,8 @@ public class MainPageController implements Initializable
 	private TableView<Package> tblViewTable;
 	@FXML
 	private ComboBox<Stop> cboxStopSelect;
+	@FXML
+	private CheckBox cboxDefault;
 	
 	//Columns
 	private TickColumn<Package> clmnDelivered;
@@ -134,7 +133,7 @@ public class MainPageController implements Initializable
 		
 		if(!found)
 		{
-			cboxStopSelect.setValue(cboxStopSelect.itemsProperty().get().get(1));
+			cboxStopSelect.setValue(cboxStopSelect.itemsProperty().get().get(0));
 		}
 		
 		if(Boolean.valueOf(OtherMainFrame.properties.getProperty("AUTOUPDATE")))
@@ -200,7 +199,10 @@ public class MainPageController implements Initializable
 			
 			if(a == MessageDialog.Answer.YES_OK)
 			{				
-				au.stop();
+				if(au != null)
+				{
+					au.stop();
+				}
 				
 				dbManager.dispose();
 				
@@ -209,7 +211,10 @@ public class MainPageController implements Initializable
 		}
 		else
 		{
-			au.stop();
+			if(au != null)
+			{
+				au.stop();
+			}
 			
 			dbManager.dispose();
 			
