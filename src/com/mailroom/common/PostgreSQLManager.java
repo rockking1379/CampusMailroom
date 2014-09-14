@@ -1239,17 +1239,54 @@ public class PostgreSQLManager extends DatabaseManager
 				}
 			}
 			
-			PreparedStatement stmnt = connection.prepareStatement("select * from Package where receive_date between ? and ? and tracking_number like ? or first_name like ? or last_name like ?");
+			PreparedStatement stmnt = connection.prepareStatement("select * from Package where receive_date between ? and ? and tracking_number like ?");
 			
 			stmnt.setString(1, startDate);
 			stmnt.setString(2, endDate);
 			stmnt.setString(3, search);
-			stmnt.setString(4, search);
-			stmnt.setString(5, search);
 			
 			ResultSet rs = stmnt.executeQuery();
+			results = new ArrayList<Package>();
 			
-			results = processPackageResult(rs);
+			for(Package p : processPackageResult(rs))
+			{
+				if(!results.contains(p))
+				{
+					results.add(p);
+				}
+			}
+			
+			stmnt = connection.prepareStatement("select * from Package where receive_date between ? and ? and first_name like ?");
+			
+			stmnt.setString(1, startDate);
+			stmnt.setString(2, endDate);
+			stmnt.setString(3, search);
+			
+			rs = stmnt.executeQuery();
+			
+			for(Package p : processPackageResult(rs))
+			{
+				if(!results.contains(p))
+				{
+					results.add(p);
+				}
+			}
+			
+			stmnt = connection.prepareStatement("select * from Package where receive_date between ? and ? and last_name like ?");
+			
+			stmnt.setString(1, startDate);
+			stmnt.setString(2, endDate);
+			stmnt.setString(3, search);
+			
+			rs = stmnt.executeQuery();
+			
+			for(Package p : processPackageResult(rs))
+			{
+				if(!results.contains(p))
+				{
+					results.add(p);
+				}
+			}
 		}
 		catch(SQLException e)
 		{

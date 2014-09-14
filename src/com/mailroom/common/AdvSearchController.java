@@ -167,107 +167,102 @@ public class AdvSearchController implements Initializable
 		tblViewTable.getItems().clear();
 		
 		try
-		{
-			if(cboxDateSearch.isSelected())
-			{
-				if(endDate.getValue().before(startDate.getValue()))
+		{		
+			if(!cboxDateSearch.isSelected())
+			{				
+				if(!txtTrackingNumber.getText().equals(""))
 				{
-					MessageDialogBuilder.error().message("End Date Must Be After Start Date").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-					return;
+					for(Package p : dbManager.searchPackages(txtTrackingNumber.getText(), DatabaseManager.SearchType.SEARCH_CONTAINS))
+					{
+						if(!results.contains(p))
+						{
+							results.add(p);
+						}
+						else
+						{
+							System.out.println("Found Previous");
+						}
+					}
+				}
+				if(!txtFirstName.getText().equals(""))
+				{
+					for(Package p : dbManager.searchPackages(txtFirstName.getText(), DatabaseManager.SearchType.SEARCH_CONTAINS))
+					{
+						if(!results.contains(p))
+						{
+							results.add(p);
+						}
+						else
+						{
+							System.out.println("Found Previous");
+						}
+					}
+				}
+				if(!txtLastName.getText().equals(""))
+				{
+					for(Package p : dbManager.searchPackages(txtLastName.getText(), DatabaseManager.SearchType.SEARCH_CONTAINS))
+					{
+						if(!results.contains(p))
+						{
+							results.add(p);
+						}
+						else
+						{
+							System.out.println("Found Previous");
+						}
+					}
 				}
 			}
 			else
-			{			
-				if(startDate.getValue() == null && endDate.getValue() == null)
-				{				
-					if(!txtTrackingNumber.getText().equals(""))
+			{
+				String start = new SimpleDateFormat("yyyy-MM-dd").format(startDate.getValue()).toString();
+				String end = new SimpleDateFormat("yyyy-MM-dd").format(endDate.getValue()).toString();
+				
+				if(endDate.getValue().before(startDate.getValue()))
+				{
+					MessageDialogBuilder.error().message("Start Date MUST BE BEFORE End Date").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+					return;
+				}
+				
+				if(!txtTrackingNumber.getText().equals(""))
+				{
+					for(Package p : dbManager.searchPackages(txtTrackingNumber.getText(), start, end, DatabaseManager.SearchType.SEARCH_CONTAINS))
 					{
-						for(Package p : dbManager.searchPackages(txtTrackingNumber.getText(), DatabaseManager.SearchType.SEARCH_CONTAINS))
+						if(!results.contains(p))
 						{
-							if(!results.contains(p))
-							{
-								results.add(p);
-							}
-							else
-							{
-								System.out.println("Found Previous");
-							}
+							results.add(p);
 						}
-					}
-					if(!txtFirstName.getText().equals(""))
-					{
-						for(Package p : dbManager.searchPackages(txtFirstName.getText(), DatabaseManager.SearchType.SEARCH_CONTAINS))
+						else
 						{
-							if(!results.contains(p))
-							{
-								results.add(p);
-							}
-							else
-							{
-								System.out.println("Found Previous");
-							}
-						}
-					}
-					if(!txtLastName.getText().equals(""))
-					{
-						for(Package p : dbManager.searchPackages(txtLastName.getText(), DatabaseManager.SearchType.SEARCH_CONTAINS))
-						{
-							if(!results.contains(p))
-							{
-								results.add(p);
-							}
-							else
-							{
-								System.out.println("Found Previous");
-							}
+							System.out.println("Found Previous");
 						}
 					}
 				}
-				else
+				if(!txtFirstName.getText().equals(""))
 				{
-					String start = new SimpleDateFormat("yyyy-MM-dd").format(startDate.getValue()).toString();
-					String end = new SimpleDateFormat("yyyy-MM-dd").format(endDate.getValue()).toString();
-					
-					if(!txtTrackingNumber.getText().equals(""))
+					for(Package p : dbManager.searchPackages(txtFirstName.getText(), start, end, DatabaseManager.SearchType.SEARCH_CONTAINS))
 					{
-						for(Package p : dbManager.searchPackages(txtTrackingNumber.getText(), start, end, DatabaseManager.SearchType.SEARCH_CONTAINS))
+						if(!results.contains(p))
 						{
-							if(!results.contains(p))
-							{
-								results.add(p);
-							}
-							else
-							{
-								System.out.println("Found Previous");
-							}
+							results.add(p);
+						}
+						else
+						{
+							System.out.println("Found Previous");
 						}
 					}
-					if(!txtFirstName.getText().equals(""))
+				}
+				if(!txtLastName.getText().equals(""))
+				{
+					for(Package p : dbManager.searchPackages(txtLastName.getText(), start, end, DatabaseManager.SearchType.SEARCH_CONTAINS))
 					{
-						for(Package p : dbManager.searchPackages(txtFirstName.getText(), start, end, DatabaseManager.SearchType.SEARCH_CONTAINS))
+						if(!results.contains(p))
 						{
-							if(!results.contains(p))
-							{
-								results.add(p);
-							}
-							else
-							{
-								System.out.println("Found Previous");
-							}
+							results.add(p);
 						}
-					}
-					if(!txtLastName.getText().equals(""))
-					{
-						for(Package p : dbManager.searchPackages(txtLastName.getText(), start, end, DatabaseManager.SearchType.SEARCH_CONTAINS))
+						else
 						{
-							if(!results.contains(p))
-							{
-								results.add(p);
-							}
-							else
-							{
-								System.out.println("Found Previous");
-							}
+							System.out.println("Found Previous");
 						}
 					}
 				}
