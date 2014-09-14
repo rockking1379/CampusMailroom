@@ -189,7 +189,15 @@ public class UpdaterController implements Initializable
 								lblFinished.setVisible(true);
 								btnExit.setVisible(true);
 								btnUpdate.setVisible(false);
-								pindicatorProgress.setProgress(1.0);
+								try
+								{
+									pindicatorProgress.setVisible(false);
+									pindicatorProgress.setProgress(1.0);
+								}
+								catch(IllegalStateException e)
+								{
+									Logger.log(e);
+								}
 								
 								break;
 							}
