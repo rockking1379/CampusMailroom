@@ -146,6 +146,8 @@ public class MainPageController implements Initializable
 		}
 		
 		txtQuickSearch.requestFocus();
+		
+		cboxDefault.setVisible(false);
 	}
 	
 	public void btnRefreshAction(ActionEvent ae)
@@ -258,6 +260,14 @@ public class MainPageController implements Initializable
 		else
 		{
 			tblViewTable.getItems().addAll(dbManager.getPackages());
+		}
+	}
+	
+	public void cboxDefault(ActionEvent ae)
+	{
+		if(cboxStopSelect.getValue() != cboxStopSelect.getItems().get(0))
+		{
+			dbManager.setStopDefault(cboxStopSelect.getValue());
 		}
 	}
 	
