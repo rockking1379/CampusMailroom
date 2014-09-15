@@ -161,14 +161,35 @@ public class SetupController implements Initializable
 	 */
 	public void btnDbSetupBrowseAction(ActionEvent ae)
 	{
+		File f = new File("./mailroom.db");
+		if(!f.exists())
+		{
+			try 
+			{
+				f.createNewFile();
+			} 
+			catch (IOException e) 
+			{
+				Logger.log(e);
+			}
+		}
+		
 		FileChooser fChooser = new FileChooser();
 		fChooser.setTitle("Select Database File");
-		
+		fChooser.setInitialDirectory(new File("./"));
 		File dbFile = fChooser.showOpenDialog(MainFrame.stage);
 		
 		if(dbFile != null)
 		{
 			txtDbSetupDbLocation.setText(dbFile.getAbsolutePath());
+			if(dbFile.getAbsolutePath().endsWith(".db"))
+			{
+				txtDbSetupDbLocation.setText(dbFile.getAbsolutePath());
+			}
+			else
+			{
+				txtDbSetupDbLocation.setText(dbFile.getAbsolutePath() + "\\mailroom.db");
+			}
 		}
 		else
 		{
