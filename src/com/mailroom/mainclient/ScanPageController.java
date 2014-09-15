@@ -143,15 +143,15 @@ public class ScanPageController implements Initializable
 			}
 		}
 		
-		if(txtBoxOffice.getText().equals("") && txtFirstName.getText().equals("DEPARTMENT"))
+		if(txtBoxOffice.getText().equals(""))
 		{
 			txtBoxOffice.setText("---");
 		}
-		else
-		{
-			MessageDialogBuilder.error().message("No Box/Suite Number Set").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-			verified = false;
-		}
+//		else
+//		{
+//			MessageDialogBuilder.error().message("No Box/Suite Number Set").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+//			verified = false;
+//		}
 		
 		if(txtEmailAddress.getText().equals(""))
 		{
