@@ -16,14 +16,20 @@ import java.util.List;
  */
 public class SQLiteManager extends DatabaseManager
 {
-	private static final String routeString = "CREATE TABLE Route(route_id INTEGER PRIMARY KEY AUTOINCREMENT,route_name varchar(50) NOT NULL,is_used BOOLEAN NOT NULL)";
-	private static final String stopString = "CREATE TABLE Stop(stop_id INTEGER PRIMARY KEY AUTOINCREMENT,stop_name varchar(50) NOT NULL,route_id int,is_used BOOLEAN NOT NULL,route_order int,Student BOOLEAN,FOREIGN KEY(route_id) REFERENCES Route(route_id))";
-	private static final String courierString = "CREATE TABLE Courier(courier_id INTEGER PRIMARY KEY AUTOINCREMENT,courier_name varchar(50) NOT NULL,is_used BOOLEAN NOT NULL)";
-	private static final String personString = "CREATE TABLE Person(id INTEGER PRIMARY KEY AUTOINCREMENT,id_number varchar(50),email_address varchar(50),first_name varchar(50) NOT NULL,last_name varchar(50) NOT NULL,Number varchar(50),stop_id int,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id))";
-	private static final String userString = "CREATE TABLE Users(user_id INTEGER PRIMARY KEY AUTOINCREMENT,user_name varchar(50) NOT NULL,first_name varchar(50) NOT NULL,last_name varchar(50) NOT NULL,password INTEGER NOT NULL,administrator BOOLEAN NOT NULL,active BOOLEAN)";
-	private static final String packageString = "CREATE TABLE Package(package_id INTEGER PRIMARY KEY AUTOINCREMENT,tracking_number varchar(50) NOT NULL,Date DATE NOT NULL,email_address varchar(50) NOT NULL,first_name varchar(50) NOT NULL,	last_name varchar(50) NOT NULL,box_number varchar(50) NOT NULL,at_stop BOOLEAN NOT NULL,picked_up BOOLEAN NOT NULL,pick_up_date DATE,stop_id int,courier_id int,user_id int,returned BOOLEAN,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id),FOREIGN KEY(courier_id) REFERENCES Courier(courier_id)FOREIGN KEY(user_id) REFERENCES Users(user_id))";
+	private static final String packageDrop = "DROP TABLE IF EXISTS Package";
+	private static final String userDrop = "DROP TABLE IF EXISTS Users";
+	private static final String personDrop = "DROP TABLE IF EXISTS Person";
+	private static final String courierDrop = "DROP TABLE IF EXISTS Courier";
+	private static final String stopDrop = "DROP TABLE IF EXISTS Stop";
+	private static final String routeDrop = "DROP TABLE IF EXISTS Route";
+	private static final String routeString = "CREATE TABLE Route(route_id INTEGER PRIMARY KEY AUTOINCREMENT,route_name VARCHAR(50) NOT NULL,is_used BOOLEAN)";
+	private static final String stopString = "CREATE TABLE Stop(stop_id INTEGER PRIMARY KEY AUTOINCREMENT,stop_name VARCHAR(50) NOT NULL,route_id INTEGER,is_used BOOLEAN NOT NULL,route_order INTEGER,student BOOLEAN,FOREIGN KEY(route_id) REFERENCES Route(route_id))";
+	private static final String courierString = "CREATE TABLE Courier(courier_id INTEGER PRIMARY KEY AUTOINCREMENT,courier_name VARCHAR(50) NOT NULL,is_used BOOLEAN NOT NULL)";
+	private static final String personString = "CREATE TABLE Person(person_id INTEGER PRIMARY KEY AUTOINCREMENT,id_number VARCHAR(50),email_address VARCHAR(50),first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,box_number VARCHAR(50),stop_id INTEGER,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id))";
+	private static final String userString = "CREATE TABLE Users(user_id INTEGER PRIMARY KEY AUTOINCREMENT,user_name VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,password INTEGER NOT NULL,administrator BOOLEAN NOT NULL,active BOOLEAN)";
+	private static final String packageString = "CREATE TABLE Package(package_id INTEGER PRIMARY KEY AUTOINCREMENT,tracking_number VARCHAR(50) NOT NULL,receive_date DATE NOT NULL,email_address VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,box_number VARCHAR(50) NOT NULL,at_stop BOOLEAN NOT NULL,picked_up BOOLEAN NOT NULL,pick_up_date DATE,stop_id INTEGER,courier_id INTEGER,user_id INTEGER,returned BOOLEAN,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id),FOREIGN KEY(courier_id) REFERENCES Courier(courier_id),FOREIGN KEY(user_id) REFERENCES Users(user_id))";
 	private static final String routeInsert = "insert into Route(route_name, is_used) values('unassigned', 1)";
-	private static final String stopInsert = "insert into Stop(stop_name,route_id,is_used,route_order,Student) values('unassigned',1,1,0,0)";
+	private static final String stopInsert = "insert into Stop(stop_name,route_id,is_used,route_order,student) values('unassigned',1,1,0,0)";
 	private static final String devString = "insert into Users(user_name, first_name, last_name, password, administrator, active) values('DEV', 'Developer', 'Access', 2145483,1,1);";
 
 	/**
@@ -202,9 +208,11 @@ public class SQLiteManager extends DatabaseManager
 		{
 			connect();
 			
-			PreparedStatement stmnt = connection.prepareStatement("update Users set administrator=1 where user_id=?");
+			PreparedStatement stmnt = connection.prepareStatement("update Users set administrator=? where user_id=?");
 			
-			stmnt.setInt(1, u.getUserId());
+			stmnt.setBoolean(1, status);
+			stmnt.setInt(2, u.getUserId());
+			
 			
 			if(stmnt.executeUpdate() > 0)
 			{
@@ -1357,6 +1365,12 @@ public class SQLiteManager extends DatabaseManager
 			
 			Statement stmnt = connection.createStatement();
 			
+			stmnt.execute(packageDrop);
+			stmnt.execute(userDrop);
+			stmnt.execute(personDrop);
+			stmnt.execute(courierDrop);
+			stmnt.execute(stopDrop);
+			stmnt.execute(routeDrop);
 			stmnt.execute(routeString);
 			stmnt.execute(stopString);
 			stmnt.execute(courierString);

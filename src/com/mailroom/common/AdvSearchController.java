@@ -108,7 +108,7 @@ public class AdvSearchController implements Initializable
 		clmnUserName.setText("User");
 		
 		//Define Max Width
-		clmnDelivered.setMaxWidth(30);
+		clmnDelivered.setMaxWidth(50);
 		clmnFirstName.setMaxWidth(70);
 		clmnLastName.setMaxWidth(70);
 		clmnStop.setMaxWidth(100); //wider because of data contained

@@ -176,20 +176,12 @@ public class SetupController implements Initializable
 		
 		FileChooser fChooser = new FileChooser();
 		fChooser.setTitle("Select Database File");
-		fChooser.setInitialDirectory(new File("./"));
+
 		File dbFile = fChooser.showOpenDialog(MainFrame.stage);
 		
 		if(dbFile != null)
 		{
 			txtDbSetupDbLocation.setText(dbFile.getAbsolutePath());
-			if(dbFile.getAbsolutePath().endsWith(".db"))
-			{
-				txtDbSetupDbLocation.setText(dbFile.getAbsolutePath());
-			}
-			else
-			{
-				txtDbSetupDbLocation.setText(dbFile.getAbsolutePath() + "\\mailroom.db");
-			}
 		}
 		else
 		{
@@ -439,6 +431,8 @@ public class SetupController implements Initializable
 		}
 		else
 		{
+			dbManager.loadRoutes();
+			
 			dbManager.addStop(new Stop(-1, txtStopSetupStopName.getText(), "unassigned", 0, false));
 			
 			MessageDialog.Answer ans = MessageDialogBuilder.confirmation().message("Stop Added\nAdd Another?").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").noButtonText("No").show(MainFrame.stage.getScene().getWindow());
