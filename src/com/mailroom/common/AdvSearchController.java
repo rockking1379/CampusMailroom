@@ -224,6 +224,11 @@ public class AdvSearchController implements Initializable
 					return;
 				}
 				
+				if(txtTrackingNumber.getText().equals("") && txtFirstName.getText().equals("") && txtLastName.getText().equals(""))
+				{
+					txtFirstName.setText(" ");
+				}
+				
 				if(!txtTrackingNumber.getText().equals(""))
 				{
 					for(Package p : dbManager.searchPackages(txtTrackingNumber.getText(), start, end, DatabaseManager.SearchType.SEARCH_CONTAINS))
@@ -271,6 +276,11 @@ public class AdvSearchController implements Initializable
 			for(Package p : results)
 			{
 				tblViewTable.getItems().add(p);
+			}
+			
+			if(txtFirstName.getText().equals(" "))
+			{
+				txtFirstName.setText("");
 			}
 		}
 		catch(NullPointerException e)
