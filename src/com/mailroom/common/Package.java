@@ -7,9 +7,8 @@ import java.util.Date;
 /**
  * Represents A Received Package
  * @author James sitzja@grizzlies.adams.edu
- *
  */
-public class Package 
+public class Package
 {
 	private int packageId;
 	private String trackingNumber;
@@ -25,7 +24,7 @@ public class Package
 	private boolean pickedUp;
 	private String pickUpDate;
 	private boolean returned;
-	
+
 	/**
 	 * Constructs a new Package
 	 * @param packageId id of package(-1 for one to be inserted)
@@ -45,9 +44,9 @@ public class Package
 	 */
 	public Package(int packageId, String trackingNumber, String receivedDate,
 			String emailAddress, String firstName, String lastName,
-			String boxOffice, Stop stop, Courier courier,
-			User user, boolean atStop, boolean pickedUp, 
-			String pickUpDate, boolean returned)
+			String boxOffice, Stop stop, Courier courier, User user,
+			boolean atStop, boolean pickedUp, String pickUpDate,
+			boolean returned)
 	{
 		this.packageId = packageId;
 		this.trackingNumber = trackingNumber;
@@ -64,7 +63,7 @@ public class Package
 		this.pickUpDate = pickUpDate;
 		this.returned = returned;
 	}
-	
+
 	/**
 	 * Sets Stop package is to be delivered to
 	 * @param s new Stop to be delivered to
@@ -73,7 +72,7 @@ public class Package
 	{
 		this.stop = s;
 	}
-	
+
 	/**
 	 * Sets Courier who brought the package
 	 * @param c Courier who brought the package
@@ -82,7 +81,7 @@ public class Package
 	{
 		this.courier = c;
 	}
-	
+
 	/**
 	 * Sets wether Package is at Stop or not
 	 * @param atStop wether package is at stop or not
@@ -91,7 +90,7 @@ public class Package
 	{
 		this.atStop = atStop;
 	}
-	
+
 	/**
 	 * Sets wether Package is picked up or not
 	 * @param pickedUp wether package is picked up or not
@@ -99,14 +98,14 @@ public class Package
 	public void setPickedUp(boolean pickedUp)
 	{
 		this.pickedUp = pickedUp;
-		if(pickedUp)
+		if (pickedUp)
 		{
 			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			Date now = new Date();
 			this.pickUpDate = format.format(now).toString();
 		}
 	}
-	
+
 	/**
 	 * Gets Package ID
 	 * @return package ID
@@ -115,7 +114,7 @@ public class Package
 	{
 		return packageId;
 	}
-	
+
 	/**
 	 * Gets Full Tracking Number
 	 * @return full package Tracking Number
@@ -124,7 +123,7 @@ public class Package
 	{
 		return trackingNumber;
 	}
-	
+
 	/**
 	 * Gets last four digits of tracking number with ... in front
 	 * @return ...xxxx
@@ -132,23 +131,25 @@ public class Package
 	public String getTrackingNumber()
 	{
 		String strReturn = null;
-		
-		if(trackingNumber.length() < 4)
+
+		if (trackingNumber.length() < 4)
 		{
 			strReturn = "";
 		}
-		if(trackingNumber.length() == 4)
+		if (trackingNumber.length() == 4)
 		{
 			strReturn = "..." + trackingNumber;
 		}
-		if(trackingNumber.length() > 4)
+		if (trackingNumber.length() > 4)
 		{
-			strReturn = "..." + trackingNumber.substring(trackingNumber.length() - 4, trackingNumber.length());
+			strReturn = "..."
+					+ trackingNumber.substring(trackingNumber.length() - 4,
+							trackingNumber.length());
 		}
-		
+
 		return strReturn;
 	}
-	
+
 	/**
 	 * Gets Date Package was scanned into system
 	 * @return Date Received
@@ -157,7 +158,7 @@ public class Package
 	{
 		return receivedDate;
 	}
-	
+
 	/**
 	 * Gets Email Address of Recipient
 	 * @return Recipient's Email Address
@@ -166,7 +167,7 @@ public class Package
 	{
 		return emailAddress;
 	}
-	
+
 	/**
 	 * Gets First Name of Recipient
 	 * @return Recipeint's First Name
@@ -175,7 +176,7 @@ public class Package
 	{
 		return firstName;
 	}
-	
+
 	/**
 	 * Gets Last Name of Recipient
 	 * @return Recipient's Last Name
@@ -184,7 +185,7 @@ public class Package
 	{
 		return lastName;
 	}
-	
+
 	/**
 	 * Gets Box/Office Number of Recipient
 	 * @return Recipient's Box/Office Number
@@ -193,7 +194,7 @@ public class Package
 	{
 		return boxOffice;
 	}
-	
+
 	/**
 	 * Gets Package delivery Stop
 	 * @return Stop package to be delivered to
@@ -202,7 +203,7 @@ public class Package
 	{
 		return stop;
 	}
-	
+
 	/**
 	 * Gets Package Courier
 	 * @return Courier who brought the Package
@@ -211,7 +212,7 @@ public class Package
 	{
 		return courier;
 	}
-	
+
 	/**
 	 * Gets User who scanned in package
 	 * @return User who scanned in the package
@@ -220,7 +221,7 @@ public class Package
 	{
 		return user;
 	}
-	
+
 	/**
 	 * Gets if Package is at stop
 	 * @return Wether Recipient is picked up or not
@@ -229,7 +230,7 @@ public class Package
 	{
 		return atStop;
 	}
-	
+
 	/**
 	 * Gets if package is picked up
 	 * @return Whether Recipient is picked up or not
@@ -238,7 +239,7 @@ public class Package
 	{
 		return pickedUp;
 	}
-	
+
 	/**
 	 * Gets Date Recipient Picked Up Package
 	 * @return Date Package was picked up by Recipient
@@ -247,7 +248,7 @@ public class Package
 	{
 		return pickUpDate;
 	}
-	
+
 	/**
 	 * Gets Return Status
 	 * @return Returned Status of Package

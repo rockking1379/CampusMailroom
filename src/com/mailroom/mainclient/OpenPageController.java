@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*; 
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -29,18 +29,17 @@ import com.panemu.tiwulfx.table.*;
 
 /**
  * Controls OpenPageFx.fxml in com.mailroom.fxml.mainclient
- * 
  * @author James sitzja@grizzlies.adams.edu
  */
 public class OpenPageController implements Initializable
 {
-	//Misc//
+	// Misc//
 	private DatabaseManager dbManager;
 	private User cUser;
 	private AutoUpdater au;
 	private PackageEditWindow editWindow;
-	
-	//UI Elements//
+
+	// UI Elements//
 	@FXML
 	private AnchorPane apaneAnchor;
 	@FXML
@@ -65,8 +64,8 @@ public class OpenPageController implements Initializable
 	private TableView<Package> tblViewTable;
 	@FXML
 	private Label lblTickCount;
-	
-	//Columns//
+
+	// Columns//
 	private TickColumn<Package> clmnDelivered;
 	private TextColumn<Package> clmnFirstName;
 	private TextColumn<Package> clmnLastName;
@@ -75,19 +74,20 @@ public class OpenPageController implements Initializable
 	private TextColumn<Package> clmnCourier;
 	private TextColumn<Package> clmnDateReceived;
 	private TextColumn<Package> clmnUserName;
-	
+
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) 
+	public void initialize(URL arg0, ResourceBundle arg1)
 	{
 		MainFrame.stage.setTitle("Main Page");
-		
+
 		cUser = MainFrame.cUser;
 		dbManager = MainFrame.dbManager;
-		
-		String name = "Welcome " + cUser.getFirstName() + " " + cUser.getLastName();
+
+		String name = "Welcome " + cUser.getFirstName() + " "
+				+ cUser.getLastName();
 		lblUserLabel.setText(name);
-			
-		//Create Columns
+
+		// Create Columns
 		clmnDelivered = new TickColumn<Package>();
 		clmnFirstName = new TextColumn<Package>("firstName");
 		clmnLastName = new TextColumn<Package>("lastName");
@@ -96,8 +96,8 @@ public class OpenPageController implements Initializable
 		clmnCourier = new TextColumn<Package>("courier");
 		clmnDateReceived = new TextColumn<Package>("receivedDate");
 		clmnUserName = new TextColumn<Package>("user");
-		
-		//Set Resizable False
+
+		// Set Resizable False
 		clmnDelivered.setResizable(false);
 		clmnFirstName.setResizable(false);
 		clmnLastName.setResizable(false);
@@ -106,8 +106,8 @@ public class OpenPageController implements Initializable
 		clmnCourier.setResizable(false);
 		clmnDateReceived.setResizable(false);
 		clmnUserName.setResizable(false);
-		
-		//Set Titles
+
+		// Set Titles
 		clmnFirstName.setText("First");
 		clmnLastName.setText("Last");
 		clmnStop.setText("Stop");
@@ -115,18 +115,18 @@ public class OpenPageController implements Initializable
 		clmnCourier.setText("Carrier");
 		clmnDateReceived.setText("Date");
 		clmnUserName.setText("User");
-		
-		//Define Max Width
+
+		// Define Max Width
 		clmnDelivered.setMaxWidth(30);
 		clmnFirstName.setMaxWidth(70);
 		clmnLastName.setMaxWidth(70);
-		clmnStop.setMaxWidth(100); //wider because of data contained
+		clmnStop.setMaxWidth(100); // wider because of data contained
 		clmnTrackingNumber.setMaxWidth(70);
 		clmnCourier.setMaxWidth(70);
-		clmnDateReceived.setMaxWidth(100); //wider because of data contained
+		clmnDateReceived.setMaxWidth(100); // wider because of data contained
 		clmnUserName.setMaxWidth(75);
-		
-		//Add Columns
+
+		// Add Columns
 		tblViewTable.getColumns().add(clmnDelivered);
 		tblViewTable.getColumns().add(clmnFirstName);
 		tblViewTable.getColumns().add(clmnLastName);
@@ -135,235 +135,244 @@ public class OpenPageController implements Initializable
 		tblViewTable.getColumns().add(clmnCourier);
 		tblViewTable.getColumns().add(clmnDateReceived);
 		tblViewTable.getColumns().add(clmnUserName);
-//		
-//		lblTickCount.setText(clmnDelivered.getTickedRecords().size() + " Selected");
+		//
+		// lblTickCount.setText(clmnDelivered.getTickedRecords().size() +
+		// " Selected");
 		lblTickCount.setVisible(false);
-		
+
 		dbManager.loadAllPackages();
-		
-		if(dbManager.getPackages().size() == 0)
+
+		if (dbManager.getPackages().size() == 0)
 		{
-			Package p = new Package(-1, "", "", "", "", "", "", null, null, null, false, false, "", false);
+			Package p = new Package(-1, "", "", "", "", "", "", null, null,
+					null, false, false, "", false);
 			tblViewTable.getItems().add(p);
-		}
-		else
+		} else
 		{
 			tblViewTable.getItems().addAll(dbManager.getPackages());
 		}
-		
-		if(Boolean.valueOf(MainFrame.properties.getProperty("AUTOUPDATE")))
+
+		if (Boolean.valueOf(MainFrame.properties.getProperty("AUTOUPDATE")))
 		{
 			lblAutoUpdate.setText("Auto Update Enabled");
 			au = new AutoUpdater(btnRefresh);
-		}
-		else
+		} else
 		{
 			lblAutoUpdate.setText("Auto Update Disabled");
 			au = null;
 		}
-		
+
 		editWindow = MainFrame.editWindow;
 	}
-	
+
 	public void btnScanPackageAction(ActionEvent ae)
 	{
 		try
 		{
-			if(au != null)
+			if (au != null)
 			{
 				au.stop();
 			}
-			Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/ScanPageFx.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource(
+					"/com/mailroom/fxml/mainclient/ScanPageFx.fxml"));
 			Scene scene = new Scene(root);
 			MainFrame.stage.setScene(scene);
-		}
-		catch(IOException e)
+		} catch (IOException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void btnPrintAction(ActionEvent ae)
 	{
 		try
 		{
-			if(au != null)
+			if (au != null)
 			{
 				au.stop();
 			}
-			Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/PrintPageFx.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource(
+					"/com/mailroom/fxml/mainclient/PrintPageFx.fxml"));
 			Scene scene = new Scene(root);
 			MainFrame.stage.setScene(scene);
-		}
-		catch(IOException e)
+		} catch (IOException e)
 		{
 			Logger.log(e);
 		}
 	}
-	
+
 	public void btnSearchAction(ActionEvent ae)
 	{
 		try
 		{
-			Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/common/AdvSearchFx.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource(
+					"/com/mailroom/fxml/common/AdvSearchFx.fxml"));
 			Scene scene = new Scene(root);
 			MainFrame.stage.setScene(scene);
-		}
-		catch(IOException e)
+		} catch (IOException e)
 		{
 			Logger.log(e);
 		}
 	}
-	
+
 	public void btnRefreshAction(ActionEvent ae)
 	{
-		//refresh current scene
-		//update packages
-		//reload packages
-		
-		ObservableList<Package> delivered = (ObservableList<Package>)clmnDelivered.getTickedRecords();
-		
-		for(Package p : delivered)
+		// refresh current scene
+		// update packages
+		// reload packages
+
+		ObservableList<Package> delivered = (ObservableList<Package>) clmnDelivered
+				.getTickedRecords();
+
+		for (Package p : delivered)
 		{
 			dbManager.updatePackage(p.getPackageId(), true, true);
 		}
-		
+
 		dbManager.loadAllPackages();
-		
+
 		tblViewTable.getItems().clear();
-		
-		if(dbManager.getPackages().size() == 0)
+
+		if (dbManager.getPackages().size() == 0)
 		{
-			Package p = new Package(-1, "", "", "", "", "", "", null, null, null, false, false, "", false);
+			Package p = new Package(-1, "", "", "", "", "", "", null, null,
+					null, false, false, "", false);
 			tblViewTable.getItems().add(p);
-		}
-		else
+		} else
 		{
 			tblViewTable.getItems().addAll(dbManager.getPackages());
 		}
 	}
-	
+
 	public void btnSettingsAction(ActionEvent ae)
 	{
 		try
 		{
-			if(au != null)
+			if (au != null)
 			{
 				au.stop();
 			}
-			Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/SettingsPageFx.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource(
+					"/com/mailroom/fxml/mainclient/SettingsPageFx.fxml"));
 			Scene scene = new Scene(root);
 			MainFrame.stage.setScene(scene);
-		}
-		catch(IOException e)
+		} catch (IOException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void btnLogoutAction(ActionEvent ae)
-	{		
-		MessageDialog.Answer a = MessageDialogBuilder.confirmation().message("Confirm Logout?").title("Logout").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").noButtonText("No").show(MainFrame.stage.getScene().getWindow());
-		
-		if(a == MessageDialog.Answer.YES_OK)
+	{
+		MessageDialog.Answer a = MessageDialogBuilder.confirmation()
+				.message("Confirm Logout?").title("Logout")
+				.buttonType(MessageDialog.ButtonType.YES_NO)
+				.yesOkButtonText("Yes").noButtonText("No")
+				.show(MainFrame.stage.getScene().getWindow());
+
+		if (a == MessageDialog.Answer.YES_OK)
 		{
 			try
 			{
-				if(au != null)
+				if (au != null)
 				{
 					au.stop();
 				}
-				Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/LoginFx.fxml"));
+				Parent root = FXMLLoader.load(getClass().getResource(
+						"/com/mailroom/fxml/mainclient/LoginFx.fxml"));
 				Scene scene = new Scene(root);
 				MainFrame.stage.setScene(scene);
-			}
-			catch(IOException e)
+			} catch (IOException e)
 			{
 				Logger.log(e);
 			}
 		}
 	}
-	
+
 	public void btnQuitAction(ActionEvent ae)
-	{		
-		MessageDialog.Answer a = MessageDialogBuilder.confirmation().message("Confirm Quit?").title("Quit").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").noButtonText("No").show(MainFrame.stage.getScene().getWindow());
-		
-		if(a == MessageDialog.Answer.YES_OK)
+	{
+		MessageDialog.Answer a = MessageDialogBuilder.confirmation()
+				.message("Confirm Quit?").title("Quit")
+				.buttonType(MessageDialog.ButtonType.YES_NO)
+				.yesOkButtonText("Yes").noButtonText("No")
+				.show(MainFrame.stage.getScene().getWindow());
+
+		if (a == MessageDialog.Answer.YES_OK)
 		{
 			MainFrame.saveProperties();
-			
-			if(au != null)
+
+			if (au != null)
 			{
 				au.stop();
 			}
-			
+
 			dbManager.dispose();
-			
+
 			System.exit(0);
 		}
 	}
-	
+
 	public void keyPressedAction(KeyEvent ke)
 	{
-		if(ke.getCode() == KeyCode.Q)
+		if (ke.getCode() == KeyCode.Q)
 		{
-			if(!ke.getSource().equals(tblViewTable))
+			if (!ke.getSource().equals(tblViewTable))
 			{
 				btnLogout.fire();
 			}
 		}
-		if(ke.getCode() == KeyCode.ESCAPE)
+		if (ke.getCode() == KeyCode.ESCAPE)
 		{
 			btnQuit.fire();
 		}
-		if(ke.getCode() == KeyCode.R)
+		if (ke.getCode() == KeyCode.R)
 		{
 			btnRefresh.fire();
 		}
 	}
-	
+
 	public void tblMouseClickAction(MouseEvent me)
 	{
-		if(me.getClickCount() >= 2)
+		if (me.getClickCount() >= 2)
 		{
-			editWindow.show(tblViewTable.getItems().get(tblViewTable.getSelectionModel().getSelectedIndex()));
+			editWindow.show(tblViewTable.getItems().get(
+					tblViewTable.getSelectionModel().getSelectedIndex()));
 		}
 	}
-	
+
 	private class AutoUpdater implements Runnable
 	{
 		Button btn = null;
 		private boolean running;
-		
+
 		public AutoUpdater(Button btn)
 		{
 			this.btn = btn;
 			new Thread(this).start();
 			running = true;
 		}
-		
+
 		public void run()
 		{
-			while(running)
+			while (running)
 			{
 				try
 				{
-					Thread.sleep((long) (Double.valueOf(MainFrame.properties.getProperty("AUFREQ")) * 1000));
+					Thread.sleep((long) (Double.valueOf(MainFrame.properties
+							.getProperty("AUFREQ")) * 1000));
 					btn.fire();
-				}
-				catch (NumberFormatException e)
+				} catch (NumberFormatException e)
 				{
 					Logger.log(e);
-				}
-				catch (InterruptedException e)
+				} catch (InterruptedException e)
 				{
 					Logger.log(e);
 				}
 			}
 		}
-		
+
 		public void stop()
 		{
 			running = false;

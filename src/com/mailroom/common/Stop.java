@@ -3,16 +3,15 @@ package com.mailroom.common;
 /**
  * Represents A Stop for Packages
  * @author James sitzja@grizzlies.adams.edu
- *
  */
-public class Stop 
+public class Stop
 {
 	private int stopId;
 	private String stopName;
 	private String routeName;
 	private int routeOrder;
 	private boolean student;
-	
+
 	/**
 	 * Constructs new Stop
 	 * @param stopId ID of Stop in Database
@@ -21,7 +20,8 @@ public class Stop
 	 * @param routeOrder Position on Route that Stop is on
 	 * @param student Wehter Stop is for Students or not
 	 */
-	public Stop(int stopId, String stopName, String routeName, int routeOrder, boolean student)
+	public Stop(int stopId, String stopName, String routeName, int routeOrder,
+			boolean student)
 	{
 		this.stopId = stopId;
 		this.stopName = stopName;
@@ -29,7 +29,7 @@ public class Stop
 		this.routeOrder = routeOrder;
 		this.student = student;
 	}
-	
+
 	/**
 	 * Gets ID of Stop
 	 * @return ID of Stop
@@ -38,7 +38,7 @@ public class Stop
 	{
 		return stopId;
 	}
-	
+
 	/**
 	 * Gets Name of Stop
 	 * @return Name of Stop
@@ -47,7 +47,7 @@ public class Stop
 	{
 		return stopName;
 	}
-	
+
 	/**
 	 * Gets Name of Route
 	 * @return Name of Route that Stop is on
@@ -56,10 +56,9 @@ public class Stop
 	{
 		return routeName;
 	}
-	
+
 	/**
-	 * Gets Order of Stop on Route
-	 * <br>
+	 * Gets Order of Stop on Route <br>
 	 * Unused for now
 	 * @return Order of Stop on Route
 	 */
@@ -67,10 +66,9 @@ public class Stop
 	{
 		return routeOrder;
 	}
-	
+
 	/**
-	 * Gets Student Status of Stop
-	 * <br>
+	 * Gets Student Status of Stop <br>
 	 * Used mainly for College Campuses
 	 * @return Wether or not Stop is for Students or not
 	 */
@@ -78,10 +76,9 @@ public class Stop
 	{
 		return student;
 	}
-	
+
 	/**
-	 * Sets Student Status of Stop
-	 * <br>
+	 * Sets Student Status of Stop <br>
 	 * Used mainly for College Campuses
 	 * @param student Wether or not Stop is for Students or not
 	 */
@@ -89,7 +86,7 @@ public class Stop
 	{
 		this.student = student;
 	}
-	
+
 	@Override
 	public String toString()
 	{

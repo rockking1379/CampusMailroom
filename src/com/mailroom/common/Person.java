@@ -1,13 +1,11 @@
 package com.mailroom.common;
 
 /**
- * Represents a Person
- * <br>
+ * Represents a Person <br>
  * Used for AutoFill
  * @author James sitzja@grizzlies.adams.edu
- *
  */
-public class Person 
+public class Person
 {
 	private String idNumber;
 	private String emailAddress;
@@ -15,17 +13,18 @@ public class Person
 	private String lastName;
 	private String boxOffice;
 	private String stopName;
-	
+
 	/**
 	 * Constructs new Person
 	 * @param idNumber Person ID Number(ssn, employee id, student id, etc)
-	 * @param emailAddress Person's Email Address(personal, company, school, etc)
+	 * @param emailAddress Person's Email Address(personal, company, school,
+	 *        etc)
 	 * @param firstName First Name of Person
 	 * @param lastName Last Name of Person
 	 * @param boxOffice Box/Office Number of Person
 	 * @param stopName Name of Stop person is at
 	 */
-	public Person(String idNumber, String emailAddress, String firstName, 
+	public Person(String idNumber, String emailAddress, String firstName,
 			String lastName, String boxOffice, String stopName)
 	{
 		this.idNumber = idNumber;
@@ -35,7 +34,7 @@ public class Person
 		this.boxOffice = boxOffice;
 		this.stopName = stopName;
 	}
-	
+
 	/**
 	 * Gets Person's ID Number
 	 * @return Peron's ID Number
@@ -44,7 +43,7 @@ public class Person
 	{
 		return idNumber;
 	}
-	
+
 	/**
 	 * Gets Person's Email Address
 	 * @return Person's Email Address
@@ -53,7 +52,7 @@ public class Person
 	{
 		return emailAddress;
 	}
-	
+
 	/**
 	 * Gets Person's First Name
 	 * @return Person's First Name
@@ -62,7 +61,7 @@ public class Person
 	{
 		return firstName;
 	}
-	
+
 	/**
 	 * Gets Person's Last Name
 	 * @return Person's Last Name
@@ -71,7 +70,7 @@ public class Person
 	{
 		return lastName;
 	}
-	
+
 	/**
 	 * Gets Box/Office Number of Person
 	 * @return Box/Office Number
@@ -80,7 +79,7 @@ public class Person
 	{
 		return boxOffice;
 	}
-	
+
 	/**
 	 * Gets Name of Stop Person is at
 	 * @return Name of Stop

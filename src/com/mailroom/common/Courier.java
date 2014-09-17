@@ -3,13 +3,12 @@ package com.mailroom.common;
 /**
  * Represents A Courier
  * @author James sitzja@grizzlies.adams.edu
- *
  */
-public class Courier 
+public class Courier
 {
 	private int courierId;
 	private String courierName;
-	
+
 	/**
 	 * Constructs a new Courier
 	 * @param courierId ID of Courier in Database
@@ -20,7 +19,7 @@ public class Courier
 		this.courierId = courierId;
 		this.courierName = courierName;
 	}
-	
+
 	/**
 	 * Gets Courier ID
 	 * @return ID of Courier
@@ -29,7 +28,7 @@ public class Courier
 	{
 		return courierId;
 	}
-	
+
 	/**
 	 * Gets Courier Name
 	 * @return Name of Courier
@@ -38,7 +37,7 @@ public class Courier
 	{
 		return courierName;
 	}
-	
+
 	@Override
 	public String toString()
 	{

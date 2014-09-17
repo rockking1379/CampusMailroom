@@ -33,14 +33,13 @@ import javafx.scene.layout.FlowPane;
 
 /**
  * Controls PrintPageFx.fxml in com.mailroom.fxml.mainclient
- * 
  * @author James sitzja@grizzlies.adams.edu
  */
 public class PrintPageController implements Initializable
 {
 	private DatabaseManager dbManager;
 	private ArrayList<CheckBox> routeBoxes;
-	
+
 	@FXML
 	private FlowPane flowScrollRoutes;
 	@FXML
@@ -48,84 +47,89 @@ public class PrintPageController implements Initializable
 	@FXML
 	private Button btnPrintReport;
 	private ArrayList<String> strReport;
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
 		this.dbManager = MainFrame.dbManager;
-		
+
 		dbManager.loadRoutes();
-		
+
 		routeBoxes = new ArrayList<CheckBox>();
-		
-		for(Route r : dbManager.getRoutes())
+
+		for (Route r : dbManager.getRoutes())
 		{
 			CheckBox c = new CheckBox();
-			
+
 			c.setText(r.getRouteName());
 			c.setSelected(false);
 			c.setVisible(true);
-			
+
 			c.setMinWidth(150);
 			c.setMinHeight(50);
-			
+
 			c.setFocusTraversable(true);
-			
+
 			routeBoxes.add(c);
 		}
-		
-		flowScrollRoutes.getChildren().clear();		
+
+		flowScrollRoutes.getChildren().clear();
 		flowScrollRoutes.getChildren().addAll(routeBoxes);
-		
-		for(Node c : flowScrollRoutes.getChildren())
+
+		for (Node c : flowScrollRoutes.getChildren())
 		{
 			c.setLayoutX(c.getLayoutX() + 10);
 		}
-		
+
 		flowScrollRoutes.getChildren().get(0).requestFocus();
 	}
-	
+
 	public void keyPressedAction(KeyEvent ke)
 	{
-		if(ke.getCode() == KeyCode.ESCAPE)
+		if (ke.getCode() == KeyCode.ESCAPE)
 		{
 			boolean verified = true;
-			
-			for(CheckBox c : routeBoxes)
+
+			for (CheckBox c : routeBoxes)
 			{
-				if(c.isSelected())
+				if (c.isSelected())
 				{
 					verified = false;
 				}
 			}
-			
-			if(!verified)
+
+			if (!verified)
 			{
-				MessageDialog.Answer exit = MessageDialogBuilder.confirmation().message("Exit to Open Screen?").title("Confirm").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").noButtonText("No").show(MainFrame.stage.getScene().getWindow());
-				
-				if(exit == MessageDialog.Answer.YES_OK)
+				MessageDialog.Answer exit = MessageDialogBuilder.confirmation()
+						.message("Exit to Open Screen?").title("Confirm")
+						.buttonType(MessageDialog.ButtonType.YES_NO)
+						.yesOkButtonText("Yes").noButtonText("No")
+						.show(MainFrame.stage.getScene().getWindow());
+
+				if (exit == MessageDialog.Answer.YES_OK)
 				{
 					try
 					{
-						Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
+						Parent root = FXMLLoader
+								.load(getClass()
+										.getResource(
+												"/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
 						Scene scene = new Scene(root);
 						MainFrame.stage.setScene(scene);
-					}
-					catch(IOException e)
+					} catch (IOException e)
 					{
 						Logger.log(e);
 					}
 				}
-			}
-			else
+			} else
 			{
 				try
 				{
-					Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
+					Parent root = FXMLLoader.load(getClass().getResource(
+							"/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
 					Scene scene = new Scene(root);
 					MainFrame.stage.setScene(scene);
-				}
-				catch(IOException e)
+				} catch (IOException e)
 				{
 					Logger.log(e);
 				}
@@ -137,50 +141,51 @@ public class PrintPageController implements Initializable
 	{
 		txtAreaReport.setText("");
 		strReport = new ArrayList<String>();
-		
-		for(CheckBox c : routeBoxes)
+
+		for (CheckBox c : routeBoxes)
 		{
-			if(c.isSelected())
+			if (c.isSelected())
 			{
 				String head = "";
-				
-				for(int i=0; i<=15;i++)
+
+				for (int i = 0; i <= 15; i++)
 				{
 					head += " ";
 				}
-				
+
 				head += "Route: ";
 				head += c.getText() + " ";
 				head += "Date: ";
-				
+
 				Date d = new Date();
 				SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
 				head += format.format(d).toString();
-				
-				for(Route r : dbManager.getRoutes())
+
+				for (Route r : dbManager.getRoutes())
 				{
 					boolean added = false;
-					if(r.getRouteName().equals(c.getText()))
+					if (r.getRouteName().equals(c.getText()))
 					{
-						for(Stop s : dbManager.getStopsOnRoute(r))
+						for (Stop s : dbManager.getStopsOnRoute(r))
 						{
-							ArrayList<Package> packages = (ArrayList<Package>) dbManager.getPackagesForStop(s);
-							
-							if(packages.size() > 0)
+							ArrayList<Package> packages = (ArrayList<Package>) dbManager
+									.getPackagesForStop(s);
+
+							if (packages.size() > 0)
 							{
-								if(!added)
+								if (!added)
 								{
 									strReport.add(head + "\n");
 									added = true;
 								}
-								
+
 								String stopHead = "";
 								String last = "Last      ";
 								String first = "First     ";
 								String box = "Box#      ";
 								String track = "Track#    ";
 								String sign = "Sign Here\n";
-								
+
 								stopHead += "Package Delivery for ";
 								stopHead += s.getStopName();
 								strReport.add(stopHead + "\n");
@@ -191,32 +196,36 @@ public class PrintPageController implements Initializable
 								stopHead += track;
 								stopHead += sign;
 								strReport.add(stopHead);
-								
-								for(Package p : packages)
+
+								for (Package p : packages)
 								{
 									String strPackage = "";
 									strPackage += p.getLastName();
-									for(int i=0; i<last.length()-p.getLastName().length();i++)
+									for (int i = 0; i < last.length()
+											- p.getLastName().length(); i++)
 									{
 										strPackage += " ";
 									}
 									strPackage += p.getFirstName();
-									for(int i=0; i<first.length()-p.getFirstName().length();i++)
+									for (int i = 0; i < first.length()
+											- p.getFirstName().length(); i++)
 									{
 										strPackage += " ";
 									}
 									strPackage += p.getBoxOffice();
-									for(int i=0; i<box.length()-p.getBoxOffice().length();i++)
+									for (int i = 0; i < box.length()
+											- p.getBoxOffice().length(); i++)
 									{
 										strPackage += " ";
 									}
 									strPackage += p.getTrackingNumber();
-									for(int i=0;i<track.length()-p.getTrackingNumber().length();i++)
+									for (int i = 0; i < track.length()
+											- p.getTrackingNumber().length(); i++)
 									{
 										strPackage += " ";
 									}
 									strPackage += "_____________________________________\n";
-									
+
 									strReport.add(strPackage);
 								}
 							}
@@ -225,93 +234,95 @@ public class PrintPageController implements Initializable
 				}
 			}
 		}
-		
-		for(String s : strReport)
+
+		for (String s : strReport)
 		{
 			txtAreaReport.setText(txtAreaReport.getText() + s + "\n");
 		}
-		
+
 		btnPrintReport.setDisable(false);
 	}
-	
+
 	public void btnPrintReportAction(ActionEvent ae)
 	{
 		File dir = new File("./Prints");
-		
-		if(!dir.exists())
+
+		if (!dir.exists())
 		{
 			dir.mkdir();
 		}
-		
+
 		Date d = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
 		String fileName = "";
-		
+
 		fileName += "./Prints/";
 		fileName += format.format(d).toString();
 		fileName += "-";
 		fileName += String.valueOf(d.getTime());
 		fileName += ".txt";
-		
+
 		File f = new File(fileName);
-		
-		if(!f.exists())
+
+		if (!f.exists())
 		{
 			try
 			{
 				f.createNewFile();
-				
-				FileOutputStream ostream = new FileOutputStream(f.getAbsolutePath());
-				OutputStreamWriter owriter = new OutputStreamWriter(ostream, "UTF-8");
-				
-				for(String s : strReport)
+
+				FileOutputStream ostream = new FileOutputStream(
+						f.getAbsolutePath());
+				OutputStreamWriter owriter = new OutputStreamWriter(ostream,
+						"UTF-8");
+
+				for (String s : strReport)
 				{
 					owriter.write(s + "\n");
 				}
-				
+
 				owriter.close();
 				ostream.close();
-				
+
 				JTextArea jtext = new JTextArea();
 				jtext.setSize(470, 277);
 				jtext.setText("");
 				jtext.setFont(new Font("Monospaced", Font.PLAIN, 12));
-				for(String s : strReport)
+				for (String s : strReport)
 				{
 					jtext.setText(jtext.getText() + s + "\n");
 				}
-				
+
 				try
 				{
 					jtext.print();
-				}
-				catch(PrinterException e)
+				} catch (PrinterException e)
 				{
 					Logger.log(e);
 				}
-			}
-			catch(IOException e)
+			} catch (IOException e)
 			{
 				Logger.log(e);
 			}
 		}
-		
-		if(MessageDialogBuilder.confirmation().message("Exit to Open Screen?").title("Confirm").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").show(MainFrame.stage.getScene().getWindow()) == MessageDialog.Answer.YES_OK)
+
+		if (MessageDialogBuilder.confirmation().message("Exit to Open Screen?")
+				.title("Confirm").buttonType(MessageDialog.ButtonType.YES_NO)
+				.yesOkButtonText("Yes")
+				.show(MainFrame.stage.getScene().getWindow()) == MessageDialog.Answer.YES_OK)
 		{
 			try
 			{
-				Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
+				Parent root = FXMLLoader.load(getClass().getResource(
+						"/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
 				Scene scene = new Scene(root);
 				MainFrame.stage.setScene(scene);
-			}
-			catch(IOException e)
+			} catch (IOException e)
 			{
 				Logger.log(e);
 			}
-		}
-		else
+		} else
 		{
-			for(CheckBox c : routeBoxes)
+			for (CheckBox c : routeBoxes)
 			{
 				c.setSelected(false);
 			}

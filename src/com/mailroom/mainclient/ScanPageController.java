@@ -26,7 +26,6 @@ import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 
 /**
  * Controls ScanPageFx.fxml in com.mailroom.fxml.mainclient
- * 
  * @author James sitzja@grizzlies.adams.edu
  */
 public class ScanPageController implements Initializable
@@ -55,50 +54,50 @@ public class ScanPageController implements Initializable
 	private Button btnExit;
 	@FXML
 	private Button btnRandomGenerate;
-	
+
 	private DatabaseManager dbManager;
 	private User cUser;
 	private String stopSearch = "";
 	private String courierSearch = "";
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
 		DateFormat format = new SimpleDateFormat("yyy-MM-dd");
 		Date now = new Date();
 		lblDate.setText(format.format(now).toString());
-		
+
 		cUser = MainFrame.cUser;
 		dbManager = MainFrame.dbManager;
-		
+
 		cboxStops.getItems().clear();
 		cboxCourier.getItems().clear();
-		
-		for(Stop s : dbManager.getStops())
+
+		for (Stop s : dbManager.getStops())
 		{
 			cboxStops.getItems().add(s);
 		}
-		for(Courier c : dbManager.getCouriers())
+		for (Courier c : dbManager.getCouriers())
 		{
 			cboxCourier.getItems().add(c);
 		}
 	}
-	
+
 	public void btnExitAction(ActionEvent ae)
 	{
 		try
 		{
-			Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource(
+					"/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
 			Scene scene = new Scene(root);
 			MainFrame.stage.setScene(scene);
-		}
-		catch(IOException e)
+		} catch (IOException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void btnClearAction(ActionEvent ae)
 	{
 		txtTrackingNumber.setText("");
@@ -111,127 +110,149 @@ public class ScanPageController implements Initializable
 		stopSearch = "";
 		courierSearch = "";
 	}
-	
+
 	public void btnSaveAction(ActionEvent ae)
 	{
 		boolean verified = true;
-		
-		if(txtTrackingNumber.getText().length() < 4)
+
+		if (txtTrackingNumber.getText().length() < 4)
 		{
-			MessageDialogBuilder.error().message("Tracking Number Not Long Enough\nMust Be 4 Characters or Longer").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+			MessageDialogBuilder
+					.error()
+					.message(
+							"Tracking Number Not Long Enough\nMust Be 4 Characters or Longer")
+					.title("Error").buttonType(MessageDialog.ButtonType.OK)
+					.show(MainFrame.stage.getScene().getWindow());
 			verified = false;
 		}
-		if(txtFirstName.getText().equals("") && txtLastName.getText().equals(""))
+		if (txtFirstName.getText().equals("")
+				&& txtLastName.getText().equals(""))
 		{
 			txtFirstName.setText("DEPARTMENT");
 			txtLastName.setText("DEPARTMENT");
-		}
-		else
+		} else
 		{
-			if(txtFirstName.getText().equals("") && !txtLastName.getText().equals(""))
+			if (txtFirstName.getText().equals("")
+					&& !txtLastName.getText().equals(""))
 			{
-				MessageDialogBuilder.error().message("No Last Name Specified").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+				MessageDialogBuilder.error().message("No Last Name Specified")
+						.title("Error").buttonType(MessageDialog.ButtonType.OK)
+						.show(MainFrame.stage.getScene().getWindow());
 				verified = false;
-			}
-			else
+			} else
 			{
-				if(!txtFirstName.getText().equals("") && txtLastName.getText().equals(""))
+				if (!txtFirstName.getText().equals("")
+						&& txtLastName.getText().equals(""))
 				{
-					MessageDialogBuilder.error().message("No First Name Specified").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+					MessageDialogBuilder.error()
+							.message("No First Name Specified").title("Error")
+							.buttonType(MessageDialog.ButtonType.OK)
+							.show(MainFrame.stage.getScene().getWindow());
 					verified = false;
 				}
 			}
 		}
-		
-		if(txtBoxOffice.getText().equals(""))
+
+		if (txtBoxOffice.getText().equals(""))
 		{
 			txtBoxOffice.setText("---");
 		}
-//		else
-//		{
-//			MessageDialogBuilder.error().message("No Box/Suite Number Set").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-//			verified = false;
-//		}
-		
-		if(txtEmailAddress.getText().equals(""))
+		// else
+		// {
+		// MessageDialogBuilder.error().message("No Box/Suite Number Set").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+		// verified = false;
+		// }
+
+		if (txtEmailAddress.getText().equals(""))
 		{
 			txtEmailAddress.setText("Unknown@");
 		}
-		if(verified)
+		if (verified)
 		{
-			Package p = new Package(-1, txtTrackingNumber.getText(), lblDate.getText(), txtEmailAddress.getText(), txtFirstName.getText(), txtLastName.getText(), txtBoxOffice.getText(), cboxStops.getValue(), cboxCourier.getValue(), cUser, false, false, null, false);
+			Package p = new Package(-1, txtTrackingNumber.getText(),
+					lblDate.getText(), txtEmailAddress.getText(),
+					txtFirstName.getText(), txtLastName.getText(),
+					txtBoxOffice.getText(), cboxStops.getValue(),
+					cboxCourier.getValue(), cUser, false, false, null, false);
 			dbManager.addPackage(p);
 			btnClear.fire();
 		}
 	}
-	
+
 	public void btnRandomGenerateAction(ActionEvent ae)
 	{
 		String tnum = MainFrame.properties.getProperty("TNUMPREFIX");
-		
-		for(int i=0; i<16; i++)
-		{			
+
+		for (int i = 0; i < 16; i++)
+		{
 			tnum += generate();
 		}
-		
+
 		txtTrackingNumber.setText(tnum);
 	}
 
 	public void keyPressAction(KeyEvent ke)
 	{
-		if(ke.getCode() == KeyCode.ESCAPE)
+		if (ke.getCode() == KeyCode.ESCAPE)
 		{
 			btnExit.fire();
 		}
-		if(ke.getCode() == KeyCode.C)
+		if (ke.getCode() == KeyCode.C)
 		{
 			btnClear.fire();
 		}
-		if(ke.getCode() == KeyCode.ENTER)
+		if (ke.getCode() == KeyCode.ENTER)
 		{
-			if(txtBoxOffice.focusedProperty().get())
+			if (txtBoxOffice.focusedProperty().get())
 			{
-				ArrayList<Person> people = (ArrayList<Person>)dbManager.findPerson(txtFirstName.getText(), txtLastName.getText(), txtBoxOffice.getText());
+				ArrayList<Person> people = (ArrayList<Person>) dbManager
+						.findPerson(txtFirstName.getText(),
+								txtLastName.getText(), txtBoxOffice.getText());
 
-				switch(people.size())
+				switch (people.size())
 				{
-					case 0:
-					{
-						MessageDialogBuilder.info().message("No Results Found").title("Info").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-						txtEmailAddress.setText("Unknown@");
-						break;
-					}
-					case 1:
-					{
-						Person p = people.get(0);
-						
-						txtEmailAddress.setText(p.getEmailAddress());
-						txtFirstName.setText(p.getFirstName());
-						txtLastName.setText(p.getLastName());
-						for(Stop s : cboxStops.getItems())
-						{
-							if(s.getStopName().equals(p.getStopName()))
-							{
-								cboxStops.setValue(s);
-								break;
-							}
-						}
-						break;
-					}
-					default:
-					{
-						MessageDialogBuilder.info().message("Multiple Results Found").title("Info").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-						break;
-					}
+				case 0:
+				{
+					MessageDialogBuilder.info().message("No Results Found")
+							.title("Info")
+							.buttonType(MessageDialog.ButtonType.OK)
+							.show(MainFrame.stage.getScene().getWindow());
+					txtEmailAddress.setText("Unknown@");
+					break;
 				}
-			}
-			else
+				case 1:
+				{
+					Person p = people.get(0);
+
+					txtEmailAddress.setText(p.getEmailAddress());
+					txtFirstName.setText(p.getFirstName());
+					txtLastName.setText(p.getLastName());
+					for (Stop s : cboxStops.getItems())
+					{
+						if (s.getStopName().equals(p.getStopName()))
+						{
+							cboxStops.setValue(s);
+							break;
+						}
+					}
+					break;
+				}
+				default:
+				{
+					MessageDialogBuilder.info()
+							.message("Multiple Results Found").title("Info")
+							.buttonType(MessageDialog.ButtonType.OK)
+							.show(MainFrame.stage.getScene().getWindow());
+					break;
+				}
+				}
+			} else
 			{
-				if(txtFirstName.focusedProperty().get() || txtLastName.focusedProperty().get())
+				if (txtFirstName.focusedProperty().get()
+						|| txtLastName.focusedProperty().get())
 				{
 					// do nothing
-				}
-				else
+				} else
 				{
 					btnSave.fire();
 				}
@@ -241,32 +262,30 @@ public class ScanPageController implements Initializable
 
 	public void cboxStopsKeyPressAction(KeyEvent ke)
 	{
-		if(ke.getCode() == KeyCode.BACK_SPACE)
+		if (ke.getCode() == KeyCode.BACK_SPACE)
 		{
 			stopSearch = "";
 			courierSearch = "";
-		}
-		else
+		} else
 		{
-			if(ke.getCode() == KeyCode.TAB && ke.isShiftDown())
+			if (ke.getCode() == KeyCode.TAB && ke.isShiftDown())
 			{
 				txtEmailAddress.requestFocus();
-			}
-			else
+			} else
 			{
-				if(ke.getCode() == KeyCode.TAB && !ke.isShiftDown())
+				if (ke.getCode() == KeyCode.TAB && !ke.isShiftDown())
 				{
 					stopSearch = "";
 					courierSearch = "";
 					cboxCourier.requestFocus();
-				}
-				else
+				} else
 				{
 					stopSearch += ke.getCode().toString();
-					
-					for(Stop s : cboxStops.getItems())
+
+					for (Stop s : cboxStops.getItems())
 					{
-						if(s.getStopName().toUpperCase().startsWith(stopSearch.toUpperCase()))
+						if (s.getStopName().toUpperCase()
+								.startsWith(stopSearch.toUpperCase()))
 						{
 							cboxStops.setValue(s);
 							break;
@@ -276,35 +295,33 @@ public class ScanPageController implements Initializable
 			}
 		}
 	}
-	
+
 	public void cboxCourierKeyPressAction(KeyEvent ke)
 	{
-		if(ke.getCode() == KeyCode.BACK_SPACE)
+		if (ke.getCode() == KeyCode.BACK_SPACE)
 		{
 			stopSearch = "";
 			courierSearch = "";
-		}
-		else
+		} else
 		{
-			if(ke.getCode() == KeyCode.TAB && !ke.isShiftDown())
+			if (ke.getCode() == KeyCode.TAB && !ke.isShiftDown())
 			{
 				btnSave.requestFocus();
-			}
-			else
+			} else
 			{
-				if(ke.getCode() == KeyCode.TAB && ke.isShiftDown())
+				if (ke.getCode() == KeyCode.TAB && ke.isShiftDown())
 				{
 					stopSearch = "";
 					courierSearch = "";
 					cboxStops.requestFocus();
-				}
-				else
+				} else
 				{
 					courierSearch += ke.getCode().toString();
-					
-					for(Courier c : cboxCourier.getItems())
+
+					for (Courier c : cboxCourier.getItems())
 					{
-						if(c.getCourierName().toUpperCase().startsWith(courierSearch.toUpperCase()))
+						if (c.getCourierName().toUpperCase()
+								.startsWith(courierSearch.toUpperCase()))
 						{
 							cboxCourier.setValue(c);
 							break;
@@ -314,24 +331,24 @@ public class ScanPageController implements Initializable
 			}
 		}
 	}
-	
+
 	private char generate()
 	{
 		int val;
-		
+
 		Random r = new Random();
-		
+
 		val = r.nextInt(74) + 48;
-		
-		if(val >= 58 && val <= 64)
+
+		if (val >= 58 && val <= 64)
 		{
-			val = (int)generate();
+			val = (int) generate();
 		}
-		if(val >= 91 && val <= 96)
+		if (val >= 91 && val <= 96)
 		{
-			val = (int)generate();
+			val = (int) generate();
 		}
-		
-		return (char)val;
+
+		return (char) val;
 	}
 }

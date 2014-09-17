@@ -25,13 +25,12 @@ import javafx.scene.input.KeyEvent;
 /**
  * Controls MainPageFx.fxml in com.mailroom.fxml.otherclient
  * @author James sitzja@grizzlies.adams.edu
- *
  */
 public class MainPageController implements Initializable
 {
 	private DatabaseManager dbManager;
 	private AutoUpdater au = null;
-	
+
 	@FXML
 	private TextField txtQuickSearch;
 	@FXML
@@ -46,8 +45,8 @@ public class MainPageController implements Initializable
 	private ComboBox<Stop> cboxStopSelect;
 	@FXML
 	private CheckBox cboxDefault;
-	
-	//Columns
+
+	// Columns
 	private TickColumn<Package> clmnDelivered;
 	private TextColumn<Package> clmnFirstName;
 	private TextColumn<Package> clmnLastName;
@@ -56,13 +55,13 @@ public class MainPageController implements Initializable
 	private TextColumn<Package> clmnCourier;
 	private TextColumn<Package> clmnDateReceived;
 	private TextColumn<Package> clmnUserName;
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
 		dbManager = OtherMainFrame.dbManager;
-		
-		//Create Columns
+
+		// Create Columns
 		clmnDelivered = new TickColumn<Package>();
 		clmnFirstName = new TextColumn<Package>("firstName");
 		clmnLastName = new TextColumn<Package>("lastName");
@@ -71,8 +70,8 @@ public class MainPageController implements Initializable
 		clmnCourier = new TextColumn<Package>("courier");
 		clmnDateReceived = new TextColumn<Package>("receivedDate");
 		clmnUserName = new TextColumn<Package>("user");
-		
-		//Set Resizable False
+
+		// Set Resizable False
 		clmnDelivered.setResizable(false);
 		clmnFirstName.setResizable(false);
 		clmnLastName.setResizable(false);
@@ -81,8 +80,8 @@ public class MainPageController implements Initializable
 		clmnCourier.setResizable(false);
 		clmnDateReceived.setResizable(false);
 		clmnUserName.setResizable(false);
-		
-		//Set Titles
+
+		// Set Titles
 		clmnFirstName.setText("First");
 		clmnLastName.setText("Last");
 		clmnStop.setText("Stop");
@@ -90,18 +89,18 @@ public class MainPageController implements Initializable
 		clmnCourier.setText("Carrier");
 		clmnDateReceived.setText("Date");
 		clmnUserName.setText("User");
-		
-		//Define Max Width
+
+		// Define Max Width
 		clmnDelivered.setMaxWidth(30);
 		clmnFirstName.setMaxWidth(100);
 		clmnLastName.setMaxWidth(100);
-		clmnStop.setMaxWidth(150); //wider because of data contained
+		clmnStop.setMaxWidth(150); // wider because of data contained
 		clmnTrackingNumber.setMaxWidth(100);
 		clmnCourier.setMaxWidth(100);
-		clmnDateReceived.setMaxWidth(150); //wider because of data contained
+		clmnDateReceived.setMaxWidth(150); // wider because of data contained
 		clmnUserName.setMaxWidth(100);
-		
-		//Add Columns
+
+		// Add Columns
 		tblViewTable.getColumns().add(clmnDelivered);
 		tblViewTable.getColumns().add(clmnFirstName);
 		tblViewTable.getColumns().add(clmnLastName);
@@ -110,211 +109,217 @@ public class MainPageController implements Initializable
 		tblViewTable.getColumns().add(clmnCourier);
 		tblViewTable.getColumns().add(clmnDateReceived);
 		tblViewTable.getColumns().add(clmnUserName);
-		
-		Package p = new Package(-1, "", "", "", "", "", "", null, null, null, false, false, "", false);
+
+		Package p = new Package(-1, "", "", "", "", "", "", null, null, null,
+				false, false, "", false);
 		tblViewTable.getItems().add(p);
-		
+
 		boolean found = false;
 		cboxStopSelect.getItems().clear();
-		cboxStopSelect.getItems().add(new Stop(-1,"ALL", "nil", 0, false));
-		for(Stop s : dbManager.getStops())
+		cboxStopSelect.getItems().add(new Stop(-1, "ALL", "nil", 0, false));
+		for (Stop s : dbManager.getStops())
 		{
 			cboxStopSelect.getItems().add(s);
 		}
-		for(Stop s : cboxStopSelect.itemsProperty().get())
+		for (Stop s : cboxStopSelect.itemsProperty().get())
 		{
-			if(s.getStudent())
+			if (s.getStudent())
 			{
 				cboxStopSelect.setValue(s);
 				found = true;
 				break;
 			}
 		}
-		
-		if(!found)
+
+		if (!found)
 		{
-			cboxStopSelect.setValue(cboxStopSelect.itemsProperty().get().get(0));
+			cboxStopSelect
+					.setValue(cboxStopSelect.itemsProperty().get().get(0));
 		}
-		
-		if(Boolean.valueOf(OtherMainFrame.properties.getProperty("AUTOUPDATE")))
+
+		if (Boolean
+				.valueOf(OtherMainFrame.properties.getProperty("AUTOUPDATE")))
 		{
 			au = new AutoUpdater(btnRefresh);
-		}
-		else
+		} else
 		{
 			au = null;
 		}
-		
+
 		txtQuickSearch.requestFocus();
-		
+
 		cboxDefault.setVisible(false);
 	}
-	
+
 	public void btnRefreshAction(ActionEvent ae)
 	{
-		ObservableList<Package> delivered = (ObservableList<Package>)clmnDelivered.getTickedRecords();
-		
-		for(Package p : delivered)
+		ObservableList<Package> delivered = (ObservableList<Package>) clmnDelivered
+				.getTickedRecords();
+
+		for (Package p : delivered)
 		{
 			dbManager.updatePackage(p.getPackageId(), true, true);
 		}
-		
-		if(cboxStopSelect.getValue() != null && cboxStopSelect.getValue().getStopId() != -1)
+
+		if (cboxStopSelect.getValue() != null
+				&& cboxStopSelect.getValue().getStopId() != -1)
 		{
 			dbManager.loadPackages(cboxStopSelect.getValue().getStopId());
-			
+
 			tblViewTable.getItems().clear();
-			
-			if(dbManager.getPackages().size() == 0)
+
+			if (dbManager.getPackages().size() == 0)
 			{
-				Package p = new Package(-1, "", "", "", "", "", "", null, null, null, false, false, "", false);
+				Package p = new Package(-1, "", "", "", "", "", "", null, null,
+						null, false, false, "", false);
 				tblViewTable.getItems().add(p);
-			}
-			else
+			} else
 			{
 				tblViewTable.getItems().addAll(dbManager.getPackages());
 			}
 		}
-		if(cboxStopSelect.getValue().getStopId() == -1)
+		if (cboxStopSelect.getValue().getStopId() == -1)
 		{
 			dbManager.loadAllPackages();
-			
+
 			tblViewTable.getItems().clear();
-			
-			if(dbManager.getPackages().size() == 0)
+
+			if (dbManager.getPackages().size() == 0)
 			{
-				Package p = new Package(-1, "", "", "", "", "", "", null, null, null, false, false, "", false);
+				Package p = new Package(-1, "", "", "", "", "", "", null, null,
+						null, false, false, "", false);
 				tblViewTable.getItems().add(p);
-			}
-			else
+			} else
 			{
 				tblViewTable.getItems().addAll(dbManager.getPackages());
 			}
 		}
 	}
-	
+
 	public void btnExitAction(ActionEvent ae)
 	{
-		if(clmnDelivered.getTickedRecords().size() > 0)
+		if (clmnDelivered.getTickedRecords().size() > 0)
 		{
-			MessageDialog.Answer a = MessageDialogBuilder.confirmation().message("Confirm Quit?").title("Quit").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").noButtonText("No").show(OtherMainFrame.stage.getScene().getWindow());
-			
-			if(a == MessageDialog.Answer.YES_OK)
-			{				
-				if(au != null)
+			MessageDialog.Answer a = MessageDialogBuilder.confirmation()
+					.message("Confirm Quit?").title("Quit")
+					.buttonType(MessageDialog.ButtonType.YES_NO)
+					.yesOkButtonText("Yes").noButtonText("No")
+					.show(OtherMainFrame.stage.getScene().getWindow());
+
+			if (a == MessageDialog.Answer.YES_OK)
+			{
+				if (au != null)
 				{
 					au.stop();
 				}
-				
+
 				dbManager.dispose();
-				
+
 				System.exit(0);
 			}
-		}
-		else
+		} else
 		{
-			if(au != null)
+			if (au != null)
 			{
 				au.stop();
 			}
-			
+
 			dbManager.dispose();
-			
+
 			System.exit(0);
 		}
 	}
-	
+
 	public void btnAdvSearchAction(ActionEvent ae)
 	{
 		try
 		{
-			Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/common/AdvSearchFx.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource(
+					"/com/mailroom/fxml/common/AdvSearchFx.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add("tiwulfx.css");
 			OtherMainFrame.stage.setScene(scene);
-		}
-		catch(IOException e)
+		} catch (IOException e)
 		{
 			Logger.log(e);
 		}
 	}
-	
+
 	public void cboxStopSelectAction(ActionEvent ae)
-	{		
+	{
 		tblViewTable.getItems().clear();
-		
-		if(cboxStopSelect.getValue().getStopId() == -1)
+
+		if (cboxStopSelect.getValue().getStopId() == -1)
 		{
 			dbManager.loadAllPackages();
-		}
-		else
+		} else
 		{
 			dbManager.loadPackages(cboxStopSelect.getValue().getStopId());
 		}
-		
-		if(dbManager.getPackages().size() == 0)
+
+		if (dbManager.getPackages().size() == 0)
 		{
-			Package p = new Package(-1, "", "", "", "", "", "", null, null, null, false, false, "", false);
+			Package p = new Package(-1, "", "", "", "", "", "", null, null,
+					null, false, false, "", false);
 			tblViewTable.getItems().add(p);
-		}
-		else
+		} else
 		{
 			tblViewTable.getItems().addAll(dbManager.getPackages());
 		}
 	}
-	
+
 	public void cboxDefault(ActionEvent ae)
 	{
-		if(cboxStopSelect.getValue() != cboxStopSelect.getItems().get(0))
+		if (cboxStopSelect.getValue() != cboxStopSelect.getItems().get(0))
 		{
 			dbManager.setStopDefault(cboxStopSelect.getValue());
 		}
 	}
-	
+
 	public void keyPressAction(KeyEvent ke)
 	{
-		if(ke.getCode() == KeyCode.ESCAPE)
+		if (ke.getCode() == KeyCode.ESCAPE)
 		{
 			btnExit.fire();
 		}
-		if(ke.getCode() == KeyCode.R)
+		if (ke.getCode() == KeyCode.R)
 		{
 			btnRefresh.fire();
 		}
 	}
-	
+
 	private class AutoUpdater implements Runnable
 	{
 		Button btnRefresh = null;
 		private boolean running;
-		
+
 		public AutoUpdater(Button btn)
 		{
 			this.btnRefresh = btn;
 			new Thread(this).start();
 			running = true;
 		}
-		
+
 		public void run()
 		{
-			while(running)
+			while (running)
 			{
 				try
 				{
-					Thread.sleep((long) (Double.valueOf(OtherMainFrame.properties.getProperty("AUFREQ")) * 1000));
+					Thread.sleep((long) (Double
+							.valueOf(OtherMainFrame.properties
+									.getProperty("AUFREQ")) * 1000));
 					btnRefresh.fire();
-				}
-				catch (NumberFormatException e)
+				} catch (NumberFormatException e)
 				{
 					Logger.log(e);
-				}
-				catch (InterruptedException e)
+				} catch (InterruptedException e)
 				{
 					Logger.log(e);
 				}
 			}
 		}
-		
+
 		public void stop()
 		{
 			running = false;

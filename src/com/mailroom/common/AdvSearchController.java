@@ -34,9 +34,7 @@ import javafx.scene.layout.AnchorPane;
 
 /**
  * Controls AdvSearchFx.fxml in com.mailroom.fxml.common
- * 
  * @author James sitzja@grizzlies.adams.edu
- *
  */
 public class AdvSearchController implements Initializable
 {
@@ -47,6 +45,8 @@ public class AdvSearchController implements Initializable
 	@FXML
 	private TextField txtLastName;
 	@FXML
+	private TextField txtBoxOffice;
+	@FXML
 	private TableView<Package> tblViewTable;
 	@FXML
 	private Button btnExit;
@@ -56,14 +56,14 @@ public class AdvSearchController implements Initializable
 	private AnchorPane apaneAnchor;
 	@FXML
 	private CheckBox cboxDateSearch;
-	
+
 	private DatePicker startDate;
 	private DatePicker endDate;
-	
+
 	private DatabaseManager dbManager;
 	private PackageEditWindow editWindow;
-	
-	//Columns//
+
+	// Columns//
 	private CheckBoxColumn<Package> clmnDelivered;
 	private TextColumn<Package> clmnFirstName;
 	private TextColumn<Package> clmnLastName;
@@ -72,22 +72,22 @@ public class AdvSearchController implements Initializable
 	private TextColumn<Package> clmnCourier;
 	private TextColumn<Package> clmnDateReceived;
 	private TextColumn<Package> clmnUserName;
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
-		//Create Columns
+		// Create Columns
 		clmnDelivered = new CheckBoxColumn<Package>("pickedUp");
 		clmnFirstName = new TextColumn<Package>("firstName");
 		clmnLastName = new TextColumn<Package>("lastName");
 		clmnStop = new TextColumn<Package>("stop");
 		clmnTrackingNumber = new TextColumn<Package>("trackingNumber");
 		clmnCourier = new TextColumn<Package>("courier");
-		//clmnCourier = new ComboBoxColumn<Package, String>("courier");
+		// clmnCourier = new ComboBoxColumn<Package, String>("courier");
 		clmnDateReceived = new TextColumn<Package>("receivedDate");
 		clmnUserName = new TextColumn<Package>("user");
-		
-		//Set Resizable False
+
+		// Set Resizable False
 		clmnDelivered.setResizable(false);
 		clmnFirstName.setResizable(false);
 		clmnLastName.setResizable(false);
@@ -96,8 +96,8 @@ public class AdvSearchController implements Initializable
 		clmnCourier.setResizable(false);
 		clmnDateReceived.setResizable(false);
 		clmnUserName.setResizable(false);
-		
-		//Set Titles
+
+		// Set Titles
 		clmnDelivered.setText("");
 		clmnFirstName.setText("First");
 		clmnLastName.setText("Last");
@@ -106,18 +106,18 @@ public class AdvSearchController implements Initializable
 		clmnCourier.setText("Carrier");
 		clmnDateReceived.setText("Date");
 		clmnUserName.setText("User");
-		
-		//Define Max Width
+
+		// Define Max Width
 		clmnDelivered.setMaxWidth(50);
 		clmnFirstName.setMaxWidth(70);
 		clmnLastName.setMaxWidth(70);
-		clmnStop.setMaxWidth(100); //wider because of data contained
+		clmnStop.setMaxWidth(100); // wider because of data contained
 		clmnTrackingNumber.setMaxWidth(70);
 		clmnCourier.setMaxWidth(70);
-		clmnDateReceived.setMaxWidth(100); //wider because of data contained
+		clmnDateReceived.setMaxWidth(100); // wider because of data contained
 		clmnUserName.setMaxWidth(75);
-		
-		//Add Columns
+
+		// Add Columns
 		tblViewTable.getColumns().add(clmnDelivered);
 		tblViewTable.getColumns().add(clmnFirstName);
 		tblViewTable.getColumns().add(clmnLastName);
@@ -126,7 +126,7 @@ public class AdvSearchController implements Initializable
 		tblViewTable.getColumns().add(clmnCourier);
 		tblViewTable.getColumns().add(clmnDateReceived);
 		tblViewTable.getColumns().add(clmnUserName);
-		
+
 		startDate = new DatePicker(Locale.US);
 		startDate.setLayoutX(14);
 		startDate.setLayoutY(204);
@@ -136,7 +136,7 @@ public class AdvSearchController implements Initializable
 		startDate.promptTextProperty().set("Start Date");
 		startDate.setDisable(true);
 		apaneAnchor.getChildren().add(startDate);
-		
+
 		endDate = new DatePicker(Locale.US);
 		endDate.setLayoutX(14);
 		endDate.setLayoutY(239);
@@ -147,215 +147,240 @@ public class AdvSearchController implements Initializable
 		endDate.promptTextProperty().set("End Date");
 		endDate.setDisable(true);
 		apaneAnchor.getChildren().add(endDate);
-		
-		if(MainFrame.dbManager != null)
+
+		if (MainFrame.dbManager != null)
 		{
 			this.dbManager = MainFrame.dbManager;
-		}
-		else
+		} else
 		{
 			this.dbManager = OtherMainFrame.dbManager;
 		}
-		
-		if(MainFrame.stage != null)
+
+		if (MainFrame.stage != null)
 		{
 			editWindow = MainFrame.editWindow;
 		}
-		if(OtherMainFrame.stage != null)
+		if (OtherMainFrame.stage != null)
 		{
 			editWindow = OtherMainFrame.editWindow;
 		}
 	}
-	
+
 	public void btnSearchAction(ActionEvent ae)
-	{		
+	{
 		ArrayList<Package> results = new ArrayList<Package>();
-		
+
 		tblViewTable.getItems().clear();
-		
+
 		try
-		{		
-			if(!cboxDateSearch.isSelected())
-			{				
-				if(!txtTrackingNumber.getText().equals(""))
-				{
-					for(Package p : dbManager.searchPackages(txtTrackingNumber.getText(), DatabaseManager.SearchType.SEARCH_CONTAINS))
-					{
-						if(!results.contains(p))
-						{
-							results.add(p);
-						}
-						else
-						{
-							System.out.println("Found Previous");
-						}
-					}
-				}
-				if(!txtFirstName.getText().equals(""))
-				{
-					for(Package p : dbManager.searchPackages(txtFirstName.getText(), DatabaseManager.SearchType.SEARCH_CONTAINS))
-					{
-						if(!results.contains(p))
-						{
-							results.add(p);
-						}
-						else
-						{
-							System.out.println("Found Previous");
-						}
-					}
-				}
-				if(!txtLastName.getText().equals(""))
-				{
-					for(Package p : dbManager.searchPackages(txtLastName.getText(), DatabaseManager.SearchType.SEARCH_CONTAINS))
-					{
-						if(!results.contains(p))
-						{
-							results.add(p);
-						}
-						else
-						{
-							System.out.println("Found Previous");
-						}
-					}
-				}
-			}
-			else
+		{
+			if (!cboxDateSearch.isSelected())
 			{
-				String start = new SimpleDateFormat("yyyy-MM-dd").format(startDate.getValue()).toString();
-				String end = new SimpleDateFormat("yyyy-MM-dd").format(endDate.getValue()).toString();
-				
-				if(endDate.getValue().before(startDate.getValue()))
+				if (!txtTrackingNumber.getText().equals(""))
 				{
-					MessageDialogBuilder.error().message("Start Date MUST BE BEFORE End Date").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+					for (Package p : dbManager.searchPackages(
+							txtTrackingNumber.getText(),
+							DatabaseManager.SearchType.SEARCH_CONTAINS))
+					{
+						if (!results.contains(p))
+						{
+							results.add(p);
+						} else
+						{
+							System.out.println("Found Previous");
+						}
+					}
+				}
+				if (!txtFirstName.getText().equals(""))
+				{
+					for (Package p : dbManager.searchPackages(
+							txtFirstName.getText(),
+							DatabaseManager.SearchType.SEARCH_CONTAINS))
+					{
+						if (!results.contains(p))
+						{
+							results.add(p);
+						} else
+						{
+							System.out.println("Found Previous");
+						}
+					}
+				}
+				if (!txtLastName.getText().equals(""))
+				{
+					for (Package p : dbManager.searchPackages(
+							txtLastName.getText(),
+							DatabaseManager.SearchType.SEARCH_CONTAINS))
+					{
+						if (!results.contains(p))
+						{
+							results.add(p);
+						} else
+						{
+							System.out.println("Found Previous");
+						}
+					}
+				}
+				if (!txtBoxOffice.getText().equals(""))
+				{
+					for (Package p : dbManager.searchPackages(
+							txtBoxOffice.getText(),
+							DatabaseManager.SearchType.SEARCH_CONTAINS))
+					{
+						if (!results.contains(p))
+						{
+							results.add(p);
+						} else
+						{
+							System.out.println("Found Previous");
+						}
+					}
+				}
+			} else
+			{
+				String start = new SimpleDateFormat("yyyy-MM-dd").format(
+						startDate.getValue()).toString();
+				String end = new SimpleDateFormat("yyyy-MM-dd").format(
+						endDate.getValue()).toString();
+
+				if (endDate.getValue().before(startDate.getValue()))
+				{
+					MessageDialogBuilder.error()
+							.message("Start Date MUST BE BEFORE End Date")
+							.title("Error")
+							.buttonType(MessageDialog.ButtonType.OK)
+							.show(MainFrame.stage.getScene().getWindow());
 					return;
 				}
-				
-				if(txtTrackingNumber.getText().equals("") && txtFirstName.getText().equals("") && txtLastName.getText().equals(""))
+
+				if (txtTrackingNumber.getText().equals("")
+						&& txtFirstName.getText().equals("")
+						&& txtLastName.getText().equals(""))
 				{
 					txtFirstName.setText(" ");
 				}
-				
-				if(!txtTrackingNumber.getText().equals(""))
+
+				if (!txtTrackingNumber.getText().equals(""))
 				{
-					for(Package p : dbManager.searchPackages(txtTrackingNumber.getText(), start, end, DatabaseManager.SearchType.SEARCH_CONTAINS))
+					for (Package p : dbManager.searchPackages(
+							txtTrackingNumber.getText(), start, end,
+							DatabaseManager.SearchType.SEARCH_CONTAINS))
 					{
-						if(!results.contains(p))
+						if (!results.contains(p))
 						{
 							results.add(p);
-						}
-						else
+						} else
 						{
 							System.out.println("Found Previous");
 						}
 					}
 				}
-				if(!txtFirstName.getText().equals(""))
+				if (!txtFirstName.getText().equals(""))
 				{
-					for(Package p : dbManager.searchPackages(txtFirstName.getText(), start, end, DatabaseManager.SearchType.SEARCH_CONTAINS))
+					for (Package p : dbManager.searchPackages(
+							txtFirstName.getText(), start, end,
+							DatabaseManager.SearchType.SEARCH_CONTAINS))
 					{
-						if(!results.contains(p))
+						if (!results.contains(p))
 						{
 							results.add(p);
-						}
-						else
+						} else
 						{
 							System.out.println("Found Previous");
 						}
 					}
 				}
-				if(!txtLastName.getText().equals(""))
+				if (!txtLastName.getText().equals(""))
 				{
-					for(Package p : dbManager.searchPackages(txtLastName.getText(), start, end, DatabaseManager.SearchType.SEARCH_CONTAINS))
+					for (Package p : dbManager.searchPackages(
+							txtLastName.getText(), start, end,
+							DatabaseManager.SearchType.SEARCH_CONTAINS))
 					{
-						if(!results.contains(p))
+						if (!results.contains(p))
 						{
 							results.add(p);
-						}
-						else
+						} else
 						{
 							System.out.println("Found Previous");
 						}
 					}
 				}
 			}
-			
-			for(Package p : results)
+
+			for (Package p : results)
 			{
 				tblViewTable.getItems().add(p);
 			}
-			
-			if(txtFirstName.getText().equals(" "))
+
+			if (txtFirstName.getText().equals(" "))
 			{
 				txtFirstName.setText("");
 			}
-		}
-		catch(NullPointerException e)
+		} catch (NullPointerException e)
 		{
 			System.err.println("Error: " + e.getMessage());
 		}
 	}
-	
+
 	public void btnExitAction(ActionEvent ae)
 	{
-		if(MainFrame.dbManager != null)
-		{	
-			try
-			{
-				Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
-				Scene scene = new Scene(root);
-				MainFrame.stage.setScene(scene);
-			}
-			catch(IOException e)
-			{
-				System.err.println("Error: " + e.getMessage());
-			}
-		}
-		else
+		if (MainFrame.dbManager != null)
 		{
 			try
 			{
-				Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/otherclient/MainPageFx.fxml"));
+				Parent root = FXMLLoader.load(getClass().getResource(
+						"/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
+				Scene scene = new Scene(root);
+				MainFrame.stage.setScene(scene);
+			} catch (IOException e)
+			{
+				System.err.println("Error: " + e.getMessage());
+			}
+		} else
+		{
+			try
+			{
+				Parent root = FXMLLoader.load(getClass().getResource(
+						"/com/mailroom/fxml/otherclient/MainPageFx.fxml"));
 				Scene scene = new Scene(root);
 				OtherMainFrame.stage.setScene(scene);
-			}
-			catch(IOException e)
+			} catch (IOException e)
 			{
 				System.err.println("Error: " + e.getMessage());
 			}
 		}
 	}
-	
+
 	public void keyPressAction(KeyEvent ke)
 	{
-		if(ke.getCode() == KeyCode.ESCAPE)
+		if (ke.getCode() == KeyCode.ESCAPE)
 		{
 			btnExit.fire();
 		}
 	}
-	
+
 	public void cboxDateSearchAction(ActionEvent ae)
 	{
-		if(cboxDateSearch.isSelected())
+		if (cboxDateSearch.isSelected())
 		{
 			startDate.setDisable(false);
 			endDate.setDisable(false);
-		}
-		else
+		} else
 		{
 			startDate.setDisable(true);
 			endDate.setDisable(true);
-			
+
 			startDate.setValue(null);
 			endDate.setValue(null);
 		}
 	}
-	
+
 	public void tblMouseClickAction(MouseEvent me)
 	{
-		if(me.getClickCount() >= 2)
+		if (me.getClickCount() >= 2)
 		{
-			editWindow.show(tblViewTable.getItems().get(tblViewTable.getSelectionModel().getSelectedIndex()));
+			editWindow.show(tblViewTable.getItems().get(
+					tblViewTable.getSelectionModel().getSelectedIndex()));
 		}
 	}
 }

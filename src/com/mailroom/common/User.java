@@ -1,20 +1,18 @@
 package com.mailroom.common;
 
 /**
- * Represents A User
- * <br>
+ * Represents A User <br>
  * Used for Checking In Packages, Settings Permissions, etc.
  * @author James sitzja@grizzlies.adams.edu
- *
  */
-public class User 
+public class User
 {
 	private int userId;
 	private String userName;
 	private String firstName;
 	private String lastName;
 	private boolean admin;
-	
+
 	/**
 	 * Constructs New User
 	 * @param userId ID of User in Database
@@ -23,8 +21,8 @@ public class User
 	 * @param lastName Last Name of User
 	 * @param admin Administrative status of User
 	 */
-	public User(int userId, String userName, String firstName, 
-			String lastName, boolean admin)
+	public User(int userId, String userName, String firstName, String lastName,
+			boolean admin)
 	{
 		this.userId = userId;
 		this.userName = userName;
@@ -32,9 +30,9 @@ public class User
 		this.lastName = lastName;
 		this.admin = admin;
 	}
-	
-	//All get methods for variables
-	
+
+	// All get methods for variables
+
 	/**
 	 * Gets ID of User
 	 * @return ID of User
@@ -43,7 +41,7 @@ public class User
 	{
 		return userId;
 	}
-	
+
 	/**
 	 * Gets Username of User
 	 * @return Username of User
@@ -52,7 +50,7 @@ public class User
 	{
 		return userName;
 	}
-	
+
 	/**
 	 * Gets First Name of User
 	 * @return First Name of User
@@ -61,7 +59,7 @@ public class User
 	{
 		return firstName;
 	}
-	
+
 	/**
 	 * Gets Last Name of User
 	 * @return Last Name of User
@@ -70,7 +68,7 @@ public class User
 	{
 		return lastName;
 	}
-	
+
 	/**
 	 * Gets First and Last Name added together
 	 * @return 'Last Name', 'First Name'
@@ -79,7 +77,7 @@ public class User
 	{
 		return lastName + ", " + firstName;
 	}
-	
+
 	/**
 	 * Gets Admin Status of User
 	 * @return Wether User is an Administrator or not
@@ -88,7 +86,7 @@ public class User
 	{
 		return admin;
 	}
-	
+
 	@Override
 	public String toString()
 	{

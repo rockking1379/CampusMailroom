@@ -3,13 +3,12 @@ package com.mailroom.common;
 /**
  * Represents a Route For Stops and Packages
  * @author James sitzja@grizzlies.adams.edu
- *
  */
-public class Route 
+public class Route
 {
 	private int routeId;
 	private String routeName;
-	
+
 	/**
 	 * Constructs new Route
 	 * @param routeId ID of Route in Database
@@ -20,7 +19,7 @@ public class Route
 		this.routeId = routeId;
 		this.routeName = routeName;
 	}
-	
+
 	/**
 	 * Gets ID of Route
 	 * @return ID of Route
@@ -29,7 +28,7 @@ public class Route
 	{
 		return routeId;
 	}
-	
+
 	/**
 	 * Gets Name of Route
 	 * @return Name of Route
@@ -38,7 +37,7 @@ public class Route
 	{
 		return routeName;
 	}
-	
+
 	@Override
 	public String toString()
 	{

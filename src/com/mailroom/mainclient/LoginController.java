@@ -15,13 +15,12 @@ import com.mailroom.common.*;
 
 /**
  * Controls LoginFx.fxml in com.mailroom.fxml.mainclient
- * 
  * @author James sitzja@grizzlies.adams.edu
  */
-public class LoginController implements Initializable 
+public class LoginController implements Initializable
 {
 	private DatabaseManager dbManager;
-	
+
 	@FXML
 	private AnchorPane anchorPane;
 	@FXML
@@ -38,60 +37,58 @@ public class LoginController implements Initializable
 	private Button btnQuit;
 
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) 
+	public void initialize(URL arg0, ResourceBundle arg1)
 	{
 		dbManager = MainFrame.dbManager;
-		
+
 		imgLogo.setImage(MainFrame.imageLogo);
 	}
-	
+
 	public void btnLoginAction(ActionEvent ae)
 	{
 		String pwd = pwdPassword.getText();
 		int hash = txtUserName.getText().hashCode() + pwd.hashCode();
-		
+
 		User u = dbManager.login(txtUserName.getText(), hash);
-		
-		if(u.getUserId() > 0 && u != null)
+
+		if (u.getUserId() > 0 && u != null)
 		{
 			try
 			{
 				MainFrame.cUser = u;
-				Parent root = FXMLLoader.load(getClass().getResource("/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
+				Parent root = FXMLLoader.load(getClass().getResource(
+						"/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
 				Scene scene = new Scene(root);
 				MainFrame.stage.setScene(scene);
-			}
-			catch(IOException e)
+			} catch (IOException e)
 			{
 				Logger.log(e);
 			}
-		}
-		else
+		} else
 		{
 			lblLoginError.setVisible(true);
 		}
 	}
-	
+
 	public void btnQuitAction(ActionEvent ae)
 	{
 		MainFrame.saveProperties();
-		
+
 		dbManager.dispose();
-		
+
 		System.exit(0);
 	}
-	
+
 	public void keyPressedAction(KeyEvent ke)
 	{
-		if(ke.getCode() == KeyCode.ENTER)
+		if (ke.getCode() == KeyCode.ENTER)
 		{
 			btnLogin.fire();
 		}
-		if(ke.getCode() == KeyCode.ESCAPE)
+		if (ke.getCode() == KeyCode.ESCAPE)
 		{
 			btnQuit.fire();
 		}
 	}
-	
-	
+
 }

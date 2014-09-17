@@ -19,11 +19,10 @@ import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 /**
  * Controls SetupFx.fxml in com.mailroom.fxml.mainclient
  * @author James sitzja@grizzlies.adams.edu
- *
  */
 public class SetupController implements Initializable
-{	
-	//Tabs//
+{
+	// Tabs//
 	@FXML
 	private Tab tabDatabaseSetup;
 	@FXML
@@ -34,12 +33,12 @@ public class SetupController implements Initializable
 	private Tab tabStopSetup;
 	@FXML
 	private TabPane tabpaneMainPane;
-	
-	//Common Elements//
+
+	// Common Elements//
 	@FXML
 	private ProgressBar pbarProgress;
-	
-	//Database Setup//
+
+	// Database Setup//
 	@FXML
 	private ComboBox<String> cboxDbSetupDbType;
 	@FXML
@@ -58,8 +57,8 @@ public class SetupController implements Initializable
 	private Button btnDbSetupVerify;
 	@FXML
 	private Button btnDbSetupNext;
-	
-	//Account Setup//
+
+	// Account Setup//
 	@FXML
 	private TextField txtAccSetupFirstName;
 	@FXML
@@ -76,40 +75,40 @@ public class SetupController implements Initializable
 	private Button btnAccSetupAddUser;
 	@FXML
 	private Button btnAccSetupNext;
-	
-	//Courier Setup//
+
+	// Courier Setup//
 	@FXML
 	private TextField txtCourierSetupCourierName;
 	@FXML
 	private Button btnCourierSetupAddCourier;
 	@FXML
 	private Button btnCourierSetupNext;
-	
-	//Stop Setup//
+
+	// Stop Setup//
 	@FXML
 	private TextField txtStopSetupStopName;
 	@FXML
 	private Button btnStopSetupAddStop;
 	@FXML
 	private Button btnStopSetupFinish;
-	
+
 	private Properties prefs;
 	private DatabaseManager dbManager;
-	
+
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) 
+	public void initialize(URL arg0, ResourceBundle arg1)
 	{
 		cboxDbSetupDbType.getItems().clear();
 		cboxDbSetupDbType.getItems().add(SQLiteManager.dbName);
 		cboxDbSetupDbType.getItems().add(MysqlManager.dbName);
 		cboxDbSetupDbType.getItems().add(PostgreSQLManager.dbName);
-		
+
 		pbarProgress.setProgress(0.25);
-		
+
 		setupPreferences();
 	}
-	
-	//Database Setup//
+
+	// Database Setup//
 	/**
 	 * Fired on selection Change for Combo Box
 	 * @param ae ActionEvent from OS
@@ -120,41 +119,45 @@ public class SetupController implements Initializable
 		txtDbSetupDbName.setText("");
 		txtDbSetupDbUsername.setText("");
 		pwdDbSetupDbPassword.setText("");
-		
-		switch(Integer.valueOf(cboxDbSetupDbType.getValue().charAt(0)) - 48)
+
+		switch (Integer.valueOf(cboxDbSetupDbType.getValue().charAt(0)) - 48)
 		{
-			case 0:
-			{
-				txtDbSetupDbName.setDisable(true);
-				txtDbSetupDbUsername.setDisable(true);
-				pwdDbSetupDbPassword.setDisable(true);
-				btnDbSetupBrowse.setDisable(false);
-				break;
-			}
-			case 1:
-			{
-				txtDbSetupDbName.setDisable(false);
-				txtDbSetupDbUsername.setDisable(false);
-				pwdDbSetupDbPassword.setDisable(false);
-				btnDbSetupBrowse.setDisable(true);
-				break;
-			}
-			case 2:
-			{
-				txtDbSetupDbName.setDisable(false);
-				txtDbSetupDbUsername.setDisable(false);
-				pwdDbSetupDbPassword.setDisable(false);
-				btnDbSetupBrowse.setDisable(true);
-				break;
-			}
-			default:
-			{
-				MessageDialogBuilder.error().message("Unknown Database Type Selected").buttonType(MessageDialog.ButtonType.OK).yesOkButtonText("OK").show(MainFrame.stage.getScene().getWindow());
-				break;
-			}
+		case 0:
+		{
+			txtDbSetupDbName.setDisable(true);
+			txtDbSetupDbUsername.setDisable(true);
+			pwdDbSetupDbPassword.setDisable(true);
+			btnDbSetupBrowse.setDisable(false);
+			break;
+		}
+		case 1:
+		{
+			txtDbSetupDbName.setDisable(false);
+			txtDbSetupDbUsername.setDisable(false);
+			pwdDbSetupDbPassword.setDisable(false);
+			btnDbSetupBrowse.setDisable(true);
+			break;
+		}
+		case 2:
+		{
+			txtDbSetupDbName.setDisable(false);
+			txtDbSetupDbUsername.setDisable(false);
+			pwdDbSetupDbPassword.setDisable(false);
+			btnDbSetupBrowse.setDisable(true);
+			break;
+		}
+		default:
+		{
+			MessageDialogBuilder.error()
+					.message("Unknown Database Type Selected")
+					.buttonType(MessageDialog.ButtonType.OK)
+					.yesOkButtonText("OK")
+					.show(MainFrame.stage.getScene().getWindow());
+			break;
+		}
 		}
 	}
-	
+
 	/**
 	 * Allows User to Browse for SQLite Database File
 	 * @param ae ActionEvent from OS
@@ -162,146 +165,195 @@ public class SetupController implements Initializable
 	public void btnDbSetupBrowseAction(ActionEvent ae)
 	{
 		File f = new File("./mailroom.db");
-		if(!f.exists())
+		if (!f.exists())
 		{
-			try 
+			try
 			{
 				f.createNewFile();
-			} 
-			catch (IOException e) 
+			} catch (IOException e)
 			{
 				Logger.log(e);
 			}
 		}
-		
+
 		FileChooser fChooser = new FileChooser();
 		fChooser.setTitle("Select Database File");
 
 		File dbFile = fChooser.showOpenDialog(MainFrame.stage);
-		
-		if(dbFile != null)
+
+		if (dbFile != null)
 		{
 			txtDbSetupDbLocation.setText(dbFile.getAbsolutePath());
-		}
-		else
+		} else
 		{
-			MessageDialogBuilder.error().message("No File Selected").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+			MessageDialogBuilder.error().message("No File Selected")
+					.buttonType(MessageDialog.ButtonType.OK)
+					.show(MainFrame.stage.getScene().getWindow());
 		}
 	}
-	
+
 	/**
 	 * Verifies Database Information Entered
 	 * @param ae ActionEvent from OS
 	 */
 	public void btnDbSetupVerifyAction(ActionEvent ae)
 	{
-		switch(Integer.valueOf(cboxDbSetupDbType.getValue().charAt(0)) - 48)
+		switch (Integer.valueOf(cboxDbSetupDbType.getValue().charAt(0)) - 48)
 		{
-			case 0:
+		case 0:
+		{
+			if (txtDbSetupDbLocation.getText().equals(""))
 			{
-				if(txtDbSetupDbLocation.getText().equals(""))
-				{
-					MessageDialogBuilder.error().message("Database Location cannot be Empty").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-					return;
-				}
-				dbManager = new SQLiteManager(txtDbSetupDbLocation.getText());
-				break;
+				MessageDialogBuilder.error()
+						.message("Database Location cannot be Empty")
+						.buttonType(MessageDialog.ButtonType.OK)
+						.show(MainFrame.stage.getScene().getWindow());
+				return;
 			}
-			case 1:
-			{		
-				if(txtDbSetupDbLocation.getText().equals(""))
-				{
-					MessageDialogBuilder.error().message("Database Location cannot be Empty").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-					return;
-				}
-				if(txtDbSetupDbName.getText().equals(""))
-				{
-					MessageDialogBuilder.error().message("Database Name cannot be Empty").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-					return;
-				}
-				if(txtDbSetupDbUsername.getText().equals(""))
-				{
-					MessageDialogBuilder.error().message("Database Username cannot be Empty").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-					return;
-				}
-				if(pwdDbSetupDbPassword.getText().equals(""))
-				{
-					MessageDialogBuilder.error().message("Database Password cannot be Empty").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-					return;
-				}
-				dbManager = new MysqlManager(txtDbSetupDbLocation.getText(), txtDbSetupDbUsername.getText(), pwdDbSetupDbPassword.getText(), txtDbSetupDbName.getText());
-				break;
-			}
-			case 2:
-			{
-				if(txtDbSetupDbLocation.getText().equals(""))
-				{
-					MessageDialogBuilder.error().message("Database Location cannot be Empty").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-					return;
-				}
-				if(txtDbSetupDbName.getText().equals(""))
-				{
-					MessageDialogBuilder.error().message("Database Name cannot be Empty").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-					return;
-				}
-				if(txtDbSetupDbUsername.getText().equals(""))
-				{
-					MessageDialogBuilder.error().message("Database Username cannot be Empty").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-					return;
-				}
-				if(pwdDbSetupDbPassword.getText().equals(""))
-				{
-					MessageDialogBuilder.error().message("Database Password cannot be Empty").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-					return;
-				}
-				dbManager = new PostgreSQLManager(txtDbSetupDbLocation.getText(), txtDbSetupDbUsername.getText(), pwdDbSetupDbPassword.getText(), txtDbSetupDbName.getText());
-				break;
-			}
-			default:
-			{
-				MessageDialogBuilder.error().message("Unknown Database Type Selected").buttonType(MessageDialog.ButtonType.OK).yesOkButtonText("OK").show(MainFrame.stage.getScene().getWindow());
-				break;
-			}
+			dbManager = new SQLiteManager(txtDbSetupDbLocation.getText());
+			break;
 		}
-			
-		if(txtDbSetupPrefix.getText().equals(""))
+		case 1:
 		{
-			MessageDialogBuilder.error().message("Tracking Number Prefix cannot be Empty").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+			if (txtDbSetupDbLocation.getText().equals(""))
+			{
+				MessageDialogBuilder.error()
+						.message("Database Location cannot be Empty")
+						.buttonType(MessageDialog.ButtonType.OK)
+						.show(MainFrame.stage.getScene().getWindow());
+				return;
+			}
+			if (txtDbSetupDbName.getText().equals(""))
+			{
+				MessageDialogBuilder.error()
+						.message("Database Name cannot be Empty")
+						.buttonType(MessageDialog.ButtonType.OK)
+						.show(MainFrame.stage.getScene().getWindow());
+				return;
+			}
+			if (txtDbSetupDbUsername.getText().equals(""))
+			{
+				MessageDialogBuilder.error()
+						.message("Database Username cannot be Empty")
+						.buttonType(MessageDialog.ButtonType.OK)
+						.show(MainFrame.stage.getScene().getWindow());
+				return;
+			}
+			if (pwdDbSetupDbPassword.getText().equals(""))
+			{
+				MessageDialogBuilder.error()
+						.message("Database Password cannot be Empty")
+						.buttonType(MessageDialog.ButtonType.OK)
+						.show(MainFrame.stage.getScene().getWindow());
+				return;
+			}
+			dbManager = new MysqlManager(txtDbSetupDbLocation.getText(),
+					txtDbSetupDbUsername.getText(),
+					pwdDbSetupDbPassword.getText(), txtDbSetupDbName.getText());
+			break;
+		}
+		case 2:
+		{
+			if (txtDbSetupDbLocation.getText().equals(""))
+			{
+				MessageDialogBuilder.error()
+						.message("Database Location cannot be Empty")
+						.buttonType(MessageDialog.ButtonType.OK)
+						.show(MainFrame.stage.getScene().getWindow());
+				return;
+			}
+			if (txtDbSetupDbName.getText().equals(""))
+			{
+				MessageDialogBuilder.error()
+						.message("Database Name cannot be Empty")
+						.buttonType(MessageDialog.ButtonType.OK)
+						.show(MainFrame.stage.getScene().getWindow());
+				return;
+			}
+			if (txtDbSetupDbUsername.getText().equals(""))
+			{
+				MessageDialogBuilder.error()
+						.message("Database Username cannot be Empty")
+						.buttonType(MessageDialog.ButtonType.OK)
+						.show(MainFrame.stage.getScene().getWindow());
+				return;
+			}
+			if (pwdDbSetupDbPassword.getText().equals(""))
+			{
+				MessageDialogBuilder.error()
+						.message("Database Password cannot be Empty")
+						.buttonType(MessageDialog.ButtonType.OK)
+						.show(MainFrame.stage.getScene().getWindow());
+				return;
+			}
+			dbManager = new PostgreSQLManager(txtDbSetupDbLocation.getText(),
+					txtDbSetupDbUsername.getText(),
+					pwdDbSetupDbPassword.getText(), txtDbSetupDbName.getText());
+			break;
+		}
+		default:
+		{
+			MessageDialogBuilder.error()
+					.message("Unknown Database Type Selected")
+					.buttonType(MessageDialog.ButtonType.OK)
+					.yesOkButtonText("OK")
+					.show(MainFrame.stage.getScene().getWindow());
+			break;
+		}
+		}
+
+		if (txtDbSetupPrefix.getText().equals(""))
+		{
+			MessageDialogBuilder.error()
+					.message("Tracking Number Prefix cannot be Empty")
+					.buttonType(MessageDialog.ButtonType.OK)
+					.show(MainFrame.stage.getScene().getWindow());
 			return;
 		}
-		
-		if(dbManager.verify())
+
+		if (dbManager.verify())
 		{
-			MessageDialog.Answer ans = MessageDialogBuilder.confirmation().message("Initialize Database?").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").noButtonText("No").show(MainFrame.stage.getScene().getWindow());
-			
-			if(ans == MessageDialog.Answer.YES_OK)
+			MessageDialog.Answer ans = MessageDialogBuilder.confirmation()
+					.message("Initialize Database?")
+					.buttonType(MessageDialog.ButtonType.YES_NO)
+					.yesOkButtonText("Yes").noButtonText("No")
+					.show(MainFrame.stage.getScene().getWindow());
+
+			if (ans == MessageDialog.Answer.YES_OK)
 			{
-				MessageDialog.Answer dev = MessageDialogBuilder.confirmation().message("Insert Dev User?\nThis is a backdoor that can be used by the developers if active!").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").noButtonText("No!").show(MainFrame.stage.getScene().getWindow());
-				
-				if(dev == MessageDialog.Answer.YES_OK)
+				MessageDialog.Answer dev = MessageDialogBuilder
+						.confirmation()
+						.message(
+								"Insert Dev User?\nThis is a backdoor that can be used by the developers if active!")
+						.buttonType(MessageDialog.ButtonType.YES_NO)
+						.yesOkButtonText("Yes").noButtonText("No!")
+						.show(MainFrame.stage.getScene().getWindow());
+
+				if (dev == MessageDialog.Answer.YES_OK)
 				{
 					dbManager.create(true);
 				}
-				if(dev == MessageDialog.Answer.NO)
+				if (dev == MessageDialog.Answer.NO)
 				{
 					dbManager.create(false);
 				}
 			}
-			
+
 			prefs.setProperty("TNUMPREFIX", txtDbSetupPrefix.getText());
 			prefs.setProperty("DATABASE", txtDbSetupDbLocation.getText());
-			prefs.setProperty("DBTYPE", String.valueOf(cboxDbSetupDbType.getValue().charAt(0)));
+			prefs.setProperty("DBTYPE",
+					String.valueOf(cboxDbSetupDbType.getValue().charAt(0)));
 			prefs.setProperty("USERNAME", txtDbSetupDbUsername.getText());
 			prefs.setProperty("DBNAME", txtDbSetupDbName.getText());
 			prefs.setProperty("PASSWORD", pwdDbSetupDbPassword.getText());
-			
+
 			MainFrame.properties = prefs;
 			MainFrame.saveProperties();
-			
+
 			btnDbSetupNext.setDisable(false);
 		}
 	}
-	
+
 	/**
 	 * Changes Tabs from Database over to Account Creation
 	 * @param ae ActionEvent from OS
@@ -309,13 +361,13 @@ public class SetupController implements Initializable
 	public void btnDbSetupNextAction(ActionEvent ae)
 	{
 		pbarProgress.setProgress(0.50);
-		
+
 		tabDatabaseSetup.setDisable(true);
 		tabAccountSetup.setDisable(false);
 		tabpaneMainPane.getSelectionModel().select(tabAccountSetup);
 	}
-	
-	//Account Setup//
+
+	// Account Setup//
 	/**
 	 * Adds User to Database
 	 * @param ae ActionEvent from OS
@@ -325,19 +377,34 @@ public class SetupController implements Initializable
 		int password;
 		String pwd = pwdAccSetupPwd.getText();
 		String pwdConfirm = pwdAccSetupConfPwd.getText();
-		if(txtAccSetupFirstName.getText().equals("") || txtAccSetupLastName.getText().equals("") || txtAccSetupUserName.getText().equals("") || pwdAccSetupPwd.getText().equals("") || pwdAccSetupConfPwd.getText().equals(""))
+		if (txtAccSetupFirstName.getText().equals("")
+				|| txtAccSetupLastName.getText().equals("")
+				|| txtAccSetupUserName.getText().equals("")
+				|| pwdAccSetupPwd.getText().equals("")
+				|| pwdAccSetupConfPwd.getText().equals(""))
 		{
-			MessageDialogBuilder.error().message("Cannot have Empty Fields").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-		}
-		else
+			MessageDialogBuilder.error().message("Cannot have Empty Fields")
+					.title("Error").buttonType(MessageDialog.ButtonType.OK)
+					.show(MainFrame.stage.getScene().getWindow());
+		} else
 		{
-			if(pwd.equals(pwdConfirm))
+			if (pwd.equals(pwdConfirm))
 			{
-				password = txtAccSetupUserName.getText().hashCode() + pwd.hashCode();
-				if(dbManager.addUser(new User(-1,txtAccSetupUserName.getText(),txtAccSetupFirstName.getText(),txtAccSetupLastName.getText(),cboxAccSetupAdmin.selectedProperty().get()), password))
+				password = txtAccSetupUserName.getText().hashCode()
+						+ pwd.hashCode();
+				if (dbManager.addUser(
+						new User(-1, txtAccSetupUserName.getText(),
+								txtAccSetupFirstName.getText(),
+								txtAccSetupLastName.getText(),
+								cboxAccSetupAdmin.selectedProperty().get()),
+						password))
 				{
-					MessageDialog.Answer ans = MessageDialogBuilder.info().message("User Added\nAdd Another?").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").noButtonText("No").show(MainFrame.stage.getScene().getWindow());
-					if(ans == MessageDialog.Answer.YES_OK)
+					MessageDialog.Answer ans = MessageDialogBuilder.info()
+							.message("User Added\nAdd Another?")
+							.buttonType(MessageDialog.ButtonType.YES_NO)
+							.yesOkButtonText("Yes").noButtonText("No")
+							.show(MainFrame.stage.getScene().getWindow());
+					if (ans == MessageDialog.Answer.YES_OK)
 					{
 						txtAccSetupFirstName.setText("");
 						txtAccSetupLastName.setText("");
@@ -346,25 +413,32 @@ public class SetupController implements Initializable
 						pwdAccSetupConfPwd.setText("");
 						cboxAccSetupAdmin.setSelected(false);
 					}
-					if(ans == MessageDialog.Answer.NO)
+					if (ans == MessageDialog.Answer.NO)
 					{
 						btnAccSetupNext.fire();
 					}
-				}
-				else
+				} else
 				{
-					MessageDialogBuilder.error().message("Error Adding User " + txtAccSetupUserName.getText()).title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+					MessageDialogBuilder
+							.error()
+							.message(
+									"Error Adding User "
+											+ txtAccSetupUserName.getText())
+							.title("Error")
+							.buttonType(MessageDialog.ButtonType.OK)
+							.show(MainFrame.stage.getScene().getWindow());
 				}
-			}
-			else
+			} else
 			{
-				MessageDialogBuilder.error().message("Passwords Do Not Match").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+				MessageDialogBuilder.error().message("Passwords Do Not Match")
+						.title("Error").buttonType(MessageDialog.ButtonType.OK)
+						.show(MainFrame.stage.getScene().getWindow());
 				pwdAccSetupPwd.setText("");
 				pwdAccSetupConfPwd.setText("");
 			}
 		}
 	}
-	
+
 	/**
 	 * Changes Tabs from Account over to Courier
 	 * @param ae ActionEvent from OS
@@ -372,40 +446,46 @@ public class SetupController implements Initializable
 	public void btnAccSetupNextAction(ActionEvent ae)
 	{
 		pbarProgress.setProgress(0.75);
-		
+
 		tabAccountSetup.setDisable(true);
 		tabCourierSetup.setDisable(false);
 		tabpaneMainPane.getSelectionModel().select(tabCourierSetup);
 	}
-	
-	//Courier Setup//
+
+	// Courier Setup//
 	/**
 	 * Adds Courier to Database
 	 * @param ae ActionEvent from OS
 	 */
 	public void btnCourierSetupAddCourierAction(ActionEvent ae)
 	{
-		if(!txtCourierSetupCourierName.getText().equals(""))
+		if (!txtCourierSetupCourierName.getText().equals(""))
 		{
 			dbManager.addCourier(txtCourierSetupCourierName.getText());
-			
-			MessageDialog.Answer ans = MessageDialogBuilder.confirmation().message("Courier Added\nAdd Another?").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").noButtonText("No").show(MainFrame.stage.getScene().getWindow());
-			
-			if(ans == MessageDialog.Answer.YES_OK)
+
+			MessageDialog.Answer ans = MessageDialogBuilder.confirmation()
+					.message("Courier Added\nAdd Another?")
+					.buttonType(MessageDialog.ButtonType.YES_NO)
+					.yesOkButtonText("Yes").noButtonText("No")
+					.show(MainFrame.stage.getScene().getWindow());
+
+			if (ans == MessageDialog.Answer.YES_OK)
 			{
 				txtCourierSetupCourierName.setText("");
 			}
-			if(ans == MessageDialog.Answer.NO)
+			if (ans == MessageDialog.Answer.NO)
 			{
 				btnCourierSetupNext.fire();
 			}
-		}
-		else
+		} else
 		{
-			MessageDialogBuilder.error().message("Courier Name cannot be Empty").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+			MessageDialogBuilder.error()
+					.message("Courier Name cannot be Empty")
+					.buttonType(MessageDialog.ButtonType.OK)
+					.show(MainFrame.stage.getScene().getWindow());
 		}
 	}
-	
+
 	/**
 	 * Changes Tabs from Courier over to Stop
 	 * @param ae ActionEvent from OS
@@ -413,87 +493,101 @@ public class SetupController implements Initializable
 	public void btnCourierSetupNextAction(ActionEvent ae)
 	{
 		pbarProgress.setProgress(1.0);
-		
+
 		tabCourierSetup.setDisable(true);
 		tabStopSetup.setDisable(false);
 		tabpaneMainPane.getSelectionModel().select(tabStopSetup);
 	}
-	//Stop Setup//
+
+	// Stop Setup//
 	/**
 	 * Adds Stop to Database
 	 * @param ae ActionEvent from OS
 	 */
 	public void btnStopSetupAddStopAction(ActionEvent ae)
 	{
-		if(txtStopSetupStopName.getText().equals(""))
+		if (txtStopSetupStopName.getText().equals(""))
 		{
-			MessageDialogBuilder.error().message("Stop Name cannot be Empty").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-		}
-		else
+			MessageDialogBuilder.error().message("Stop Name cannot be Empty")
+					.buttonType(MessageDialog.ButtonType.OK)
+					.show(MainFrame.stage.getScene().getWindow());
+		} else
 		{
 			dbManager.loadRoutes();
-			
-			dbManager.addStop(new Stop(-1, txtStopSetupStopName.getText(), "unassigned", 0, false));
-			
-			MessageDialog.Answer ans = MessageDialogBuilder.confirmation().message("Stop Added\nAdd Another?").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").noButtonText("No").show(MainFrame.stage.getScene().getWindow());
-			
-			if(ans == MessageDialog.Answer.YES_OK)
+
+			dbManager.addStop(new Stop(-1, txtStopSetupStopName.getText(),
+					"unassigned", 0, false));
+
+			MessageDialog.Answer ans = MessageDialogBuilder.confirmation()
+					.message("Stop Added\nAdd Another?")
+					.buttonType(MessageDialog.ButtonType.YES_NO)
+					.yesOkButtonText("Yes").noButtonText("No")
+					.show(MainFrame.stage.getScene().getWindow());
+
+			if (ans == MessageDialog.Answer.YES_OK)
 			{
 				txtStopSetupStopName.setText("");
 			}
-			if(ans == MessageDialog.Answer.NO)
+			if (ans == MessageDialog.Answer.NO)
 			{
 				btnStopSetupFinish.fire();
 			}
 		}
 	}
-	
+
 	/**
 	 * Finializes Setup and Restarts Program
 	 * @param ae ActionEvent from OS
 	 */
 	public void btnStopSetupFinishAction(ActionEvent ae)
 	{
-		MessageDialog.Answer restart = MessageDialogBuilder.confirmation().message("Configuration Comlete!\nRestart Now?").buttonType(MessageDialog.ButtonType.YES_NO).yesOkButtonText("Yes").noButtonText("No").show(MainFrame.stage.getScene().getWindow());
-		
-		if(restart == MessageDialog.Answer.YES_OK)
+		MessageDialog.Answer restart = MessageDialogBuilder.confirmation()
+				.message("Configuration Comlete!\nRestart Now?")
+				.buttonType(MessageDialog.ButtonType.YES_NO)
+				.yesOkButtonText("Yes").noButtonText("No")
+				.show(MainFrame.stage.getScene().getWindow());
+
+		if (restart == MessageDialog.Answer.YES_OK)
 		{
-	        StringBuilder cmd = new StringBuilder();
-	        cmd.append(System.getProperty("java.home") + File.separator + "bin" + File.separator + "java ");
-	        for (String jvmArg : ManagementFactory.getRuntimeMXBean().getInputArguments()) 
-	        {
-	            cmd.append(jvmArg + " ");
-	        }
-	        cmd.append("-cp ").append(ManagementFactory.getRuntimeMXBean().getClassPath()).append(" ");
-	        cmd.append(MainFrame.class.getName()).append(" ");
-	        for (String arg : MainFrame.pubArgs)
-	        {
-	            cmd.append(arg).append(" ");
-	        }
-	        try
+			StringBuilder cmd = new StringBuilder();
+			cmd.append(System.getProperty("java.home") + File.separator + "bin"
+					+ File.separator + "java ");
+			for (String jvmArg : ManagementFactory.getRuntimeMXBean()
+					.getInputArguments())
 			{
-	        	dbManager.dispose();
-				Runtime.getRuntime().exec(cmd.toString());
+				cmd.append(jvmArg + " ");
 			}
-			catch (IOException e)
+			cmd.append("-cp ")
+					.append(ManagementFactory.getRuntimeMXBean().getClassPath())
+					.append(" ");
+			cmd.append(MainFrame.class.getName()).append(" ");
+			for (String arg : MainFrame.pubArgs)
+			{
+				cmd.append(arg).append(" ");
+			}
+			try
+			{
+				dbManager.dispose();
+				Runtime.getRuntime().exec(cmd.toString());
+			} catch (IOException e)
 			{
 				Logger.log(e);
 			}
 		}
-		if(restart == MessageDialog.Answer.NO)
+		if (restart == MessageDialog.Answer.NO)
 		{
 			System.exit(0);
 		}
 	}
-	
-	//Misc Methods//
+
+	// Misc Methods//
 	/**
 	 * Sets up the preferences for usage
 	 */
 	public void setupPreferences()
 	{
 		prefs = new Properties();
-		
+
 		prefs.setProperty("TNUMPREFIX", "");
 		prefs.setProperty("DATABASE", "");
 		prefs.setProperty("AUFREQ", "15.0");
