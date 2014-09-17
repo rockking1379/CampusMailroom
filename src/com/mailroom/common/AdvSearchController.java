@@ -157,7 +157,14 @@ public class AdvSearchController implements Initializable
 			this.dbManager = OtherMainFrame.dbManager;
 		}
 		
-		editWindow = MainFrame.editWindow;
+		if(MainFrame.stage != null)
+		{
+			editWindow = MainFrame.editWindow;
+		}
+		if(OtherMainFrame.stage != null)
+		{
+			editWindow = OtherMainFrame.editWindow;
+		}
 	}
 	
 	public void btnSearchAction(ActionEvent ae)
@@ -346,12 +353,9 @@ public class AdvSearchController implements Initializable
 	
 	public void tblMouseClickAction(MouseEvent me)
 	{
-		if(MainFrame.stage != null)
+		if(me.getClickCount() >= 2)
 		{
-			if(me.getClickCount() >= 2)
-			{
-				editWindow.show(tblViewTable.getItems().get(tblViewTable.getSelectionModel().getSelectedIndex()));
-			}
+			editWindow.show(tblViewTable.getItems().get(tblViewTable.getSelectionModel().getSelectedIndex()));
 		}
 	}
 }

@@ -18,6 +18,7 @@ import com.mailroom.common.Logger;
 import com.mailroom.common.MysqlManager;
 import com.mailroom.common.PostgreSQLManager;
 import com.mailroom.common.SQLiteManager;
+import com.mailroom.mainclient.PackageEditWindow;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 
@@ -29,6 +30,10 @@ import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 public class OtherMainFrame extends Application
 {
 	public static DatabaseManager dbManager;
+	/**
+	 * Package Edit Window for Program Instance
+	 */
+	public static PackageEditWindow editWindow;
 	public static Stage stage;
 	public static String[] pubArgs;
 	public static Properties properties;
@@ -106,5 +111,9 @@ public class OtherMainFrame extends Application
 		OtherMainFrame.stage.setScene(scene);
 		OtherMainFrame.stage.setTitle("Main Page");
 		OtherMainFrame.stage.show();
+		
+		editWindow = new PackageEditWindow();
+		editWindow.show(null);
+		editWindow.hide();
 	}
 }

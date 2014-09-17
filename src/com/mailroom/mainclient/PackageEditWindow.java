@@ -8,6 +8,7 @@ import javafx.stage.*;
 
 import com.mailroom.common.*;
 import com.mailroom.common.Package;
+import com.mailroom.otherclient.OtherMainFrame;
 
 /**
  * Used for Editing Package Data that has already
@@ -46,11 +47,22 @@ public class PackageEditWindow extends Window
 			Scene scene = new Scene(root, 256, 600);
 			stg.setScene(scene);
 			
-			MainFrame.stage.setX(MainFrame.stage.getX() - stg.getScene().getWindow().getWidth());
-			
-			stg.show();
-			stg.setX(MainFrame.stage.getX() + MainFrame.stage.getScene().getWindow().getWidth());
-			stg.setY(MainFrame.stage.getY());
+			if(MainFrame.stage != null)
+			{
+				MainFrame.stage.setX(MainFrame.stage.getX() - stg.getScene().getWindow().getWidth());
+				
+				stg.show();
+				stg.setX(MainFrame.stage.getX() + MainFrame.stage.getScene().getWindow().getWidth());
+				stg.setY(MainFrame.stage.getY());
+			}
+			if(OtherMainFrame.stage != null)
+			{
+				OtherMainFrame.stage.setX(OtherMainFrame.stage.getX() - stg.getScene().getWindow().getWidth());
+				
+				stg.show();
+				stg.setX(OtherMainFrame.stage.getX() + OtherMainFrame.stage.getScene().getWindow().getWidth());
+				stg.setY(OtherMainFrame.stage.getY());
+			}
 		} 
 		catch (IOException e) 
 		{
@@ -63,7 +75,14 @@ public class PackageEditWindow extends Window
 	 */
 	public void hide()
 	{
-		MainFrame.stage.centerOnScreen();
+		if(MainFrame.stage != null)
+		{
+			MainFrame.stage.centerOnScreen();
+		}
+		if(OtherMainFrame.stage != null)
+		{
+			OtherMainFrame.stage.centerOnScreen();
+		}
 		
 		stg.hide();
 	}

@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import com.mailroom.common.Courier;
 import com.mailroom.common.Package;
 import com.mailroom.common.Stop;
+import com.mailroom.otherclient.OtherMainFrame;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 
@@ -51,17 +52,33 @@ public class PackageEditController implements Initializable
 	{
 		curPackage = PackageEditWindow.getPackage();
 		
-		//need to fill combo boxes
-		cboxStops.getItems().clear();
-		for(Stop s : MainFrame.dbManager.getStops())
+		if(MainFrame.stage != null)
 		{
-			cboxStops.getItems().add(s);
+			cboxStops.getItems().clear();
+			for(Stop s : MainFrame.dbManager.getStops())
+			{
+				cboxStops.getItems().add(s);
+			}
+	
+			cboxCourier.getItems().clear();
+			for(Courier c : MainFrame.dbManager.getCouriers())
+			{
+				cboxCourier.getItems().add(c);
+			}
 		}
-
-		cboxCourier.getItems().clear();
-		for(Courier c : MainFrame.dbManager.getCouriers())
+		if(OtherMainFrame.stage != null)
 		{
-			cboxCourier.getItems().add(c);
+			cboxStops.getItems().clear();
+			for(Stop s : OtherMainFrame.dbManager.getStops())
+			{
+				cboxStops.getItems().add(s);
+			}
+	
+			cboxCourier.getItems().clear();
+			for(Courier c : OtherMainFrame.dbManager.getCouriers())
+			{
+				cboxCourier.getItems().add(c);
+			}
 		}
 		
 		if(curPackage != null)
@@ -88,12 +105,26 @@ public class PackageEditController implements Initializable
 	{
 		if(MainFrame.dbManager.updatePackage(new Package(curPackage.getPackageId(), txtTrackingNumber.getText(), curPackage.getReceivedDate(), txtEmailAddress.getText(), txtFirstName.getText(), txtLastName.getText(), txtBoxOffice.getText(), cboxStops.getValue(), cboxCourier.getValue(), curPackage.getUser(), cboxAtStop.isSelected(), cboxPickedUp.isSelected(), curPackage.getDatePickedUp(), cboxReturned.isSelected())))
 		{
-			MessageDialogBuilder.info().title("Success").buttonType(MessageDialog.ButtonType.OK).message("Package Updated").show(MainFrame.stage.getScene().getWindow());
+			if(MainFrame.stage != null)
+			{
+				MessageDialogBuilder.info().title("Success").buttonType(MessageDialog.ButtonType.OK).message("Package Updated").show(MainFrame.stage.getScene().getWindow());
+			}
+			if(OtherMainFrame.stage != null)
+			{
+				MessageDialogBuilder.info().title("Success").buttonType(MessageDialog.ButtonType.OK).message("Package Updated").show(OtherMainFrame.stage.getScene().getWindow());
+			}
 			PackageEditWindow.getWindow().hide();
 		}
 		else
 		{
-			MessageDialogBuilder.error().title("Error").buttonType(MessageDialog.ButtonType.OK).message("Could Not Update Package").show(MainFrame.stage.getScene().getWindow());
+			if(MainFrame.stage != null)
+			{
+				MessageDialogBuilder.error().title("Error").buttonType(MessageDialog.ButtonType.OK).message("Could Not Update Package").show(MainFrame.stage.getScene().getWindow());
+			}
+			if(OtherMainFrame.stage != null)
+			{
+				MessageDialogBuilder.error().title("Error").buttonType(MessageDialog.ButtonType.OK).message("Could Not Update Package").show(OtherMainFrame.stage.getScene().getWindow());
+			}
 		}
 	}
 	
