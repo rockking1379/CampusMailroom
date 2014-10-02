@@ -1055,6 +1055,48 @@ public class MysqlManager extends DatabaseManager
 			disconnect();
 		}
 	}
+	
+	@Override
+	public List<Package> printPackagesForStop(Stop s)
+	{
+		ArrayList<Package> result = null;
+		
+		try
+		{
+			connect();
+			
+			PreparedStatement stmnt = null;
+			
+			if(s.getStudent())
+			{
+				stmnt = connection.prepareStatement("select * from Package where receive_date=? and stop_id=? and at_stop=0 order by box_number asc");
+			}
+			else
+			{
+				stmnt = connection.prepareStatement("select * from Package where receive_date=? and stop_id=? and at_stop=0 order by last_name asc, first_name asc");
+			}
+			
+			Date d = new Date();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			
+			stmnt.setString(1, format.format(d).toString());
+			stmnt.setInt(2, s.getStopId());
+			
+			ResultSet rs = stmnt.executeQuery();
+			
+			result = (ArrayList<Package>)processPackageResult(rs);
+		}
+		catch(SQLException ex)
+		{
+			Logger.log(ex);
+		}
+		finally
+		{
+			disconnect();
+		}
+		
+		return result;
+	}
 
 	@Override
 	public List<Package> getPackagesForStop(Stop s)

@@ -392,6 +392,16 @@ public class DatabaseManager
 	{
 		return null;
 	}
+	
+	/**
+	 * Used for printing packages at a Stop
+	 * @param s Stop to get packages
+	 * @return list of packages
+	 */
+	public List<Package> printPackagesForStop(Stop s)
+	{
+		return null;
+	}
 
 	/**
 	 * Processes Package Results

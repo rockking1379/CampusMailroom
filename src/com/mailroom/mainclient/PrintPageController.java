@@ -169,7 +169,7 @@ public class PrintPageController implements Initializable
 						for (Stop s : dbManager.getStopsOnRoute(r))
 						{
 							ArrayList<Package> packages = (ArrayList<Package>) dbManager
-									.getPackagesForStop(s);
+									.printPackagesForStop(s);
 
 							if (packages.size() > 0)
 							{
