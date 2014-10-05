@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -205,47 +205,52 @@ public class ScanPageController implements Initializable
 		{
 			if (txtBoxOffice.focusedProperty().get())
 			{
-				ArrayList<Person> people = (ArrayList<Person>) dbManager
-						.findPerson(txtFirstName.getText(),
-								txtLastName.getText(), txtBoxOffice.getText());
-
-				switch (people.size())
-				{
-				case 0:
-				{
-					MessageDialogBuilder.info().message("No Results Found")
-							.title("Info")
-							.buttonType(MessageDialog.ButtonType.OK)
-							.show(MainFrame.stage.getScene().getWindow());
-					txtEmailAddress.setText("Unknown@");
-					break;
-				}
-				case 1:
-				{
-					Person p = people.get(0);
-
-					txtEmailAddress.setText(p.getEmailAddress());
-					txtFirstName.setText(p.getFirstName());
-					txtLastName.setText(p.getLastName());
-					for (Stop s : cboxStops.getItems())
-					{
-						if (s.getStopName().equals(p.getStopName()))
-						{
-							cboxStops.setValue(s);
-							break;
-						}
-					}
-					break;
-				}
-				default:
-				{
-					MessageDialogBuilder.info()
-							.message("Multiple Results Found").title("Info")
-							.buttonType(MessageDialog.ButtonType.OK)
-							.show(MainFrame.stage.getScene().getWindow());
-					break;
-				}
-				}
+				
+				MessageDialogBuilder.info().message("Auto Fill Disabled")
+					.title("Error")
+					.buttonType(MessageDialog.ButtonType.OK)
+					.show(MainFrame.stage.getScene().getWindow());
+//				ArrayList<Person> people = (ArrayList<Person>) dbManager
+//						.findPerson(txtFirstName.getText(),
+//								txtLastName.getText(), txtBoxOffice.getText());
+//
+//				switch (people.size())
+//				{
+//				case 0:
+//				{
+//					MessageDialogBuilder.info().message("No Results Found")
+//							.title("Info")
+//							.buttonType(MessageDialog.ButtonType.OK)
+//							.show(MainFrame.stage.getScene().getWindow());
+//					txtEmailAddress.setText("Unknown@");
+//					break;
+//				}
+//				case 1:
+//				{
+//					Person p = people.get(0);
+//
+//					txtEmailAddress.setText(p.getEmailAddress());
+//					txtFirstName.setText(p.getFirstName());
+//					txtLastName.setText(p.getLastName());
+//					for (Stop s : cboxStops.getItems())
+//					{
+//						if (s.getStopName().equals(p.getStopName()))
+//						{
+//							cboxStops.setValue(s);
+//							break;
+//						}
+//					}
+//					break;
+//				}
+//				default:
+//				{
+//					MessageDialogBuilder.info()
+//							.message("Multiple Results Found").title("Info")
+//							.buttonType(MessageDialog.ButtonType.OK)
+//							.show(MainFrame.stage.getScene().getWindow());
+//					break;
+//				}
+//				}
 			} else
 			{
 				if (txtFirstName.focusedProperty().get()

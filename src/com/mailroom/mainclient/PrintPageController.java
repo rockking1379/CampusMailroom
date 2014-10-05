@@ -175,7 +175,7 @@ public class PrintPageController implements Initializable
 							{
 								if (!added)
 								{
-									strReport.add(head + "\n");
+									strReport.add(head);
 									added = true;
 								}
 
@@ -184,11 +184,11 @@ public class PrintPageController implements Initializable
 								String first = "First     ";
 								String box = "Box#      ";
 								String track = "Track#    ";
-								String sign = "Sign Here\n";
+								String sign = "Sign Here";
 
-								stopHead += "Package Delivery for ";
+								stopHead += "\nPackage Delivery for ";
 								stopHead += s.getStopName();
-								strReport.add(stopHead + "\n");
+								strReport.add(stopHead);
 								stopHead = "";
 								stopHead += last;
 								stopHead += first;
@@ -218,13 +218,13 @@ public class PrintPageController implements Initializable
 									{
 										strPackage += " ";
 									}
-									strPackage += p.getTrackingNumber();
+									strPackage += p.getTrackingNumber().substring(3, p.getTrackingNumber().length());
 									for (int i = 0; i < track.length()
 											- p.getTrackingNumber().length(); i++)
 									{
 										strPackage += " ";
 									}
-									strPackage += "_____________________________________\n";
+									strPackage += "_____________________________________";
 
 									strReport.add(strPackage);
 								}
