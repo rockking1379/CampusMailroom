@@ -362,6 +362,11 @@ public class SettingsController implements Initializable
 		{
 			tabpaneMainPane.getTabs().remove(tabSoftwareUpdate);
 		}
+		
+		//Temporary, mainly while software names are fixed or address, will work on new configuration file or something
+		//for handling the renaming of programs
+		//very specific case
+		tabpaneMainPane.getTabs().remove(tabSoftwareUpdate);
 
 		lviewRouteOnRoute.getSelectionModel().setSelectionMode(
 				SelectionMode.MULTIPLE);
