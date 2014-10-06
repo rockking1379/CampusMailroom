@@ -116,12 +116,14 @@ public class PrintPageController implements Initializable
 												"/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
 						Scene scene = new Scene(root);
 						MainFrame.stage.setScene(scene);
-					} catch (IOException e)
+					}
+					catch (IOException e)
 					{
 						Logger.log(e);
 					}
 				}
-			} else
+			}
+			else
 			{
 				try
 				{
@@ -129,7 +131,8 @@ public class PrintPageController implements Initializable
 							"/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
 					Scene scene = new Scene(root);
 					MainFrame.stage.setScene(scene);
-				} catch (IOException e)
+				}
+				catch (IOException e)
 				{
 					Logger.log(e);
 				}
@@ -218,7 +221,11 @@ public class PrintPageController implements Initializable
 									{
 										strPackage += " ";
 									}
-									strPackage += p.getTrackingNumber().substring(3, p.getTrackingNumber().length());
+									strPackage += p.getTrackingNumber()
+											.substring(
+													3,
+													p.getTrackingNumber()
+															.length());
 									for (int i = 0; i < track.length()
 											- p.getTrackingNumber().length(); i++)
 									{
@@ -295,11 +302,13 @@ public class PrintPageController implements Initializable
 				try
 				{
 					jtext.print();
-				} catch (PrinterException e)
+				}
+				catch (PrinterException e)
 				{
 					Logger.log(e);
 				}
-			} catch (IOException e)
+			}
+			catch (IOException e)
 			{
 				Logger.log(e);
 			}
@@ -316,11 +325,13 @@ public class PrintPageController implements Initializable
 						"/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
 				Scene scene = new Scene(root);
 				MainFrame.stage.setScene(scene);
-			} catch (IOException e)
+			}
+			catch (IOException e)
 			{
 				Logger.log(e);
 			}
-		} else
+		}
+		else
 		{
 			for (CheckBox c : routeBoxes)
 			{

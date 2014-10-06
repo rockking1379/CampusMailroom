@@ -129,7 +129,8 @@ public class PackageEditController implements Initializable
 						.show(OtherMainFrame.stage.getScene().getWindow());
 			}
 			PackageEditWindow.getWindow().hide();
-		} else
+		}
+		else
 		{
 			if (MainFrame.stage != null)
 			{

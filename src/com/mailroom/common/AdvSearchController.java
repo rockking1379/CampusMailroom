@@ -151,7 +151,8 @@ public class AdvSearchController implements Initializable
 		if (MainFrame.dbManager != null)
 		{
 			this.dbManager = MainFrame.dbManager;
-		} else
+		}
+		else
 		{
 			this.dbManager = OtherMainFrame.dbManager;
 		}
@@ -185,7 +186,8 @@ public class AdvSearchController implements Initializable
 						if (!results.contains(p))
 						{
 							results.add(p);
-						} else
+						}
+						else
 						{
 							System.out.println("Found Previous");
 						}
@@ -200,7 +202,8 @@ public class AdvSearchController implements Initializable
 						if (!results.contains(p))
 						{
 							results.add(p);
-						} else
+						}
+						else
 						{
 							System.out.println("Found Previous");
 						}
@@ -215,7 +218,8 @@ public class AdvSearchController implements Initializable
 						if (!results.contains(p))
 						{
 							results.add(p);
-						} else
+						}
+						else
 						{
 							System.out.println("Found Previous");
 						}
@@ -230,13 +234,15 @@ public class AdvSearchController implements Initializable
 						if (!results.contains(p))
 						{
 							results.add(p);
-						} else
+						}
+						else
 						{
 							System.out.println("Found Previous");
 						}
 					}
 				}
-			} else
+			}
+			else
 			{
 				String start = new SimpleDateFormat("yyyy-MM-dd").format(
 						startDate.getValue()).toString();
@@ -269,7 +275,8 @@ public class AdvSearchController implements Initializable
 						if (!results.contains(p))
 						{
 							results.add(p);
-						} else
+						}
+						else
 						{
 							System.out.println("Found Previous");
 						}
@@ -284,7 +291,8 @@ public class AdvSearchController implements Initializable
 						if (!results.contains(p))
 						{
 							results.add(p);
-						} else
+						}
+						else
 						{
 							System.out.println("Found Previous");
 						}
@@ -299,7 +307,8 @@ public class AdvSearchController implements Initializable
 						if (!results.contains(p))
 						{
 							results.add(p);
-						} else
+						}
+						else
 						{
 							System.out.println("Found Previous");
 						}
@@ -316,7 +325,8 @@ public class AdvSearchController implements Initializable
 			{
 				txtFirstName.setText("");
 			}
-		} catch (NullPointerException e)
+		}
+		catch (NullPointerException e)
 		{
 			System.err.println("Error: " + e.getMessage());
 		}
@@ -332,11 +342,13 @@ public class AdvSearchController implements Initializable
 						"/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
 				Scene scene = new Scene(root);
 				MainFrame.stage.setScene(scene);
-			} catch (IOException e)
+			}
+			catch (IOException e)
 			{
 				System.err.println("Error: " + e.getMessage());
 			}
-		} else
+		}
+		else
 		{
 			try
 			{
@@ -344,7 +356,8 @@ public class AdvSearchController implements Initializable
 						"/com/mailroom/fxml/otherclient/MainPageFx.fxml"));
 				Scene scene = new Scene(root);
 				OtherMainFrame.stage.setScene(scene);
-			} catch (IOException e)
+			}
+			catch (IOException e)
 			{
 				System.err.println("Error: " + e.getMessage());
 			}
@@ -365,7 +378,8 @@ public class AdvSearchController implements Initializable
 		{
 			startDate.setDisable(false);
 			endDate.setDisable(false);
-		} else
+		}
+		else
 		{
 			startDate.setDisable(true);
 			endDate.setDisable(true);

@@ -65,7 +65,8 @@ public class MysqlManager extends DatabaseManager
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e)
+		}
+		catch (ClassNotFoundException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
@@ -108,10 +109,12 @@ public class MysqlManager extends DatabaseManager
 						rs.getString("first_name"), rs.getString("last_name"),
 						rs.getBoolean("administrator"));
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -140,15 +143,18 @@ public class MysqlManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -172,15 +178,18 @@ public class MysqlManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -201,15 +210,18 @@ public class MysqlManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				retValue = true;
-			} else
+			}
+			else
 			{
 				retValue = false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			retValue = false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -234,15 +246,18 @@ public class MysqlManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				retValue = true;
-			} else
+			}
+			else
 			{
 				retValue = false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			retValue = false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -267,15 +282,18 @@ public class MysqlManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				retValue = true;
-			} else
+			}
+			else
 			{
 				retValue = false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			retValue = false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -303,10 +321,12 @@ public class MysqlManager extends DatabaseManager
 						.getString("user_name"), rs.getString("first_name"), rs
 						.getString("last_name"), rs.getBoolean("administrator")));
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -334,10 +354,12 @@ public class MysqlManager extends DatabaseManager
 						.getString("user_name"), rs.getString("first_name"), rs
 						.getString("last_name"), rs.getBoolean("administrator")));
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -373,10 +395,12 @@ public class MysqlManager extends DatabaseManager
 					}
 				}
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -398,15 +422,18 @@ public class MysqlManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -429,15 +456,18 @@ public class MysqlManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				retValue = true;
-			} else
+			}
+			else
 			{
 				retValue = false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			retValue = false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -472,15 +502,18 @@ public class MysqlManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -501,15 +534,18 @@ public class MysqlManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -534,15 +570,18 @@ public class MysqlManager extends DatabaseManager
 				if (stmnt.executeUpdate() > 0)
 				{
 					return true;
-				} else
+				}
+				else
 				{
 					return false;
 				}
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			return false;
@@ -568,11 +607,13 @@ public class MysqlManager extends DatabaseManager
 					.executeQuery("select * from Stop where route_id=1 and is_used=1");
 
 			return processStopResult(rs, "unassigned");
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			return null;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -598,11 +639,13 @@ public class MysqlManager extends DatabaseManager
 			ResultSet rs = stmnt.executeQuery();
 
 			return processStopResult(rs, r.getRouteName());
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			return null;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -621,7 +664,8 @@ public class MysqlManager extends DatabaseManager
 						.getString("stop_name"), routestop_name, rs
 						.getInt("route_order"), rs.getBoolean("Student")));
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			return null;
@@ -650,10 +694,12 @@ public class MysqlManager extends DatabaseManager
 				routes.add(new Route(rs.getInt("route_id"), rs
 						.getString("route_name")));
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -681,15 +727,18 @@ public class MysqlManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -711,15 +760,18 @@ public class MysqlManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -745,15 +797,18 @@ public class MysqlManager extends DatabaseManager
 
 				stmnt.executeUpdate();
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -779,10 +834,12 @@ public class MysqlManager extends DatabaseManager
 				couriers.add(new Courier(rs.getInt("courier_id"), rs
 						.getString("courier_name")));
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -811,15 +868,18 @@ public class MysqlManager extends DatabaseManager
 			if (stmnt.execute())
 			{
 				retValue = true;
-			} else
+			}
+			else
 			{
 				retValue = false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			retValue = false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -843,15 +903,18 @@ public class MysqlManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -872,15 +935,18 @@ public class MysqlManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -907,10 +973,12 @@ public class MysqlManager extends DatabaseManager
 
 			packages = null;
 			packages = processPackageResult(rs);
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -934,10 +1002,12 @@ public class MysqlManager extends DatabaseManager
 			ResultSet rs = stmnt.executeQuery();
 
 			packages = processPackageResult(rs);
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -974,10 +1044,12 @@ public class MysqlManager extends DatabaseManager
 			stmnt.executeUpdate();
 
 			return true;
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -1009,10 +1081,12 @@ public class MysqlManager extends DatabaseManager
 			stmnt.executeUpdate();
 
 			return true;
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -1042,51 +1116,56 @@ public class MysqlManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
 	}
-	
+
 	@Override
 	public List<Package> printPackagesForStop(Stop s)
 	{
 		ArrayList<Package> result = null;
-		
+
 		try
 		{
 			connect();
-			
+
 			PreparedStatement stmnt = null;
-			
-			if(s.getStudent())
+
+			if (s.getStudent())
 			{
-				stmnt = connection.prepareStatement("select * from Package where receive_date=? and stop_id=? and at_stop=0 order by box_number asc");
+				stmnt = connection
+						.prepareStatement("select * from Package where receive_date=? and stop_id=? and at_stop=0 order by box_number asc");
 			}
 			else
 			{
-				stmnt = connection.prepareStatement("select * from Package where receive_date=? and stop_id=? and at_stop=0 order by last_name asc, first_name asc");
+				stmnt = connection
+						.prepareStatement("select * from Package where receive_date=? and stop_id=? and at_stop=0 order by last_name asc, first_name asc");
 			}
-			
+
 			Date d = new Date();
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			
+
 			stmnt.setString(1, format.format(d).toString());
 			stmnt.setInt(2, s.getStopId());
-			
+
 			ResultSet rs = stmnt.executeQuery();
-			
-			result = (ArrayList<Package>)processPackageResult(rs);
+
+			result = (ArrayList<Package>) processPackageResult(rs);
 		}
-		catch(SQLException ex)
+		catch (SQLException ex)
 		{
 			Logger.log(ex);
 		}
@@ -1094,7 +1173,7 @@ public class MysqlManager extends DatabaseManager
 		{
 			disconnect();
 		}
-		
+
 		return result;
 	}
 
@@ -1118,11 +1197,13 @@ public class MysqlManager extends DatabaseManager
 			ResultSet rs = stmnt.executeQuery();
 
 			result = (ArrayList<Package>) processPackageResult(rs);
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			result = null;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -1201,7 +1282,8 @@ public class MysqlManager extends DatabaseManager
 								.getString("pick_up_date"), rs
 								.getBoolean("returned")));
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 		}
@@ -1244,10 +1326,12 @@ public class MysqlManager extends DatabaseManager
 					}
 				}
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -1265,21 +1349,21 @@ public class MysqlManager extends DatabaseManager
 
 			switch (sType)
 			{
-			case SEARCH_BEGINS_WITH:
-			{
-				search = search + "%";
-				break;
-			}
-			case SEARCH_CONTAINS:
-			{
-				search = "%" + search + "%";
-				break;
-			}
-			case SEARCH_ENDS_WITH:
-			{
-				search = "%" + search;
-				break;
-			}
+				case SEARCH_BEGINS_WITH:
+				{
+					search = search + "%";
+					break;
+				}
+				case SEARCH_CONTAINS:
+				{
+					search = "%" + search + "%";
+					break;
+				}
+				case SEARCH_ENDS_WITH:
+				{
+					search = "%" + search;
+					break;
+				}
 			}
 
 			PreparedStatement stmnt = connection
@@ -1293,10 +1377,12 @@ public class MysqlManager extends DatabaseManager
 			ResultSet rs = stmnt.executeQuery();
 
 			results = processPackageResult(rs);
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -1315,21 +1401,21 @@ public class MysqlManager extends DatabaseManager
 
 			switch (sType)
 			{
-			case SEARCH_BEGINS_WITH:
-			{
-				search = search + "%";
-				break;
-			}
-			case SEARCH_CONTAINS:
-			{
-				search = "%" + search + "%";
-				break;
-			}
-			case SEARCH_ENDS_WITH:
-			{
-				search = "%" + search;
-				break;
-			}
+				case SEARCH_BEGINS_WITH:
+				{
+					search = search + "%";
+					break;
+				}
+				case SEARCH_CONTAINS:
+				{
+					search = "%" + search + "%";
+					break;
+				}
+				case SEARCH_ENDS_WITH:
+				{
+					search = "%" + search;
+					break;
+				}
 			}
 
 			PreparedStatement stmnt = connection
@@ -1400,10 +1486,12 @@ public class MysqlManager extends DatabaseManager
 					results.add(p);
 				}
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -1418,7 +1506,8 @@ public class MysqlManager extends DatabaseManager
 		try
 		{
 			connection = DriverManager.getConnection(conString);
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 		}
@@ -1432,10 +1521,12 @@ public class MysqlManager extends DatabaseManager
 			try
 			{
 				connection.close();
-			} catch (SQLException e)
+			}
+			catch (SQLException e)
 			{
 				Logger.log(e);
-			} finally
+			}
+			finally
 			{
 				connection = null;
 			}
@@ -1484,11 +1575,13 @@ public class MysqlManager extends DatabaseManager
 			}
 
 			retValue = true;
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			retValue = false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -1506,12 +1599,14 @@ public class MysqlManager extends DatabaseManager
 			{
 				disconnect();
 				return true;
-			} else
+			}
+			else
 			{
 				disconnect();
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			return false;

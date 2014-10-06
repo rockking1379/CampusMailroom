@@ -133,108 +133,116 @@ public class UpdaterController implements Initializable
 						// only one really care about is OK(200)
 						switch (response)
 						{
-						case HttpURLConnection.HTTP_OK:
-						{
-							InputStreamReader isr = new InputStreamReader(
-									con.getInputStream());
-							BufferedReader br = new BufferedReader(isr);
-							String json = br.readLine();
-
-							JSONParser parser = new JSONParser();
-
-							Object obj = parser.parse(json);
-							JSONObject version = (JSONObject) obj;
-
-							String availVersion = version.get("major") + "."
-									+ version.get("minor") + "."
-									+ version.get("revision");
-							br.close();
-							isr.close();
-							con.disconnect();
-
-							url = new URL(
-									"http://minecraft.math.adams.edu/ptracker/"
-											+ availVersion + "/files.php");
-							con = (HttpURLConnection) url.openConnection();
-							con.setRequestMethod("GET");
-							con.setRequestProperty("Accept", "txt/plain");
-							con.connect();
-
-							isr = new InputStreamReader(con.getInputStream());
-							br = new BufferedReader(isr);
-							json = br.readLine();
-
-							obj = parser.parse(json);
-							JSONObject files = (JSONObject) obj;
-
-							int fileCount = Integer.valueOf(files.get(
-									"filecount").toString());
-
-							for (int i = 0; i < fileCount; i++)
+							case HttpURLConnection.HTTP_OK:
 							{
-								String fileName = files.get(String.valueOf(i))
-										.toString();
-								URL jar = new URL(
+								InputStreamReader isr = new InputStreamReader(
+										con.getInputStream());
+								BufferedReader br = new BufferedReader(isr);
+								String json = br.readLine();
+
+								JSONParser parser = new JSONParser();
+
+								Object obj = parser.parse(json);
+								JSONObject version = (JSONObject) obj;
+
+								String availVersion = version.get("major")
+										+ "." + version.get("minor") + "."
+										+ version.get("revision");
+								br.close();
+								isr.close();
+								con.disconnect();
+
+								url = new URL(
 										"http://minecraft.math.adams.edu/ptracker/"
-												+ availVersion + "/" + fileName);
-								ReadableByteChannel rbc = Channels
-										.newChannel(jar.openStream());
-								FileOutputStream fos = new FileOutputStream(
-										"./" + fileName);
-								fos.getChannel().transferFrom(rbc, 0,
-										Long.MAX_VALUE);
-								fos.close();
-								rbc.close();
+												+ availVersion + "/files.php");
+								con = (HttpURLConnection) url.openConnection();
+								con.setRequestMethod("GET");
+								con.setRequestProperty("Accept", "txt/plain");
+								con.connect();
+
+								isr = new InputStreamReader(
+										con.getInputStream());
+								br = new BufferedReader(isr);
+								json = br.readLine();
+
+								obj = parser.parse(json);
+								JSONObject files = (JSONObject) obj;
+
+								int fileCount = Integer.valueOf(files.get(
+										"filecount").toString());
+
+								for (int i = 0; i < fileCount; i++)
+								{
+									String fileName = files.get(
+											String.valueOf(i)).toString();
+									URL jar = new URL(
+											"http://minecraft.math.adams.edu/ptracker/"
+													+ availVersion + "/"
+													+ fileName);
+									ReadableByteChannel rbc = Channels
+											.newChannel(jar.openStream());
+									FileOutputStream fos = new FileOutputStream(
+											"./" + fileName);
+									fos.getChannel().transferFrom(rbc, 0,
+											Long.MAX_VALUE);
+									fos.close();
+									rbc.close();
+								}
+
+								properties.setProperty("VERSION", availVersion);
+								properties.setProperty("BUILD",
+										version.get("build").toString());
+
+								FileOutputStream oStream = new FileOutputStream(
+										prop);
+								properties.store(oStream,
+										"System Configuration");
+								oStream.close();
+
+								lblDownload.setVisible(false);
+								lblWaiting.setVisible(false);
+								lblFinished.setVisible(true);
+								btnExit.setVisible(true);
+								btnUpdate.setVisible(false);
+								try
+								{
+									pindicatorProgress.setVisible(false);
+									pindicatorProgress.setProgress(1.0);
+								}
+								catch (IllegalStateException e)
+								{
+									Logger.log(e);
+								}
+
+								break;
 							}
-
-							properties.setProperty("VERSION", availVersion);
-							properties.setProperty("BUILD", version
-									.get("build").toString());
-
-							FileOutputStream oStream = new FileOutputStream(
-									prop);
-							properties.store(oStream, "System Configuration");
-							oStream.close();
-
-							lblDownload.setVisible(false);
-							lblWaiting.setVisible(false);
-							lblFinished.setVisible(true);
-							btnExit.setVisible(true);
-							btnUpdate.setVisible(false);
-							try
+							case HttpURLConnection.HTTP_NOT_FOUND:
 							{
-								pindicatorProgress.setVisible(false);
-								pindicatorProgress.setProgress(1.0);
-							} catch (IllegalStateException e)
-							{
-								Logger.log(e);
+								MessageDialogBuilder
+										.error()
+										.message(
+												"Error Connecting to Update Server")
+										.buttonType(MessageDialog.ButtonType.OK)
+										.show(null);
+								System.exit(-1);
+								break;
 							}
-
-							break;
 						}
-						case HttpURLConnection.HTTP_NOT_FOUND:
-						{
-							MessageDialogBuilder
-									.error()
-									.message(
-											"Error Connecting to Update Server")
-									.buttonType(MessageDialog.ButtonType.OK)
-									.show(null);
-							System.exit(-1);
-							break;
-						}
-						}
-					} catch (MalformedURLException e)
-					{
-						Logger.log(e);
-					} catch (IOException e)
-					{
-						Logger.log(e);
-					} catch (ParseException e)
+					}
+					catch (MalformedURLException e)
 					{
 						Logger.log(e);
 					}
-				} else
+					catch (IOException e)
+					{
+						Logger.log(e);
+					}
+					catch (ParseException e)
+					{
+						Logger.log(e);
+					}
+				}
+				else
 				{
 					MessageDialogBuilder
 							.error()
@@ -243,7 +251,8 @@ public class UpdaterController implements Initializable
 							.buttonType(MessageDialog.ButtonType.OK).show(null);
 					System.exit(-1);
 				}
-			} catch (IOException e)
+			}
+			catch (IOException e)
 			{
 				Logger.log(e);
 				System.exit(-1);

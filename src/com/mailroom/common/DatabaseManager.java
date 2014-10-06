@@ -392,7 +392,7 @@ public class DatabaseManager
 	{
 		return null;
 	}
-	
+
 	/**
 	 * Used for printing packages at a Stop
 	 * @param s Stop to get packages

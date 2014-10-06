@@ -91,7 +91,8 @@ public class ScanPageController implements Initializable
 					"/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
 			Scene scene = new Scene(root);
 			MainFrame.stage.setScene(scene);
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
@@ -130,7 +131,8 @@ public class ScanPageController implements Initializable
 		{
 			txtFirstName.setText("DEPARTMENT");
 			txtLastName.setText("DEPARTMENT");
-		} else
+		}
+		else
 		{
 			if (txtFirstName.getText().equals("")
 					&& !txtLastName.getText().equals(""))
@@ -139,7 +141,8 @@ public class ScanPageController implements Initializable
 						.title("Error").buttonType(MessageDialog.ButtonType.OK)
 						.show(MainFrame.stage.getScene().getWindow());
 				verified = false;
-			} else
+			}
+			else
 			{
 				if (!txtFirstName.getText().equals("")
 						&& txtLastName.getText().equals(""))
@@ -174,14 +177,16 @@ public class ScanPageController implements Initializable
 					txtFirstName.getText(), txtLastName.getText(),
 					txtBoxOffice.getText(), cboxStops.getValue(),
 					cboxCourier.getValue(), cUser, false, false, null, false);
-			
-			if(dbManager.addPackage(p))
+
+			if (dbManager.addPackage(p))
 			{
 				btnClear.fire();
 			}
 			else
 			{
-				MessageDialogBuilder.error().message("Error Adding Package").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+				MessageDialogBuilder.error().message("Error Adding Package")
+						.title("Error").buttonType(MessageDialog.ButtonType.OK)
+						.show(MainFrame.stage.getScene().getWindow());
 			}
 		}
 	}
@@ -212,59 +217,60 @@ public class ScanPageController implements Initializable
 		{
 			if (txtBoxOffice.focusedProperty().get())
 			{
-				
+
 				MessageDialogBuilder.info().message("Auto Fill Disabled")
-					.title("Error")
-					.buttonType(MessageDialog.ButtonType.OK)
-					.show(MainFrame.stage.getScene().getWindow());
-//				ArrayList<Person> people = (ArrayList<Person>) dbManager
-//						.findPerson(txtFirstName.getText(),
-//								txtLastName.getText(), txtBoxOffice.getText());
-//
-//				switch (people.size())
-//				{
-//				case 0:
-//				{
-//					MessageDialogBuilder.info().message("No Results Found")
-//							.title("Info")
-//							.buttonType(MessageDialog.ButtonType.OK)
-//							.show(MainFrame.stage.getScene().getWindow());
-//					txtEmailAddress.setText("Unknown@");
-//					break;
-//				}
-//				case 1:
-//				{
-//					Person p = people.get(0);
-//
-//					txtEmailAddress.setText(p.getEmailAddress());
-//					txtFirstName.setText(p.getFirstName());
-//					txtLastName.setText(p.getLastName());
-//					for (Stop s : cboxStops.getItems())
-//					{
-//						if (s.getStopName().equals(p.getStopName()))
-//						{
-//							cboxStops.setValue(s);
-//							break;
-//						}
-//					}
-//					break;
-//				}
-//				default:
-//				{
-//					MessageDialogBuilder.info()
-//							.message("Multiple Results Found").title("Info")
-//							.buttonType(MessageDialog.ButtonType.OK)
-//							.show(MainFrame.stage.getScene().getWindow());
-//					break;
-//				}
-//				}
-			} else
+						.title("Error").buttonType(MessageDialog.ButtonType.OK)
+						.show(MainFrame.stage.getScene().getWindow());
+				// ArrayList<Person> people = (ArrayList<Person>) dbManager
+				// .findPerson(txtFirstName.getText(),
+				// txtLastName.getText(), txtBoxOffice.getText());
+				//
+				// switch (people.size())
+				// {
+				// case 0:
+				// {
+				// MessageDialogBuilder.info().message("No Results Found")
+				// .title("Info")
+				// .buttonType(MessageDialog.ButtonType.OK)
+				// .show(MainFrame.stage.getScene().getWindow());
+				// txtEmailAddress.setText("Unknown@");
+				// break;
+				// }
+				// case 1:
+				// {
+				// Person p = people.get(0);
+				//
+				// txtEmailAddress.setText(p.getEmailAddress());
+				// txtFirstName.setText(p.getFirstName());
+				// txtLastName.setText(p.getLastName());
+				// for (Stop s : cboxStops.getItems())
+				// {
+				// if (s.getStopName().equals(p.getStopName()))
+				// {
+				// cboxStops.setValue(s);
+				// break;
+				// }
+				// }
+				// break;
+				// }
+				// default:
+				// {
+				// MessageDialogBuilder.info()
+				// .message("Multiple Results Found").title("Info")
+				// .buttonType(MessageDialog.ButtonType.OK)
+				// .show(MainFrame.stage.getScene().getWindow());
+				// break;
+				// }
+				// }
+			}
+			else
 			{
 				if (txtFirstName.focusedProperty().get()
 						|| txtLastName.focusedProperty().get())
 				{
 					// do nothing
-				} else
+				}
+				else
 				{
 					btnSave.fire();
 				}
@@ -278,19 +284,22 @@ public class ScanPageController implements Initializable
 		{
 			stopSearch = "";
 			courierSearch = "";
-		} else
+		}
+		else
 		{
 			if (ke.getCode() == KeyCode.TAB && ke.isShiftDown())
 			{
 				txtEmailAddress.requestFocus();
-			} else
+			}
+			else
 			{
 				if (ke.getCode() == KeyCode.TAB && !ke.isShiftDown())
 				{
 					stopSearch = "";
 					courierSearch = "";
 					cboxCourier.requestFocus();
-				} else
+				}
+				else
 				{
 					stopSearch += ke.getCode().toString();
 
@@ -314,19 +323,22 @@ public class ScanPageController implements Initializable
 		{
 			stopSearch = "";
 			courierSearch = "";
-		} else
+		}
+		else
 		{
 			if (ke.getCode() == KeyCode.TAB && !ke.isShiftDown())
 			{
 				btnSave.requestFocus();
-			} else
+			}
+			else
 			{
 				if (ke.getCode() == KeyCode.TAB && ke.isShiftDown())
 				{
 					stopSearch = "";
 					courierSearch = "";
 					cboxStops.requestFocus();
-				} else
+				}
+				else
 				{
 					courierSearch += ke.getCode().toString();
 

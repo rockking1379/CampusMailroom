@@ -62,39 +62,40 @@ public class OtherMainFrame extends Application
 
 				switch (Integer.valueOf(properties.getProperty("DBTYPE")))
 				{
-				case SQLiteManager.dbId:
-				{
-					dbManager = new SQLiteManager(
-							properties.getProperty("DATABASE"));
-					break;
-				}
-				case MysqlManager.dbId:
-				{
-					dbManager = new MysqlManager(
-							properties.getProperty("DATABASE"),
-							properties.getProperty("USERNAME"),
-							properties.getProperty("PASSWORD"),
-							properties.getProperty("DBNAME"));
-					break;
-				}
-				case PostgreSQLManager.dbId:
-				{
-					dbManager = new PostgreSQLManager(
-							properties.getProperty("DATABASE"),
-							properties.getProperty("USERNAME"),
-							properties.getProperty("PASSWORD"),
-							properties.getProperty("DBNAME"));
-					break;
-				}
-				default:
-				{
-					throw new ConfigException(
-							"Configuration Error\nUnknown Database Type");
-				}
+					case SQLiteManager.dbId:
+					{
+						dbManager = new SQLiteManager(
+								properties.getProperty("DATABASE"));
+						break;
+					}
+					case MysqlManager.dbId:
+					{
+						dbManager = new MysqlManager(
+								properties.getProperty("DATABASE"),
+								properties.getProperty("USERNAME"),
+								properties.getProperty("PASSWORD"),
+								properties.getProperty("DBNAME"));
+						break;
+					}
+					case PostgreSQLManager.dbId:
+					{
+						dbManager = new PostgreSQLManager(
+								properties.getProperty("DATABASE"),
+								properties.getProperty("USERNAME"),
+								properties.getProperty("PASSWORD"),
+								properties.getProperty("DBNAME"));
+						break;
+					}
+					default:
+					{
+						throw new ConfigException(
+								"Configuration Error\nUnknown Database Type");
+					}
 				}
 
 				file.close();
-			} else
+			}
+			else
 			{
 				MessageDialogBuilder
 						.error()
@@ -103,11 +104,13 @@ public class OtherMainFrame extends Application
 						.buttonType(MessageDialog.ButtonType.OK).show(null);
 				System.exit(-1);
 			}
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			Logger.log(e);
 			System.exit(-1);
-		} catch (ConfigException e)
+		}
+		catch (ConfigException e)
 		{
 			Logger.log(e);
 		}

@@ -141,7 +141,8 @@ public class MainPageController implements Initializable
 				.valueOf(OtherMainFrame.properties.getProperty("AUTOUPDATE")))
 		{
 			au = new AutoUpdater(btnRefresh);
-		} else
+		}
+		else
 		{
 			au = null;
 		}
@@ -173,7 +174,8 @@ public class MainPageController implements Initializable
 				Package p = new Package(-1, "", "", "", "", "", "", null, null,
 						null, false, false, "", false);
 				tblViewTable.getItems().add(p);
-			} else
+			}
+			else
 			{
 				tblViewTable.getItems().addAll(dbManager.getPackages());
 			}
@@ -189,7 +191,8 @@ public class MainPageController implements Initializable
 				Package p = new Package(-1, "", "", "", "", "", "", null, null,
 						null, false, false, "", false);
 				tblViewTable.getItems().add(p);
-			} else
+			}
+			else
 			{
 				tblViewTable.getItems().addAll(dbManager.getPackages());
 			}
@@ -217,7 +220,8 @@ public class MainPageController implements Initializable
 
 				System.exit(0);
 			}
-		} else
+		}
+		else
 		{
 			if (au != null)
 			{
@@ -239,7 +243,8 @@ public class MainPageController implements Initializable
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add("tiwulfx.css");
 			OtherMainFrame.stage.setScene(scene);
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			Logger.log(e);
 		}
@@ -252,7 +257,8 @@ public class MainPageController implements Initializable
 		if (cboxStopSelect.getValue().getStopId() == -1)
 		{
 			dbManager.loadAllPackages();
-		} else
+		}
+		else
 		{
 			dbManager.loadPackages(cboxStopSelect.getValue().getStopId());
 		}
@@ -262,7 +268,8 @@ public class MainPageController implements Initializable
 			Package p = new Package(-1, "", "", "", "", "", "", null, null,
 					null, false, false, "", false);
 			tblViewTable.getItems().add(p);
-		} else
+		}
+		else
 		{
 			tblViewTable.getItems().addAll(dbManager.getPackages());
 		}
@@ -310,10 +317,12 @@ public class MainPageController implements Initializable
 							.valueOf(OtherMainFrame.properties
 									.getProperty("AUFREQ")) * 1000));
 					btnRefresh.fire();
-				} catch (NumberFormatException e)
+				}
+				catch (NumberFormatException e)
 				{
 					Logger.log(e);
-				} catch (InterruptedException e)
+				}
+				catch (InterruptedException e)
 				{
 					Logger.log(e);
 				}

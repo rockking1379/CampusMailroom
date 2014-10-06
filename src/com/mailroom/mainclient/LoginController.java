@@ -60,11 +60,13 @@ public class LoginController implements Initializable
 						"/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
 				Scene scene = new Scene(root);
 				MainFrame.stage.setScene(scene);
-			} catch (IOException e)
+			}
+			catch (IOException e)
 			{
 				Logger.log(e);
 			}
-		} else
+		}
+		else
 		{
 			lblLoginError.setVisible(true);
 		}

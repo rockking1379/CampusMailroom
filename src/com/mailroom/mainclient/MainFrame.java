@@ -81,47 +81,50 @@ public class MainFrame extends Application
 
 				switch (Integer.valueOf(properties.getProperty("DBTYPE")))
 				{
-				case SQLiteManager.dbId:
-				{
-					dbManager = new SQLiteManager(
-							properties.getProperty("DATABASE"));
-					break;
-				}
-				case MysqlManager.dbId:
-				{
-					dbManager = new MysqlManager(
-							properties.getProperty("DATABASE"),
-							properties.getProperty("USERNAME"),
-							properties.getProperty("PASSWORD"),
-							properties.getProperty("DBNAME"));
-					break;
-				}
-				case PostgreSQLManager.dbId:
-				{
-					dbManager = new PostgreSQLManager(
-							properties.getProperty("DATABASE"),
-							properties.getProperty("USERNAME"),
-							properties.getProperty("PASSWORD"),
-							properties.getProperty("DBNAME"));
-					break;
-				}
-				default:
-				{
-					throw new ConfigException(
-							"Configuration Error\nUnknown Database Type");
-				}
+					case SQLiteManager.dbId:
+					{
+						dbManager = new SQLiteManager(
+								properties.getProperty("DATABASE"));
+						break;
+					}
+					case MysqlManager.dbId:
+					{
+						dbManager = new MysqlManager(
+								properties.getProperty("DATABASE"),
+								properties.getProperty("USERNAME"),
+								properties.getProperty("PASSWORD"),
+								properties.getProperty("DBNAME"));
+						break;
+					}
+					case PostgreSQLManager.dbId:
+					{
+						dbManager = new PostgreSQLManager(
+								properties.getProperty("DATABASE"),
+								properties.getProperty("USERNAME"),
+								properties.getProperty("PASSWORD"),
+								properties.getProperty("DBNAME"));
+						break;
+					}
+					default:
+					{
+						throw new ConfigException(
+								"Configuration Error\nUnknown Database Type");
+					}
 				}
 
 				file.close();
-			} else
+			}
+			else
 			{
 				setup = true;
 			}
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			Logger.log(e);
 			System.exit(-1);
-		} catch (ConfigException e)
+		}
+		catch (ConfigException e)
 		{
 			Logger.log(e);
 			MessageDialogBuilder
@@ -168,7 +171,8 @@ public class MainFrame extends Application
 			this.stage.setScene(scene);
 			this.stage.setTitle("Setup");
 			this.stage.show();
-		} else
+		}
+		else
 		{
 			this.imageLogo = new Image(getClass().getResourceAsStream(
 					"/com/mailroom/resources/Logo.png"));
@@ -209,7 +213,8 @@ public class MainFrame extends Application
 				FileOutputStream oStream = new FileOutputStream(propFile);
 				properties.store(oStream, "System Configuration");
 				oStream.close();
-			} catch (IOException e)
+			}
+			catch (IOException e)
 			{
 				Logger.log(e);
 			}

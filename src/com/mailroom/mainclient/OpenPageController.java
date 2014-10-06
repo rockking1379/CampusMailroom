@@ -147,7 +147,8 @@ public class OpenPageController implements Initializable
 			Package p = new Package(-1, "", "", "", "", "", "", null, null,
 					null, false, false, "", false);
 			tblViewTable.getItems().add(p);
-		} else
+		}
+		else
 		{
 			tblViewTable.getItems().addAll(dbManager.getPackages());
 		}
@@ -156,7 +157,8 @@ public class OpenPageController implements Initializable
 		{
 			lblAutoUpdate.setText("Auto Update Enabled");
 			au = new AutoUpdater(btnRefresh);
-		} else
+		}
+		else
 		{
 			lblAutoUpdate.setText("Auto Update Disabled");
 			au = null;
@@ -177,7 +179,8 @@ public class OpenPageController implements Initializable
 					"/com/mailroom/fxml/mainclient/ScanPageFx.fxml"));
 			Scene scene = new Scene(root);
 			MainFrame.stage.setScene(scene);
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
@@ -196,7 +199,8 @@ public class OpenPageController implements Initializable
 					"/com/mailroom/fxml/mainclient/PrintPageFx.fxml"));
 			Scene scene = new Scene(root);
 			MainFrame.stage.setScene(scene);
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			Logger.log(e);
 		}
@@ -210,7 +214,8 @@ public class OpenPageController implements Initializable
 					"/com/mailroom/fxml/common/AdvSearchFx.fxml"));
 			Scene scene = new Scene(root);
 			MainFrame.stage.setScene(scene);
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			Logger.log(e);
 		}
@@ -239,7 +244,8 @@ public class OpenPageController implements Initializable
 			Package p = new Package(-1, "", "", "", "", "", "", null, null,
 					null, false, false, "", false);
 			tblViewTable.getItems().add(p);
-		} else
+		}
+		else
 		{
 			tblViewTable.getItems().addAll(dbManager.getPackages());
 		}
@@ -257,7 +263,8 @@ public class OpenPageController implements Initializable
 					"/com/mailroom/fxml/mainclient/SettingsPageFx.fxml"));
 			Scene scene = new Scene(root);
 			MainFrame.stage.setScene(scene);
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
@@ -284,7 +291,8 @@ public class OpenPageController implements Initializable
 						"/com/mailroom/fxml/mainclient/LoginFx.fxml"));
 				Scene scene = new Scene(root);
 				MainFrame.stage.setScene(scene);
-			} catch (IOException e)
+			}
+			catch (IOException e)
 			{
 				Logger.log(e);
 			}
@@ -363,10 +371,12 @@ public class OpenPageController implements Initializable
 					Thread.sleep((long) (Double.valueOf(MainFrame.properties
 							.getProperty("AUFREQ")) * 1000));
 					btn.fire();
-				} catch (NumberFormatException e)
+				}
+				catch (NumberFormatException e)
 				{
 					Logger.log(e);
-				} catch (InterruptedException e)
+				}
+				catch (InterruptedException e)
 				{
 					Logger.log(e);
 				}

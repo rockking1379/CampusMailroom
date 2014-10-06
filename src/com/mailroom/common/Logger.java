@@ -47,7 +47,8 @@ public class Logger
 		try
 		{
 			Class.forName("org.sqlite.JDBC");
-		} catch (ClassNotFoundException e)
+		}
+		catch (ClassNotFoundException e)
 		{
 			System.err.println("Logging Error");
 			e.printStackTrace();
@@ -68,7 +69,8 @@ public class Logger
 
 				stmnt.close();
 				con.close();
-			} catch (IOException | SQLException e)
+			}
+			catch (IOException | SQLException e)
 			{
 				System.err.println("Logging Error");
 				e.printStackTrace();
@@ -97,12 +99,14 @@ public class Logger
 			stackTrace.close();
 			stmnt.close();
 			con.close();
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			System.err.println("Logging Error");
 			e.printStackTrace();
 			retVal = false;
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			System.err.println("Logging Erorr");
 			e.printStackTrace();

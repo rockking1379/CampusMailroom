@@ -67,7 +67,8 @@ public class PackageEditWindow extends Window
 								.getWidth());
 				stg.setY(OtherMainFrame.stage.getY());
 			}
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			Logger.log(e);
 		}

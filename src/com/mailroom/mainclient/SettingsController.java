@@ -46,6 +46,8 @@ public class SettingsController implements Initializable
 	@FXML
 	private Tab tabCourierManagement;
 	@FXML
+	private Tab tabReports;
+	@FXML
 	private Tab tabSoftwareUpdate;
 	@FXML
 	private Tab tabAbout;
@@ -213,51 +215,51 @@ public class SettingsController implements Initializable
 
 		switch (Integer.valueOf(prefs.getProperty("DBTYPE")))
 		{
-		case SQLiteManager.dbId:
-		{
-			cboxDatabaseType.getItems().add(SQLiteManager.dbName);
-			cboxDatabaseType.getItems().add(MysqlManager.dbName);
-			cboxDatabaseType.getItems().add(PostgreSQLManager.dbName);
+			case SQLiteManager.dbId:
+			{
+				cboxDatabaseType.getItems().add(SQLiteManager.dbName);
+				cboxDatabaseType.getItems().add(MysqlManager.dbName);
+				cboxDatabaseType.getItems().add(PostgreSQLManager.dbName);
 
-			txtDatabaseLocation.setText(prefs.getProperty("DATABASE"));
-			txtDatabaseName.setDisable(true);
-			txtDatabaseUserName.setDisable(true);
-			pwdDatabasePassword.setDisable(true);
+				txtDatabaseLocation.setText(prefs.getProperty("DATABASE"));
+				txtDatabaseName.setDisable(true);
+				txtDatabaseUserName.setDisable(true);
+				pwdDatabasePassword.setDisable(true);
 
-			cboxDatabaseType.setValue(cboxDatabaseType.getItems().get(0));
+				cboxDatabaseType.setValue(cboxDatabaseType.getItems().get(0));
 
-			break;
-		}
-		case MysqlManager.dbId:
-		{
-			cboxDatabaseType.getItems().add(MysqlManager.dbName);
-			cboxDatabaseType.getItems().add(SQLiteManager.dbName);
-			cboxDatabaseType.getItems().add(PostgreSQLManager.dbName);
+				break;
+			}
+			case MysqlManager.dbId:
+			{
+				cboxDatabaseType.getItems().add(MysqlManager.dbName);
+				cboxDatabaseType.getItems().add(SQLiteManager.dbName);
+				cboxDatabaseType.getItems().add(PostgreSQLManager.dbName);
 
-			txtDatabaseLocation.setText(prefs.getProperty("DATABASE"));
-			txtDatabaseName.setText(prefs.getProperty("DBNAME"));
-			txtDatabaseUserName.setText(prefs.getProperty("USERNAME"));
-			pwdDatabasePassword.setText(prefs.getProperty("PASSWORD"));
+				txtDatabaseLocation.setText(prefs.getProperty("DATABASE"));
+				txtDatabaseName.setText(prefs.getProperty("DBNAME"));
+				txtDatabaseUserName.setText(prefs.getProperty("USERNAME"));
+				pwdDatabasePassword.setText(prefs.getProperty("PASSWORD"));
 
-			cboxDatabaseType.setValue(cboxDatabaseType.getItems().get(0));
+				cboxDatabaseType.setValue(cboxDatabaseType.getItems().get(0));
 
-			break;
-		}
-		case PostgreSQLManager.dbId:
-		{
-			cboxDatabaseType.getItems().add(PostgreSQLManager.dbName);
-			cboxDatabaseType.getItems().add(SQLiteManager.dbName);
-			cboxDatabaseType.getItems().add(MysqlManager.dbName);
+				break;
+			}
+			case PostgreSQLManager.dbId:
+			{
+				cboxDatabaseType.getItems().add(PostgreSQLManager.dbName);
+				cboxDatabaseType.getItems().add(SQLiteManager.dbName);
+				cboxDatabaseType.getItems().add(MysqlManager.dbName);
 
-			txtDatabaseLocation.setText(prefs.getProperty("DATABASE"));
-			txtDatabaseName.setText(prefs.getProperty("DBNAME"));
-			txtDatabaseUserName.setText(prefs.getProperty("USERNAME"));
-			pwdDatabasePassword.setText(prefs.getProperty("PASSWORD"));
+				txtDatabaseLocation.setText(prefs.getProperty("DATABASE"));
+				txtDatabaseName.setText(prefs.getProperty("DBNAME"));
+				txtDatabaseUserName.setText(prefs.getProperty("USERNAME"));
+				pwdDatabasePassword.setText(prefs.getProperty("PASSWORD"));
 
-			cboxDatabaseType.setValue(cboxDatabaseType.getItems().get(0));
+				cboxDatabaseType.setValue(cboxDatabaseType.getItems().get(0));
 
-			break;
-		}
+				break;
+			}
 		}
 
 		if (MainFrame.cUser.getAdmin())
@@ -268,7 +270,8 @@ public class SettingsController implements Initializable
 			tabStopManagement.setDisable(false);
 			tabRouteManagement.setDisable(false);
 			tabCourierManagement.setDisable(false);
-		} else
+		}
+		else
 		{
 			tabGeneral.setDisable(true);
 			tabCreateAccount.setDisable(true);
@@ -334,11 +337,13 @@ public class SettingsController implements Initializable
 								+ curVersion + " Build " + curBuild);
 						lblUpdateAvailableVersion.setText("Available Version: "
 								+ availVersion + " Build " + availBuild);
-					} else
+					}
+					else
 					{
 						tabpaneMainPane.getTabs().remove(tabSoftwareUpdate);
 					}
-				} else
+				}
+				else
 				{
 					MessageDialogBuilder.error()
 							.message("Error Reaching Update Server")
@@ -346,27 +351,31 @@ public class SettingsController implements Initializable
 							.buttonType(MessageDialog.ButtonType.OK)
 							.show(MainFrame.stage.getScene().getWindow());
 				}
-			} catch (MalformedURLException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e)
-			{
-				e.printStackTrace();
-			} catch (ParseException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
-		} else
+			catch (MalformedURLException e)
+			{
+				Logger.log(e);
+			}
+			catch (IOException e)
+			{
+				Logger.log(e);
+			}
+			catch (ParseException e)
+			{
+				Logger.log(e);
+			}
+		}
+		else
 		{
 			tabpaneMainPane.getTabs().remove(tabSoftwareUpdate);
 		}
-		
-		//Temporary, mainly while software names are fixed or address, will work on new configuration file or something
-		//for handling the renaming of programs
-		//very specific case
+
+		// Temporary, mainly while software names are fixed or address, will
+		// work on new configuration file or something
+		// for handling the renaming of programs
+		// very specific case
 		tabpaneMainPane.getTabs().remove(tabSoftwareUpdate);
+		tabpaneMainPane.getTabs().remove(tabReports);
 
 		lviewRouteOnRoute.getSelectionModel().setSelectionMode(
 				SelectionMode.MULTIPLE);
@@ -393,7 +402,8 @@ public class SettingsController implements Initializable
 		if (cboxAutoUpdate.getValue())
 		{
 			sldrAutoUpdateFreq.disableProperty().set(false);
-		} else
+		}
+		else
 		{
 			sldrAutoUpdateFreq.disableProperty().set(true);
 		}
@@ -406,55 +416,55 @@ public class SettingsController implements Initializable
 	{
 		switch (Integer.valueOf(cboxDatabaseType.getValue().charAt(0)))
 		{
-		case SQLiteManager.dbId:
-		{
-			btnBrowse.setDisable(false);
-			txtDatabaseLocation.setText("");
-			txtDatabaseName.setText("");
-			txtDatabaseUserName.setText("");
-			pwdDatabasePassword.setText("");
+			case SQLiteManager.dbId:
+			{
+				btnBrowse.setDisable(false);
+				txtDatabaseLocation.setText("");
+				txtDatabaseName.setText("");
+				txtDatabaseUserName.setText("");
+				pwdDatabasePassword.setText("");
 
-			txtDatabaseName.setDisable(true);
-			txtDatabaseUserName.setDisable(true);
-			pwdDatabasePassword.setDisable(true);
+				txtDatabaseName.setDisable(true);
+				txtDatabaseUserName.setDisable(true);
+				pwdDatabasePassword.setDisable(true);
 
-			break;
-		}
-		case MysqlManager.dbId:
-		{
-			btnBrowse.setDisable(true);
-			txtDatabaseLocation.setText("");
-			txtDatabaseName.setText("");
-			txtDatabaseUserName.setText("");
-			pwdDatabasePassword.setText("");
+				break;
+			}
+			case MysqlManager.dbId:
+			{
+				btnBrowse.setDisable(true);
+				txtDatabaseLocation.setText("");
+				txtDatabaseName.setText("");
+				txtDatabaseUserName.setText("");
+				pwdDatabasePassword.setText("");
 
-			txtDatabaseName.setDisable(false);
-			txtDatabaseUserName.setDisable(false);
-			pwdDatabasePassword.setDisable(false);
+				txtDatabaseName.setDisable(false);
+				txtDatabaseUserName.setDisable(false);
+				pwdDatabasePassword.setDisable(false);
 
-			break;
-		}
-		case PostgreSQLManager.dbId:
-		{
-			btnBrowse.setDisable(true);
-			txtDatabaseLocation.setText("");
-			txtDatabaseName.setText("");
-			txtDatabaseUserName.setText("");
-			pwdDatabasePassword.setText("");
+				break;
+			}
+			case PostgreSQLManager.dbId:
+			{
+				btnBrowse.setDisable(true);
+				txtDatabaseLocation.setText("");
+				txtDatabaseName.setText("");
+				txtDatabaseUserName.setText("");
+				pwdDatabasePassword.setText("");
 
-			txtDatabaseName.setDisable(false);
-			txtDatabaseUserName.setDisable(false);
-			pwdDatabasePassword.setDisable(false);
-			break;
-		}
-		default:
-		{
-			MessageDialogBuilder.error()
-					.message("Unsupported Database Selected")
-					.buttonType(MessageDialog.ButtonType.OK)
-					.show(MainFrame.stage.getScene().getWindow());
-			break;
-		}
+				txtDatabaseName.setDisable(false);
+				txtDatabaseUserName.setDisable(false);
+				pwdDatabasePassword.setDisable(false);
+				break;
+			}
+			default:
+			{
+				MessageDialogBuilder.error()
+						.message("Unsupported Database Selected")
+						.buttonType(MessageDialog.ButtonType.OK)
+						.show(MainFrame.stage.getScene().getWindow());
+				break;
+			}
 		}
 	}
 
@@ -468,7 +478,8 @@ public class SettingsController implements Initializable
 		if (dbFile != null)
 		{
 			txtDatabaseLocation.setText(dbFile.getAbsolutePath());
-		} else
+		}
+		else
 		{
 			MessageDialogBuilder.error().message("No File Selected")
 					.buttonType(MessageDialog.ButtonType.OK)
@@ -480,63 +491,63 @@ public class SettingsController implements Initializable
 	{
 		switch (Integer.valueOf(cboxDatabaseType.getValue().charAt(0)))
 		{
-		case SQLiteManager.dbId:
-		{
-			MainFrame.properties.setProperty("DBTYPE", String.valueOf(0));
-			MainFrame.properties.setProperty("DATABASE",
-					txtDatabaseLocation.getText());
-			MainFrame.properties.setProperty("USERNAME", "");
-			MainFrame.properties.setProperty("PASSWORD", "");
-			MainFrame.properties.setProperty("DBNAME", "");
-			MainFrame.properties.setProperty("AUTOUPDATE",
-					Boolean.toString(cboxAutoUpdate.getValue()));
-			MainFrame.properties.setProperty("AUFREQ", sldrAutoUpdateFreq
-					.valueProperty().getValue().toString());
+			case SQLiteManager.dbId:
+			{
+				MainFrame.properties.setProperty("DBTYPE", String.valueOf(0));
+				MainFrame.properties.setProperty("DATABASE",
+						txtDatabaseLocation.getText());
+				MainFrame.properties.setProperty("USERNAME", "");
+				MainFrame.properties.setProperty("PASSWORD", "");
+				MainFrame.properties.setProperty("DBNAME", "");
+				MainFrame.properties.setProperty("AUTOUPDATE",
+						Boolean.toString(cboxAutoUpdate.getValue()));
+				MainFrame.properties.setProperty("AUFREQ", sldrAutoUpdateFreq
+						.valueProperty().getValue().toString());
 
-			break;
-		}
-		case MysqlManager.dbId:
-		{
-			MainFrame.properties.setProperty("DBTYPE", String.valueOf(1));
-			MainFrame.properties.setProperty("DATABASE",
-					txtDatabaseLocation.getText());
-			MainFrame.properties.setProperty("USERNAME",
-					txtDatabaseUserName.getText());
-			MainFrame.properties.setProperty("PASSWORD",
-					pwdDatabasePassword.getText());
-			MainFrame.properties.setProperty("DBNAME",
-					txtDatabaseName.getText());
-			MainFrame.properties.setProperty("AUTOUPDATE",
-					Boolean.toString(cboxAutoUpdate.getValue()));
-			MainFrame.properties.setProperty("AUFREQ", sldrAutoUpdateFreq
-					.valueProperty().getValue().toString());
-			break;
-		}
-		case PostgreSQLManager.dbId:
-		{
-			MainFrame.properties.setProperty("DBTYPE", String.valueOf(2));
-			MainFrame.properties.setProperty("DATABASE",
-					txtDatabaseLocation.getText());
-			MainFrame.properties.setProperty("USERNAME",
-					txtDatabaseUserName.getText());
-			MainFrame.properties.setProperty("PASSWORD",
-					pwdDatabasePassword.getText());
-			MainFrame.properties.setProperty("DBNAME",
-					txtDatabaseName.getText());
-			MainFrame.properties.setProperty("AUTOUPDATE",
-					Boolean.toString(cboxAutoUpdate.getValue()));
-			MainFrame.properties.setProperty("AUFREQ", sldrAutoUpdateFreq
-					.valueProperty().getValue().toString());
-			break;
-		}
-		default:
-		{
-			MessageDialogBuilder.error()
-					.message("Unsupported Database Selected")
-					.buttonType(MessageDialog.ButtonType.OK)
-					.show(MainFrame.stage.getScene().getWindow());
-			break;
-		}
+				break;
+			}
+			case MysqlManager.dbId:
+			{
+				MainFrame.properties.setProperty("DBTYPE", String.valueOf(1));
+				MainFrame.properties.setProperty("DATABASE",
+						txtDatabaseLocation.getText());
+				MainFrame.properties.setProperty("USERNAME",
+						txtDatabaseUserName.getText());
+				MainFrame.properties.setProperty("PASSWORD",
+						pwdDatabasePassword.getText());
+				MainFrame.properties.setProperty("DBNAME",
+						txtDatabaseName.getText());
+				MainFrame.properties.setProperty("AUTOUPDATE",
+						Boolean.toString(cboxAutoUpdate.getValue()));
+				MainFrame.properties.setProperty("AUFREQ", sldrAutoUpdateFreq
+						.valueProperty().getValue().toString());
+				break;
+			}
+			case PostgreSQLManager.dbId:
+			{
+				MainFrame.properties.setProperty("DBTYPE", String.valueOf(2));
+				MainFrame.properties.setProperty("DATABASE",
+						txtDatabaseLocation.getText());
+				MainFrame.properties.setProperty("USERNAME",
+						txtDatabaseUserName.getText());
+				MainFrame.properties.setProperty("PASSWORD",
+						pwdDatabasePassword.getText());
+				MainFrame.properties.setProperty("DBNAME",
+						txtDatabaseName.getText());
+				MainFrame.properties.setProperty("AUTOUPDATE",
+						Boolean.toString(cboxAutoUpdate.getValue()));
+				MainFrame.properties.setProperty("AUFREQ", sldrAutoUpdateFreq
+						.valueProperty().getValue().toString());
+				break;
+			}
+			default:
+			{
+				MessageDialogBuilder.error()
+						.message("Unsupported Database Selected")
+						.buttonType(MessageDialog.ButtonType.OK)
+						.show(MainFrame.stage.getScene().getWindow());
+				break;
+			}
 		}
 
 		MainFrame.saveProperties();
@@ -569,13 +580,15 @@ public class SettingsController implements Initializable
 			try
 			{
 				Runtime.getRuntime().exec(cmd.toString());
-			} catch (IOException e)
+			}
+			catch (IOException e)
 			{
 				Logger.log(e);
 			}
 			dbManager.dispose();
 			System.exit(0);
-		} else
+		}
+		else
 		{
 			try
 			{
@@ -583,10 +596,10 @@ public class SettingsController implements Initializable
 						"/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
 				Scene scene = new Scene(root);
 				MainFrame.stage.setScene(scene);
-			} catch (IOException e)
+			}
+			catch (IOException e)
 			{
 				Logger.log(e);
-				e.printStackTrace();
 			}
 		}
 	}
@@ -599,7 +612,8 @@ public class SettingsController implements Initializable
 					"/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
 			Scene scene = new Scene(root);
 			MainFrame.stage.setScene(scene);
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			Logger.log(e);
 		}
@@ -623,7 +637,8 @@ public class SettingsController implements Initializable
 			MessageDialogBuilder.error().message("Cannot have Empty Fields")
 					.title("Error").buttonType(MessageDialog.ButtonType.OK)
 					.show(MainFrame.stage.getScene().getWindow());
-		} else
+		}
+		else
 		{
 			if (oldPwd.equals(newPwd))
 			{
@@ -672,11 +687,13 @@ public class SettingsController implements Initializable
 								"/com/mailroom/fxml/mainclient/LoginFx.fxml"));
 						Scene scene = new Scene(root);
 						MainFrame.stage.setScene(scene);
-					} catch (IOException e)
+					}
+					catch (IOException e)
 					{
 						Logger.log(e);
 					}
-				} else
+				}
+				else
 				{
 					MessageDialogBuilder.error()
 							.message("Password Change Unsuccessful")
@@ -702,7 +719,8 @@ public class SettingsController implements Initializable
 			MessageDialogBuilder.error().message("Cannot have Empty Fields")
 					.title("Error").buttonType(MessageDialog.ButtonType.OK)
 					.show(MainFrame.stage.getScene().getWindow());
-		} else
+		}
+		else
 		{
 			if (pwd.equals(pwdConfirm))
 			{
@@ -723,7 +741,8 @@ public class SettingsController implements Initializable
 							.show(MainFrame.stage.getScene().getWindow());
 					btnCreateCancel.fire();
 					loadAdminComboBoxes();
-				} else
+				}
+				else
 				{
 					MessageDialogBuilder
 							.error()
@@ -734,7 +753,8 @@ public class SettingsController implements Initializable
 							.buttonType(MessageDialog.ButtonType.OK)
 							.show(MainFrame.stage.getScene().getWindow());
 				}
-			} else
+			}
+			else
 			{
 				MessageDialogBuilder.error().message("Passwords Do Not Match")
 						.title("Error").buttonType(MessageDialog.ButtonType.OK)
@@ -782,7 +802,8 @@ public class SettingsController implements Initializable
 										+ " reactivated").title("Success")
 						.buttonType(MessageDialog.ButtonType.OK)
 						.show(MainFrame.stage.getScene().getWindow());
-			} else
+			}
+			else
 			{
 				MessageDialogBuilder
 						.error()
@@ -795,7 +816,8 @@ public class SettingsController implements Initializable
 			pwdAdminRePwd.setText("");
 			pwdAdminReConfirm.setText("");
 			loadAdminComboBoxes();
-		} else
+		}
+		else
 		{
 			MessageDialogBuilder.error()
 					.message("Password and Confirm Password do not match")
@@ -824,7 +846,8 @@ public class SettingsController implements Initializable
 				dbManager.deleteUser(cboxAdminDeactivate.getValue());
 				loadAdminComboBoxes();
 			}
-		} else
+		}
+		else
 		{
 			MessageDialogBuilder.warning()
 					.message("Cannot Deactivate Yourself").title("Error")
@@ -891,7 +914,8 @@ public class SettingsController implements Initializable
 			MessageDialogBuilder.error().message("Cannot have Empty Stop Name")
 					.title("Error").buttonType(MessageDialog.ButtonType.OK)
 					.show(MainFrame.stage.getScene().getWindow());
-		} else
+		}
+		else
 		{
 			dbManager.addStop(new Stop(-1, txtStopName.getText(), cboxStopRoute
 					.getValue().getRouteName(), 1, cboxStopCreateStudent
@@ -979,7 +1003,8 @@ public class SettingsController implements Initializable
 					.message("Cannot have Empty Route Name").title("Error")
 					.buttonType(MessageDialog.ButtonType.OK)
 					.show(MainFrame.stage.getScene().getWindow());
-		} else
+		}
+		else
 		{
 			if (dbManager.addRoute(txtRouteName.getText()))
 			{
@@ -1039,7 +1064,8 @@ public class SettingsController implements Initializable
 			{
 				lviewRouteOnRoute.getItems().add(s1);
 			}
-		} else
+		}
+		else
 		{
 			if (cboxRouteSelect.getItems().size() > 0)
 			{
@@ -1115,7 +1141,8 @@ public class SettingsController implements Initializable
 					.message("Cannot have Empty Courier Name").title("Error")
 					.buttonType(MessageDialog.ButtonType.OK)
 					.show(MainFrame.stage.getScene().getWindow());
-		} else
+		}
+		else
 		{
 			dbManager.addCourier(txtCourierName.getText());
 			loadCourierComboBoxes();
@@ -1131,7 +1158,8 @@ public class SettingsController implements Initializable
 			File f = new File("./Updater.jar");
 			Runtime.getRuntime().exec("java -jar " + f.getAbsolutePath());
 			System.exit(0);
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			Logger.log(e);
 		}

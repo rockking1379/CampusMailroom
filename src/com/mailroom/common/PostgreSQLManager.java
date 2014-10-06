@@ -55,7 +55,8 @@ public class PostgreSQLManager extends DatabaseManager
 		try
 		{
 			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e)
+		}
+		catch (ClassNotFoundException e)
 		{
 			Logger.log(e);
 		}
@@ -94,11 +95,13 @@ public class PostgreSQLManager extends DatabaseManager
 						rs.getString("first_name"), rs.getString("last_name"),
 						rs.getBoolean("administrator"));
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -127,16 +130,19 @@ public class PostgreSQLManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -160,16 +166,19 @@ public class PostgreSQLManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -190,16 +199,19 @@ public class PostgreSQLManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				retValue = true;
-			} else
+			}
+			else
 			{
 				retValue = false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 			retValue = false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -224,16 +236,19 @@ public class PostgreSQLManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				retValue = true;
-			} else
+			}
+			else
 			{
 				retValue = false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 			retValue = false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -258,16 +273,19 @@ public class PostgreSQLManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				retValue = true;
-			} else
+			}
+			else
 			{
 				retValue = false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 			retValue = false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -295,11 +313,13 @@ public class PostgreSQLManager extends DatabaseManager
 						.getString("user_name"), rs.getString("first_name"), rs
 						.getString("last_name"), rs.getBoolean("administrator")));
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -327,11 +347,13 @@ public class PostgreSQLManager extends DatabaseManager
 						.getString("user_name"), rs.getString("first_name"), rs
 						.getString("last_name"), rs.getBoolean("administrator")));
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -367,11 +389,13 @@ public class PostgreSQLManager extends DatabaseManager
 					}
 				}
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -393,16 +417,19 @@ public class PostgreSQLManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -425,16 +452,19 @@ public class PostgreSQLManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				retValue = true;
-			} else
+			}
+			else
 			{
 				retValue = false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 			retValue = false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -469,16 +499,19 @@ public class PostgreSQLManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -499,16 +532,19 @@ public class PostgreSQLManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -533,15 +569,18 @@ public class PostgreSQLManager extends DatabaseManager
 				if (stmnt.executeUpdate() > 0)
 				{
 					return true;
-				} else
+				}
+				else
 				{
 					return false;
 				}
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			return false;
@@ -567,12 +606,14 @@ public class PostgreSQLManager extends DatabaseManager
 					.executeQuery("select * from Stop where route_id=1 and is_used=true");
 
 			return processStopResult(rs, "unassigned");
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 			return null;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -598,12 +639,14 @@ public class PostgreSQLManager extends DatabaseManager
 			ResultSet rs = stmnt.executeQuery();
 
 			return processStopResult(rs, r.getRouteName());
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 			return null;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -622,7 +665,8 @@ public class PostgreSQLManager extends DatabaseManager
 						.getString("stop_name"), routestop_name, rs
 						.getInt("route_order"), rs.getBoolean("Student")));
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
@@ -652,11 +696,13 @@ public class PostgreSQLManager extends DatabaseManager
 				routes.add(new Route(rs.getInt("route_id"), rs
 						.getString("route_name")));
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -684,16 +730,19 @@ public class PostgreSQLManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -715,16 +764,19 @@ public class PostgreSQLManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -750,16 +802,19 @@ public class PostgreSQLManager extends DatabaseManager
 
 				stmnt.executeUpdate();
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -785,11 +840,13 @@ public class PostgreSQLManager extends DatabaseManager
 				couriers.add(new Courier(rs.getInt("courier_id"), rs
 						.getString("courier_name")));
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -818,16 +875,19 @@ public class PostgreSQLManager extends DatabaseManager
 			if (stmnt.execute())
 			{
 				retValue = true;
-			} else
+			}
+			else
 			{
 				retValue = false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 			retValue = false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -851,16 +911,19 @@ public class PostgreSQLManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -881,16 +944,19 @@ public class PostgreSQLManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -917,11 +983,13 @@ public class PostgreSQLManager extends DatabaseManager
 
 			packages = null;
 			packages = processPackageResult(rs);
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -945,11 +1013,13 @@ public class PostgreSQLManager extends DatabaseManager
 			ResultSet rs = stmnt.executeQuery();
 
 			packages = processPackageResult(rs);
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -986,10 +1056,12 @@ public class PostgreSQLManager extends DatabaseManager
 			stmnt.executeUpdate();
 
 			return true;
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -1021,10 +1093,12 @@ public class PostgreSQLManager extends DatabaseManager
 			stmnt.executeUpdate();
 
 			return true;
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -1054,52 +1128,57 @@ public class PostgreSQLManager extends DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				return true;
-			} else
+			}
+			else
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 			return false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
 	}
-	
+
 	@Override
 	public List<Package> printPackagesForStop(Stop s)
 	{
 		ArrayList<Package> result = null;
-		
+
 		try
 		{
 			connect();
-			
+
 			PreparedStatement stmnt = null;
-			
-			if(s.getStudent())
+
+			if (s.getStudent())
 			{
-				stmnt = connection.prepareStatement("select * from Package where receive_date=? and stop_id=? and at_stop=false order by box_number asc");
+				stmnt = connection
+						.prepareStatement("select * from Package where receive_date=? and stop_id=? and at_stop=false order by box_number asc");
 			}
 			else
 			{
-				stmnt = connection.prepareStatement("select * from Package where receive_date=? and stop_id=? and at_stop=false order by last_name asc, first_name asc");
+				stmnt = connection
+						.prepareStatement("select * from Package where receive_date=? and stop_id=? and at_stop=false order by last_name asc, first_name asc");
 			}
-			
+
 			Date d = new Date();
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			
+
 			stmnt.setString(1, format.format(d).toString());
 			stmnt.setInt(2, s.getStopId());
-			
+
 			ResultSet rs = stmnt.executeQuery();
-			
-			result = (ArrayList<Package>)processPackageResult(rs);
+
+			result = (ArrayList<Package>) processPackageResult(rs);
 		}
-		catch(SQLException ex)
+		catch (SQLException ex)
 		{
 			Logger.log(ex);
 		}
@@ -1107,7 +1186,7 @@ public class PostgreSQLManager extends DatabaseManager
 		{
 			disconnect();
 		}
-		
+
 		return result;
 	}
 
@@ -1131,12 +1210,14 @@ public class PostgreSQLManager extends DatabaseManager
 			ResultSet rs = stmnt.executeQuery();
 
 			result = (ArrayList<Package>) processPackageResult(rs);
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 			result = null;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -1215,7 +1296,8 @@ public class PostgreSQLManager extends DatabaseManager
 								.getString("pick_up_date"), rs
 								.getBoolean("returned")));
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
@@ -1259,11 +1341,13 @@ public class PostgreSQLManager extends DatabaseManager
 					}
 				}
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -1281,21 +1365,21 @@ public class PostgreSQLManager extends DatabaseManager
 
 			switch (sType)
 			{
-			case SEARCH_BEGINS_WITH:
-			{
-				search = search + "%";
-				break;
-			}
-			case SEARCH_CONTAINS:
-			{
-				search = "%" + search + "%";
-				break;
-			}
-			case SEARCH_ENDS_WITH:
-			{
-				search = "%" + search;
-				break;
-			}
+				case SEARCH_BEGINS_WITH:
+				{
+					search = search + "%";
+					break;
+				}
+				case SEARCH_CONTAINS:
+				{
+					search = "%" + search + "%";
+					break;
+				}
+				case SEARCH_ENDS_WITH:
+				{
+					search = "%" + search;
+					break;
+				}
 			}
 
 			PreparedStatement stmnt = connection
@@ -1309,11 +1393,13 @@ public class PostgreSQLManager extends DatabaseManager
 			ResultSet rs = stmnt.executeQuery();
 
 			results = processPackageResult(rs);
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -1332,21 +1418,21 @@ public class PostgreSQLManager extends DatabaseManager
 
 			switch (sType)
 			{
-			case SEARCH_BEGINS_WITH:
-			{
-				search = search + "%";
-				break;
-			}
-			case SEARCH_CONTAINS:
-			{
-				search = "%" + search + "%";
-				break;
-			}
-			case SEARCH_ENDS_WITH:
-			{
-				search = "%" + search;
-				break;
-			}
+				case SEARCH_BEGINS_WITH:
+				{
+					search = search + "%";
+					break;
+				}
+				case SEARCH_CONTAINS:
+				{
+					search = "%" + search + "%";
+					break;
+				}
+				case SEARCH_ENDS_WITH:
+				{
+					search = "%" + search;
+					break;
+				}
 			}
 
 			PreparedStatement stmnt = connection
@@ -1417,11 +1503,13 @@ public class PostgreSQLManager extends DatabaseManager
 					results.add(p);
 				}
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -1437,7 +1525,8 @@ public class PostgreSQLManager extends DatabaseManager
 		{
 			connection = DriverManager.getConnection(conString, dbUser,
 					dbPassword);
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
@@ -1452,11 +1541,13 @@ public class PostgreSQLManager extends DatabaseManager
 			try
 			{
 				connection.close();
-			} catch (SQLException e)
+			}
+			catch (SQLException e)
 			{
 				Logger.log(e);
 				e.printStackTrace();
-			} finally
+			}
+			finally
 			{
 				connection = null;
 			}
@@ -1505,12 +1596,14 @@ public class PostgreSQLManager extends DatabaseManager
 			}
 
 			retValue = true;
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			e.printStackTrace();
 			retValue = false;
-		} finally
+		}
+		finally
 		{
 			disconnect();
 		}
@@ -1528,12 +1621,14 @@ public class PostgreSQLManager extends DatabaseManager
 			{
 				disconnect();
 				return true;
-			} else
+			}
+			else
 			{
 				disconnect();
 				return false;
 			}
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			Logger.log(e);
 			return false;

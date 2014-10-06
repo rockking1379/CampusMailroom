@@ -122,39 +122,39 @@ public class SetupController implements Initializable
 
 		switch (Integer.valueOf(cboxDbSetupDbType.getValue().charAt(0)) - 48)
 		{
-		case 0:
-		{
-			txtDbSetupDbName.setDisable(true);
-			txtDbSetupDbUsername.setDisable(true);
-			pwdDbSetupDbPassword.setDisable(true);
-			btnDbSetupBrowse.setDisable(false);
-			break;
-		}
-		case 1:
-		{
-			txtDbSetupDbName.setDisable(false);
-			txtDbSetupDbUsername.setDisable(false);
-			pwdDbSetupDbPassword.setDisable(false);
-			btnDbSetupBrowse.setDisable(true);
-			break;
-		}
-		case 2:
-		{
-			txtDbSetupDbName.setDisable(false);
-			txtDbSetupDbUsername.setDisable(false);
-			pwdDbSetupDbPassword.setDisable(false);
-			btnDbSetupBrowse.setDisable(true);
-			break;
-		}
-		default:
-		{
-			MessageDialogBuilder.error()
-					.message("Unknown Database Type Selected")
-					.buttonType(MessageDialog.ButtonType.OK)
-					.yesOkButtonText("OK")
-					.show(MainFrame.stage.getScene().getWindow());
-			break;
-		}
+			case 0:
+			{
+				txtDbSetupDbName.setDisable(true);
+				txtDbSetupDbUsername.setDisable(true);
+				pwdDbSetupDbPassword.setDisable(true);
+				btnDbSetupBrowse.setDisable(false);
+				break;
+			}
+			case 1:
+			{
+				txtDbSetupDbName.setDisable(false);
+				txtDbSetupDbUsername.setDisable(false);
+				pwdDbSetupDbPassword.setDisable(false);
+				btnDbSetupBrowse.setDisable(true);
+				break;
+			}
+			case 2:
+			{
+				txtDbSetupDbName.setDisable(false);
+				txtDbSetupDbUsername.setDisable(false);
+				pwdDbSetupDbPassword.setDisable(false);
+				btnDbSetupBrowse.setDisable(true);
+				break;
+			}
+			default:
+			{
+				MessageDialogBuilder.error()
+						.message("Unknown Database Type Selected")
+						.buttonType(MessageDialog.ButtonType.OK)
+						.yesOkButtonText("OK")
+						.show(MainFrame.stage.getScene().getWindow());
+				break;
+			}
 		}
 	}
 
@@ -170,7 +170,8 @@ public class SetupController implements Initializable
 			try
 			{
 				f.createNewFile();
-			} catch (IOException e)
+			}
+			catch (IOException e)
 			{
 				Logger.log(e);
 			}
@@ -184,7 +185,8 @@ public class SetupController implements Initializable
 		if (dbFile != null)
 		{
 			txtDbSetupDbLocation.setText(dbFile.getAbsolutePath());
-		} else
+		}
+		else
 		{
 			MessageDialogBuilder.error().message("No File Selected")
 					.buttonType(MessageDialog.ButtonType.OK)
@@ -200,106 +202,109 @@ public class SetupController implements Initializable
 	{
 		switch (Integer.valueOf(cboxDbSetupDbType.getValue().charAt(0)) - 48)
 		{
-		case 0:
-		{
-			if (txtDbSetupDbLocation.getText().equals(""))
+			case 0:
+			{
+				if (txtDbSetupDbLocation.getText().equals(""))
+				{
+					MessageDialogBuilder.error()
+							.message("Database Location cannot be Empty")
+							.buttonType(MessageDialog.ButtonType.OK)
+							.show(MainFrame.stage.getScene().getWindow());
+					return;
+				}
+				dbManager = new SQLiteManager(txtDbSetupDbLocation.getText());
+				break;
+			}
+			case 1:
+			{
+				if (txtDbSetupDbLocation.getText().equals(""))
+				{
+					MessageDialogBuilder.error()
+							.message("Database Location cannot be Empty")
+							.buttonType(MessageDialog.ButtonType.OK)
+							.show(MainFrame.stage.getScene().getWindow());
+					return;
+				}
+				if (txtDbSetupDbName.getText().equals(""))
+				{
+					MessageDialogBuilder.error()
+							.message("Database Name cannot be Empty")
+							.buttonType(MessageDialog.ButtonType.OK)
+							.show(MainFrame.stage.getScene().getWindow());
+					return;
+				}
+				if (txtDbSetupDbUsername.getText().equals(""))
+				{
+					MessageDialogBuilder.error()
+							.message("Database Username cannot be Empty")
+							.buttonType(MessageDialog.ButtonType.OK)
+							.show(MainFrame.stage.getScene().getWindow());
+					return;
+				}
+				if (pwdDbSetupDbPassword.getText().equals(""))
+				{
+					MessageDialogBuilder.error()
+							.message("Database Password cannot be Empty")
+							.buttonType(MessageDialog.ButtonType.OK)
+							.show(MainFrame.stage.getScene().getWindow());
+					return;
+				}
+				dbManager = new MysqlManager(txtDbSetupDbLocation.getText(),
+						txtDbSetupDbUsername.getText(),
+						pwdDbSetupDbPassword.getText(),
+						txtDbSetupDbName.getText());
+				break;
+			}
+			case 2:
+			{
+				if (txtDbSetupDbLocation.getText().equals(""))
+				{
+					MessageDialogBuilder.error()
+							.message("Database Location cannot be Empty")
+							.buttonType(MessageDialog.ButtonType.OK)
+							.show(MainFrame.stage.getScene().getWindow());
+					return;
+				}
+				if (txtDbSetupDbName.getText().equals(""))
+				{
+					MessageDialogBuilder.error()
+							.message("Database Name cannot be Empty")
+							.buttonType(MessageDialog.ButtonType.OK)
+							.show(MainFrame.stage.getScene().getWindow());
+					return;
+				}
+				if (txtDbSetupDbUsername.getText().equals(""))
+				{
+					MessageDialogBuilder.error()
+							.message("Database Username cannot be Empty")
+							.buttonType(MessageDialog.ButtonType.OK)
+							.show(MainFrame.stage.getScene().getWindow());
+					return;
+				}
+				if (pwdDbSetupDbPassword.getText().equals(""))
+				{
+					MessageDialogBuilder.error()
+							.message("Database Password cannot be Empty")
+							.buttonType(MessageDialog.ButtonType.OK)
+							.show(MainFrame.stage.getScene().getWindow());
+					return;
+				}
+				dbManager = new PostgreSQLManager(
+						txtDbSetupDbLocation.getText(),
+						txtDbSetupDbUsername.getText(),
+						pwdDbSetupDbPassword.getText(),
+						txtDbSetupDbName.getText());
+				break;
+			}
+			default:
 			{
 				MessageDialogBuilder.error()
-						.message("Database Location cannot be Empty")
+						.message("Unknown Database Type Selected")
 						.buttonType(MessageDialog.ButtonType.OK)
+						.yesOkButtonText("OK")
 						.show(MainFrame.stage.getScene().getWindow());
-				return;
+				break;
 			}
-			dbManager = new SQLiteManager(txtDbSetupDbLocation.getText());
-			break;
-		}
-		case 1:
-		{
-			if (txtDbSetupDbLocation.getText().equals(""))
-			{
-				MessageDialogBuilder.error()
-						.message("Database Location cannot be Empty")
-						.buttonType(MessageDialog.ButtonType.OK)
-						.show(MainFrame.stage.getScene().getWindow());
-				return;
-			}
-			if (txtDbSetupDbName.getText().equals(""))
-			{
-				MessageDialogBuilder.error()
-						.message("Database Name cannot be Empty")
-						.buttonType(MessageDialog.ButtonType.OK)
-						.show(MainFrame.stage.getScene().getWindow());
-				return;
-			}
-			if (txtDbSetupDbUsername.getText().equals(""))
-			{
-				MessageDialogBuilder.error()
-						.message("Database Username cannot be Empty")
-						.buttonType(MessageDialog.ButtonType.OK)
-						.show(MainFrame.stage.getScene().getWindow());
-				return;
-			}
-			if (pwdDbSetupDbPassword.getText().equals(""))
-			{
-				MessageDialogBuilder.error()
-						.message("Database Password cannot be Empty")
-						.buttonType(MessageDialog.ButtonType.OK)
-						.show(MainFrame.stage.getScene().getWindow());
-				return;
-			}
-			dbManager = new MysqlManager(txtDbSetupDbLocation.getText(),
-					txtDbSetupDbUsername.getText(),
-					pwdDbSetupDbPassword.getText(), txtDbSetupDbName.getText());
-			break;
-		}
-		case 2:
-		{
-			if (txtDbSetupDbLocation.getText().equals(""))
-			{
-				MessageDialogBuilder.error()
-						.message("Database Location cannot be Empty")
-						.buttonType(MessageDialog.ButtonType.OK)
-						.show(MainFrame.stage.getScene().getWindow());
-				return;
-			}
-			if (txtDbSetupDbName.getText().equals(""))
-			{
-				MessageDialogBuilder.error()
-						.message("Database Name cannot be Empty")
-						.buttonType(MessageDialog.ButtonType.OK)
-						.show(MainFrame.stage.getScene().getWindow());
-				return;
-			}
-			if (txtDbSetupDbUsername.getText().equals(""))
-			{
-				MessageDialogBuilder.error()
-						.message("Database Username cannot be Empty")
-						.buttonType(MessageDialog.ButtonType.OK)
-						.show(MainFrame.stage.getScene().getWindow());
-				return;
-			}
-			if (pwdDbSetupDbPassword.getText().equals(""))
-			{
-				MessageDialogBuilder.error()
-						.message("Database Password cannot be Empty")
-						.buttonType(MessageDialog.ButtonType.OK)
-						.show(MainFrame.stage.getScene().getWindow());
-				return;
-			}
-			dbManager = new PostgreSQLManager(txtDbSetupDbLocation.getText(),
-					txtDbSetupDbUsername.getText(),
-					pwdDbSetupDbPassword.getText(), txtDbSetupDbName.getText());
-			break;
-		}
-		default:
-		{
-			MessageDialogBuilder.error()
-					.message("Unknown Database Type Selected")
-					.buttonType(MessageDialog.ButtonType.OK)
-					.yesOkButtonText("OK")
-					.show(MainFrame.stage.getScene().getWindow());
-			break;
-		}
 		}
 
 		if (txtDbSetupPrefix.getText().equals(""))
@@ -386,7 +391,8 @@ public class SetupController implements Initializable
 			MessageDialogBuilder.error().message("Cannot have Empty Fields")
 					.title("Error").buttonType(MessageDialog.ButtonType.OK)
 					.show(MainFrame.stage.getScene().getWindow());
-		} else
+		}
+		else
 		{
 			if (pwd.equals(pwdConfirm))
 			{
@@ -417,7 +423,8 @@ public class SetupController implements Initializable
 					{
 						btnAccSetupNext.fire();
 					}
-				} else
+				}
+				else
 				{
 					MessageDialogBuilder
 							.error()
@@ -428,7 +435,8 @@ public class SetupController implements Initializable
 							.buttonType(MessageDialog.ButtonType.OK)
 							.show(MainFrame.stage.getScene().getWindow());
 				}
-			} else
+			}
+			else
 			{
 				MessageDialogBuilder.error().message("Passwords Do Not Match")
 						.title("Error").buttonType(MessageDialog.ButtonType.OK)
@@ -477,7 +485,8 @@ public class SetupController implements Initializable
 			{
 				btnCourierSetupNext.fire();
 			}
-		} else
+		}
+		else
 		{
 			MessageDialogBuilder.error()
 					.message("Courier Name cannot be Empty")
@@ -511,7 +520,8 @@ public class SetupController implements Initializable
 			MessageDialogBuilder.error().message("Stop Name cannot be Empty")
 					.buttonType(MessageDialog.ButtonType.OK)
 					.show(MainFrame.stage.getScene().getWindow());
-		} else
+		}
+		else
 		{
 			dbManager.loadRoutes();
 
@@ -569,7 +579,8 @@ public class SetupController implements Initializable
 			{
 				dbManager.dispose();
 				Runtime.getRuntime().exec(cmd.toString());
-			} catch (IOException e)
+			}
+			catch (IOException e)
 			{
 				Logger.log(e);
 			}
