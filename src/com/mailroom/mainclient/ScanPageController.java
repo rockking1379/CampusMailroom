@@ -174,8 +174,15 @@ public class ScanPageController implements Initializable
 					txtFirstName.getText(), txtLastName.getText(),
 					txtBoxOffice.getText(), cboxStops.getValue(),
 					cboxCourier.getValue(), cUser, false, false, null, false);
-			dbManager.addPackage(p);
-			btnClear.fire();
+			
+			if(dbManager.addPackage(p))
+			{
+				btnClear.fire();
+			}
+			else
+			{
+				MessageDialogBuilder.error().message("Error Adding Package").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+			}
 		}
 	}
 
