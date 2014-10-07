@@ -352,6 +352,16 @@ public class DatabaseManager
 	}
 
 	/**
+	 * Checks if tracking number exists in database already
+	 * @param trackingNumber tracking number to check
+	 * @return package id if tracking number exists in database
+	 */
+	public int checkTrackingNumber(String trackingNumber)
+	{
+		return -1;
+	}
+
+	/**
 	 * Updates Package with package_id=packageId
 	 * @param packageId package_id of Package
 	 * @param atStop true/false either at stop or not

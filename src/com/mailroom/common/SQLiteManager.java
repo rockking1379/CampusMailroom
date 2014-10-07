@@ -994,6 +994,38 @@ public class SQLiteManager extends DatabaseManager
 	}
 
 	@Override
+	public int checkTrackingNumber(String trackingNumber)
+	{
+		int packageId = -1;
+
+		try
+		{
+			connect();
+
+			PreparedStatement stmnt = connection
+					.prepareStatement("select package_id from Package where tracking_number=?");
+			stmnt.setString(1, trackingNumber);
+
+			ResultSet rs = stmnt.executeQuery();
+
+			while (rs.next())
+			{
+				packageId = rs.getInt("package_id");
+			}
+		}
+		catch (SQLException e)
+		{
+			Logger.log(e);
+		}
+		finally
+		{
+			disconnect();
+		}
+
+		return packageId;
+	}
+
+	@Override
 	public boolean updatePackage(int packageId, boolean atStop, boolean pickedUp)
 	{
 		try

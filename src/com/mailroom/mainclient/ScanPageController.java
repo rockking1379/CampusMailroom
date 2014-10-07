@@ -172,21 +172,83 @@ public class ScanPageController implements Initializable
 		}
 		if (verified)
 		{
-			Package p = new Package(-1, txtTrackingNumber.getText(),
-					lblDate.getText(), txtEmailAddress.getText(),
-					txtFirstName.getText(), txtLastName.getText(),
-					txtBoxOffice.getText(), cboxStops.getValue(),
-					cboxCourier.getValue(), cUser, false, false, null, false);
-
-			if (dbManager.addPackage(p))
+			int pid = dbManager
+					.checkTrackingNumber(txtTrackingNumber.getText());
+			if (pid == -1)
 			{
-				btnClear.fire();
+				Package p = new Package(-1, txtTrackingNumber.getText(),
+						lblDate.getText(), txtEmailAddress.getText(),
+						txtFirstName.getText(), txtLastName.getText(),
+						txtBoxOffice.getText(), cboxStops.getValue(),
+						cboxCourier.getValue(), cUser, false, false, null,
+						false);
+
+				if (dbManager.addPackage(p))
+				{
+					btnClear.fire();
+				}
+				else
+				{
+					MessageDialogBuilder.error()
+							.message("Error Adding Package").title("Error")
+							.buttonType(MessageDialog.ButtonType.OK)
+							.show(MainFrame.stage.getScene().getWindow());
+				}
 			}
 			else
 			{
-				MessageDialogBuilder.error().message("Error Adding Package")
-						.title("Error").buttonType(MessageDialog.ButtonType.OK)
+				MessageDialog.Answer ans = MessageDialogBuilder
+						.error()
+						.title("Tracking Number Found")
+						.message(
+								"Tracking Number already exists\nOverwrite or Create New Record?")
+						.buttonType(MessageDialog.ButtonType.YES_NO)
+						.yesOkButtonText("New Record")
+						.noButtonText("Overwrite")
 						.show(MainFrame.stage.getScene().getWindow());
+
+				if (ans == MessageDialog.Answer.YES_OK)
+				{
+					Package p = new Package(-1, txtTrackingNumber.getText(),
+							lblDate.getText(), txtEmailAddress.getText(),
+							txtFirstName.getText(), txtLastName.getText(),
+							txtBoxOffice.getText(), cboxStops.getValue(),
+							cboxCourier.getValue(), cUser, false, false, null,
+							false);
+
+					if (dbManager.addPackage(p))
+					{
+						btnClear.fire();
+					}
+					else
+					{
+						MessageDialogBuilder.error()
+								.message("Error Adding Package").title("Error")
+								.buttonType(MessageDialog.ButtonType.OK)
+								.show(MainFrame.stage.getScene().getWindow());
+					}
+				}
+				else if (ans == MessageDialog.Answer.NO)
+				{
+					Package p = new Package(pid, txtTrackingNumber.getText(),
+							lblDate.getText(), txtEmailAddress.getText(),
+							txtFirstName.getText(), txtLastName.getText(),
+							txtBoxOffice.getText(), cboxStops.getValue(),
+							cboxCourier.getValue(), cUser, false, false, null,
+							false);
+
+					if (dbManager.updatePackage(p))
+					{
+						btnClear.fire();
+					}
+					else
+					{
+						MessageDialogBuilder.error()
+								.message("Error Adding Package").title("Error")
+								.buttonType(MessageDialog.ButtonType.OK)
+								.show(MainFrame.stage.getScene().getWindow());
+					}
+				}
 			}
 		}
 	}
