@@ -374,7 +374,7 @@ public class PostgreSQLManager extends DatabaseManager
 			stmnt.setQueryTimeout(5);
 
 			ResultSet rs = stmnt
-					.executeQuery("select * from Stop where is_used=true");
+					.executeQuery("select * from Stop where is_used=true order by stop_name asc");
 
 			while (rs.next())
 			{
@@ -689,7 +689,7 @@ public class PostgreSQLManager extends DatabaseManager
 			stmnt.setQueryTimeout(5);
 
 			ResultSet rs = stmnt
-					.executeQuery("select * from Route where is_used=true;");
+					.executeQuery("select * from Route where is_used=true order by route_name asc;");
 
 			while (rs.next())
 			{
@@ -833,7 +833,7 @@ public class PostgreSQLManager extends DatabaseManager
 			stmnt.setQueryTimeout(5);
 
 			ResultSet rs = stmnt
-					.executeQuery("select * from Courier where is_used=true");
+					.executeQuery("select * from Courier where is_used=true order by courier_name asc");
 
 			while (rs.next())
 			{

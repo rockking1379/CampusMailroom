@@ -63,7 +63,7 @@ public class ScanPageController implements Initializable
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
-		DateFormat format = new SimpleDateFormat("yyy-MM-dd");
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Date now = new Date();
 		lblDate.setText(format.format(now).toString());
 
@@ -106,8 +106,6 @@ public class ScanPageController implements Initializable
 		txtLastName.setText("");
 		txtBoxOffice.setText("");
 		txtEmailAddress.setText("");
-		cboxStops.setValue(cboxStops.getItems().get(0));
-		cboxCourier.setValue(cboxCourier.getItems().get(0));
 		stopSearch = "";
 		courierSearch = "";
 	}
@@ -271,10 +269,6 @@ public class ScanPageController implements Initializable
 		{
 			btnExit.fire();
 		}
-		if (ke.getCode() == KeyCode.C)
-		{
-			btnClear.fire();
-		}
 		if (ke.getCode() == KeyCode.ENTER)
 		{
 			if (txtBoxOffice.focusedProperty().get())
@@ -327,14 +321,22 @@ public class ScanPageController implements Initializable
 			}
 			else
 			{
-				if (txtFirstName.focusedProperty().get()
-						|| txtLastName.focusedProperty().get())
+				if(txtTrackingNumber.focusedProperty().get())
 				{
-					// do nothing
+					txtFirstName.requestFocus();
 				}
 				else
 				{
-					btnSave.fire();
+					if (txtFirstName.focusedProperty().get()
+							|| txtLastName.focusedProperty().get()
+							|| txtEmailAddress.focusedProperty().get())
+					{
+						// do nothing
+					}
+					else
+					{
+						btnSave.fire();
+					}
 				}
 			}
 		}

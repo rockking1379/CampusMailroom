@@ -21,7 +21,7 @@ public class Logger
 	 * Could make a single database file but this seems better to have one per
 	 * day
 	 */
-	private final static String create = "CREATE TABLE IF NOT EXISTS Error(error_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,error_message VARCHAR(100) NOT NULL,error_stacktrace TEXT NOT NULL)";
+	private final static String create = "CREATE TABLE IF NOT EXISTS Error(error_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,error_time DATE NOT NULL, error_message VARCHAR(100) NOT NULL,error_stacktrace TEXT NOT NULL)";
 
 	/**
 	 * Logs data from Exception
@@ -83,13 +83,14 @@ public class Logger
 			Connection con = DriverManager.getConnection("jdbc:sqlite:"
 					+ fileName);
 			java.sql.PreparedStatement stmnt = con
-					.prepareStatement("insert into Error(error_message, error_stacktrace) values(?,?)");
+					.prepareStatement("insert into Error(error_time, error_message, error_stacktrace) values(?,?,?)");
 
-			stmnt.setString(1, ex.getMessage());
+			stmnt.setString(1, sDate);
+			stmnt.setString(2, ex.getMessage());
 			Writer stackTrace = new StringWriter();
 			PrintWriter pWriter = new PrintWriter(stackTrace);
 			ex.printStackTrace(pWriter);
-			stmnt.setString(2, stackTrace.toString());
+			stmnt.setString(3, stackTrace.toString());
 
 			if (!stmnt.execute())
 			{

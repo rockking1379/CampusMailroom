@@ -380,7 +380,7 @@ public class MysqlManager extends DatabaseManager
 			stmnt.setQueryTimeout(5);
 
 			ResultSet rs = stmnt
-					.executeQuery("select * from Stop where is_used=1");
+					.executeQuery("select * from Stop where is_used=1 order by stop_name asc");
 
 			while (rs.next())
 			{
@@ -687,7 +687,7 @@ public class MysqlManager extends DatabaseManager
 			stmnt.setQueryTimeout(5);
 
 			ResultSet rs = stmnt
-					.executeQuery("select * from Route where is_used=1;");
+					.executeQuery("select * from Route where is_used=1 order by route_name asc;");
 
 			while (rs.next())
 			{
@@ -827,7 +827,7 @@ public class MysqlManager extends DatabaseManager
 			stmnt.setQueryTimeout(5);
 
 			ResultSet rs = stmnt
-					.executeQuery("select * from Courier where is_used=1");
+					.executeQuery("select * from Courier where is_used=1 order by courier_name asc");
 
 			while (rs.next())
 			{
