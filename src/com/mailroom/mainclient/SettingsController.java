@@ -981,15 +981,8 @@ public class SettingsController implements Initializable
 				.show(MainFrame.stage.getScene().getWindow());
 
 		if (del == MessageDialog.Answer.YES_OK)
-		{
-			for (Route r : dbManager.getRoutes())
-			{
-				if (r.getRouteName().equals(cboxRouteDelete.getValue()))
-				{
-					dbManager.deleteRoute(r);
-					break;
-				}
-			}
+		{			
+			dbManager.deleteRoute(cboxRouteDelete.getValue());
 		}
 
 		loadRouteComboBoxes();
@@ -1120,14 +1113,7 @@ public class SettingsController implements Initializable
 
 		if (del == MessageDialog.Answer.YES_OK)
 		{
-			for (Courier c : dbManager.getCouriers())
-			{
-				if (c.getCourierName().equals(cboxCourierDelete.getValue()))
-				{
-					dbManager.deleteCourier(c);
-					break;
-				}
-			}
+			dbManager.deleteCourier(cboxCourierDelete.getValue());
 		}
 
 		loadCourierComboBoxes();
