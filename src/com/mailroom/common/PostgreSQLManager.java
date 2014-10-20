@@ -551,6 +551,7 @@ public class PostgreSQLManager extends DatabaseManager
 	}
 
 	@Override
+	@Deprecated
 	public boolean setStopDefault(Stop s)
 	{
 		try
@@ -584,6 +585,39 @@ public class PostgreSQLManager extends DatabaseManager
 		{
 			Logger.log(e);
 			return false;
+		}
+	}
+
+	@Override
+	public boolean setRoutePosition(Stop s, int pos)
+	{
+		try
+		{
+			connect();
+
+			PreparedStatement stmnt = connection
+					.prepareStatement("update Stop set route_order=? where stop_id=?");
+
+			stmnt.setInt(1, pos);
+			stmnt.setInt(2, s.getStopId());
+
+			if (stmnt.executeUpdate() > 0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		catch (SQLException e)
+		{
+			Logger.log(e);
+			return false;
+		}
+		finally
+		{
+			disconnect();
 		}
 	}
 

@@ -321,7 +321,7 @@ public class ScanPageController implements Initializable
 			}
 			else
 			{
-				if(txtTrackingNumber.focusedProperty().get())
+				if (txtTrackingNumber.focusedProperty().get())
 				{
 					txtFirstName.requestFocus();
 				}

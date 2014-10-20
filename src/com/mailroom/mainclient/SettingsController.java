@@ -177,6 +177,18 @@ public class SettingsController implements Initializable
 	private TextField txtRouteName;
 	@FXML
 	private Button btnRouteCreate;
+	@FXML
+	private ComboBox<Route> cboxDesignRoute;
+	@FXML
+	private ListView<Stop> lviewDesignStops;
+	@FXML
+	private Button btnDesignUp;
+	@FXML
+	private Button btnDesignFirst;
+	@FXML
+	private Button btnDesignLast;
+	@FXML
+	private Button btnDesignDown;
 
 	// Courier Management//
 	@FXML
@@ -918,7 +930,7 @@ public class SettingsController implements Initializable
 		else
 		{
 			dbManager.addStop(new Stop(-1, txtStopName.getText(), cboxStopRoute
-					.getValue().getRouteName(), 1, cboxStopCreateStudent
+					.getValue().getRouteName(), 0, cboxStopCreateStudent
 					.isSelected()));
 			btnStopClear.fire();
 			loadStopComboBoxes();
@@ -981,7 +993,7 @@ public class SettingsController implements Initializable
 				.show(MainFrame.stage.getScene().getWindow());
 
 		if (del == MessageDialog.Answer.YES_OK)
-		{			
+		{
 			dbManager.deleteRoute(cboxRouteDelete.getValue());
 		}
 
@@ -1033,6 +1045,126 @@ public class SettingsController implements Initializable
 		loadRouteListViews();
 	}
 
+	public void cboxDesignRouteAction(ActionEvent ae)
+	{
+		lviewDesignStops.getItems().clear();
+		for (Stop s : dbManager.getStopsOnRoute(cboxDesignRoute.getValue()))
+		{
+			lviewDesignStops.getItems().add(s);
+		}
+	}
+
+	public void btnDesignFirstAction(ActionEvent ae)
+	{
+		if (lviewDesignStops.selectionModelProperty().get().getSelectedItem() != null)
+		{
+			Stop selected = lviewDesignStops.selectionModelProperty().get()
+					.getSelectedItem();
+			int order = 0;
+
+			dbManager.setRoutePosition(selected, order);
+			order++;
+
+			for (Stop s : lviewDesignStops.getItems())
+			{
+				if (s != selected)
+				{
+					dbManager.setRoutePosition(s, order);
+					order++;
+				}
+			}
+
+			lviewDesignStops.getItems().clear();
+			for (Stop s : dbManager.getStopsOnRoute(cboxDesignRoute.getValue()))
+			{
+				lviewDesignStops.getItems().add(s);
+			}
+		}
+		else
+		{
+			// show message???
+		}
+	}
+
+	public void btnDesignUpAction(ActionEvent ae)
+	{
+		if (lviewDesignStops.selectionModelProperty().get().getSelectedItem() != null)
+		{
+			Stop selected = lviewDesignStops.selectionModelProperty().get()
+					.getSelectedItem();
+
+			for (Stop s : lviewDesignStops.getItems())
+			{
+				if (s.getRouteOrder() == selected.getRouteOrder() - 1)
+				{
+					dbManager.setRoutePosition(s, selected.getRouteOrder());
+					dbManager.setRoutePosition(selected, s.getRouteOrder());
+				}
+			}
+
+			lviewDesignStops.getItems().clear();
+			for (Stop s : dbManager.getStopsOnRoute(cboxDesignRoute.getValue()))
+			{
+				lviewDesignStops.getItems().add(s);
+			}
+		}
+	}
+
+	public void btnDesignLastAction(ActionEvent ae)
+	{
+		if (lviewDesignStops.selectionModelProperty().get().getSelectedItem() != null)
+		{
+			Stop selected = lviewDesignStops.selectionModelProperty().get()
+					.getSelectedItem();
+			int order = 0;
+
+			for (Stop s : lviewDesignStops.getItems())
+			{
+				if (s != selected)
+				{
+					dbManager.setRoutePosition(s, order);
+					order++;
+				}
+			}
+
+			dbManager.setRoutePosition(selected, order);
+
+			lviewDesignStops.getItems().clear();
+			for (Stop s : dbManager.getStopsOnRoute(cboxDesignRoute.getValue()))
+			{
+				lviewDesignStops.getItems().add(s);
+			}
+		}
+		else
+		{
+			// show message???
+		}
+	}
+
+	public void btnDesignDownAction(ActionEvent ae)
+	{
+		if (lviewDesignStops.selectionModelProperty().get().getSelectedItem() != null)
+		{
+			Stop selected = lviewDesignStops.selectionModelProperty().get()
+					.getSelectedItem();
+
+			for (Stop s : lviewDesignStops.getItems())
+			{
+				if (s.getRouteOrder() == selected.getRouteOrder() + 1)
+				{
+					dbManager.setRoutePosition(s, selected.getRouteOrder());
+					dbManager.setRoutePosition(selected, s.getRouteOrder());
+				}
+			}
+
+			lviewDesignStops.getItems().clear();
+			for (Stop s : dbManager.getStopsOnRoute(cboxDesignRoute.getValue()))
+			{
+				lviewDesignStops.getItems().add(s);
+			}
+		}
+	}
+
 	private void loadRouteListViews()
 	{
 		dbManager.loadStops();
@@ -1075,6 +1207,7 @@ public class SettingsController implements Initializable
 		cboxRouteSelect.getItems().clear();
 		cboxRouteDelete.getItems().clear();
 		cboxStopRoute.getItems().clear();
+		cboxDesignRoute.getItems().clear();
 
 		for (Route r : dbManager.getRoutes())
 		{
@@ -1083,6 +1216,7 @@ public class SettingsController implements Initializable
 			{
 				cboxRouteSelect.getItems().add(r);
 				cboxRouteDelete.getItems().add(r);
+				cboxDesignRoute.getItems().add(r);
 			}
 		}
 
@@ -1099,6 +1233,11 @@ public class SettingsController implements Initializable
 		if (cboxStopRoute.getItems().size() > 0)
 		{
 			cboxStopRoute.setValue(cboxStopRoute.itemsProperty().get().get(0));
+		}
+		if (cboxDesignRoute.getItems().size() > 0)
+		{
+			cboxDesignRoute.setValue(cboxDesignRoute.itemsProperty().get()
+					.get(0));
 		}
 	}
 

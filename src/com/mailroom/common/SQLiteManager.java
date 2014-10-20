@@ -532,6 +532,7 @@ public class SQLiteManager extends DatabaseManager
 	}
 
 	@Override
+	@Deprecated
 	public boolean setStopDefault(Stop s)
 	{
 		try
@@ -565,6 +566,43 @@ public class SQLiteManager extends DatabaseManager
 		{
 			Logger.log(e);
 			return false;
+		}
+		finally
+		{
+			disconnect();
+		}
+	}
+
+	@Override
+	public boolean setRoutePosition(Stop s, int pos)
+	{
+		try
+		{
+			connect();
+
+			PreparedStatement stmnt = connection
+					.prepareStatement("update Stop set route_order=? where stop_id=?");
+
+			stmnt.setInt(1, pos);
+			stmnt.setInt(2, s.getStopId());
+
+			if (stmnt.executeUpdate() > 0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		catch (SQLException e)
+		{
+			Logger.log(e);
+			return false;
+		}
+		finally
+		{
+			disconnect();
 		}
 	}
 
@@ -611,7 +649,7 @@ public class SQLiteManager extends DatabaseManager
 		{
 			connect();
 			PreparedStatement stmnt = connection
-					.prepareStatement("select * from Stop where route_id=? and is_used=1");
+					.prepareStatement("select * from Stop where route_id=? and is_used=1 order by route_order asc");
 			stmnt.setQueryTimeout(5);
 
 			stmnt.setInt(1, r.getRouteId());

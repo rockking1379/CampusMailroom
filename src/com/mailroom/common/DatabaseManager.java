@@ -183,7 +183,19 @@ public class DatabaseManager
 	 * @param s Stop to be Default
 	 * @return SQL execution status
 	 */
+	@Deprecated
 	public boolean setStopDefault(Stop s)
+	{
+		return false;
+	}
+
+	/**
+	 * Sets Stop Position on Route
+	 * @param s Stop to be positioned
+	 * @param pos position on route
+	 * @return SQL execution status
+	 */
+	public boolean setRoutePosition(Stop s, int pos)
 	{
 		return false;
 	}

@@ -58,8 +58,7 @@ public class Stop
 	}
 
 	/**
-	 * Gets Order of Stop on Route <br>
-	 * Unused for now
+	 * Gets Order of Stop on Route
 	 * @return Order of Stop on Route
 	 */
 	public int getRouteOrder()
