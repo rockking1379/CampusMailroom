@@ -114,6 +114,8 @@ public class OtherMainFrame extends Application
 		{
 			Logger.log(e);
 		}
+		
+		editWindow = new PackageEditWindow();
 
 		OtherMainFrame.stage = stage;
 		OtherMainFrame.stage.getIcons().add(
@@ -126,10 +128,10 @@ public class OtherMainFrame extends Application
 		Scene scene = new Scene(root, 800, 600);
 		OtherMainFrame.stage.setScene(scene);
 		OtherMainFrame.stage.setTitle("Main Page");
-		OtherMainFrame.stage.show();
-
-		editWindow = new PackageEditWindow();
+		
 		editWindow.show(null);
 		editWindow.hide();
+		
+		OtherMainFrame.stage.show();
 	}
 }

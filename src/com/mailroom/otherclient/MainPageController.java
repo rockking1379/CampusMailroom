@@ -2,6 +2,7 @@ package com.mailroom.otherclient;
 
 import com.mailroom.common.*;
 import com.mailroom.common.Package;
+import com.mailroom.mainclient.PackageEditWindow;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import com.panemu.tiwulfx.table.TextColumn;
@@ -21,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Controls MainPageFx.fxml in com.mailroom.fxml.otherclient
@@ -30,6 +32,7 @@ public class MainPageController implements Initializable
 {
 	private DatabaseManager dbManager;
 	private AutoUpdater au = null;
+	private PackageEditWindow editWindow = null;
 
 	@FXML
 	private TextField txtQuickSearch;
@@ -43,8 +46,6 @@ public class MainPageController implements Initializable
 	private TableView<Package> tblViewTable;
 	@FXML
 	private ComboBox<Stop> cboxStopSelect;
-	@FXML
-	private CheckBox cboxDefault;
 
 	// Columns
 	private TickColumn<Package> clmnDelivered;
@@ -146,10 +147,10 @@ public class MainPageController implements Initializable
 		{
 			au = null;
 		}
+		
+		editWindow = OtherMainFrame.editWindow;
 
 		txtQuickSearch.requestFocus();
-
-		cboxDefault.setVisible(false);
 	}
 
 	public void btnRefreshAction(ActionEvent ae)
@@ -275,14 +276,6 @@ public class MainPageController implements Initializable
 		}
 	}
 
-	public void cboxDefault(ActionEvent ae)
-	{
-		if (cboxStopSelect.getValue() != cboxStopSelect.getItems().get(0))
-		{
-			dbManager.setStopDefault(cboxStopSelect.getValue());
-		}
-	}
-
 	public void keyPressAction(KeyEvent ke)
 	{
 		if (ke.getCode() == KeyCode.ESCAPE)
@@ -292,6 +285,15 @@ public class MainPageController implements Initializable
 		if (ke.getCode() == KeyCode.R)
 		{
 			btnRefresh.fire();
+		}
+	}
+
+	public void tblMouseClickAction(MouseEvent me)
+	{
+		if (me.getClickCount() >= 2)
+		{
+			editWindow.show(tblViewTable.getItems().get(
+					tblViewTable.getSelectionModel().getSelectedIndex()));
 		}
 	}
 

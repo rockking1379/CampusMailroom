@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressAction" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #01A217" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.otherclient.MainPageController">
   <children>
-    <TableView fx:id="tblViewTable" layoutX="14.0" layoutY="64.0" onKeyPressed="#keyPressAction" prefHeight="450.0" prefWidth="772.0" />
+    <TableView fx:id="tblViewTable" layoutX="14.0" layoutY="64.0" onKeyPressed="#keyPressAction" onMouseClicked="#tblMouseClickAction" prefHeight="450.0" prefWidth="772.0" />
     <TextField fx:id="txtQuickSearch" layoutX="14.0" layoutY="524.0" prefHeight="25.0" prefWidth="300.0" promptText="Quick Search" />
     <Button fx:id="btnExit" layoutX="720.0" layoutY="524.0" mnemonicParsing="false" onAction="#btnExitAction" prefHeight="25.0" prefWidth="66.0" text="Exit" />
     <Button fx:id="btnAdvSearch" layoutX="578.0" layoutY="524.0" mnemonicParsing="false" onAction="#btnAdvSearchAction" prefHeight="25.0" prefWidth="132.0" text="Advanced Search" />
@@ -23,6 +23,5 @@
         </FXCollections>
       </items>
     </ComboBox>
-    <CheckBox fx:id="cboxDefault" layoutX="485.0" layoutY="26.0" mnemonicParsing="false" text="Default" />
   </children>
 </AnchorPane>

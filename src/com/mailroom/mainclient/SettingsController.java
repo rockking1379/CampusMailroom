@@ -946,7 +946,8 @@ public class SettingsController implements Initializable
 
 	public void btnStopUpdateSaveAction(ActionEvent ae)
 	{
-		cboxStopUpdate.getValue().setStudent(cboxStopUpdateStudent.isSelected());
+		cboxStopUpdate.getValue()
+				.setStudent(cboxStopUpdateStudent.isSelected());
 		dbManager.updateStop(cboxStopUpdate.getValue());
 		loadRouteComboBoxes();
 	}
