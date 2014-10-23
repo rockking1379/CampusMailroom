@@ -147,7 +147,7 @@ public class MainPageController implements Initializable
 		{
 			au = null;
 		}
-		
+
 		editWindow = OtherMainFrame.editWindow;
 
 		txtQuickSearch.requestFocus();
