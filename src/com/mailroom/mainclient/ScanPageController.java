@@ -108,6 +108,7 @@ public class ScanPageController implements Initializable
 		txtEmailAddress.setText("");
 		stopSearch = "";
 		courierSearch = "";
+		txtTrackingNumber.requestFocus();
 	}
 
 	public void btnSaveAction(ActionEvent ae)
