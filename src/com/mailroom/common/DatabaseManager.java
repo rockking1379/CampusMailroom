@@ -4,11 +4,11 @@ import java.sql.ResultSet;
 import java.util.List;
 
 /**
- * Base Class of Database Managers All Classes Extending this one should
- * Override ALL methods This class should never be directly instantiated
+ * Database Interface. All methods need overwridden and logic implemented
+ * All methods are called at some point in the program
  * @author James sitzja@grizzlies.adams.edu
  */
-public class DatabaseManager
+public interface DatabaseManager
 {
 
 	/**
@@ -48,10 +48,7 @@ public class DatabaseManager
 	 * @return returns a valid user on success or user with user_id=-1 on
 	 *         failure
 	 */
-	public User login(String userName, int password)
-	{
-		return null;
-	}
+	public User login(String userName, int password);
 
 	/**
 	 * Adds User to System
@@ -59,10 +56,7 @@ public class DatabaseManager
 	 * @param password integer hash of username and password added together
 	 * @return status of SQL Execution
 	 */
-	public boolean addUser(User u, int password)
-	{
-		return false;
-	}
+	public boolean addUser(User u, int password);
 
 	/**
 	 * Changes Password of User
@@ -71,20 +65,14 @@ public class DatabaseManager
 	 * @param newPassword new password hash
 	 * @return status of SQL Execution
 	 */
-	public boolean changePassword(User u, int oldPassword, int newPassword)
-	{
-		return false;
-	}
+	public boolean changePassword(User u, int oldPassword, int newPassword);
 
 	/**
 	 * Deletes User from System
 	 * @param u User to Delete
 	 * @return status of SQL Execution
 	 */
-	public boolean deleteUser(User u)
-	{
-		return false;
-	}
+	public boolean deleteUser(User u);
 
 	/**
 	 * Sets Administrator status of User
@@ -92,10 +80,7 @@ public class DatabaseManager
 	 * @param status true/false
 	 * @return status of SQL Execution
 	 */
-	public boolean setUserAdmin(User u, boolean status)
-	{
-		return false;
-	}
+	public boolean setUserAdmin(User u, boolean status);
 
 	/**
 	 * Reactivates a Deleted User
@@ -104,47 +89,32 @@ public class DatabaseManager
 	 *        together
 	 * @return status of SQL Exectuion
 	 */
-	public boolean reactivateUser(User u, int password)
-	{
-		return false;
-	}
+	public boolean reactivateUser(User u, int password);
 
 	/**
 	 * Gets List of Deactivated Users
 	 * @return List of Deactivate Users
 	 */
-	public List<User> getDeactivatedUsers()
-	{
-		return null;
-	}
+	public List<User> getDeactivatedUsers();
 
 	/**
 	 * Gets List of Active Users
 	 * @return List of Active Users
 	 */
-	public List<User> getActiveUsers()
-	{
-		return null;
-	}
+	public List<User> getActiveUsers();
 
 	// Stop Actions//
 	/**
 	 * Loads Stops from Database
 	 */
-	public void loadStops()
-	{
-		return;
-	}
+	public void loadStops();
 
 	/**
 	 * Updates Stop
 	 * @param s Stop to be Updated
 	 * @return Status of SQL Execution
 	 */
-	public boolean updateStop(Stop s)
-	{
-		return false;
-	}
+	public boolean updateStop(Stop s);
 
 	/**
 	 * Adds Stop to Route
@@ -152,20 +122,14 @@ public class DatabaseManager
 	 * @param r Route Stop is being Added To
 	 * @return status of SQL Execution
 	 */
-	public boolean addStopToRoute(Stop s, Route r)
-	{
-		return false;
-	}
+	public boolean addStopToRoute(Stop s, Route r);
 
 	/**
 	 * Adds new Stop
 	 * @param s Stop to be Added
 	 * @return status of SQL Execution
 	 */
-	public boolean addStop(Stop s)
-	{
-		return false;
-	}
+	public boolean addStop(Stop s);
 
 	/**
 	 * "Deletes" Stop Really just flags it as not used by setting 'is_used' to
@@ -173,10 +137,7 @@ public class DatabaseManager
 	 * @param s Stop to be Deleted
 	 * @return Status of SQL Execution
 	 */
-	public boolean deleteStop(Stop s)
-	{
-		return false;
-	}
+	public boolean deleteStop(Stop s);
 
 	/**
 	 * Sets Stop to be Default selection for OtherClient
@@ -184,10 +145,7 @@ public class DatabaseManager
 	 * @return SQL execution status
 	 */
 	@Deprecated
-	public boolean setStopDefault(Stop s)
-	{
-		return false;
-	}
+	public boolean setStopDefault(Stop s);
 
 	/**
 	 * Sets Stop Position on Route
@@ -195,39 +153,27 @@ public class DatabaseManager
 	 * @param pos position on route
 	 * @return SQL execution status
 	 */
-	public boolean setRoutePosition(Stop s, int pos)
-	{
-		return false;
-	}
+	public boolean setRoutePosition(Stop s, int pos);
 
 	/**
 	 * Gets Loaded Stops
 	 * @return Loaded Stops
 	 */
-	public List<Stop> getStops()
-	{
-		return null;
-	}
+	public List<Stop> getStops();
 
 	/**
 	 * Gets Stops that are on the Unassigned Route Unassigned Route cannot be
 	 * deleted in software and is a default Route inserted at Table Creation
 	 * @return Stops on Unassigned Route
 	 */
-	public List<Stop> getUnassignedStops()
-	{
-		return null;
-	}
+	public List<Stop> getUnassignedStops();
 
 	/**
 	 * Gets Stops on Route
 	 * @param r Route Stops should be On
 	 * @return List of Stops on specified Route
 	 */
-	public List<Stop> getStopsOnRoute(Route r)
-	{
-		return null;
-	}
+	public List<Stop> getStopsOnRoute(Route r);
 
 	/**
 	 * Processes Stop Results Used to centralize repetitive code
@@ -235,143 +181,98 @@ public class DatabaseManager
 	 * @param routeName Name of Route these Stops should be using
 	 * @return List of Stops
 	 */
-	List<Stop> processStopResult(ResultSet rs, String routeName)
-	{
-		return null;
-	}
+	List<Stop> processStopResult(ResultSet rs, String routeName);
 
 	// Route Actions//
 	/**
 	 * Loads Routes from Database
 	 */
-	public void loadRoutes()
-	{
-		return;
-	}
+	public void loadRoutes();
 
 	/**
 	 * Gets Loaded Routes
 	 * @return List of Routes Loaded
 	 */
-	public List<Route> getRoutes()
-	{
-		return null;
-	}
+	public List<Route> getRoutes();
 
 	/**
 	 * Updates A Route
 	 * @param r Route to be updated
 	 * @return status of SQL Execution
 	 */
-	public boolean updateRoute(Route r)
-	{
-		return false;
-	}
+	public boolean updateRoute(Route r);
 
 	/**
 	 * Adds New Route to Database
 	 * @param routeName Name of Route
 	 * @return status of SQL Execution
 	 */
-	public boolean addRoute(String routeName)
-	{
-		return false;
-	}
+	public boolean addRoute(String routeName);
 
 	/**
 	 * Deletes Route Flags Route as not used
 	 * @param r Route to be Deleted
 	 * @return Status of SQL Execution
 	 */
-	public boolean deleteRoute(Route r)
-	{
-		return false;
-	}
+	public boolean deleteRoute(Route r);
 
 	// Courier Actions//
 	/**
 	 * Loads Couriers from Database
 	 */
-	public void loadCouriers()
-	{
-		return;
-	}
+	public void loadCouriers();
 
 	/**
 	 * Gets List of Loaded Couriers
 	 * @return Returns List of Loaded Couriers
 	 */
-	public List<Courier> getCouriers()
-	{
-		return null;
-	}
+	public List<Courier> getCouriers();
 
 	/**
 	 * Adds new Courier
 	 * @param courierName Name of Courier
 	 * @return Status of Courier Execution
 	 */
-	public boolean addCourier(String courierName)
-	{
-		return false;
-	}
+	public boolean addCourier(String courierName);
 
 	/**
 	 * Updates Courier
 	 * @param c Courier to be Updated
 	 * @return Status of SQL Execution
 	 */
-	public boolean updateCourier(Courier c)
-	{
-		return false;
-	}
+	public boolean updateCourier(Courier c);
 
 	/**
 	 * Deletes Courier
 	 * @param c Courier to be Deleted
 	 * @return Status of SQL Execution
 	 */
-	public boolean deleteCourier(Courier c)
-	{
-		return false;
-	}
+	public boolean deleteCourier(Courier c);
 
 	// Package Actions//
 	/**
 	 * Gets List of Loaded Packages
 	 * @return List of Loaded Packages
 	 */
-	public List<Package> getPackages()
-	{
-		return null;
-	}
+	public List<Package> getPackages();
 
 	/**
 	 * Loads All Packages Packages should not be delivered nor picked up
 	 */
-	public void loadAllPackages()
-	{
-		return;
-	}
+	public void loadAllPackages();
 
 	/**
 	 * Loads Packages on Stop where stop_id=stopId
 	 * @param stopId stop_id of Stop
 	 */
-	public void loadPackages(int stopId)
-	{
-		return;
-	}
+	public void loadPackages(int stopId);
 
 	/**
 	 * Checks if tracking number exists in database already
 	 * @param trackingNumber tracking number to check
 	 * @return package id if tracking number exists in database
 	 */
-	public int checkTrackingNumber(String trackingNumber)
-	{
-		return -1;
-	}
+	public int checkTrackingNumber(String trackingNumber);
 
 	/**
 	 * Updates Package with package_id=packageId
@@ -380,60 +281,42 @@ public class DatabaseManager
 	 * @param pickedUp true/false either picked up by recipient or not
 	 * @return Status of SQL Execution
 	 */
-	public boolean updatePackage(int packageId, boolean atStop, boolean pickedUp)
-	{
-		return false;
-	}
+	public boolean updatePackage(int packageId, boolean atStop, boolean pickedUp);
 
 	/**
 	 * Updates Package with data in p
 	 * @param p Package Data to Update with
 	 * @return Status of SQL Execution
 	 */
-	public boolean updatePackage(Package p)
-	{
-		return false;
-	}
+	public boolean updatePackage(Package p);
 
 	/**
 	 * Adds new Package to Database
 	 * @param p Package to be Added
 	 * @return Status of SQL Execution
 	 */
-	public boolean addPackage(Package p)
-	{
-		return false;
-	}
+	public boolean addPackage(Package p);
 
 	/**
 	 * Gets Packages on Stop
 	 * @param s Stop packages should be on
 	 * @return List of Packages on Stop
 	 */
-	public List<Package> getPackagesForStop(Stop s)
-	{
-		return null;
-	}
+	public List<Package> getPackagesForStop(Stop s);
 
 	/**
 	 * Used for printing packages at a Stop
 	 * @param s Stop to get packages
 	 * @return list of packages
 	 */
-	public List<Package> printPackagesForStop(Stop s)
-	{
-		return null;
-	}
+	public List<Package> printPackagesForStop(Stop s);
 
 	/**
 	 * Processes Package Results
 	 * @param rs Result Set to be Processed
 	 * @return List of Processed Packages
 	 */
-	List<Package> processPackageResult(ResultSet rs)
-	{
-		return null;
-	}
+	List<Package> processPackageResult(ResultSet rs);
 
 	// Search Actions//
 	/**
@@ -444,10 +327,7 @@ public class DatabaseManager
 	 * @return List of People Found
 	 */
 	public List<Person> findPerson(String firstName, String lastName,
-			String boxOffice)
-	{
-		return null;
-	}
+			String boxOffice);
 
 	/**
 	 * Searchs Packages
@@ -455,10 +335,7 @@ public class DatabaseManager
 	 * @param sType Where Query is in Field(s)
 	 * @return List of Packages Found
 	 */
-	public List<Package> searchPackages(String search, SearchType sType)
-	{
-		return null;
-	}
+	public List<Package> searchPackages(String search, SearchType sType);
 
 	/**
 	 * Searches Packages
@@ -469,36 +346,24 @@ public class DatabaseManager
 	 * @return List of Packages Found
 	 */
 	public List<Package> searchPackages(String search, String startDate,
-			String endDate, SearchType sType)
-	{
-		return null;
-	}
+			String endDate, SearchType sType);
 
 	// Normal Actions//
 	/**
 	 * Opens Connection to Database
 	 */
-	public void connect()
-	{
-		return;
-	}
+	public void connect();
 
 	/**
 	 * Closes Connection to Database
 	 */
-	public void disconnect()
-	{
-		return;
-	}
+	public void disconnect();
 
 	/**
 	 * Disposes of Database Manager Should always be called before closing
 	 * program to release resources
 	 */
-	public void dispose()
-	{
-		return;
-	}
+	public void dispose();
 
 	/**
 	 * Creates Database Tables Database should be created already but be empty
@@ -506,17 +371,11 @@ public class DatabaseManager
 	 * @param insertDev Insert the Developer Access ability
 	 * @return Status of SQL Execution
 	 */
-	public boolean create(boolean insertDev)
-	{
-		return false;
-	}
+	public boolean create(boolean insertDev);
 
 	/**
 	 * Verifies status of database
 	 * @return Verification Status
 	 */
-	public boolean verify()
-	{
-		return false;
-	}
+	public boolean verify();
 }

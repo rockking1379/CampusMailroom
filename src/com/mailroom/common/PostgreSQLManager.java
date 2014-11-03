@@ -12,7 +12,7 @@ import java.util.List;
  * Extends DatabaseManager
  * @author James sitzja@grizzlies.adams.edu
  */
-public class PostgreSQLManager extends DatabaseManager
+public class PostgreSQLManager implements DatabaseManager
 {
 	private static final String packageDrop = "DROP TABLE IF EXISTS Package";
 	private static final String userDrop = "DROP TABLE IF EXISTS Users";
@@ -687,7 +687,7 @@ public class PostgreSQLManager extends DatabaseManager
 	}
 
 	@Override
-	List<Stop> processStopResult(ResultSet rs, String routestop_name)
+	public List<Stop> processStopResult(ResultSet rs, String routestop_name)
 	{
 		List<Stop> results = new ArrayList<Stop>();
 
@@ -1292,7 +1292,7 @@ public class PostgreSQLManager extends DatabaseManager
 	}
 
 	@Override
-	List<Package> processPackageResult(ResultSet rs)
+	public List<Package> processPackageResult(ResultSet rs)
 	{
 		List<Package> result = new ArrayList<Package>();
 		try
