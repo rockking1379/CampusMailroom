@@ -1,11 +1,5 @@
 package com.mailroom.mainclient;
 
-/**
- * Controls OpenPageFx.fxml in com.mailroom.fxml.mainclient
- * 
- * @author James
- */
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -167,6 +161,10 @@ public class OpenPageController implements Initializable
 		editWindow = MainFrame.editWindow;
 	}
 
+	/**
+	 * Opens Package Scanning screen
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnScanPackageAction(ActionEvent ae)
 	{
 		try
@@ -187,6 +185,10 @@ public class OpenPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Opens Print Screen
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnPrintAction(ActionEvent ae)
 	{
 		try
@@ -206,6 +208,10 @@ public class OpenPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Opens Advanced Search Screen
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnSearchAction(ActionEvent ae)
 	{
 		try
@@ -221,6 +227,11 @@ public class OpenPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Refreshes table on screen
+	 * Applies any updates from the table to database
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnRefreshAction(ActionEvent ae)
 	{
 		// refresh current scene
@@ -251,6 +262,10 @@ public class OpenPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Opens Settings Screen
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnSettingsAction(ActionEvent ae)
 	{
 		try
@@ -271,6 +286,10 @@ public class OpenPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Returns Program to the Login Screen
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnLogoutAction(ActionEvent ae)
 	{
 		MessageDialog.Answer a = MessageDialogBuilder.confirmation()
@@ -299,6 +318,10 @@ public class OpenPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Quits Application
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnQuitAction(ActionEvent ae)
 	{
 		MessageDialog.Answer a = MessageDialogBuilder.confirmation()
@@ -322,6 +345,10 @@ public class OpenPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Process Keyboard Input
+	 * @param ke KeyEvent from OS
+	 */
 	public void keyPressedAction(KeyEvent ke)
 	{
 		if (ke.getCode() == KeyCode.Q)
@@ -341,6 +368,10 @@ public class OpenPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Processes mouse clicks for table on screen
+	 * @param me MouseEvent from OS
+	 */
 	public void tblMouseClickAction(MouseEvent me)
 	{
 		if (me.getClickCount() >= 2)
@@ -350,11 +381,23 @@ public class OpenPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Background task for automatically applying updates from
+	 * on screen table to the database
+	 * also reloads table after applying updates
+	 * enabled/disabled in settings
+	 * @author James
+	 *
+	 */
 	private class AutoUpdater implements Runnable
 	{
 		Button btn = null;
 		private boolean running;
 
+		/**
+		 * Constructor
+		 * @param btn Button to be fired everytime update is performed
+		 */
 		public AutoUpdater(Button btn)
 		{
 			this.btn = btn;
@@ -362,6 +405,9 @@ public class OpenPageController implements Initializable
 			running = true;
 		}
 
+		/**
+		 * Main run loop for thread
+		 */
 		public void run()
 		{
 			while (running)
@@ -383,6 +429,7 @@ public class OpenPageController implements Initializable
 			}
 		}
 
+		//stops thread from continuing the run loop
 		public void stop()
 		{
 			running = false;

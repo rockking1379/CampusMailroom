@@ -44,6 +44,10 @@ public class LoginController implements Initializable
 		imgLogo.setImage(MainFrame.imageLogo);
 	}
 
+	/**
+	 * Performs Login Action
+	 * @param ae ActionEvetn from OS
+	 */
 	public void btnLoginAction(ActionEvent ae)
 	{
 		String pwd = pwdPassword.getText();
@@ -72,6 +76,10 @@ public class LoginController implements Initializable
 		}
 	}
 
+	/**
+	 * Quits Application
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnQuitAction(ActionEvent ae)
 	{
 		MainFrame.saveProperties();
@@ -81,6 +89,10 @@ public class LoginController implements Initializable
 		System.exit(0);
 	}
 
+	/**
+	 * Processes keyboard input while on login screen
+	 * @param ke KeyEvent from OS
+	 */
 	public void keyPressedAction(KeyEvent ke)
 	{
 		if (ke.getCode() == KeyCode.ENTER)

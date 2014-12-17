@@ -551,44 +551,6 @@ public class PostgreSQLManager implements DatabaseManager
 	}
 
 	@Override
-	@Deprecated
-	public boolean setStopDefault(Stop s)
-	{
-		try
-		{
-			connect();
-			PreparedStatement stmnt = connection
-					.prepareStatement("update Stop set default=false");
-			stmnt.setQueryTimeout(5);
-
-			if (stmnt.executeUpdate() > 0)
-			{
-				stmnt = connection
-						.prepareStatement("update Stop set default=true where stop_id=?");
-				stmnt.setInt(1, s.getStopId());
-
-				if (stmnt.executeUpdate() > 0)
-				{
-					return true;
-				}
-				else
-				{
-					return false;
-				}
-			}
-			else
-			{
-				return false;
-			}
-		}
-		catch (SQLException e)
-		{
-			Logger.log(e);
-			return false;
-		}
-	}
-
-	@Override
 	public boolean setRoutePosition(Stop s, int pos)
 	{
 		try

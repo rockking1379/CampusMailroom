@@ -170,6 +170,12 @@ public class PackageEditController implements Initializable
 		PackageEditWindow.getWindow().hide();
 	}
 
+	/**
+	 * Process keyboard input
+	 * required to exit this screen
+	 * should probably add second way of exiting
+	 * @param ke KeyEvent from OS
+	 */
 	public void keyPressedAction(KeyEvent ke)
 	{
 		if (ke.getCode() == KeyCode.ESCAPE)

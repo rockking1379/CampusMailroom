@@ -83,6 +83,11 @@ public class ScanPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Exits Package Scanning Screen
+	 * Goes back to OpenPage
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnExitAction(ActionEvent ae)
 	{
 		try
@@ -99,6 +104,10 @@ public class ScanPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Clears all text fields in scan page
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnClearAction(ActionEvent ae)
 	{
 		txtTrackingNumber.setText("");
@@ -111,6 +120,11 @@ public class ScanPageController implements Initializable
 		txtTrackingNumber.requestFocus();
 	}
 
+	/**
+	 * Saves all entered data to a new package
+	 * then saves to database
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnSaveAction(ActionEvent ae)
 	{
 		boolean verified = true;
@@ -159,11 +173,6 @@ public class ScanPageController implements Initializable
 		{
 			txtBoxOffice.setText("---");
 		}
-		// else
-		// {
-		// MessageDialogBuilder.error().message("No Box/Suite Number Set").title("Error").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
-		// verified = false;
-		// }
 
 		if (txtEmailAddress.getText().equals(""))
 		{
@@ -252,6 +261,10 @@ public class ScanPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Generates Random Tracking Number
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnRandomGenerateAction(ActionEvent ae)
 	{
 		String tnum = MainFrame.properties.getProperty("TNUMPREFIX");
@@ -264,6 +277,10 @@ public class ScanPageController implements Initializable
 		txtTrackingNumber.setText(tnum);
 	}
 
+	/**
+	 * Processes keyboard input
+	 * @param ke KeyEvent from OS
+	 */
 	public void keyPressAction(KeyEvent ke)
 	{
 		if (ke.getCode() == KeyCode.ESCAPE)
@@ -278,47 +295,6 @@ public class ScanPageController implements Initializable
 				MessageDialogBuilder.info().message("Auto Fill Disabled")
 						.title("Error").buttonType(MessageDialog.ButtonType.OK)
 						.show(MainFrame.stage.getScene().getWindow());
-				// ArrayList<Person> people = (ArrayList<Person>) dbManager
-				// .findPerson(txtFirstName.getText(),
-				// txtLastName.getText(), txtBoxOffice.getText());
-				//
-				// switch (people.size())
-				// {
-				// case 0:
-				// {
-				// MessageDialogBuilder.info().message("No Results Found")
-				// .title("Info")
-				// .buttonType(MessageDialog.ButtonType.OK)
-				// .show(MainFrame.stage.getScene().getWindow());
-				// txtEmailAddress.setText("Unknown@");
-				// break;
-				// }
-				// case 1:
-				// {
-				// Person p = people.get(0);
-				//
-				// txtEmailAddress.setText(p.getEmailAddress());
-				// txtFirstName.setText(p.getFirstName());
-				// txtLastName.setText(p.getLastName());
-				// for (Stop s : cboxStops.getItems())
-				// {
-				// if (s.getStopName().equals(p.getStopName()))
-				// {
-				// cboxStops.setValue(s);
-				// break;
-				// }
-				// }
-				// break;
-				// }
-				// default:
-				// {
-				// MessageDialogBuilder.info()
-				// .message("Multiple Results Found").title("Info")
-				// .buttonType(MessageDialog.ButtonType.OK)
-				// .show(MainFrame.stage.getScene().getWindow());
-				// break;
-				// }
-				// }
 			}
 			else
 			{
@@ -343,6 +319,10 @@ public class ScanPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Processes keyboard typing on combobox
+	 * @param ke KeyEvent from OS
+	 */
 	public void cboxStopsKeyPressAction(KeyEvent ke)
 	{
 		if (ke.getCode() == KeyCode.BACK_SPACE)
@@ -382,6 +362,10 @@ public class ScanPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Processes keyboard typing on combobox
+	 * @param ke KeyEvent from OS
+	 */
 	public void cboxCourierKeyPressAction(KeyEvent ke)
 	{
 		if (ke.getCode() == KeyCode.BACK_SPACE)
@@ -421,6 +405,10 @@ public class ScanPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Generates Random Character
+	 * @return random character
+	 */
 	private char generate()
 	{
 		int val;

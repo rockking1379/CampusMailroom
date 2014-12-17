@@ -167,6 +167,10 @@ public class AdvSearchController implements Initializable
 		}
 	}
 
+	/**
+	 * Performs Search based on params given
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnSearchAction(ActionEvent ae)
 	{
 		ArrayList<Package> results = new ArrayList<Package>();
@@ -332,6 +336,10 @@ public class AdvSearchController implements Initializable
 		}
 	}
 
+	/**
+	 * Exits to Main Screen for that client
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnExitAction(ActionEvent ae)
 	{
 		if (MainFrame.dbManager != null)
@@ -364,6 +372,10 @@ public class AdvSearchController implements Initializable
 		}
 	}
 
+	/**
+	 * Processes keyboard input
+	 * @param ke KeyEvent from OS
+	 */
 	public void keyPressAction(KeyEvent ke)
 	{
 		if (ke.getCode() == KeyCode.ESCAPE)
@@ -372,6 +384,10 @@ public class AdvSearchController implements Initializable
 		}
 	}
 
+	/**
+	 * Processes Checkbox input
+	 * @param ae ActionEvent from OS
+	 */
 	public void cboxDateSearchAction(ActionEvent ae)
 	{
 		if (cboxDateSearch.isSelected())
@@ -389,6 +405,10 @@ public class AdvSearchController implements Initializable
 		}
 	}
 
+	/**
+	 * Hanldes MouseClicks for table on screen
+	 * @param me MouseEvent from OS
+	 */
 	public void tblMouseClickAction(MouseEvent me)
 	{
 		if (me.getClickCount() >= 2)

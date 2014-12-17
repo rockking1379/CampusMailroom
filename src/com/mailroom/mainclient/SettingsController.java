@@ -400,6 +400,10 @@ public class SettingsController implements Initializable
 		loadCourierComboBoxes();
 	}
 
+	/**
+	 * Process keyboard input
+	 * @param ke KeyEvent from OS
+	 */
 	public void keyPressedAction(KeyEvent ke)
 	{
 		if (ke.getCode() == KeyCode.ESCAPE)
@@ -409,6 +413,11 @@ public class SettingsController implements Initializable
 	}
 
 	// General Settings//
+	/**
+	 * Processes Checkbox ticking for enabling/disable Auto Update
+	 * on Main Screen
+	 * @param ae ActionEvent from OS
+	 */
 	public void cboxAutoUpdateAction(ActionEvent ae)
 	{
 		if (cboxAutoUpdate.getValue())
@@ -424,6 +433,10 @@ public class SettingsController implements Initializable
 				.getValue().toString());
 	}
 
+	/**
+	 * Processes Change in Database Type
+	 * @param ae ActionEvent from OS
+	 */
 	public void cboxDatabaseTypeAction(ActionEvent ae)
 	{
 		switch (Integer.valueOf(cboxDatabaseType.getValue().charAt(0)))
@@ -480,6 +493,11 @@ public class SettingsController implements Initializable
 		}
 	}
 
+	/**
+	 * Browses for Database File
+	 * Used only for SQLite configuration
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnBrowseAction(ActionEvent ae)
 	{
 		FileChooser fChooser = new FileChooser();
@@ -499,6 +517,10 @@ public class SettingsController implements Initializable
 		}
 	}
 
+	/**
+	 * Saves Settings to settings file
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnSaveAction(ActionEvent ae)
 	{
 		switch (Integer.valueOf(cboxDatabaseType.getValue().charAt(0)))
@@ -616,6 +638,10 @@ public class SettingsController implements Initializable
 		}
 	}
 
+	/**
+	 * Cancels settings changes
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnCancelAction(ActionEvent ae)
 	{
 		try
@@ -632,6 +658,10 @@ public class SettingsController implements Initializable
 	}
 
 	// Account Management//
+	/**
+	 * Changes account Password
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnChangePwdAction(ActionEvent ae)
 	{
 		int oldPassword = 0;
@@ -717,6 +747,10 @@ public class SettingsController implements Initializable
 		}
 	}
 
+	/**
+	 * Creates new Account
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnCreateAccountAction(ActionEvent ae)
 	{
 		int password;
@@ -777,6 +811,10 @@ public class SettingsController implements Initializable
 		}
 	}
 
+	/**
+	 * Cancels Creating a new Account
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnCreateCancelAction(ActionEvent ae)
 	{
 		txtCreateFirstName.textProperty().set("");
@@ -787,6 +825,10 @@ public class SettingsController implements Initializable
 		cboxCreateAdmin.selectedProperty().set(false);
 	}
 
+	/**
+	 * Changes Admin Rights for Account
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnAdminChangeSaveAction(ActionEvent ae)
 	{
 		dbManager.setUserAdmin(cboxAdminChange.getValue(),
@@ -794,6 +836,10 @@ public class SettingsController implements Initializable
 		loadAdminComboBoxes();
 	}
 
+	/**
+	 * Re-enables login for Account
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnAdminReactivateAction(ActionEvent ae)
 	{
 		int password = 0;
@@ -840,6 +886,10 @@ public class SettingsController implements Initializable
 		}
 	}
 
+	/**
+	 * Disables login for Account
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnAdminDeactivateAction(ActionEvent ae)
 	{
 		if (!MainFrame.cUser.getUserName().equals(
@@ -868,6 +918,9 @@ public class SettingsController implements Initializable
 		}
 	}
 
+	/**
+	 * Populates Admin Comboboxes with data from Database
+	 */
 	private void loadAdminComboBoxes()
 	{
 		cboxAdminChange.itemsProperty().get().clear();
@@ -902,6 +955,10 @@ public class SettingsController implements Initializable
 	}
 
 	// Stop Management//
+	/**
+	 * Deletes Stop
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnStopDeleteAction(ActionEvent ae)
 	{
 		MessageDialog.Answer del = MessageDialogBuilder.confirmation()
@@ -919,6 +976,10 @@ public class SettingsController implements Initializable
 		loadRouteComboBoxes();
 	}
 
+	/**
+	 * Creates new Stop
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnStopCreateAction(ActionEvent ae)
 	{
 		if (txtStopName.getText().equals(""))
@@ -938,12 +999,20 @@ public class SettingsController implements Initializable
 		}
 	}
 
+	/**
+	 * Clears Data entries from Create A Stop
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnStopClearAction(ActionEvent ae)
 	{
 		cboxStopCreateStudent.setSelected(false);
 		txtStopName.setText("");
 	}
 
+	/**
+	 * Updates selected Stop
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnStopUpdateSaveAction(ActionEvent ae)
 	{
 		cboxStopUpdate.getValue()
@@ -952,6 +1021,9 @@ public class SettingsController implements Initializable
 		loadRouteComboBoxes();
 	}
 
+	/**
+	 * Populates Stop comboboxes with data from Database
+	 */
 	private void loadStopComboBoxes()
 	{
 		cboxStopDelete.getItems().clear();
@@ -981,11 +1053,20 @@ public class SettingsController implements Initializable
 	}
 
 	// Route Management//
+	/**
+	 * Processes Route selection changing
+	 * @param ae ActionEvent from OS
+	 */
 	public void cboxRouteSelectAction(ActionEvent ae)
 	{
 		loadRouteListViews();
 	}
 
+	/**
+	 * Deletes Route
+	 * Moves all Stops on Route to unassigned
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnRouteDeleteAction(ActionEvent ae)
 	{
 		MessageDialog.Answer del = MessageDialogBuilder.confirmation()
@@ -1002,6 +1083,10 @@ public class SettingsController implements Initializable
 		loadRouteComboBoxes();
 	}
 
+	/**
+	 * Creates new Route
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnRouteCreateAction(ActionEvent ae)
 	{
 		if (txtRouteName.getText().equals(""))
@@ -1021,6 +1106,10 @@ public class SettingsController implements Initializable
 		}
 	}
 
+	/**
+	 * Adds Stop to selected Route
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnRouteAddAction(ActionEvent ae)
 	{
 		List<Stop> selected = lviewRouteUnassigned.selectionModelProperty()
@@ -1034,6 +1123,10 @@ public class SettingsController implements Initializable
 		loadRouteListViews();
 	}
 
+	/**
+	 * Removes stop from selected Route
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnRouteRemoveAction(ActionEvent ae)
 	{
 		List<Stop> selected = lviewRouteOnRoute.selectionModelProperty().get()
@@ -1047,6 +1140,10 @@ public class SettingsController implements Initializable
 		loadRouteListViews();
 	}
 
+	/**
+	 * Process Route Selection Changing
+	 * @param ae ActionEvent from OS
+	 */
 	public void cboxDesignRouteAction(ActionEvent ae)
 	{
 		lviewDesignStops.getItems().clear();
@@ -1056,6 +1153,10 @@ public class SettingsController implements Initializable
 		}
 	}
 
+	/**
+	 * Puts Stop at beginning of selected Route
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnDesignFirstAction(ActionEvent ae)
 	{
 		if (lviewDesignStops.selectionModelProperty().get().getSelectedItem() != null)
@@ -1088,6 +1189,10 @@ public class SettingsController implements Initializable
 		}
 	}
 
+	/**
+	 * Moves Stop up one position on Selected Route
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnDesignUpAction(ActionEvent ae)
 	{
 		if (lviewDesignStops.selectionModelProperty().get().getSelectedItem() != null)
@@ -1112,6 +1217,10 @@ public class SettingsController implements Initializable
 		}
 	}
 
+	/**
+	 * Puts stop at End of selected Route
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnDesignLastAction(ActionEvent ae)
 	{
 		if (lviewDesignStops.selectionModelProperty().get().getSelectedItem() != null)
@@ -1143,6 +1252,10 @@ public class SettingsController implements Initializable
 		}
 	}
 
+	/**
+	 * Moves Stop down one position on Selected Route
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnDesignDownAction(ActionEvent ae)
 	{
 		if (lviewDesignStops.selectionModelProperty().get().getSelectedItem() != null)
@@ -1167,6 +1280,9 @@ public class SettingsController implements Initializable
 		}
 	}
 
+	/**
+	 * Populates Route listviews with data from Database
+	 */
 	private void loadRouteListViews()
 	{
 		dbManager.loadStops();
@@ -1202,6 +1318,9 @@ public class SettingsController implements Initializable
 		}
 	}
 
+	/**
+	 * Populates Route comboboxes with data from Database
+	 */
 	private void loadRouteComboBoxes()
 	{
 		dbManager.loadRoutes();
@@ -1244,6 +1363,10 @@ public class SettingsController implements Initializable
 	}
 
 	// Courier Management//
+	/**
+	 * Deletes Courier from Database
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnCourierDeleteAction(ActionEvent ae)
 	{
 		MessageDialog.Answer del = MessageDialogBuilder.confirmation()
@@ -1260,6 +1383,10 @@ public class SettingsController implements Initializable
 		loadCourierComboBoxes();
 	}
 
+	/**
+	 * Creates new Courier in DAtabse
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnCourierCreateAction(ActionEvent ae)
 	{
 		if (txtCourierName.getText().equals(""))
@@ -1276,22 +1403,10 @@ public class SettingsController implements Initializable
 			txtCourierName.setText("");
 		}
 	}
-
-	// Software Update//
-	public void btnUpdateAction(ActionEvent ae)
-	{
-		try
-		{
-			File f = new File("./Updater.jar");
-			Runtime.getRuntime().exec("java -jar " + f.getAbsolutePath());
-			System.exit(0);
-		}
-		catch (IOException e)
-		{
-			Logger.log(e);
-		}
-	}
-
+	
+	/**
+	 * Populates Courier Comboboxes with data from Database
+	 */
 	private void loadCourierComboBoxes()
 	{
 		dbManager.loadCouriers();
@@ -1306,6 +1421,26 @@ public class SettingsController implements Initializable
 		{
 			cboxCourierDelete.setValue(cboxCourierDelete.itemsProperty().get()
 					.get(0));
+		}
+	}
+
+	// Software Update//
+	/**
+	 * Opens Software Updater
+	 * Not used currently
+	 * @param ae ActionEvent from OS
+	 */
+	public void btnUpdateAction(ActionEvent ae)
+	{
+		try
+		{
+			File f = new File("./Updater.jar");
+			Runtime.getRuntime().exec("java -jar " + f.getAbsolutePath());
+			System.exit(0);
+		}
+		catch (IOException e)
+		{
+			Logger.log(e);
 		}
 	}
 }

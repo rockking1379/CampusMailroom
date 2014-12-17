@@ -48,7 +48,8 @@ public class SQLiteManager implements DatabaseManager
 
 	public SQLiteManager(String dbLocation)
 	{
-		dbLocation.replace('\\', '/');
+		dbLocation = dbLocation.replace('\\', '/');
+
 		this.dbLocation = dbLocation;
 		try
 		{
@@ -514,48 +515,6 @@ public class SQLiteManager implements DatabaseManager
 			if (stmnt.executeUpdate() > 0)
 			{
 				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-		catch (SQLException e)
-		{
-			Logger.log(e);
-			return false;
-		}
-		finally
-		{
-			disconnect();
-		}
-	}
-
-	@Override
-	@Deprecated
-	public boolean setStopDefault(Stop s)
-	{
-		try
-		{
-			connect();
-			PreparedStatement stmnt = connection
-					.prepareStatement("update Stop set default=0");
-			stmnt.setQueryTimeout(5);
-
-			if (stmnt.executeUpdate() > 0)
-			{
-				stmnt = connection
-						.prepareStatement("update Stop set default=1 where stop_id=?");
-				stmnt.setInt(1, s.getStopId());
-
-				if (stmnt.executeUpdate() > 0)
-				{
-					return true;
-				}
-				else
-				{
-					return false;
-				}
 			}
 			else
 			{

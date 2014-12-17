@@ -140,14 +140,6 @@ public interface DatabaseManager
 	public boolean deleteStop(Stop s);
 
 	/**
-	 * Sets Stop to be Default selection for OtherClient
-	 * @param s Stop to be Default
-	 * @return SQL execution status
-	 */
-	@Deprecated
-	public boolean setStopDefault(Stop s);
-
-	/**
 	 * Sets Stop Position on Route
 	 * @param s Stop to be positioned
 	 * @param pos position on route

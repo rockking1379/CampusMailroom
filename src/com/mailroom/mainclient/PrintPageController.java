@@ -84,6 +84,10 @@ public class PrintPageController implements Initializable
 		flowScrollRoutes.getChildren().get(0).requestFocus();
 	}
 
+	/**
+	 * Processes keyboard input
+	 * @param ke KeyEvent from OS
+	 */
 	public void keyPressedAction(KeyEvent ke)
 	{
 		if (ke.getCode() == KeyCode.ESCAPE)
@@ -140,6 +144,10 @@ public class PrintPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Creates Report for Printing
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnCreateReportAction(ActionEvent ae)
 	{
 		txtAreaReport.setText("");
@@ -250,6 +258,11 @@ public class PrintPageController implements Initializable
 		btnPrintReport.setDisable(false);
 	}
 
+	/**
+	 * Queues job for printing
+	 * and then prints report
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnPrintReportAction(ActionEvent ae)
 	{
 		File dir = new File("./Prints");

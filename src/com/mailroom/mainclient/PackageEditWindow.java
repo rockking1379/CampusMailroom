@@ -91,11 +91,19 @@ public class PackageEditWindow extends Window
 		stg.hide();
 	}
 
+	/**
+	 * Gets package that needs edited
+	 * @return Package that needs edited
+	 */
 	public static Package getPackage()
 	{
 		return curPackage;
 	}
 
+	/**
+	 * Returns current window
+	 * @return current window
+	 */
 	public static Window getWindow()
 	{
 		return win;

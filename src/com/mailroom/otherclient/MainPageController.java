@@ -153,6 +153,11 @@ public class MainPageController implements Initializable
 		txtQuickSearch.requestFocus();
 	}
 
+	/**
+	 * Refreshes table on screen
+	 * Applies changes to database
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnRefreshAction(ActionEvent ae)
 	{
 		ObservableList<Package> delivered = (ObservableList<Package>) clmnDelivered
@@ -200,6 +205,10 @@ public class MainPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Exits Application
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnExitAction(ActionEvent ae)
 	{
 		if (clmnDelivered.getTickedRecords().size() > 0)
@@ -235,6 +244,10 @@ public class MainPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Opens Advanced Search Screen
+	 * @param ae ActionEvent from OS
+	 */
 	public void btnAdvSearchAction(ActionEvent ae)
 	{
 		try
@@ -251,6 +264,10 @@ public class MainPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Processes stop selection changing
+	 * @param ae ActionEvent from OS
+	 */
 	public void cboxStopSelectAction(ActionEvent ae)
 	{
 		tblViewTable.getItems().clear();
@@ -276,6 +293,10 @@ public class MainPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Processes keyboard input
+	 * @param ke KeyEvent from OS
+	 */
 	public void keyPressAction(KeyEvent ke)
 	{
 		if (ke.getCode() == KeyCode.ESCAPE)
@@ -288,6 +309,10 @@ public class MainPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Processes mouse clicks for table on screen
+	 * @param me MouseEvent from OS
+	 */
 	public void tblMouseClickAction(MouseEvent me)
 	{
 		if (me.getClickCount() >= 2)
@@ -297,11 +322,21 @@ public class MainPageController implements Initializable
 		}
 	}
 
+	/**
+	 * Auto updates table on screen
+	 * frequency configurable in settings
+	 * @author James
+	 *
+	 */
 	private class AutoUpdater implements Runnable
 	{
 		Button btnRefresh = null;
 		private boolean running;
 
+		/**
+		 * Constructor
+		 * @param btn Button to be fired during thread
+		 */
 		public AutoUpdater(Button btn)
 		{
 			this.btnRefresh = btn;
@@ -309,6 +344,9 @@ public class MainPageController implements Initializable
 			running = true;
 		}
 
+		/**
+		 * main logic loop for thread
+		 */
 		public void run()
 		{
 			while (running)
@@ -331,6 +369,9 @@ public class MainPageController implements Initializable
 			}
 		}
 
+		/**
+		 * Stops thread from continuing run loop
+		 */
 		public void stop()
 		{
 			running = false;
