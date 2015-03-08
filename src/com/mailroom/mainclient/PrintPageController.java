@@ -166,11 +166,6 @@ public class PrintPageController implements Initializable
 
 				head += "Route: ";
 				head += c.getText() + " ";
-				head += "Date: ";
-
-				Date d = new Date();
-				SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-				head += format.format(d).toString();
 
 				for (Route r : dbManager.getRoutes())
 				{
@@ -199,6 +194,11 @@ public class PrintPageController implements Initializable
 
 								stopHead += "\nPackage Delivery for ";
 								stopHead += s.getStopName();
+								stopHead += "	Date: ";
+
+								Date d = new Date();
+								SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+								stopHead += format.format(d).toString();
 								strReport.add(stopHead);
 								stopHead = "";
 								stopHead += last;

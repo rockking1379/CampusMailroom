@@ -1110,7 +1110,7 @@ public class SQLiteManager implements DatabaseManager
 			connect();
 			PreparedStatement stmnt = connection
 					.prepareStatement("insert into Package(tracking_number, receive_date, email_address, first_name, last_name, box_number, at_stop, picked_up, stop_id, courier_id, user_id, returned)"
-							+ " values(?,?,?,?,?,?,0,0,?,?,?,0)");
+							+ " values(?,?,?,?,?,?,?,?,?,?,?,0)");
 			stmnt.setQueryTimeout(5);
 
 			stmnt.setString(1, p.getFullTrackingNumber());
@@ -1119,9 +1119,11 @@ public class SQLiteManager implements DatabaseManager
 			stmnt.setString(4, p.getFirstName());
 			stmnt.setString(5, p.getLastName());
 			stmnt.setString(6, p.getBoxOffice());
-			stmnt.setInt(7, p.getStop().getStopId());
-			stmnt.setInt(8, p.getCourier().getCourierId());
-			stmnt.setInt(9, p.getUser().getUserId());
+			stmnt.setBoolean(7, p.getStop().getAutoRemove());
+			stmnt.setBoolean(8, p.getStop().getAutoRemove());
+			stmnt.setInt(9, p.getStop().getStopId());
+			stmnt.setInt(10, p.getCourier().getCourierId());
+			stmnt.setInt(11, p.getUser().getUserId());
 
 			if (stmnt.executeUpdate() > 0)
 			{

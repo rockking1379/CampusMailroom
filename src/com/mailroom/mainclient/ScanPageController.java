@@ -142,8 +142,8 @@ public class ScanPageController implements Initializable
 		if (txtFirstName.getText().equals("")
 				&& txtLastName.getText().equals(""))
 		{
-			txtFirstName.setText("DEPARTMENT");
-			txtLastName.setText("DEPARTMENT");
+			txtFirstName.setText("DEPT");
+			txtLastName.setText("DEPT");
 		}
 		else
 		{

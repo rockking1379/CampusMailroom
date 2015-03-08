@@ -11,6 +11,7 @@ public class Stop
 	private String routeName;
 	private int routeOrder;
 	private boolean student;
+	private boolean autoRemove;
 
 	/**
 	 * Constructs new Stop
@@ -20,6 +21,7 @@ public class Stop
 	 * @param routeOrder Position on Route that Stop is on
 	 * @param student Wehter Stop is for Students or not
 	 */
+	@Deprecated
 	public Stop(int stopId, String stopName, String routeName, int routeOrder,
 			boolean student)
 	{
@@ -28,6 +30,27 @@ public class Stop
 		this.routeName = routeName;
 		this.routeOrder = routeOrder;
 		this.student = student;
+		this.autoRemove = false;
+	}
+	
+	/**
+	 * Constructs new Stop
+	 * @param stopId ID of Stop in Database
+	 * @param stopName Name of Stop
+	 * @param routeName Name of Route that Stop is on
+	 * @param routeOrder Position on Route that Stop is on
+	 * @param student Wehter Stop is for Students or not
+	 * @param autoRemove Wether or not to Auto Remove Stop Packages
+	 */
+	public Stop(int stopId, String stopName, String routeName, int routeOrder,
+			boolean student, boolean autoRemove)
+	{
+		this.stopId = stopId;
+		this.stopName = stopName;
+		this.routeName = routeName;
+		this.routeOrder = routeOrder;
+		this.student = student;
+		this.autoRemove = autoRemove;
 	}
 
 	/**
@@ -75,6 +98,15 @@ public class Stop
 	{
 		return student;
 	}
+	
+	/**
+	 * Gets Auto Remove status of Stop
+	 * @return Wether or not to Auto Remove Stop's Packages
+	 */
+	public boolean getAutoRemove()
+	{
+		return autoRemove;
+	}
 
 	/**
 	 * Sets Student Status of Stop <br>
@@ -84,6 +116,16 @@ public class Stop
 	public void setStudent(boolean student)
 	{
 		this.student = student;
+	}
+	
+	/**
+	 * Sets Auto Removal of Stop <br>
+	 * Used for lazy mailrooms :)
+	 * @param autoRemove Wether or not to Auto Remove packages for this Stop
+	 */
+	public void setAutoRemove(boolean autoRemove)
+	{
+		this.autoRemove = autoRemove;
 	}
 
 	@Override
