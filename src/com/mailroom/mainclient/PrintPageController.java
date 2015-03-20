@@ -11,14 +11,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
-
 import javax.swing.JTextArea;
-
 import com.mailroom.common.*;
 import com.mailroom.common.Package;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -314,7 +311,32 @@ public class PrintPageController implements Initializable
 
 				try
 				{
-					jtext.print();
+					if(jtext.print())
+					{
+						//auto remove packages...oh boy
+						for(CheckBox c : routeBoxes)
+						{
+							if(c.isSelected())
+							{
+								for(Route r : dbManager.getRoutes())
+								{
+									if(r.getRouteName().equals(c.getText()))
+									{
+										for(Stop s : dbManager.getStopsOnRoute(r))
+										{
+											if(s.getAutoRemove())
+											{
+												for(Package p : dbManager.getPackagesForStop(s))
+												{
+													dbManager.updatePackage(p.getPackageId(), true, true);
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
 				}
 				catch (PrinterException e)
 				{

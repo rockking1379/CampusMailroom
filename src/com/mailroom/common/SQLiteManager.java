@@ -21,7 +21,7 @@ public class SQLiteManager implements DatabaseManager
 	private static final String stopDrop = "DROP TABLE IF EXISTS Stop";
 	private static final String routeDrop = "DROP TABLE IF EXISTS Route";
 	private static final String routeString = "CREATE TABLE Route(route_id INTEGER PRIMARY KEY AUTOINCREMENT,route_name VARCHAR(50) NOT NULL,is_used BOOLEAN)";
-	private static final String stopString = "CREATE TABLE Stop(stop_id INTEGER PRIMARY KEY AUTOINCREMENT,stop_name VARCHAR(50) NOT NULL,route_id INTEGER,is_used BOOLEAN NOT NULL,route_order INTEGER,student BOOLEAN,FOREIGN KEY(route_id) REFERENCES Route(route_id))";
+	private static final String stopString = "CREATE TABLE Stop(stop_id INTEGER PRIMARY KEY AUTOINCREMENT,stop_name VARCHAR(50) NOT NULL,route_id INTEGER,is_used BOOLEAN NOT NULL,route_order INTEGER,student BOOLEAN,auto_remove BOOLEAN,contact_email VARCHAR(100),FOREIGN KEY(route_id) REFERENCES Route(route_id))";
 	private static final String courierString = "CREATE TABLE Courier(courier_id INTEGER PRIMARY KEY AUTOINCREMENT,courier_name VARCHAR(50) NOT NULL,is_used BOOLEAN NOT NULL)";
 	private static final String personString = "CREATE TABLE Person(person_id INTEGER PRIMARY KEY AUTOINCREMENT,id_number VARCHAR(50),email_address VARCHAR(50),first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,box_number VARCHAR(50),stop_id INTEGER,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id))";
 	private static final String userString = "CREATE TABLE Users(user_id INTEGER PRIMARY KEY AUTOINCREMENT,user_name VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,password INTEGER NOT NULL,administrator BOOLEAN NOT NULL,active BOOLEAN)";
@@ -372,7 +372,7 @@ public class SQLiteManager implements DatabaseManager
 						stops.add(new Stop(rs.getInt("stop_id"), rs
 								.getString("stop_name"), routes.get(i)
 								.getRouteName(), rs.getInt("route_order"), rs
-								.getBoolean("Student")));
+								.getBoolean("Student"), rs.getBoolean("auto_remove"), rs.getString("contact_email")));
 					}
 				}
 			}
@@ -630,7 +630,7 @@ public class SQLiteManager implements DatabaseManager
 
 	@Override
 	
-	public List<Stop> processStopResult(ResultSet rs, String routestop_name)
+	public List<Stop> processStopResult(ResultSet rs, String route_name)
 	{
 		List<Stop> results = new ArrayList<Stop>();
 
@@ -639,8 +639,9 @@ public class SQLiteManager implements DatabaseManager
 			while (rs.next())
 			{
 				results.add(new Stop(rs.getInt("stop_id"), rs
-						.getString("stop_name"), routestop_name, rs
-						.getInt("route_order"), rs.getBoolean("Student")));
+						.getString("stop_name"), route_name, rs
+						.getInt("route_order"), rs.getBoolean("Student"),
+						rs.getBoolean("auto_remove"), rs.getString("contact_email")));
 			}
 		}
 		catch (SQLException e)
@@ -1110,7 +1111,7 @@ public class SQLiteManager implements DatabaseManager
 			connect();
 			PreparedStatement stmnt = connection
 					.prepareStatement("insert into Package(tracking_number, receive_date, email_address, first_name, last_name, box_number, at_stop, picked_up, stop_id, courier_id, user_id, returned)"
-							+ " values(?,?,?,?,?,?,?,?,?,?,?,0)");
+							+ " values(?,?,?,?,?,?,0,0,?,?,?,0)");
 			stmnt.setQueryTimeout(5);
 
 			stmnt.setString(1, p.getFullTrackingNumber());
@@ -1119,11 +1120,9 @@ public class SQLiteManager implements DatabaseManager
 			stmnt.setString(4, p.getFirstName());
 			stmnt.setString(5, p.getLastName());
 			stmnt.setString(6, p.getBoxOffice());
-			stmnt.setBoolean(7, p.getStop().getAutoRemove());
-			stmnt.setBoolean(8, p.getStop().getAutoRemove());
-			stmnt.setInt(9, p.getStop().getStopId());
-			stmnt.setInt(10, p.getCourier().getCourierId());
-			stmnt.setInt(11, p.getUser().getUserId());
+			stmnt.setInt(7, p.getStop().getStopId());
+			stmnt.setInt(8, p.getCourier().getCourierId());
+			stmnt.setInt(9, p.getUser().getUserId());
 
 			if (stmnt.executeUpdate() > 0)
 			{
@@ -1254,7 +1253,8 @@ public class SQLiteManager implements DatabaseManager
 					{
 						stop = new Stop(s.getInt("stop_id"),
 								s.getString("stop_name"), "Unknown", 0,
-								s.getBoolean("student"));
+								s.getBoolean("student"), s.getBoolean("auto_remove"),
+								s.getString("contact_email"));
 					}
 				}
 

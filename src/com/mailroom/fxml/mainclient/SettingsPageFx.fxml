@@ -48,13 +48,13 @@
             </AnchorPane>
           </content>
         </Tab>
-        <Tab fx:id="tabAccountManagement" closable="false" disable="false" text="Account Management">
+        <Tab fx:id="tabAccountManagement" closable="false" disable="false" text="Account">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
               <children>
                 <TabPane layoutX="10.0" layoutY="0.0" prefHeight="550.0" prefWidth="775.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="100.0">
                   <tabs>
-                    <Tab fx:id="tabEditAccount" closable="false" text="Edit Account">
+                    <Tab fx:id="tabEditAccount" closable="false" text="Edit">
                       <content>
                         <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="527.0" prefWidth="800.0" style="-fx-background-color: #01A217">
                           <children>
@@ -68,7 +68,7 @@
                         </AnchorPane>
                       </content>
                     </Tab>
-                    <Tab fx:id="tabCreateAccount" closable="false" text="Create Account">
+                    <Tab fx:id="tabCreateAccount" closable="false" text="Create">
                       <content>
                         <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
                           <children>
@@ -134,7 +134,7 @@
             </AnchorPane>
           </content>
         </Tab>
-        <Tab fx:id="tabStopManagement" closable="false" text="Stop Management">
+        <Tab fx:id="tabStopManagement" closable="false" text="Stop">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
               <children>
@@ -179,7 +179,7 @@
             </AnchorPane>
           </content>
         </Tab>
-        <Tab fx:id="tabRouteManagement" closable="false" text="Route Management">
+        <Tab fx:id="tabRouteManagement" closable="false" text="Route">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
               <children>
@@ -255,7 +255,7 @@
             </AnchorPane>
           </content>
         </Tab>
-        <Tab fx:id="tabCourierManagement" closable="false" text="Courier Management">
+        <Tab fx:id="tabCourierManagement" closable="false" text="Courier">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
               <children>
@@ -273,30 +273,6 @@
                 <Button id="btnStopDelete" fx:id="btnCourierDelete" layoutX="182.0" layoutY="72.0" mnemonicParsing="false" onAction="#btnCourierDeleteAction" prefHeight="25.0" prefWidth="66.0" text="Delete" />
                 <TextField id="txtStopName" fx:id="txtCourierName" layoutX="14.0" layoutY="154.0" prefWidth="150.0" promptText="Courier Name" />
                 <Button id="btnStopCreate" fx:id="btnCourierCreate" layoutX="182.0" layoutY="153.0" mnemonicParsing="false" onAction="#btnCourierCreateAction" prefHeight="25.0" prefWidth="99.0" text="Create Courier" />
-              </children>
-            </AnchorPane>
-          </content>
-        </Tab>
-        <Tab id="" fx:id="tabReports" closable="false" text="Reports">
-          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217" />
-          </content>
-        </Tab>
-        <Tab fx:id="tabSoftwareUpdate" closable="false" text="Software Update">
-          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
-              <children>
-                <Label id="lblCurrentVersion" fx:id="lblUpdateCurrentVersion" layoutX="14.0" layoutY="14.0" prefHeight="75.0" prefWidth="500.0" text="Current Version:">
-                  <font>
-                    <Font size="24.0" fx:id="x2" />
-                  </font>
-                </Label>
-                <Label id="lblAvailableVersion" fx:id="lblUpdateAvailableVersion" font="$x2" layoutX="14.0" layoutY="89.0" prefHeight="75.0" prefWidth="500.0" text="Version Available:" />
-                <Button fx:id="btnUpdate" disable="false" layoutX="89.0" layoutY="164.0" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="75.0" prefWidth="150.0" text="Update" textFill="BLACK">
-                  <font>
-                    <Font size="20.0" />
-                  </font>
-                </Button>
               </children>
             </AnchorPane>
           </content>

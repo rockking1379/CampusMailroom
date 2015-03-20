@@ -1,20 +1,12 @@
 package com.mailroom.mainclient;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.lang.management.ManagementFactory;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
-
-import org.json.simple.*;
-import org.json.simple.parser.*;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +17,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
-
 import com.mailroom.common.*;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
@@ -45,10 +36,6 @@ public class SettingsController implements Initializable
 	private Tab tabRouteManagement;
 	@FXML
 	private Tab tabCourierManagement;
-	@FXML
-	private Tab tabReports;
-	@FXML
-	private Tab tabSoftwareUpdate;
 	@FXML
 	private Tab tabAbout;
 	@FXML
@@ -307,87 +294,6 @@ public class SettingsController implements Initializable
 
 		lblAboutVersion.setText("Version: " + prefs.getProperty("VERSION")
 				+ " Build " + prefs.getProperty("BUILD"));
-
-		if (!prefs.getProperty("VERSION").endsWith("InDev")
-				&& MainFrame.cUser.getAdmin())
-		{
-			try
-			{
-				URL url = new URL(
-						"http://minecraft.math.adams.edu/ptracker/version.php");
-				HttpURLConnection con = (HttpURLConnection) url
-						.openConnection();
-				con.setRequestMethod("GET");
-				con.setRequestProperty("Accept", "txt/plain");
-				con.connect();
-
-				int statusCode = con.getResponseCode();
-
-				if (statusCode == HttpURLConnection.HTTP_OK)
-				{
-					InputStreamReader isr = new InputStreamReader(
-							con.getInputStream());
-					BufferedReader br = new BufferedReader(isr);
-					String json = br.readLine();
-
-					JSONParser parser = new JSONParser();
-
-					Object obj = parser.parse(json);
-					JSONObject version = (JSONObject) obj;
-
-					String availVersion = version.get("major") + "."
-							+ version.get("minor") + "."
-							+ version.get("revision");
-					String curVersion = prefs.getProperty("VERSION");
-					String availBuild = version.get("build").toString();
-					String curBuild = prefs.getProperty("BUILD");
-
-					if (!availVersion.equals(prefs.getProperty("VERSION"))
-							|| !curBuild.equals(availBuild))
-					{
-						lblUpdateCurrentVersion.setText("Current Version:  "
-								+ curVersion + " Build " + curBuild);
-						lblUpdateAvailableVersion.setText("Available Version: "
-								+ availVersion + " Build " + availBuild);
-					}
-					else
-					{
-						tabpaneMainPane.getTabs().remove(tabSoftwareUpdate);
-					}
-				}
-				else
-				{
-					MessageDialogBuilder.error()
-							.message("Error Reaching Update Server")
-							.title("Error")
-							.buttonType(MessageDialog.ButtonType.OK)
-							.show(MainFrame.stage.getScene().getWindow());
-				}
-			}
-			catch (MalformedURLException e)
-			{
-				Logger.log(e);
-			}
-			catch (IOException e)
-			{
-				Logger.log(e);
-			}
-			catch (ParseException e)
-			{
-				Logger.log(e);
-			}
-		}
-		else
-		{
-			tabpaneMainPane.getTabs().remove(tabSoftwareUpdate);
-		}
-
-		// Temporary, mainly while software names are fixed or address, will
-		// work on new configuration file or something
-		// for handling the renaming of programs
-		// very specific case
-		tabpaneMainPane.getTabs().remove(tabSoftwareUpdate);
-		tabpaneMainPane.getTabs().remove(tabReports);
 
 		lviewRouteOnRoute.getSelectionModel().setSelectionMode(
 				SelectionMode.MULTIPLE);
@@ -992,7 +898,7 @@ public class SettingsController implements Initializable
 		{
 			dbManager.addStop(new Stop(-1, txtStopName.getText(), cboxStopRoute
 					.getValue().getRouteName(), 0, cboxStopCreateStudent
-					.isSelected()));
+					.isSelected(), false, "unknown@unknown.com"));
 			btnStopClear.fire();
 			loadStopComboBoxes();
 			loadRouteComboBoxes();

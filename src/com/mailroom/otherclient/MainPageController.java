@@ -117,7 +117,7 @@ public class MainPageController implements Initializable
 
 		boolean found = false;
 		cboxStopSelect.getItems().clear();
-		cboxStopSelect.getItems().add(new Stop(-1, "ALL", "nil", 0, false));
+		cboxStopSelect.getItems().add(new Stop(-1, "ALL", "nil", 0, false, false, "no-email"));
 		for (Stop s : dbManager.getStops())
 		{
 			cboxStopSelect.getItems().add(s);
