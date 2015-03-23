@@ -6,3 +6,8 @@ bin/
 Prints/
 Logs/
 *.db
+dataSources.*
+out/
+META-INF/
+artifacts/
+libraries/

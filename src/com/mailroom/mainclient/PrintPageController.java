@@ -1,6 +1,6 @@
 package com.mailroom.mainclient;
 
-import java.awt.Font;
+import java.awt.*;
 import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -10,8 +10,10 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import javax.swing.JTextArea;
+
 import com.mailroom.common.*;
 import com.mailroom.common.Package;
 import com.panemu.tiwulfx.dialog.MessageDialog;
@@ -24,354 +26,409 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.FlowPane;
 
+import javax.mail.*;
+import javax.mail.internet.*;
+
 /**
  * Controls PrintPageFx.fxml in com.mailroom.fxml.mainclient
+ *
  * @author James sitzja@grizzlies.adams.edu
  */
 public class PrintPageController implements Initializable
 {
-	private DatabaseManager dbManager;
-	private ArrayList<CheckBox> routeBoxes;
+    private DatabaseManager dbManager;
+    private ArrayList<CheckBox> routeBoxes;
 
-	@FXML
-	private FlowPane flowScrollRoutes;
-	@FXML
-	private TextArea txtAreaReport;
-	@FXML
-	private Button btnPrintReport;
-	private ArrayList<String> strReport;
+    @FXML
+    private FlowPane flowScrollRoutes;
+    @FXML
+    private TextArea txtAreaReport;
+    @FXML
+    private Button btnPrintReport;
+    private ArrayList<String> strReport;
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1)
-	{
-		this.dbManager = MainFrame.dbManager;
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1)
+    {
+        this.dbManager = MainFrame.dbManager;
 
-		dbManager.loadRoutes();
+        dbManager.loadRoutes();
 
-		routeBoxes = new ArrayList<CheckBox>();
+        routeBoxes = new ArrayList<CheckBox>();
 
-		for (Route r : dbManager.getRoutes())
-		{
-			CheckBox c = new CheckBox();
+        for (Route r : dbManager.getRoutes())
+        {
+            CheckBox c = new CheckBox();
 
-			c.setText(r.getRouteName());
-			c.setSelected(false);
-			c.setVisible(true);
+            c.setText(r.getRouteName());
+            c.setSelected(false);
+            c.setVisible(true);
 
-			c.setMinWidth(150);
-			c.setMinHeight(50);
+            c.setMinWidth(150);
+            c.setMinHeight(50);
 
-			c.setFocusTraversable(true);
+            c.setFocusTraversable(true);
 
-			routeBoxes.add(c);
-		}
+            routeBoxes.add(c);
+        }
 
-		flowScrollRoutes.getChildren().clear();
-		flowScrollRoutes.getChildren().addAll(routeBoxes);
+        flowScrollRoutes.getChildren().clear();
+        flowScrollRoutes.getChildren().addAll(routeBoxes);
 
-		for (Node c : flowScrollRoutes.getChildren())
-		{
-			c.setLayoutX(c.getLayoutX() + 10);
-		}
+        for (Node c : flowScrollRoutes.getChildren())
+        {
+            c.setLayoutX(c.getLayoutX() + 10);
+        }
 
-		flowScrollRoutes.getChildren().get(0).requestFocus();
-	}
+        flowScrollRoutes.getChildren().get(0).requestFocus();
+    }
 
-	/**
-	 * Processes keyboard input
-	 * @param ke KeyEvent from OS
-	 */
-	public void keyPressedAction(KeyEvent ke)
-	{
-		if (ke.getCode() == KeyCode.ESCAPE)
-		{
-			boolean verified = true;
+    /**
+     * Processes keyboard input
+     *
+     * @param ke KeyEvent from OS
+     */
+    public void keyPressedAction(KeyEvent ke)
+    {
+        if (ke.getCode() == KeyCode.ESCAPE)
+        {
+            boolean verified = true;
 
-			for (CheckBox c : routeBoxes)
-			{
-				if (c.isSelected())
-				{
-					verified = false;
-				}
-			}
+            for (CheckBox c : routeBoxes)
+            {
+                if (c.isSelected())
+                {
+                    verified = false;
+                }
+            }
 
-			if (!verified)
-			{
-				MessageDialog.Answer exit = MessageDialogBuilder.confirmation()
-						.message("Exit to Open Screen?").title("Confirm")
-						.buttonType(MessageDialog.ButtonType.YES_NO)
-						.yesOkButtonText("Yes").noButtonText("No")
-						.show(MainFrame.stage.getScene().getWindow());
+            if (!verified)
+            {
+                MessageDialog.Answer exit = MessageDialogBuilder.confirmation()
+                        .message("Exit to Open Screen?").title("Confirm")
+                        .buttonType(MessageDialog.ButtonType.YES_NO)
+                        .yesOkButtonText("Yes").noButtonText("No")
+                        .show(MainFrame.stage.getScene().getWindow());
 
-				if (exit == MessageDialog.Answer.YES_OK)
-				{
-					try
-					{
-						Parent root = FXMLLoader
-								.load(getClass()
-										.getResource(
-												"/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
-						Scene scene = new Scene(root);
-						MainFrame.stage.setScene(scene);
-					}
-					catch (IOException e)
-					{
-						Logger.log(e);
-					}
-				}
-			}
-			else
-			{
-				try
-				{
-					Parent root = FXMLLoader.load(getClass().getResource(
-							"/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
-					Scene scene = new Scene(root);
-					MainFrame.stage.setScene(scene);
-				}
-				catch (IOException e)
-				{
-					Logger.log(e);
-				}
-			}
-		}
-	}
+                if (exit == MessageDialog.Answer.YES_OK)
+                {
+                    try
+                    {
+                        Parent root = FXMLLoader
+                                .load(getClass()
+                                        .getResource(
+                                                "/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
+                        Scene scene = new Scene(root);
+                        MainFrame.stage.setScene(scene);
+                    }
+                    catch (IOException e)
+                    {
+                        Logger.log(e);
+                    }
+                }
+            }
+            else
+            {
+                try
+                {
+                    Parent root = FXMLLoader.load(getClass().getResource(
+                            "/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
+                    Scene scene = new Scene(root);
+                    MainFrame.stage.setScene(scene);
+                }
+                catch (IOException e)
+                {
+                    Logger.log(e);
+                }
+            }
+        }
+    }
 
-	/**
-	 * Creates Report for Printing
-	 * @param ae ActionEvent from OS
-	 */
-	public void btnCreateReportAction(ActionEvent ae)
-	{
-		txtAreaReport.setText("");
-		strReport = new ArrayList<String>();
+    /**
+     * Creates Report for Printing
+     *
+     * @param ae ActionEvent from OS
+     */
+    public void btnCreateReportAction(ActionEvent ae)
+    {
+        txtAreaReport.setText("");
+        strReport = new ArrayList<String>();
 
-		for (CheckBox c : routeBoxes)
-		{
-			if (c.isSelected())
-			{
-				String head = "";
+        for (CheckBox c : routeBoxes)
+        {
+            if (c.isSelected())
+            {
+                String head = "";
 
-				for (int i = 0; i <= 15; i++)
-				{
-					head += " ";
-				}
+                for (int i = 0; i <= 15; i++)
+                {
+                    head += " ";
+                }
 
-				head += "Route: ";
-				head += c.getText() + " ";
+                head += "Route: ";
+                head += c.getText() + " ";
 
-				for (Route r : dbManager.getRoutes())
-				{
-					boolean added = false;
-					if (r.getRouteName().equals(c.getText()))
-					{
-						for (Stop s : dbManager.getStopsOnRoute(r))
-						{
-							ArrayList<Package> packages = (ArrayList<Package>) dbManager
-									.printPackagesForStop(s);
+                for (Route r : dbManager.getRoutes())
+                {
+                    boolean added = false;
+                    if (r.getRouteName().equals(c.getText()))
+                    {
+                        for (Stop s : dbManager.getStopsOnRoute(r))
+                        {
+                            ArrayList<Package> packages = (ArrayList<Package>) dbManager
+                                    .printPackagesForStop(s);
 
-							if (packages.size() > 0)
-							{
-								if (!added)
-								{
-									strReport.add(head);
-									added = true;
-								}
+                            if (packages.size() > 0)
+                            {
+                                if (!added)
+                                {
+                                    strReport.add(head);
+                                    added = true;
+                                }
 
-								String stopHead = "";
-								String last = "Last      ";
-								String first = "First     ";
-								String box = "Box#      ";
-								String track = "Track#    ";
-								String sign = "Sign Here";
+                                String stopHead = "";
+                                String last = "Last      ";
+                                String first = "First     ";
+                                String box = "Box#      ";
+                                String track = "Track#    ";
+                                String sign = "Sign Here";
 
-								stopHead += "\nPackage Delivery for ";
-								stopHead += s.getStopName();
-								stopHead += "	Date: ";
+                                stopHead += "\nPackage Delivery for ";
+                                stopHead += s.getStopName();
+                                stopHead += "	Date: ";
 
-								Date d = new Date();
-								SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-								stopHead += format.format(d).toString();
-								strReport.add(stopHead);
-								stopHead = "";
-								stopHead += last;
-								stopHead += first;
-								stopHead += box;
-								stopHead += track;
-								stopHead += sign;
-								strReport.add(stopHead);
+                                Date d = new Date();
+                                SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+                                stopHead += format.format(d).toString();
+                                strReport.add(stopHead);
+                                stopHead = "";
+                                stopHead += last;
+                                stopHead += first;
+                                stopHead += box;
+                                stopHead += track;
+                                stopHead += sign;
+                                strReport.add(stopHead);
 
-								for (Package p : packages)
-								{
-									String strPackage = "";
-									strPackage += p.getLastName();
-									for (int i = 0; i < last.length()
-											- p.getLastName().length(); i++)
-									{
-										strPackage += " ";
-									}
-									strPackage += p.getFirstName();
-									for (int i = 0; i < first.length()
-											- p.getFirstName().length(); i++)
-									{
-										strPackage += " ";
-									}
-									strPackage += p.getBoxOffice();
-									for (int i = 0; i < box.length()
-											- p.getBoxOffice().length(); i++)
-									{
-										strPackage += " ";
-									}
-									strPackage += p.getTrackingNumber()
-											.substring(
-													3,
-													p.getTrackingNumber()
-															.length());
-									for (int i = 0; i < track.length()
-											- p.getTrackingNumber().length(); i++)
-									{
-										strPackage += " ";
-									}
-									strPackage += "_____________________________________";
+                                for (Package p : packages)
+                                {
+                                    String strPackage = "";
+                                    strPackage += p.getLastName();
+                                    for (int i = 0; i < last.length()
+                                            - p.getLastName().length(); i++)
+                                    {
+                                        strPackage += " ";
+                                    }
+                                    strPackage += p.getFirstName();
+                                    for (int i = 0; i < first.length()
+                                            - p.getFirstName().length(); i++)
+                                    {
+                                        strPackage += " ";
+                                    }
+                                    strPackage += p.getBoxOffice();
+                                    for (int i = 0; i < box.length()
+                                            - p.getBoxOffice().length(); i++)
+                                    {
+                                        strPackage += " ";
+                                    }
+                                    strPackage += p.getTrackingNumber()
+                                            .substring(
+                                                    3,
+                                                    p.getTrackingNumber()
+                                                            .length());
+                                    for (int i = 0; i < track.length()
+                                            - p.getTrackingNumber().length(); i++)
+                                    {
+                                        strPackage += " ";
+                                    }
+                                    strPackage += "_____________________________________";
 
-									strReport.add(strPackage);
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+                                    strReport.add(strPackage);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
-		for (String s : strReport)
-		{
-			txtAreaReport.setText(txtAreaReport.getText() + s + "\n");
-		}
+        for (String s : strReport)
+        {
+            txtAreaReport.setText(txtAreaReport.getText() + s + "\n");
+        }
 
-		btnPrintReport.setDisable(false);
-	}
+        btnPrintReport.setDisable(false);
+    }
 
-	/**
-	 * Queues job for printing
-	 * and then prints report
-	 * @param ae ActionEvent from OS
-	 */
-	public void btnPrintReportAction(ActionEvent ae)
-	{
-		File dir = new File("./Prints");
+    /**
+     * Queues job for printing
+     * and then prints report
+     *
+     * @param ae ActionEvent from OS
+     */
+    public void btnPrintReportAction(ActionEvent ae)
+    {
+        File dir = new File("./Prints");
 
-		if (!dir.exists())
-		{
-			dir.mkdir();
-		}
+        if (!dir.exists())
+        {
+            dir.mkdir();
+        }
 
-		Date d = new Date();
-		SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
-		String fileName = "";
+        Date d = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
+        String fileName = "";
 
-		fileName += "./Prints/";
-		fileName += format.format(d).toString();
-		fileName += "-";
-		fileName += String.valueOf(d.getTime());
-		fileName += ".txt";
+        fileName += "./Prints/";
+        fileName += format.format(d).toString();
+        fileName += "-";
+        fileName += String.valueOf(d.getTime());
+        fileName += ".txt";
 
-		File f = new File(fileName);
+        File f = new File(fileName);
 
-		if (!f.exists())
-		{
-			try
-			{
-				f.createNewFile();
+        if (!f.exists())
+        {
+            try
+            {
+                f.createNewFile();
 
-				FileOutputStream ostream = new FileOutputStream(
-						f.getAbsolutePath());
-				OutputStreamWriter owriter = new OutputStreamWriter(ostream,
-						"UTF-8");
+                FileOutputStream ostream = new FileOutputStream(
+                        f.getAbsolutePath());
+                OutputStreamWriter owriter = new OutputStreamWriter(ostream,
+                        "UTF-8");
 
-				for (String s : strReport)
-				{
-					owriter.write(s + "\n");
-				}
+                for (String s : strReport)
+                {
+                    owriter.write(s + "\n");
+                }
 
-				owriter.close();
-				ostream.close();
+                owriter.close();
+                ostream.close();
 
-				JTextArea jtext = new JTextArea();
-				jtext.setSize(470, 277);
-				jtext.setText("");
-				jtext.setFont(new Font("Monospaced", Font.PLAIN, 12));
-				for (String s : strReport)
-				{
-					jtext.setText(jtext.getText() + s + "\n");
-				}
+                JTextArea jtext = new JTextArea();
+                jtext.setSize(470, 277);
+                jtext.setText("");
+                jtext.setFont(new Font("Monospaced", Font.PLAIN, 12));
+                for (String s : strReport)
+                {
+                    jtext.setText(jtext.getText() + s + "\n");
+                }
 
-				try
-				{
-					if(jtext.print())
-					{
-						//auto remove packages...oh boy
-						for(CheckBox c : routeBoxes)
-						{
-							if(c.isSelected())
-							{
-								for(Route r : dbManager.getRoutes())
-								{
-									if(r.getRouteName().equals(c.getText()))
-									{
-										for(Stop s : dbManager.getStopsOnRoute(r))
-										{
-											if(s.getAutoRemove())
-											{
-												for(Package p : dbManager.getPackagesForStop(s))
-												{
-													dbManager.updatePackage(p.getPackageId(), true, true);
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-				catch (PrinterException e)
-				{
-					Logger.log(e);
-				}
-			}
-			catch (IOException e)
-			{
-				Logger.log(e);
-			}
-		}
+                try
+                {
+                    if (jtext.print())
+                    {
+                        //auto remove packages...oh boy
+                        for (CheckBox c : routeBoxes)
+                        {
+                            if (c.isSelected())
+                            {
+                                for (Route r : dbManager.getRoutes())
+                                {
+                                    if (r.getRouteName().equals(c.getText()))
+                                    {
+                                        for (Stop s : dbManager.getStopsOnRoute(r))
+                                        {
+                                            if (s.getAutoRemove())
+                                            {
+                                                for (Package p : dbManager.getPackagesForStop(s))
+                                                {
+                                                    dbManager.updatePackage(p.getPackageId(), true, true);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
 
-		if (MessageDialogBuilder.confirmation().message("Exit to Open Screen?")
-				.title("Confirm").buttonType(MessageDialog.ButtonType.YES_NO)
-				.yesOkButtonText("Yes")
-				.show(MainFrame.stage.getScene().getWindow()) == MessageDialog.Answer.YES_OK)
-		{
-			try
-			{
-				Parent root = FXMLLoader.load(getClass().getResource(
-						"/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
-				Scene scene = new Scene(root);
-				MainFrame.stage.setScene(scene);
-			}
-			catch (IOException e)
-			{
-				Logger.log(e);
-			}
-		}
-		else
-		{
-			for (CheckBox c : routeBoxes)
-			{
-				c.setSelected(false);
-			}
-		}
-	}
+                        //Email Stuff....damn
+                        try
+                        {
+                            Properties props = new Properties();
+                            props.put("mail.smtp.auth", "false");
+                            props.put("mail.smtp.starttls.enable", "true");
+                            props.put("mail.smtp.host", "mail.adams.edu");
+                            props.put("mail.smtp.port", 25);
+                            Session sess = Session.getDefaultInstance(props);
+                            MimeMessage message = new MimeMessage(sess);
+
+                            message.setFrom(new InternetAddress("no-reply@adams.edu"));
+                            message.setSubject("Package Delivery Notice");
+                            message.setText("Your Department has Packages Available!\n\nPackages are available for pickup after 2:00PM");
+
+                            for (CheckBox c : routeBoxes)
+                            {
+                                if (c.isSelected())
+                                {
+                                    for (Route r : dbManager.getRoutes())
+                                    {
+                                        if (r.getRouteName().equals(c.getText()))
+                                        {
+                                            for (Stop s : dbManager.getStopsOnRoute(r))
+                                            {
+                                                ArrayList<String> addresses = (ArrayList<String>) dbManager.getEmailAddress(s);
+
+                                                if (addresses.size() > 0)
+                                                {
+                                                    for (String str : addresses)
+                                                    {
+                                                        message.addRecipients(Message.RecipientType.BCC, str);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        catch (MessagingException e)
+                        {
+                            Logger.log(e);
+                            MessageDialogBuilder.error().message("Error Sending Email").title("ERROR").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+                        }
+                    }
+                }
+                catch (PrinterException e)
+                {
+                    Logger.log(e);
+                }
+            }
+            catch (IOException e)
+            {
+                Logger.log(e);
+            }
+        }
+
+        if (MessageDialogBuilder.confirmation().message("Exit to Open Screen?")
+                .title("Confirm").buttonType(MessageDialog.ButtonType.YES_NO)
+                .yesOkButtonText("Yes")
+                .show(MainFrame.stage.getScene().getWindow()) == MessageDialog.Answer.YES_OK)
+        {
+            try
+            {
+                Parent root = FXMLLoader.load(getClass().getResource(
+                        "/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
+                Scene scene = new Scene(root);
+                MainFrame.stage.setScene(scene);
+            }
+            catch (IOException e)
+            {
+                Logger.log(e);
+            }
+        }
+        else
+        {
+            for (CheckBox c : routeBoxes)
+            {
+                c.setSelected(false);
+            }
+        }
+    }
 }
