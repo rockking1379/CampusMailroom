@@ -898,7 +898,7 @@ public class SettingsController implements Initializable
 		{
 			dbManager.addStop(new Stop(-1, txtStopName.getText(), cboxStopRoute
 					.getValue().getRouteName(), 0, cboxStopCreateStudent
-					.isSelected(), false, "unknown@unknown.com"));
+					.isSelected(), false));
 			btnStopClear.fire();
 			loadStopComboBoxes();
 			loadRouteComboBoxes();

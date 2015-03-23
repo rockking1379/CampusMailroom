@@ -526,7 +526,7 @@ public class SetupController implements Initializable
 			dbManager.loadRoutes();
 
 			dbManager.addStop(new Stop(-1, txtStopSetupStopName.getText(),
-					"unassigned", 0, false));
+					"unassigned", 0, false, false));
 
 			MessageDialog.Answer ans = MessageDialogBuilder.confirmation()
 					.message("Stop Added\nAdd Another?")

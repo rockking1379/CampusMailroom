@@ -70,12 +70,18 @@ public class Logger
 				stmnt.close();
 				con.close();
 			}
-			catch (IOException | SQLException e)
+			catch (IOException e)
 			{
 				System.err.println("Logging Error");
 				e.printStackTrace();
 				retVal = false;
 			}
+            catch (SQLException e)
+            {
+                System.err.println("Logging Error");
+                e.printStackTrace();;
+                retVal = false;
+            }
 		}
 
 		try

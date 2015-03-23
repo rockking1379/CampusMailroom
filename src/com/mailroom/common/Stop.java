@@ -12,7 +12,6 @@ public class Stop
 	private int routeOrder;
 	private boolean student;
 	private boolean autoRemove;
-	private String contactEmail;
 
 	/**
 	 * Constructs new Stop
@@ -32,7 +31,6 @@ public class Stop
 		this.routeOrder = routeOrder;
 		this.student = student;
 		this.autoRemove = false;
-		this.contactEmail = "unknown@";
 	}
 	
 	/**
@@ -45,7 +43,7 @@ public class Stop
 	 * @param autoRemove Wether or not to Auto Remove Stop Packages
 	 */
 	public Stop(int stopId, String stopName, String routeName, int routeOrder,
-			boolean student, boolean autoRemove, String contactEmail)
+			boolean student, boolean autoRemove)
 	{
 		this.stopId = stopId;
 		this.stopName = stopName;
@@ -53,7 +51,6 @@ public class Stop
 		this.routeOrder = routeOrder;
 		this.student = student;
 		this.autoRemove = autoRemove;
-		this.contactEmail = contactEmail;
 	}
 
 	/**
@@ -109,16 +106,6 @@ public class Stop
 	public boolean getAutoRemove()
 	{
 		return autoRemove;
-	}
-	
-	/**
-	 * Gets Email of Person to Contact
-	 * in regards to Stop
-	 * @return Email Address
-	 */
-	public String getContactEmail()
-	{
-		return contactEmail;
 	}
 
 	/**

@@ -372,7 +372,7 @@ public class SQLiteManager implements DatabaseManager
 						stops.add(new Stop(rs.getInt("stop_id"), rs
 								.getString("stop_name"), routes.get(i)
 								.getRouteName(), rs.getInt("route_order"), rs
-								.getBoolean("Student"), rs.getBoolean("auto_remove"), rs.getString("contact_email")));
+								.getBoolean("Student"), rs.getBoolean("auto_remove")));
 					}
 				}
 			}
@@ -641,7 +641,7 @@ public class SQLiteManager implements DatabaseManager
 				results.add(new Stop(rs.getInt("stop_id"), rs
 						.getString("stop_name"), route_name, rs
 						.getInt("route_order"), rs.getBoolean("Student"),
-						rs.getBoolean("auto_remove"), rs.getString("contact_email")));
+						rs.getBoolean("auto_remove")));
 			}
 		}
 		catch (SQLException e)
@@ -1253,8 +1253,7 @@ public class SQLiteManager implements DatabaseManager
 					{
 						stop = new Stop(s.getInt("stop_id"),
 								s.getString("stop_name"), "Unknown", 0,
-								s.getBoolean("student"), s.getBoolean("auto_remove"),
-								s.getString("contact_email"));
+								s.getBoolean("student"), s.getBoolean("auto_remove"));
 					}
 				}
 

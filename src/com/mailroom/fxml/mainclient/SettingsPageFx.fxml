@@ -277,6 +277,47 @@
             </AnchorPane>
           </content>
         </Tab>
+        <Tab id="tabEmailManagement" fx:id="tabEmailManagement" closable="false" text="Email">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
+              <children>
+                <TabPane layoutX="7.0" layoutY="0.0" prefHeight="569.0" prefWidth="786.0" tabClosingPolicy="UNAVAILABLE">
+                  <tabs>
+                    <Tab id="tabEmailMessage" fx:id="tabEmailMessage" closable="false" text="Message">
+                      <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
+                          <children>
+                            <TextField id="" fx:id="txtEmailReplyAddress" layoutX="14.0" layoutY="191.0" prefHeight="25.0" prefWidth="200.0" promptText="Reply To Address" />
+                            <ComboBox fx:id="cboxEmailSendTime" layoutX="14.0" layoutY="220.0" prefHeight="50.0" prefWidth="250.0" promptText="Email Send Time" visibleRowCount="5">
+                              <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                  <String fx:value="Item 1" />
+                                  <String fx:value="Item 2" />
+                                  <String fx:value="Item 3" />
+                                </FXCollections>
+                              </items>
+                            </ComboBox>
+                            <TextArea id="" fx:id="txtEmailMessage" layoutX="14.0" layoutY="274.0" prefHeight="250.0" prefWidth="758.0" promptText="Email Message" wrapText="true" />
+                          </children>
+                        </AnchorPane>
+                      </content>
+                    </Tab>
+                    <Tab id="tabEmailSending" fx:id="tabEmailSending" closable="false" text="Sending">
+                      <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217" />
+                      </content>
+                    </Tab>
+                    <Tab id="tabEmailAddresses" fx:id="tabEmailAddresses" closable="false" text="Addresses">
+                      <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217" />
+                      </content>
+                    </Tab>
+                  </tabs>
+                </TabPane>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
         <Tab fx:id="tabAbout" closable="false" text="About">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
