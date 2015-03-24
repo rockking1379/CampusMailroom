@@ -32,8 +32,6 @@ public interface DatabaseManager
         SEARCH_ENDS_WITH
     }
 
-    ;
-
     /**
      * Used in Settings database to identify database manager type to create
      */

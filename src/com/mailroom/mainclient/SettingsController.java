@@ -331,6 +331,7 @@ public class SettingsController implements Initializable
      */
     public void cboxAutoUpdateAction(ActionEvent ae)
     {
+        ae.consume();
         if (cboxAutoUpdate.getValue())
         {
             sldrAutoUpdateFreq.disableProperty().set(false);
@@ -351,7 +352,8 @@ public class SettingsController implements Initializable
      */
     public void cboxDatabaseTypeAction(ActionEvent ae)
     {
-        switch (Integer.valueOf(cboxDatabaseType.getValue().charAt(0)))
+        ae.consume();
+        switch ((int) cboxDatabaseType.getValue().charAt(0))
         {
             case SQLiteManager.dbId:
             {
@@ -413,6 +415,7 @@ public class SettingsController implements Initializable
      */
     public void btnBrowseAction(ActionEvent ae)
     {
+        ae.consume();
         FileChooser fChooser = new FileChooser();
         fChooser.setTitle("Select Database File");
 
@@ -437,7 +440,8 @@ public class SettingsController implements Initializable
      */
     public void btnSaveAction(ActionEvent ae)
     {
-        switch (Integer.valueOf(cboxDatabaseType.getValue().charAt(0)))
+        ae.consume();
+        switch ((int) cboxDatabaseType.getValue().charAt(0))
         {
             case SQLiteManager.dbId:
             {
@@ -559,6 +563,7 @@ public class SettingsController implements Initializable
      */
     public void btnCancelAction(ActionEvent ae)
     {
+        ae.consume();
         try
         {
             Parent root = FXMLLoader.load(getClass().getResource(
@@ -581,8 +586,9 @@ public class SettingsController implements Initializable
      */
     public void btnChangePwdAction(ActionEvent ae)
     {
-        int oldPassword = 0;
-        int newPassword = 0;
+        ae.consume();
+        int oldPassword;
+        int newPassword;
         String username = MainFrame.cUser.getUserName();
         String oldPwd = pwdChangePwdOld.getText();
         String newPwd = pwdChangePwdNew.getText();
@@ -671,6 +677,7 @@ public class SettingsController implements Initializable
      */
     public void btnCreateAccountAction(ActionEvent ae)
     {
+        ae.consume();
         int password;
         String pwd = pwdCreatePwd.getText();
         String pwdConfirm = pwdCreateConfirm.getText();
@@ -736,6 +743,7 @@ public class SettingsController implements Initializable
      */
     public void btnCreateCancelAction(ActionEvent ae)
     {
+        ae.consume();
         txtCreateFirstName.textProperty().set("");
         txtCreateLastName.textProperty().set("");
         txtCreateUserName.textProperty().set("");
@@ -751,6 +759,7 @@ public class SettingsController implements Initializable
      */
     public void btnAdminChangeSaveAction(ActionEvent ae)
     {
+        ae.consume();
         dbManager.setUserAdmin(cboxAdminChange.getValue(),
                 cboxAdminAdminStatus.isSelected());
         loadAdminComboBoxes();
@@ -763,7 +772,8 @@ public class SettingsController implements Initializable
      */
     public void btnAdminReactivateAction(ActionEvent ae)
     {
-        int password = 0;
+        ae.consume();
+        int password;
         String pwd = pwdAdminRePwd.getText();
         String pwdConfirm = pwdAdminReConfirm.getText();
 
@@ -814,8 +824,9 @@ public class SettingsController implements Initializable
      */
     public void btnAdminDeactivateAction(ActionEvent ae)
     {
+        ae.consume();
         if (!MainFrame.cUser.getUserName().equals(
-                cboxAdminDeactivate.getValue()))
+                cboxAdminDeactivate.getValue().getUserName()))
         {
             MessageDialog.Answer del = MessageDialogBuilder.warning()
                     .message("Delete " + cboxAdminDeactivate.getValue() + "?")
@@ -885,6 +896,7 @@ public class SettingsController implements Initializable
      */
     public void btnStopDeleteAction(ActionEvent ae)
     {
+        ae.consume();
         MessageDialog.Answer del = MessageDialogBuilder.confirmation()
                 .message("Delete " + cboxStopDelete.getValue() + " Stop")
                 .title("Confirm").buttonType(MessageDialog.ButtonType.YES_NO)
@@ -907,6 +919,7 @@ public class SettingsController implements Initializable
      */
     public void btnStopCreateAction(ActionEvent ae)
     {
+        ae.consume();
         if (txtStopName.getText().equals(""))
         {
             MessageDialogBuilder.error().message("Cannot have Empty Stop Name")
@@ -931,6 +944,7 @@ public class SettingsController implements Initializable
      */
     public void btnStopClearAction(ActionEvent ae)
     {
+        ae.consume();
         cboxStopCreateStudent.setSelected(false);
         txtStopName.setText("");
     }
@@ -942,6 +956,7 @@ public class SettingsController implements Initializable
      */
     public void btnStopUpdateSaveAction(ActionEvent ae)
     {
+        ae.consume();
         cboxStopUpdate.getValue()
                 .setStudent(cboxStopUpdateStudent.isSelected());
         dbManager.updateStop(cboxStopUpdate.getValue());
@@ -988,6 +1003,7 @@ public class SettingsController implements Initializable
      */
     public void cboxRouteSelectAction(ActionEvent ae)
     {
+        ae.consume();
         loadRouteListViews();
     }
 
@@ -999,6 +1015,7 @@ public class SettingsController implements Initializable
      */
     public void btnRouteDeleteAction(ActionEvent ae)
     {
+        ae.consume();
         MessageDialog.Answer del = MessageDialogBuilder.confirmation()
                 .message("Delete " + cboxRouteDelete.getValue() + " Route")
                 .title("Confirm").buttonType(MessageDialog.ButtonType.YES_NO)
@@ -1020,6 +1037,7 @@ public class SettingsController implements Initializable
      */
     public void btnRouteCreateAction(ActionEvent ae)
     {
+        ae.consume();
         if (txtRouteName.getText().equals(""))
         {
             MessageDialogBuilder.error()
@@ -1044,6 +1062,7 @@ public class SettingsController implements Initializable
      */
     public void btnRouteAddAction(ActionEvent ae)
     {
+        ae.consume();
         List<Stop> selected = lviewRouteUnassigned.selectionModelProperty()
                 .getValue().getSelectedItems();
 
@@ -1062,6 +1081,7 @@ public class SettingsController implements Initializable
      */
     public void btnRouteRemoveAction(ActionEvent ae)
     {
+        ae.consume();
         List<Stop> selected = lviewRouteOnRoute.selectionModelProperty().get()
                 .getSelectedItems();
 
@@ -1080,6 +1100,7 @@ public class SettingsController implements Initializable
      */
     public void cboxDesignRouteAction(ActionEvent ae)
     {
+        ae.consume();
         lviewDesignStops.getItems().clear();
         for (Stop s : dbManager.getStopsOnRoute(cboxDesignRoute.getValue()))
         {
@@ -1094,6 +1115,7 @@ public class SettingsController implements Initializable
      */
     public void btnDesignFirstAction(ActionEvent ae)
     {
+        ae.consume();
         if (lviewDesignStops.selectionModelProperty().get().getSelectedItem() != null)
         {
             Stop selected = lviewDesignStops.selectionModelProperty().get()
@@ -1118,10 +1140,6 @@ public class SettingsController implements Initializable
                 lviewDesignStops.getItems().add(s);
             }
         }
-        else
-        {
-            // show message???
-        }
     }
 
     /**
@@ -1131,6 +1149,7 @@ public class SettingsController implements Initializable
      */
     public void btnDesignUpAction(ActionEvent ae)
     {
+        ae.consume();
         if (lviewDesignStops.selectionModelProperty().get().getSelectedItem() != null)
         {
             Stop selected = lviewDesignStops.selectionModelProperty().get()
@@ -1160,6 +1179,7 @@ public class SettingsController implements Initializable
      */
     public void btnDesignLastAction(ActionEvent ae)
     {
+        ae.consume();
         if (lviewDesignStops.selectionModelProperty().get().getSelectedItem() != null)
         {
             Stop selected = lviewDesignStops.selectionModelProperty().get()
@@ -1183,10 +1203,6 @@ public class SettingsController implements Initializable
                 lviewDesignStops.getItems().add(s);
             }
         }
-        else
-        {
-            // show message???
-        }
     }
 
     /**
@@ -1196,6 +1212,7 @@ public class SettingsController implements Initializable
      */
     public void btnDesignDownAction(ActionEvent ae)
     {
+        ae.consume();
         if (lviewDesignStops.selectionModelProperty().get().getSelectedItem() != null)
         {
             Stop selected = lviewDesignStops.selectionModelProperty().get()
@@ -1309,6 +1326,7 @@ public class SettingsController implements Initializable
      */
     public void btnCourierDeleteAction(ActionEvent ae)
     {
+        ae.consume();
         MessageDialog.Answer del = MessageDialogBuilder.confirmation()
                 .message("Delete " + cboxCourierDelete.getValue() + " Courier")
                 .title("Confirm").buttonType(MessageDialog.ButtonType.YES_NO)
@@ -1324,12 +1342,13 @@ public class SettingsController implements Initializable
     }
 
     /**
-     * Creates new Courier in DAtabse
+     * Creates new Courier in Databse
      *
      * @param ae ActionEvent from OS
      */
     public void btnCourierCreateAction(ActionEvent ae)
     {
+        ae.consume();
         if (txtCourierName.getText().equals(""))
         {
             MessageDialogBuilder.error()
@@ -1375,6 +1394,7 @@ public class SettingsController implements Initializable
      */
     public void btnUpdateAction(ActionEvent ae)
     {
+        ae.consume();
         try
         {
             File f = new File("./Updater.jar");

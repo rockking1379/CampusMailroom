@@ -66,7 +66,7 @@ public class ScanPageController implements Initializable
     {
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date now = new Date();
-        lblDate.setText(format.format(now).toString());
+        lblDate.setText(format.format(now));
 
         cUser = MainFrame.cUser;
         dbManager = MainFrame.dbManager;
@@ -92,6 +92,7 @@ public class ScanPageController implements Initializable
      */
     public void btnExitAction(ActionEvent ae)
     {
+        ae.consume();
         try
         {
             Parent root = FXMLLoader.load(getClass().getResource(
@@ -113,6 +114,7 @@ public class ScanPageController implements Initializable
      */
     public void btnClearAction(ActionEvent ae)
     {
+        ae.consume();
         txtTrackingNumber.setText("");
         txtFirstName.setText("");
         txtLastName.setText("");
@@ -131,6 +133,7 @@ public class ScanPageController implements Initializable
      */
     public void btnSaveAction(ActionEvent ae)
     {
+        ae.consume();
         boolean verified = true;
 
         if (txtTrackingNumber.getText().length() < 4)
@@ -275,6 +278,7 @@ public class ScanPageController implements Initializable
      */
     public void btnRandomGenerateAction(ActionEvent ae)
     {
+        ae.consume();
         String tnum = MainFrame.properties.getProperty("TNUMPREFIX");
 
         for (int i = 0; i < 16; i++)

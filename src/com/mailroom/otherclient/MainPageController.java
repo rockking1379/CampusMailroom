@@ -50,18 +50,27 @@ public class MainPageController implements Initializable
 
     // Columns
     private TickColumn<Package> clmnDelivered;
-    private TextColumn<Package> clmnFirstName;
-    private TextColumn<Package> clmnLastName;
-    private TextColumn<Package> clmnStop;
-    private TextColumn<Package> clmnTrackingNumber;
-    private TextColumn<Package> clmnCourier;
-    private TextColumn<Package> clmnDateReceived;
-    private TextColumn<Package> clmnUserName;
+//    private TextColumn<Package> clmnFirstName;
+//    private TextColumn<Package> clmnLastName;
+//    private TextColumn<Package> clmnStop;
+//    private TextColumn<Package> clmnTrackingNumber;
+//    private TextColumn<Package> clmnCourier;
+//    private TextColumn<Package> clmnDateReceived;
+//    private TextColumn<Package> clmnUserName;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1)
     {
         dbManager = OtherMainFrame.dbManager;
+
+        // Columns
+        TextColumn<Package> clmnFirstName;
+        TextColumn<Package> clmnLastName;
+        TextColumn<Package> clmnStop;
+        TextColumn<Package> clmnTrackingNumber;
+        TextColumn<Package> clmnCourier;
+        TextColumn<Package> clmnDateReceived;
+        TextColumn<Package> clmnUserName;
 
         // Create Columns
         clmnDelivered = new TickColumn<Package>();
@@ -162,6 +171,7 @@ public class MainPageController implements Initializable
      */
     public void btnRefreshAction(ActionEvent ae)
     {
+        ae.consume();
         ObservableList<Package> delivered = (ObservableList<Package>) clmnDelivered
                 .getTickedRecords();
 
@@ -214,6 +224,7 @@ public class MainPageController implements Initializable
      */
     public void btnExitAction(ActionEvent ae)
     {
+        ae.consume();
         if (clmnDelivered.getTickedRecords().size() > 0)
         {
             MessageDialog.Answer a = MessageDialogBuilder.confirmation()
@@ -254,6 +265,7 @@ public class MainPageController implements Initializable
      */
     public void btnAdvSearchAction(ActionEvent ae)
     {
+        ae.consume();
         try
         {
             Parent root = FXMLLoader.load(getClass().getResource(
@@ -275,6 +287,7 @@ public class MainPageController implements Initializable
      */
     public void cboxStopSelectAction(ActionEvent ae)
     {
+        ae.consume();
         tblViewTable.getItems().clear();
 
         if (cboxStopSelect.getValue().getStopId() == -1)

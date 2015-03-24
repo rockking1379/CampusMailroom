@@ -119,12 +119,13 @@ public class SetupController implements Initializable
      */
     public void cboxDbSetupDbTypeAction(ActionEvent ae)
     {
+        ae.consume();
         txtDbSetupDbLocation.setText("");
         txtDbSetupDbName.setText("");
         txtDbSetupDbUsername.setText("");
         pwdDbSetupDbPassword.setText("");
 
-        switch (Integer.valueOf(cboxDbSetupDbType.getValue().charAt(0)) - 48)
+        switch ((int) cboxDbSetupDbType.getValue().charAt(0) - 48)
         {
             case 0:
             {
@@ -169,6 +170,7 @@ public class SetupController implements Initializable
      */
     public void btnDbSetupBrowseAction(ActionEvent ae)
     {
+        ae.consume();
         File f = new File("./mailroom.db");
         if (!f.exists())
         {
@@ -206,7 +208,8 @@ public class SetupController implements Initializable
      */
     public void btnDbSetupVerifyAction(ActionEvent ae)
     {
-        switch (Integer.valueOf(cboxDbSetupDbType.getValue().charAt(0)) - 48)
+        ae.consume();
+        switch ((int) cboxDbSetupDbType.getValue().charAt(0) - 48)
         {
             case 0:
             {
@@ -372,6 +375,7 @@ public class SetupController implements Initializable
      */
     public void btnDbSetupNextAction(ActionEvent ae)
     {
+        ae.consume();
         pbarProgress.setProgress(0.50);
 
         tabDatabaseSetup.setDisable(true);
@@ -388,6 +392,7 @@ public class SetupController implements Initializable
      */
     public void btnAccSetupAddUserAction(ActionEvent ae)
     {
+        ae.consume();
         int password;
         String pwd = pwdAccSetupPwd.getText();
         String pwdConfirm = pwdAccSetupConfPwd.getText();
@@ -463,6 +468,7 @@ public class SetupController implements Initializable
      */
     public void btnAccSetupNextAction(ActionEvent ae)
     {
+        ae.consume();
         pbarProgress.setProgress(0.75);
 
         tabAccountSetup.setDisable(true);
@@ -479,6 +485,7 @@ public class SetupController implements Initializable
      */
     public void btnCourierSetupAddCourierAction(ActionEvent ae)
     {
+        ae.consume();
         if (!txtCourierSetupCourierName.getText().equals(""))
         {
             dbManager.addCourier(txtCourierSetupCourierName.getText());
@@ -514,6 +521,7 @@ public class SetupController implements Initializable
      */
     public void btnCourierSetupNextAction(ActionEvent ae)
     {
+        ae.consume();
         pbarProgress.setProgress(1.0);
 
         tabCourierSetup.setDisable(true);
@@ -530,6 +538,7 @@ public class SetupController implements Initializable
      */
     public void btnStopSetupAddStopAction(ActionEvent ae)
     {
+        ae.consume();
         if (txtStopSetupStopName.getText().equals(""))
         {
             MessageDialogBuilder.error().message("Stop Name cannot be Empty")
@@ -567,6 +576,7 @@ public class SetupController implements Initializable
      */
     public void btnStopSetupFinishAction(ActionEvent ae)
     {
+        ae.consume();
         MessageDialog.Answer restart = MessageDialogBuilder.confirmation()
                 .message("Configuration Comlete!\nRestart Now?")
                 .buttonType(MessageDialog.ButtonType.YES_NO)

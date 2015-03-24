@@ -157,6 +157,8 @@ public class PrintPageController implements Initializable
      */
     public void btnCreateReportAction(ActionEvent ae)
     {
+        ae.consume();
+
         txtAreaReport.setText("");
         strReport = new ArrayList<String>();
 
@@ -205,7 +207,7 @@ public class PrintPageController implements Initializable
 
                                 Date d = new Date();
                                 SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-                                stopHead += format.format(d).toString();
+                                stopHead += format.format(d);
                                 strReport.add(stopHead);
                                 stopHead = "";
                                 stopHead += last;
@@ -273,6 +275,7 @@ public class PrintPageController implements Initializable
      */
     public void btnPrintReportAction(ActionEvent ae)
     {
+        ae.consume();
         File dir = new File("./Prints");
 
         if (!dir.exists())
@@ -285,7 +288,7 @@ public class PrintPageController implements Initializable
         String fileName = "";
 
         fileName += "./Prints/";
-        fileName += format.format(d).toString();
+        fileName += format.format(d);
         fileName += "-";
         fileName += String.valueOf(d.getTime());
         fileName += ".txt";

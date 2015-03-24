@@ -415,14 +415,7 @@ public class PostgreSQLManager implements DatabaseManager
             stmnt.setBoolean(1, s.getStudent());
             stmnt.setInt(2, s.getStopId());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -450,14 +443,7 @@ public class PostgreSQLManager implements DatabaseManager
             stmnt.setInt(1, r.getRouteId());
             stmnt.setInt(2, s.getStopId());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                retValue = true;
-            }
-            else
-            {
-                retValue = false;
-            }
+            retValue = stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -497,14 +483,7 @@ public class PostgreSQLManager implements DatabaseManager
             stmnt.setInt(3, s.getRouteOrder());
             stmnt.setBoolean(4, s.getStudent());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -530,14 +509,7 @@ public class PostgreSQLManager implements DatabaseManager
 
             stmnt.setInt(1, s.getStopId());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -564,14 +536,7 @@ public class PostgreSQLManager implements DatabaseManager
             stmnt.setInt(1, pos);
             stmnt.setInt(2, s.getStopId());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -724,14 +689,7 @@ public class PostgreSQLManager implements DatabaseManager
             stmnt.setString(1, r.getRouteName());
             stmnt.setInt(2, r.getRouteId());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -758,14 +716,7 @@ public class PostgreSQLManager implements DatabaseManager
 
             stmnt.setString(1, route_name);
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -869,14 +820,7 @@ public class PostgreSQLManager implements DatabaseManager
 
             stmnt.setString(1, courier_name);
 
-            if (stmnt.execute())
-            {
-                retValue = true;
-            }
-            else
-            {
-                retValue = false;
-            }
+            retValue = stmnt.execute();
         }
         catch (SQLException e)
         {
@@ -905,14 +849,7 @@ public class PostgreSQLManager implements DatabaseManager
             stmnt.setString(1, c.getCourierName());
             stmnt.setInt(2, c.getCourierId());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -938,14 +875,7 @@ public class PostgreSQLManager implements DatabaseManager
 
             stmnt.setInt(1, c.getCourierId());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -998,7 +928,7 @@ public class PostgreSQLManager implements DatabaseManager
         try
         {
             connect();
-            PreparedStatement stmnt = null;
+            PreparedStatement stmnt;
             ;
 
             stmnt = connection
@@ -1060,7 +990,7 @@ public class PostgreSQLManager implements DatabaseManager
         try
         {
             connect();
-            PreparedStatement stmnt = null;
+            PreparedStatement stmnt;
 
             stmnt = connection
                     .prepareStatement("update Package set at_stop=? where package_id=?");
@@ -1079,7 +1009,7 @@ public class PostgreSQLManager implements DatabaseManager
                     .prepareStatement("update Package set pick_up_date=? where package_id=?");
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date now = new Date();
-            String date = format.format(now).toString();
+            String date = format.format(now);
             stmnt.setString(1, date);
             stmnt.setInt(2, packageId);
             stmnt.executeUpdate();
@@ -1103,7 +1033,7 @@ public class PostgreSQLManager implements DatabaseManager
         {
             connect();
 
-            PreparedStatement stmnt = null;
+            PreparedStatement stmnt;
 
             stmnt = connection
                     .prepareStatement("update Package set tracking_number=?, email_address=?, first_name=?, last_name=?, box_number=?, at_stop=?, picked_up=?, stop_id=?, courier_id=?, returned=? where package_id=?");
@@ -1154,14 +1084,7 @@ public class PostgreSQLManager implements DatabaseManager
             stmnt.setInt(8, p.getCourier().getCourierId());
             stmnt.setInt(9, p.getUser().getUserId());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -1184,7 +1107,7 @@ public class PostgreSQLManager implements DatabaseManager
         {
             connect();
 
-            PreparedStatement stmnt = null;
+            PreparedStatement stmnt;
 
             if (s.getStudent())
             {
@@ -1200,7 +1123,7 @@ public class PostgreSQLManager implements DatabaseManager
             Date d = new Date();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-            stmnt.setString(1, format.format(d).toString());
+            stmnt.setString(1, format.format(d));
             stmnt.setInt(2, s.getStopId());
 
             ResultSet rs = stmnt.executeQuery();
@@ -1233,7 +1156,7 @@ public class PostgreSQLManager implements DatabaseManager
             Date d = new Date();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-            stmnt.setString(1, format.format(d).toString());
+            stmnt.setString(1, format.format(d));
             stmnt.setInt(2, s.getStopId());
 
             ResultSet rs = stmnt.executeQuery();
@@ -1265,7 +1188,7 @@ public class PostgreSQLManager implements DatabaseManager
                 Stop stop = null;
                 Courier courier = null;
                 User user = null;
-                PreparedStatement stmnt = null;
+                PreparedStatement stmnt;
 
                 for (Stop s : stops)
                 {
@@ -1590,8 +1513,6 @@ public class PostgreSQLManager implements DatabaseManager
         routes = null;
         stops = null;
         packages = null;
-
-        return;
     }
 
     @Override

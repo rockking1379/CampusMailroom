@@ -21,12 +21,12 @@ public class MysqlManager implements DatabaseManager
     private static final String courierDrop = "DROP TABLE IF EXISTS Courier";
     private static final String stopDrop = "DROP TABLE IF EXISTS Stop";
     private static final String routeDrop = "DROP TABLE IF EXISTS Route";
-    private static final String routeString = "CREATE TABLE Route(route_id INTEGER PRIMARY KEY AUTOINCREMENT,route_name VARCHAR(50) NOT NULL,is_used BOOLEAN)";
-    private static final String stopString = "CREATE TABLE Stop(stop_id INTEGER PRIMARY KEY AUTOINCREMENT,stop_name VARCHAR(50) NOT NULL,route_id INTEGER,is_used BOOLEAN NOT NULL,route_order INTEGER,student BOOLEAN,FOREIGN KEY(route_id) REFERENCES Route(route_id))";
-    private static final String courierString = "CREATE TABLE Courier(courier_id INTEGER PRIMARY KEY AUTOINCREMENT,courier_name VARCHAR(50) NOT NULL,is_used BOOLEAN NOT NULL)";
-    private static final String personString = "CREATE TABLE Person(person_id INTEGER PRIMARY KEY AUTOINCREMENT,id_number VARCHAR(50),email_address VARCHAR(50),first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,box_number VARCHAR(50),stop_id INTEGER,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id))";
-    private static final String userString = "CREATE TABLE Users(user_id INTEGER PRIMARY KEY AUTOINCREMENT,user_name VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,password INTEGER NOT NULL,administrator BOOLEAN NOT NULL,active BOOLEAN)";
-    private static final String packageString = "CREATE TABLE Package(package_id INTEGER PRIMARY KEY AUTOINCREMENT,tracking_number VARCHAR(50) NOT NULL,receive_date DATE NOT NULL,email_address VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,box_number VARCHAR(50) NOT NULL,at_stop BOOLEAN NOT NULL,picked_up BOOLEAN NOT NULL,pick_up_date DATE,stop_id INTEGER,courier_id INTEGER,user_id INTEGER,returned BOOLEAN,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id),FOREIGN KEY(courier_id) REFERENCES Courier(courier_id),FOREIGN KEY(user_id) REFERENCES Users(user_id))";
+    private static final String routeString = "CREATE TABLE Route(route_id INTEGER PRIMARY KEY AUTO_INCREMENT,route_name VARCHAR(50) NOT NULL,is_used BOOLEAN)";
+    private static final String stopString = "CREATE TABLE Stop(stop_id INTEGER PRIMARY KEY AUTO_INCREMENT,stop_name VARCHAR(50) NOT NULL,route_id INTEGER,is_used BOOLEAN NOT NULL,route_order INTEGER,student BOOLEAN,FOREIGN KEY(route_id) REFERENCES Route(route_id))";
+    private static final String courierString = "CREATE TABLE Courier(courier_id INTEGER PRIMARY KEY AUTO_INCREMENT,courier_name VARCHAR(50) NOT NULL,is_used BOOLEAN NOT NULL)";
+    private static final String personString = "CREATE TABLE Person(person_id INTEGER PRIMARY KEY AUTO_INCREMENT,id_number VARCHAR(50),email_address VARCHAR(50),first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,box_number VARCHAR(50),stop_id INTEGER,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id))";
+    private static final String userString = "CREATE TABLE Users(user_id INTEGER PRIMARY KEY AUTO_INCREMENT,user_name VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,password INTEGER NOT NULL,administrator BOOLEAN NOT NULL,active BOOLEAN)";
+    private static final String packageString = "CREATE TABLE Package(package_id INTEGER PRIMARY KEY AUTO_INCREMENT,tracking_number VARCHAR(50) NOT NULL,receive_date DATE NOT NULL,email_address VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,box_number VARCHAR(50) NOT NULL,at_stop BOOLEAN NOT NULL,picked_up BOOLEAN NOT NULL,pick_up_date DATE,stop_id INTEGER,courier_id INTEGER,user_id INTEGER,returned BOOLEAN,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id),FOREIGN KEY(courier_id) REFERENCES Courier(courier_id),FOREIGN KEY(user_id) REFERENCES Users(user_id))";
     private static final String routeInsert = "insert into Route(route_name, is_used) values('unassigned', 1)";
     private static final String stopInsert = "insert into Stop(stop_name,route_id,is_used,route_order,student) values('unassigned',1,1,0,0)";
     private static final String devString = "insert into Users(user_name, first_name, last_name, password, administrator, active) values('DEV', 'Developer', 'Access', 2145483,1,1);";
@@ -141,14 +141,7 @@ public class MysqlManager implements DatabaseManager
             stmnt.setInt(4, password);
             stmnt.setBoolean(5, u.getAdmin());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -176,14 +169,7 @@ public class MysqlManager implements DatabaseManager
             stmnt.setString(2, u.getUserName());
             stmnt.setInt(3, oldPassword);
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -208,14 +194,7 @@ public class MysqlManager implements DatabaseManager
 
             stmnt.setInt(1, u.getUserId());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                retValue = true;
-            }
-            else
-            {
-                retValue = false;
-            }
+            retValue = stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -244,14 +223,7 @@ public class MysqlManager implements DatabaseManager
             stmnt.setBoolean(1, status);
             stmnt.setInt(2, u.getUserId());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                retValue = true;
-            }
-            else
-            {
-                retValue = false;
-            }
+            retValue = stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -280,14 +252,7 @@ public class MysqlManager implements DatabaseManager
             stmnt.setInt(1, password);
             stmnt.setInt(2, u.getUserId());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                retValue = true;
-            }
-            else
-            {
-                retValue = false;
-            }
+            retValue = stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -385,12 +350,12 @@ public class MysqlManager implements DatabaseManager
 
             while (rs.next())
             {
-                for (int i = 0; i < routes.size(); i++)
+                for (Route route : routes)
                 {
-                    if (routes.get(i).getRouteId() == rs.getInt("route_id"))
+                    if (route.getRouteId() == rs.getInt("route_id"))
                     {
                         stops.add(new Stop(rs.getInt("stop_id"), rs
-                                .getString("stop_name"), routes.get(i)
+                                .getString("stop_name"), route
                                 .getRouteName(), rs.getInt("route_order"), rs
                                 .getBoolean("Student")));
                     }
@@ -414,20 +379,13 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Stop set Student=? where stop_id=?");
+                    .prepareStatement("update Stop set student=? where stop_id=?");
             stmnt.setQueryTimeout(5);
 
             stmnt.setBoolean(1, s.getStudent());
             stmnt.setInt(2, s.getStopId());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -454,14 +412,7 @@ public class MysqlManager implements DatabaseManager
             stmnt.setInt(1, r.getRouteId());
             stmnt.setInt(2, s.getStopId());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                retValue = true;
-            }
-            else
-            {
-                retValue = false;
-            }
+            retValue = stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -485,7 +436,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("insert into Stop(stop_name, route_id, is_used, route_order, Student) values(?,?,1,?,?)");
+                    .prepareStatement("insert into Stop(stop_name, route_id, is_used, route_order, student) values(?,?,1,?,?)");
             stmnt.setQueryTimeout(5);
 
             stmnt.setString(1, s.getStopName());
@@ -500,14 +451,7 @@ public class MysqlManager implements DatabaseManager
             stmnt.setInt(3, s.getRouteOrder());
             stmnt.setBoolean(4, s.getStudent());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -532,14 +476,7 @@ public class MysqlManager implements DatabaseManager
 
             stmnt.setInt(1, s.getStopId());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -565,14 +502,7 @@ public class MysqlManager implements DatabaseManager
             stmnt.setInt(1, pos);
             stmnt.setInt(2, s.getStopId());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -721,14 +651,7 @@ public class MysqlManager implements DatabaseManager
             stmnt.setString(1, r.getRouteName());
             stmnt.setInt(2, r.getRouteId());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -754,14 +677,7 @@ public class MysqlManager implements DatabaseManager
 
             stmnt.setString(1, route_name);
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -862,14 +778,7 @@ public class MysqlManager implements DatabaseManager
 
             stmnt.setString(1, courier_name);
 
-            if (stmnt.execute())
-            {
-                retValue = true;
-            }
-            else
-            {
-                retValue = false;
-            }
+            retValue = stmnt.execute();
         }
         catch (SQLException e)
         {
@@ -897,14 +806,7 @@ public class MysqlManager implements DatabaseManager
             stmnt.setString(1, c.getCourierName());
             stmnt.setInt(2, c.getCourierId());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -929,14 +831,7 @@ public class MysqlManager implements DatabaseManager
 
             stmnt.setInt(1, c.getCourierId());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -987,8 +882,7 @@ public class MysqlManager implements DatabaseManager
         try
         {
             connect();
-            PreparedStatement stmnt = null;
-            ;
+            PreparedStatement stmnt;
 
             stmnt = connection
                     .prepareStatement("select * from Package where picked_up=0 and returned=0 and stop_id=?");
@@ -1048,7 +942,7 @@ public class MysqlManager implements DatabaseManager
         try
         {
             connect();
-            PreparedStatement stmnt = null;
+            PreparedStatement stmnt;
 
             stmnt = connection
                     .prepareStatement("update Package set at_stop=? where package_id=?");
@@ -1067,7 +961,7 @@ public class MysqlManager implements DatabaseManager
                     .prepareStatement("update Package set pick_up_date=? where package_id=?");
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date now = new Date();
-            String date = format.format(now).toString();
+            String date = format.format(now);
             stmnt.setString(1, date);
             stmnt.setInt(2, packageId);
             stmnt.executeUpdate();
@@ -1091,7 +985,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
 
-            PreparedStatement stmnt = null;
+            PreparedStatement stmnt;
 
             stmnt = connection
                     .prepareStatement("update Package set tracking_number=?, email_address=?, first_name=?, last_name=?, box_number=?, at_stop=?, picked_up=?, stop_id=?, courier_id=?, returned=? where package_id=?");
@@ -1142,14 +1036,7 @@ public class MysqlManager implements DatabaseManager
             stmnt.setInt(8, p.getCourier().getCourierId());
             stmnt.setInt(9, p.getUser().getUserId());
 
-            if (stmnt.executeUpdate() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return stmnt.executeUpdate() > 0;
         }
         catch (SQLException e)
         {
@@ -1171,7 +1058,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
 
-            PreparedStatement stmnt = null;
+            PreparedStatement stmnt;
 
             if (s.getStudent())
             {
@@ -1187,7 +1074,7 @@ public class MysqlManager implements DatabaseManager
             Date d = new Date();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-            stmnt.setString(1, format.format(d).toString());
+            stmnt.setString(1, format.format(d));
             stmnt.setInt(2, s.getStopId());
 
             ResultSet rs = stmnt.executeQuery();
@@ -1220,7 +1107,7 @@ public class MysqlManager implements DatabaseManager
             Date d = new Date();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-            stmnt.setString(1, format.format(d).toString());
+            stmnt.setString(1, format.format(d));
             stmnt.setInt(2, s.getStopId());
 
             ResultSet rs = stmnt.executeQuery();
@@ -1251,7 +1138,7 @@ public class MysqlManager implements DatabaseManager
                 Stop stop = null;
                 Courier courier = null;
                 User user = null;
-                PreparedStatement stmnt = null;
+                PreparedStatement stmnt;
 
                 for (Stop s : stops)
                 {
@@ -1569,8 +1456,6 @@ public class MysqlManager implements DatabaseManager
         routes = null;
         stops = null;
         packages = null;
-
-        return;
     }
 
     @Override
@@ -1650,7 +1535,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
 
-            PreparedStatement stmnt = connection.prepareStatement("select address_string from EmailAddress where address_id=?");
+            PreparedStatement stmnt = connection.prepareStatement("select address_string from EmailAddresses where address_id=?");
             stmnt.setInt(1, s.getStopId());
             ResultSet rs = stmnt.executeQuery();
 

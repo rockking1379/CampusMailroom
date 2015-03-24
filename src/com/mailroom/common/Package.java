@@ -108,7 +108,7 @@ public class Package
         {
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date now = new Date();
-            this.pickUpDate = format.format(now).toString();
+            this.pickUpDate = format.format(now);
         }
     }
 

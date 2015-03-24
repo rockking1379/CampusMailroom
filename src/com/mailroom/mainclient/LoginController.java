@@ -53,6 +53,8 @@ public class LoginController implements Initializable
      */
     public void btnLoginAction(ActionEvent ae)
     {
+        ae.consume();
+
         String pwd = pwdPassword.getText();
         int hash = txtUserName.getText().hashCode() + pwd.hashCode();
 
@@ -86,6 +88,8 @@ public class LoginController implements Initializable
      */
     public void btnQuitAction(ActionEvent ae)
     {
+        ae.consume();
+
         MainFrame.saveProperties();
 
         dbManager.dispose();

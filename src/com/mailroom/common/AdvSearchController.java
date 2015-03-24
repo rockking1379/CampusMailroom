@@ -64,19 +64,19 @@ public class AdvSearchController implements Initializable
     private DatabaseManager dbManager;
     private PackageEditWindow editWindow;
 
-    // Columns//
-    private CheckBoxColumn<Package> clmnDelivered;
-    private TextColumn<Package> clmnFirstName;
-    private TextColumn<Package> clmnLastName;
-    private TextColumn<Package> clmnStop;
-    private TextColumn<Package> clmnTrackingNumber;
-    private TextColumn<Package> clmnCourier;
-    private TextColumn<Package> clmnDateReceived;
-    private TextColumn<Package> clmnUserName;
-
     @Override
     public void initialize(URL arg0, ResourceBundle arg1)
     {
+        // Columns//
+        CheckBoxColumn<Package> clmnDelivered;
+        TextColumn<Package> clmnFirstName;
+        TextColumn<Package> clmnLastName;
+        TextColumn<Package> clmnStop;
+        TextColumn<Package> clmnTrackingNumber;
+        TextColumn<Package> clmnCourier;
+        TextColumn<Package> clmnDateReceived;
+        TextColumn<Package> clmnUserName;
+
         // Create Columns
         clmnDelivered = new CheckBoxColumn<Package>("pickedUp");
         clmnFirstName = new TextColumn<Package>("firstName");
@@ -175,6 +175,8 @@ public class AdvSearchController implements Initializable
      */
     public void btnSearchAction(ActionEvent ae)
     {
+        ae.consume();
+
         ArrayList<Package> results = new ArrayList<Package>();
 
         tblViewTable.getItems().clear();
@@ -251,9 +253,9 @@ public class AdvSearchController implements Initializable
             else
             {
                 String start = new SimpleDateFormat("yyyy-MM-dd").format(
-                        startDate.getValue()).toString();
+                        startDate.getValue());
                 String end = new SimpleDateFormat("yyyy-MM-dd").format(
-                        endDate.getValue()).toString();
+                        endDate.getValue());
 
                 if (endDate.getValue().before(startDate.getValue()))
                 {
@@ -345,6 +347,7 @@ public class AdvSearchController implements Initializable
      */
     public void btnExitAction(ActionEvent ae)
     {
+        ae.consume();
         if (MainFrame.dbManager != null)
         {
             try
@@ -395,6 +398,7 @@ public class AdvSearchController implements Initializable
      */
     public void cboxDateSearchAction(ActionEvent ae)
     {
+        ae.consume();
         if (cboxDateSearch.isSelected())
         {
             startDate.setDisable(false);

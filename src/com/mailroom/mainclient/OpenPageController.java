@@ -62,13 +62,6 @@ public class OpenPageController implements Initializable
 
     // Columns//
     private TickColumn<Package> clmnDelivered;
-    private TextColumn<Package> clmnFirstName;
-    private TextColumn<Package> clmnLastName;
-    private TextColumn<Package> clmnStop;
-    private TextColumn<Package> clmnTrackingNumber;
-    private TextColumn<Package> clmnCourier;
-    private TextColumn<Package> clmnDateReceived;
-    private TextColumn<Package> clmnUserName;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1)
@@ -81,6 +74,15 @@ public class OpenPageController implements Initializable
         String name = "Welcome " + cUser.getFirstName() + " "
                 + cUser.getLastName();
         lblUserLabel.setText(name);
+
+        // Columns
+        TextColumn<Package> clmnFirstName;
+        TextColumn<Package> clmnLastName;
+        TextColumn<Package> clmnStop;
+        TextColumn<Package> clmnTrackingNumber;
+        TextColumn<Package> clmnCourier;
+        TextColumn<Package> clmnDateReceived;
+        TextColumn<Package> clmnUserName;
 
         // Create Columns
         clmnDelivered = new TickColumn<Package>();
@@ -169,6 +171,7 @@ public class OpenPageController implements Initializable
      */
     public void btnScanPackageAction(ActionEvent ae)
     {
+        ae.consume();
         try
         {
             if (au != null)
@@ -194,6 +197,7 @@ public class OpenPageController implements Initializable
      */
     public void btnPrintAction(ActionEvent ae)
     {
+        ae.consume();
         try
         {
             if (au != null)
@@ -218,6 +222,7 @@ public class OpenPageController implements Initializable
      */
     public void btnSearchAction(ActionEvent ae)
     {
+        ae.consume();
         try
         {
             Parent root = FXMLLoader.load(getClass().getResource(
@@ -239,6 +244,7 @@ public class OpenPageController implements Initializable
      */
     public void btnRefreshAction(ActionEvent ae)
     {
+        ae.consume();
         // refresh current scene
         // update packages
         // reload packages
@@ -274,6 +280,7 @@ public class OpenPageController implements Initializable
      */
     public void btnSettingsAction(ActionEvent ae)
     {
+        ae.consume();
         try
         {
             if (au != null)
@@ -299,6 +306,7 @@ public class OpenPageController implements Initializable
      */
     public void btnLogoutAction(ActionEvent ae)
     {
+        ae.consume();
         MessageDialog.Answer a = MessageDialogBuilder.confirmation()
                 .message("Confirm Logout?").title("Logout")
                 .buttonType(MessageDialog.ButtonType.YES_NO)
@@ -332,6 +340,7 @@ public class OpenPageController implements Initializable
      */
     public void btnQuitAction(ActionEvent ae)
     {
+        ae.consume();
         MessageDialog.Answer a = MessageDialogBuilder.confirmation()
                 .message("Confirm Quit?").title("Quit")
                 .buttonType(MessageDialog.ButtonType.YES_NO)

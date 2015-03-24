@@ -106,6 +106,7 @@ public class PackageEditController implements Initializable
      */
     public void btnSaveAction(ActionEvent ae)
     {
+        ae.consume();
         if (MainFrame.dbManager.updatePackage(new Package(curPackage
                 .getPackageId(), txtTrackingNumber.getText(), curPackage
                 .getReceivedDate(), txtEmailAddress.getText(), txtFirstName
@@ -157,6 +158,7 @@ public class PackageEditController implements Initializable
      */
     public void btnCancelAction(ActionEvent ae)
     {
+        ae.consume();
         if (curPackage != null)
         {
             lblPackageId.setText("Package #"

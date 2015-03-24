@@ -42,7 +42,7 @@ public class Logger
         boolean retVal = true;
 
         Date d = new Date();
-        String sDate = new SimpleDateFormat("yyyy-MM-dd").format(d).toString();
+        String sDate = new SimpleDateFormat("yyyy-MM-dd").format(d);
         String fileName = "./Logs/" + sDate + ".err";
         File f = new File(fileName);
 
@@ -82,7 +82,7 @@ public class Logger
             {
                 System.err.println("Logging Error");
                 e.printStackTrace();
-                ;
+
                 retVal = false;
             }
         }

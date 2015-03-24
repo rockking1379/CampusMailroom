@@ -63,6 +63,7 @@ public class UpdaterController implements Initializable
      */
     public void btnUpdateAction(ActionEvent ae)
     {
+        ae.consume();
         pindicatorProgress.setProgress(-1);
         lblDownload.setVisible(true);
         lblWaiting.setVisible(true);
@@ -79,6 +80,7 @@ public class UpdaterController implements Initializable
      */
     public void btnExitAction(ActionEvent ae)
     {
+        ae.consume();
         pindicatorProgress.setProgress(1);
         System.exit(1);
     }
