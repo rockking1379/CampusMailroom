@@ -8,22 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5925d2b-0f9f-4f83-bdc8-55ac03077826" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/common/AdvSearchController.java" afterPath="$PROJECT_DIR$/src/com/mailroom/common/AdvSearchController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/common/DatabaseManager.java" afterPath="$PROJECT_DIR$/src/com/mailroom/common/DatabaseManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/common/Logger.java" afterPath="$PROJECT_DIR$/src/com/mailroom/common/Logger.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/mainclient/LoginController.java" afterPath="$PROJECT_DIR$/src/com/mailroom/mainclient/LoginController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/otherclient/MainPageController.java" afterPath="$PROJECT_DIR$/src/com/mailroom/otherclient/MainPageController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/common/MysqlManager.java" afterPath="$PROJECT_DIR$/src/com/mailroom/common/MysqlManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/mainclient/OpenPageController.java" afterPath="$PROJECT_DIR$/src/com/mailroom/mainclient/OpenPageController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/common/Package.java" afterPath="$PROJECT_DIR$/src/com/mailroom/common/Package.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/mainclient/PackageEditController.java" afterPath="$PROJECT_DIR$/src/com/mailroom/mainclient/PackageEditController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/common/PostgreSQLManager.java" afterPath="$PROJECT_DIR$/src/com/mailroom/common/PostgreSQLManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/mainclient/PrintPageController.java" afterPath="$PROJECT_DIR$/src/com/mailroom/mainclient/PrintPageController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/common/SQLiteManager.java" afterPath="$PROJECT_DIR$/src/com/mailroom/common/SQLiteManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/mainclient/ScanPageController.java" afterPath="$PROJECT_DIR$/src/com/mailroom/mainclient/ScanPageController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/mainclient/SettingsController.java" afterPath="$PROJECT_DIR$/src/com/mailroom/mainclient/SettingsController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/mainclient/SetupController.java" afterPath="$PROJECT_DIR$/src/com/mailroom/mainclient/SetupController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/updater/UpdaterController.java" afterPath="$PROJECT_DIR$/src/com/mailroom/updater/UpdaterController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/SettingsPageFx.fxml" afterPath="$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/SettingsPageFx.fxml" />
     </list>
     <ignored path="MailroomRewrite.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -53,19 +39,19 @@
         <option name="myItemId" />
         <option name="myItemType" value="com.intellij.database.view.DbRootNodeDescriptor" />
       </PATH_ELEMENT>
-    </PATH>
-    <PATH>
       <PATH_ELEMENT>
-        <option name="myItemId" />
-        <option name="myItemType" value="com.intellij.database.view.DbRootNodeDescriptor" />
-      </PATH_ELEMENT>
-      <PATH_ELEMENT>
-        <option name="myItemId" value="SQLite -" />
+        <option name="myItemId" value="SQLite Mailroom" />
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
       </PATH_ELEMENT>
       <PATH_ELEMENT>
         <option name="myItemId" value="" />
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+    </PATH>
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" />
+        <option name="myItemType" value="com.intellij.database.view.DbRootNodeDescriptor" />
       </PATH_ELEMENT>
     </PATH>
     <PATH>
@@ -79,6 +65,38 @@
       </PATH_ELEMENT>
       <PATH_ELEMENT>
         <option name="myItemId" value="mailroom" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+    </PATH>
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" />
+        <option name="myItemType" value="com.intellij.database.view.DbRootNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="ERROR Example" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="sqlite_sequence" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+    </PATH>
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" />
+        <option name="myItemType" value="com.intellij.database.view.DbRootNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="ERROR Example" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="" />
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
       </PATH_ELEMENT>
     </PATH>
@@ -100,7 +118,6 @@
         <option value="db-console:/f7a2e825/e8aaf294-b04c-4677-9504-e329e51953ae/" />
         <option value="db-console:/f7a2e825/ce4c31f4-5950-469f-a4ec-1ddfdc6a78fe/" />
         <option value="db-console:/f7a2e825/4674b585-45a7-4887-9ca7-9a9fc270cb6c/" />
-        <option value="db-console:/f7a2e825/2ac20cc4-f539-4056-bed5-472aefc68dc8/" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/com/mailroom/common/SQLiteManager.java" />
         <option value="$PROJECT_DIR$/src/com/mailroom/common/MysqlManager.java" />
@@ -117,9 +134,10 @@
         <option value="$PROJECT_DIR$/src/com/mailroom/mainclient/OpenPageController.java" />
         <option value="$PROJECT_DIR$/src/com/mailroom/mainclient/PackageEditController.java" />
         <option value="$PROJECT_DIR$/src/com/mailroom/mainclient/ScanPageController.java" />
-        <option value="$PROJECT_DIR$/src/com/mailroom/mainclient/SettingsController.java" />
         <option value="$PROJECT_DIR$/src/com/mailroom/mainclient/SetupController.java" />
         <option value="$PROJECT_DIR$/src/com/mailroom/updater/UpdaterController.java" />
+        <option value="db-console:/f7a2e825/2ac20cc4-f539-4056-bed5-472aefc68dc8/" />
+        <option value="$PROJECT_DIR$/src/com/mailroom/mainclient/SettingsController.java" />
       </list>
     </option>
   </component>
@@ -321,6 +339,54 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="fxml" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MailroomRewrite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MailroomRewrite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mailroom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fxml" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mainclient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MailroomRewrite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MailroomRewrite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mailroom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="common" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -370,7 +436,13 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="MailroomRewrite" />
       <envs />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
       <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
@@ -650,12 +722,12 @@
       <workItem from="1427088590736" duration="17000" />
       <workItem from="1427088622343" duration="5910000" />
       <workItem from="1427094988655" duration="1856000" />
-      <workItem from="1427144252510" duration="10380000" />
+      <workItem from="1427144252510" duration="12907000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19368000" />
+    <option name="totallyTimeSpent" value="21895000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -674,16 +746,16 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32946146" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23548046" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23548046" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18020834" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18020834" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17552084" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17552084" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39915523" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -709,7 +781,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="6" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -718,99 +790,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/mailroom/common/SQLiteManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2958" max-vertical-offset="3961">
-          <caret line="1070" column="4" selection-start-line="1070" selection-start-column="4" selection-end-line="1070" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#8646#8652#0" expanded="true" />
-            <element signature="e#9434#9440#0" expanded="true" />
-            <element signature="e#16106#16112#0" expanded="true" />
-            <element signature="e#29974#29983#0" expanded="true" />
-            <element signature="e#33046#33054#0" expanded="true" />
-            <element signature="e#41186#41194#0" expanded="true" />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="DROP TABLE I..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="DROP TABLE I..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="DROP TABLE I..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="DROP TABLE I..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="DROP TABLE I..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="DROP TABLE I..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="CREATE TABLE..Route..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="CREATE TABLE..Stop..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="CREATE TABLE..Courier..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="CREATE TABLE..Person..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="CREATE TABLE..Users..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="CREATE TABLE..Package..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="insert into ..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="insert into ..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="insert into ..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select * fro..Users..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="insert into ..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="update Users..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="update Users..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="update Users..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="update Users..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select * fro..Users..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select * fro..Users..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select * fro..Stop..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="update Stop ..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="update Stop ..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="insert into ..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="update Stop ..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="update Stop ..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select * fro..Stop..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select * fro..Stop..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select * fro..Route..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="update Route..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="insert into ..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="update Route..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="update Stop ..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select * fro..Courier..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="insert into ..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="update Couri..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="update Couri..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select * fro..Package..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select * fro..Package..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select packa..Package..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="update Packa..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="update Packa..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="update Packa..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="update Packa..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="insert into ..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select * fro..Package..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select * fro..Package..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select * fro..Package..." />
-            <marker date="1427157823771" expanded="true" signature="-1:-1" placeholder="select * fro..Stop..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select * fro..Courier..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select * fro..Users..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select * fro..Person..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select * fro..Package..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select * fro..Package..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select * fro..Package..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select * fro..Package..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select * fro..Package..." />
-            <marker date="1427157823771" expanded="false" signature="-1:-1" placeholder="select addre..EmailAddress..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://db-console:/f7a2e825/2ac20cc4-f539-4056-bed5-472aefc68dc8/">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="100">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://db-console:/f7a2e825/e8aaf294-b04c-4677-9504-e329e51953ae/">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="204">
-          <caret line="5" column="99" selection-start-line="5" selection-start-column="99" selection-end-line="5" selection-end-column="99" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="dbDummy://db-console:/f7a2e825/ce9c71a1-f1d9-4b3b-88f8-78c3bbb787aa/">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="238">
@@ -952,13 +931,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/configuration.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20348205" vertical-offset="0" max-vertical-offset="919">
-          <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MailroomRewrite.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.1088139" vertical-offset="1019" max-vertical-offset="1938">
@@ -989,14 +961,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.15070923" vertical-offset="0" max-vertical-offset="564">
           <caret line="5" column="99" selection-start-line="5" selection-start-column="99" selection-end-line="5" selection-end-column="99" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://db-console:/f7a2e825/2ac20cc4-f539-4056-bed5-472aefc68dc8/">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="534">
-          <caret line="0" column="6" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="190" />
           <folding />
         </state>
       </provider>
@@ -1475,16 +1439,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/mailroom/mainclient/SettingsController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="4.8117814" vertical-offset="0" max-vertical-offset="24038">
-          <caret line="197" column="19" selection-start-line="197" selection-start-column="19" selection-end-line="197" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/mailroom/mainclient/SetupController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.09626437" vertical-offset="10218" max-vertical-offset="10982">
@@ -1527,6 +1481,69 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5862069" vertical-offset="0" max-vertical-offset="4199">
           <caret line="51" column="27" selection-start-line="51" selection-start-column="27" selection-end-line="51" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/configuration.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30807248" vertical-offset="0" max-vertical-offset="607">
+          <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/f7a2e825/0fa2374e-6938-4ddc-8c8c-859cfdeffef5/..sqlite_sequence">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/f7a2e825/4674b585-45a7-4887-9ca7-9a9fc270cb6c/..sqlite_sequence">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/mailroom/mainclient/SettingsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-31.03954" vertical-offset="23686" max-vertical-offset="24293">
+          <caret line="285" column="48" selection-start-line="285" selection-start-column="48" selection-end-line="285" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/SettingsPageFx.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.531915" vertical-offset="1445" max-vertical-offset="5950">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="dbDummy://db-console:/f7a2e825/2ac20cc4-f539-4056-bed5-472aefc68dc8/">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="653">
+          <caret line="0" column="20" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
           <folding />
         </state>
       </provider>
