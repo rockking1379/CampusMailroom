@@ -1,21 +1,20 @@
 package com.mailroom.mainclient;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import com.mailroom.common.Courier;
 import com.mailroom.common.Package;
 import com.mailroom.common.Stop;
 import com.mailroom.otherclient.OtherMainFrame;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class PackageEditController implements Initializable
 {

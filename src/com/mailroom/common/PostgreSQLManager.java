@@ -27,9 +27,9 @@ public class PostgreSQLManager implements DatabaseManager
     private static final String personString = "CREATE TABLE Person(person_id SERIAL PRIMARY KEY,id_number VARCHAR(50),email_address VARCHAR(50),first_name VARCHAR(50),last_name VARCHAR(50),box_number VARCHAR(50),stop_id INTEGER REFERENCES Stop(stop_id))";
     private static final String userString = "CREATE TABLE Users(user_id SERIAL PRIMARY KEY,user_name VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,password INTEGER NOT NULL,administrator BOOLEAN NOT NULL,active BOOLEAN)";
     private static final String packageString = "CREATE TABLE Package(package_id SERIAL PRIMARY KEY,tracking_number VARCHAR(50) NOT NULL,receive_date DATE NOT NULL,email_address VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,box_number VARCHAR(50) NOT NULL,at_stop BOOLEAN NOT NULL,picked_up BOOLEAN NOT NULL,pick_up_date DATE,stop_id INTEGER REFERENCES Stop(stop_id),courier_id INTEGER REFERENCES Courier(courier_id),user_id INTEGER REFERENCES Users(user_id),returned BOOLEAN)";
-    private static final String routeInsert = "insert into Route(route_name, is_used) values('unassigned', true)";
-    private static final String stopInsert = "insert into Stop(stop_name,route_id,is_used,route_order,student) values('unassigned',1,true,0,0)";
-    private static final String devString = "insert into Users(user_name, first_name, last_name, password, administrator, active) values('DEV', 'Developer', 'Access', 2145483,true,true);";
+    private static final String routeInsert = "INSERT INTO Route(route_name, is_used) VALUES('unassigned', TRUE)";
+    private static final String stopInsert = "INSERT INTO Stop(stop_name,route_id,is_used,route_order,student) VALUES('unassigned',1,TRUE,0,0)";
+    private static final String devString = "INSERT INTO Users(user_name, first_name, last_name, password, administrator, active) VALUES('DEV', 'Developer', 'Access', 2145483,TRUE,TRUE);";
 
     /**
      * Used in Settings database to identify database manager type to create
@@ -83,7 +83,7 @@ public class PostgreSQLManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmt = connection
-                    .prepareStatement("select * from Users where user_name=? and password=? and active=true");
+                    .prepareStatement("SELECT * FROM Users WHERE user_name=? AND password=? AND active=TRUE");
             stmt.setQueryTimeout(5);
             stmt.setString(1, userName);
             stmt.setInt(2, password);
@@ -119,7 +119,7 @@ public class PostgreSQLManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("insert into Users(user_name, first_name, last_name, password, administrator, active) values(?,?,?,?,?,true)");
+                    .prepareStatement("INSERT INTO Users(user_name, first_name, last_name, password, administrator, active) VALUES(?,?,?,?,?,TRUE)");
             stmnt.setQueryTimeout(5);
 
             stmnt.setString(1, u.getUserName());
@@ -157,7 +157,7 @@ public class PostgreSQLManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Users set password=? where user_name=? and password=?");
+                    .prepareStatement("UPDATE Users SET password=? WHERE user_name=? AND password=?");
             stmnt.setQueryTimeout(5);
 
             stmnt.setInt(1, newPassword);
@@ -193,7 +193,7 @@ public class PostgreSQLManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Users set active=0 where user_id=?");
+                    .prepareStatement("UPDATE Users SET active=0 WHERE user_id=?");
 
             stmnt.setInt(1, u.getUserId());
 
@@ -229,7 +229,7 @@ public class PostgreSQLManager implements DatabaseManager
             connect();
 
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Users set administrator=? where user_id=?");
+                    .prepareStatement("UPDATE Users SET administrator=? WHERE user_id=?");
 
             stmnt.setBoolean(1, status);
             stmnt.setInt(2, u.getUserId());
@@ -266,7 +266,7 @@ public class PostgreSQLManager implements DatabaseManager
             connect();
 
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Users set active=true, password=? where user_id=?");
+                    .prepareStatement("UPDATE Users SET active=TRUE, password=? WHERE user_id=?");
 
             stmnt.setInt(1, password);
             stmnt.setInt(2, u.getUserId());
@@ -306,7 +306,7 @@ public class PostgreSQLManager implements DatabaseManager
             Statement stmnt = connection.createStatement();
 
             ResultSet rs = stmnt
-                    .executeQuery("select * from Users where active=false");
+                    .executeQuery("SELECT * FROM Users WHERE active=FALSE");
 
             while (rs.next())
             {
@@ -340,7 +340,7 @@ public class PostgreSQLManager implements DatabaseManager
             Statement stmnt = connection.createStatement();
 
             ResultSet rs = stmnt
-                    .executeQuery("select * from Users where active=true");
+                    .executeQuery("SELECT * FROM Users WHERE active=TRUE");
 
             while (rs.next())
             {
@@ -375,7 +375,7 @@ public class PostgreSQLManager implements DatabaseManager
             stmnt.setQueryTimeout(5);
 
             ResultSet rs = stmnt
-                    .executeQuery("select * from Stop where is_used=true order by stop_name asc");
+                    .executeQuery("SELECT * FROM Stop WHERE is_used=TRUE ORDER BY stop_name ASC");
 
             while (rs.next())
             {
@@ -409,7 +409,7 @@ public class PostgreSQLManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Stop set Student=? where stop_id=?");
+                    .prepareStatement("UPDATE Stop SET Student=? WHERE stop_id=?");
             stmnt.setQueryTimeout(5);
 
             stmnt.setBoolean(1, s.getStudent());
@@ -438,7 +438,7 @@ public class PostgreSQLManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Stop set route_id=? where stop_id=?");
+                    .prepareStatement("UPDATE Stop SET route_id=? WHERE stop_id=?");
 
             stmnt.setInt(1, r.getRouteId());
             stmnt.setInt(2, s.getStopId());
@@ -468,7 +468,7 @@ public class PostgreSQLManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("insert into Stop(stop_name, route_id, is_used, route_order, Student) values(?,?,true,?,?)");
+                    .prepareStatement("INSERT INTO Stop(stop_name, route_id, is_used, route_order, Student) VALUES(?,?,TRUE,?,?)");
             stmnt.setQueryTimeout(5);
 
             stmnt.setString(1, s.getStopName());
@@ -504,7 +504,7 @@ public class PostgreSQLManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Stop set is_used=false where stop_id=?");
+                    .prepareStatement("UPDATE Stop SET is_used=FALSE WHERE stop_id=?");
             stmnt.setQueryTimeout(5);
 
             stmnt.setInt(1, s.getStopId());
@@ -531,7 +531,7 @@ public class PostgreSQLManager implements DatabaseManager
             connect();
 
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Stop set route_order=? where stop_id=?");
+                    .prepareStatement("UPDATE Stop SET route_order=? WHERE stop_id=?");
 
             stmnt.setInt(1, pos);
             stmnt.setInt(2, s.getStopId());
@@ -565,7 +565,7 @@ public class PostgreSQLManager implements DatabaseManager
             stmnt.setQueryTimeout(5);
 
             ResultSet rs = stmnt
-                    .executeQuery("select * from Stop where route_id=1 and is_used=true");
+                    .executeQuery("SELECT * FROM Stop WHERE route_id=1 AND is_used=TRUE");
 
             return processStopResult(rs, "unassigned");
         }
@@ -593,7 +593,7 @@ public class PostgreSQLManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("select * from Stop where route_id=? and is_used=true");
+                    .prepareStatement("SELECT * FROM Stop WHERE route_id=? AND is_used=TRUE");
             stmnt.setQueryTimeout(5);
 
             stmnt.setInt(1, r.getRouteId());
@@ -651,7 +651,7 @@ public class PostgreSQLManager implements DatabaseManager
             stmnt.setQueryTimeout(5);
 
             ResultSet rs = stmnt
-                    .executeQuery("select * from Route where is_used=true order by route_name asc;");
+                    .executeQuery("SELECT * FROM Route WHERE is_used=TRUE ORDER BY route_name ASC;");
 
             while (rs.next())
             {
@@ -683,7 +683,7 @@ public class PostgreSQLManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Route set route_name=? where route_id=?");
+                    .prepareStatement("UPDATE Route SET route_name=? WHERE route_id=?");
             stmnt.setQueryTimeout(5);
 
             stmnt.setString(1, r.getRouteName());
@@ -711,7 +711,7 @@ public class PostgreSQLManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("insert into Route(route_name, is_used) values(?,true)");
+                    .prepareStatement("INSERT INTO Route(route_name, is_used) VALUES(?,TRUE)");
             stmnt.setQueryTimeout(5);
 
             stmnt.setString(1, route_name);
@@ -737,7 +737,7 @@ public class PostgreSQLManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Route set is_used=false where route_id=?");
+                    .prepareStatement("UPDATE Route SET is_used=FALSE WHERE route_id=?");
             stmnt.setQueryTimeout(5);
 
             stmnt.setInt(1, r.getRouteId());
@@ -745,7 +745,7 @@ public class PostgreSQLManager implements DatabaseManager
             if (stmnt.executeUpdate() > 0)
             {
                 stmnt = connection
-                        .prepareStatement("update Stop set route_id=1 where route_id=?");
+                        .prepareStatement("UPDATE Stop SET route_id=1 WHERE route_id=?");
                 stmnt.setInt(1, r.getRouteId());
 
                 stmnt.executeUpdate();
@@ -781,7 +781,7 @@ public class PostgreSQLManager implements DatabaseManager
             stmnt.setQueryTimeout(5);
 
             ResultSet rs = stmnt
-                    .executeQuery("select * from Courier where is_used=true order by courier_name asc");
+                    .executeQuery("SELECT * FROM Courier WHERE is_used=TRUE ORDER BY courier_name ASC");
 
             while (rs.next())
             {
@@ -816,7 +816,7 @@ public class PostgreSQLManager implements DatabaseManager
             connect();
 
             PreparedStatement stmnt = connection
-                    .prepareStatement("insert into Courier(courier_name, is_used) values(?,true)");
+                    .prepareStatement("INSERT INTO Courier(courier_name, is_used) VALUES(?,TRUE)");
 
             stmnt.setString(1, courier_name);
 
@@ -843,7 +843,7 @@ public class PostgreSQLManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Courier set courier_name=? where courier_id=?");
+                    .prepareStatement("UPDATE Courier SET courier_name=? WHERE courier_id=?");
             stmnt.setQueryTimeout(5);
 
             stmnt.setString(1, c.getCourierName());
@@ -870,7 +870,7 @@ public class PostgreSQLManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Courier set is_used=false where courier_id=?");
+                    .prepareStatement("UPDATE Courier SET is_used=FALSE WHERE courier_id=?");
             stmnt.setQueryTimeout(5);
 
             stmnt.setInt(1, c.getCourierId());
@@ -906,7 +906,7 @@ public class PostgreSQLManager implements DatabaseManager
             stmnt.setQueryTimeout(5);
 
             ResultSet rs = stmnt
-                    .executeQuery("select * from Package where picked_up=false and returned=false");
+                    .executeQuery("SELECT * FROM Package WHERE picked_up=FALSE AND returned=FALSE");
 
             packages = null;
             packages = processPackageResult(rs);
@@ -932,7 +932,7 @@ public class PostgreSQLManager implements DatabaseManager
             ;
 
             stmnt = connection
-                    .prepareStatement("select * from Package where picked_up=false and returned=false and stop_id=?");
+                    .prepareStatement("SELECT * FROM Package WHERE picked_up=FALSE AND returned=FALSE AND stop_id=?");
             stmnt.setInt(1, stopId);
 
             stmnt.setQueryTimeout(5);
@@ -962,7 +962,7 @@ public class PostgreSQLManager implements DatabaseManager
             connect();
 
             PreparedStatement stmnt = connection
-                    .prepareStatement("select package_id from Package where tracking_number=?");
+                    .prepareStatement("SELECT package_id FROM Package WHERE tracking_number=?");
             stmnt.setString(1, trackingNumber);
 
             ResultSet rs = stmnt.executeQuery();
@@ -993,20 +993,20 @@ public class PostgreSQLManager implements DatabaseManager
             PreparedStatement stmnt;
 
             stmnt = connection
-                    .prepareStatement("update Package set at_stop=? where package_id=?");
+                    .prepareStatement("UPDATE Package SET at_stop=? WHERE package_id=?");
             stmnt.setQueryTimeout(5);
             stmnt.setBoolean(1, atStop);
             stmnt.setInt(2, packageId);
             stmnt.executeUpdate();
 
             stmnt = connection
-                    .prepareStatement("update Package set picked_up=? where package_id=?");
+                    .prepareStatement("UPDATE Package SET picked_up=? WHERE package_id=?");
             stmnt.setBoolean(1, pickedUp);
             stmnt.setInt(2, packageId);
             stmnt.executeUpdate();
 
             stmnt = connection
-                    .prepareStatement("update Package set pick_up_date=? where package_id=?");
+                    .prepareStatement("UPDATE Package SET pick_up_date=? WHERE package_id=?");
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date now = new Date();
             String date = format.format(now);
@@ -1036,7 +1036,7 @@ public class PostgreSQLManager implements DatabaseManager
             PreparedStatement stmnt;
 
             stmnt = connection
-                    .prepareStatement("update Package set tracking_number=?, email_address=?, first_name=?, last_name=?, box_number=?, at_stop=?, picked_up=?, stop_id=?, courier_id=?, returned=? where package_id=?");
+                    .prepareStatement("UPDATE Package SET tracking_number=?, email_address=?, first_name=?, last_name=?, box_number=?, at_stop=?, picked_up=?, stop_id=?, courier_id=?, returned=? WHERE package_id=?");
             stmnt.setQueryTimeout(5);
             stmnt.setString(1, p.getFullTrackingNumber());
             stmnt.setString(2, p.getEmailAddress());
@@ -1070,8 +1070,8 @@ public class PostgreSQLManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("insert into Package(tracking_number, receive_date, email_address, first_name, last_name, box_number, at_stop, picked_up, stop_id, courier_id, user_id, returned)"
-                            + " values(?,?,?,?,?,?,false,false,?,?,?,false)");
+                    .prepareStatement("INSERT INTO Package(tracking_number, receive_date, email_address, first_name, last_name, box_number, at_stop, picked_up, stop_id, courier_id, user_id, returned)"
+                            + " VALUES(?,?,?,?,?,?,FALSE,FALSE,?,?,?,FALSE)");
             stmnt.setQueryTimeout(5);
 
             stmnt.setString(1, p.getFullTrackingNumber());
@@ -1112,12 +1112,12 @@ public class PostgreSQLManager implements DatabaseManager
             if (s.getStudent())
             {
                 stmnt = connection
-                        .prepareStatement("select * from Package where receive_date=? and stop_id=? and at_stop=false order by box_number asc");
+                        .prepareStatement("SELECT * FROM Package WHERE receive_date=? AND stop_id=? AND at_stop=FALSE ORDER BY box_number ASC");
             }
             else
             {
                 stmnt = connection
-                        .prepareStatement("select * from Package where receive_date=? and stop_id=? and at_stop=false order by last_name asc, first_name asc");
+                        .prepareStatement("SELECT * FROM Package WHERE receive_date=? AND stop_id=? AND at_stop=FALSE ORDER BY last_name ASC, first_name ASC");
             }
 
             Date d = new Date();
@@ -1151,7 +1151,7 @@ public class PostgreSQLManager implements DatabaseManager
             connect();
 
             PreparedStatement stmnt = connection
-                    .prepareStatement("select * from Package where receive_date=? and stop_id=? and at_stop=false");
+                    .prepareStatement("SELECT * FROM Package WHERE receive_date=? AND stop_id=? AND at_stop=FALSE");
 
             Date d = new Date();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -1201,7 +1201,7 @@ public class PostgreSQLManager implements DatabaseManager
                 if (stop == null)
                 {
                     stmnt = connection
-                            .prepareStatement("select * from Stop where stop_id=?");
+                            .prepareStatement("SELECT * FROM Stop WHERE stop_id=?");
                     stmnt.setInt(1, rs.getInt("stop_id"));
                     ResultSet s = stmnt.executeQuery();
                     if (s.next())
@@ -1213,7 +1213,7 @@ public class PostgreSQLManager implements DatabaseManager
                 }
 
                 stmnt = connection
-                        .prepareStatement("select * from Courier where courier_id=?");
+                        .prepareStatement("SELECT * FROM Courier WHERE courier_id=?");
                 stmnt.setInt(1, rs.getInt("courier_id"));
                 ResultSet c = stmnt.executeQuery();
                 if (c.next())
@@ -1224,7 +1224,7 @@ public class PostgreSQLManager implements DatabaseManager
                 c.close();
 
                 stmnt = connection
-                        .prepareStatement("select * from Users where user_id=?");
+                        .prepareStatement("SELECT * FROM Users WHERE user_id=?");
                 stmnt.setInt(1, rs.getInt("user_id"));
                 ResultSet u = stmnt.executeQuery();
                 if (u.next())
@@ -1269,7 +1269,7 @@ public class PostgreSQLManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("select * from Person where first_name like ? and last_name like ? and box_number=?");
+                    .prepareStatement("SELECT * FROM Person WHERE first_name LIKE ? AND last_name LIKE ? AND box_number=?");
             stmnt.setQueryTimeout(5);
             stmnt.setString(1, firstName);
             stmnt.setString(2, lastName);
@@ -1335,7 +1335,7 @@ public class PostgreSQLManager implements DatabaseManager
             }
 
             PreparedStatement stmnt = connection
-                    .prepareStatement("select * from Package where tracking_number like ? or first_name like ? or last_name like ? or box_number like ? order by package_id desc");
+                    .prepareStatement("SELECT * FROM Package WHERE tracking_number LIKE ? OR first_name LIKE ? OR last_name LIKE ? OR box_number LIKE ? ORDER BY package_id DESC");
 
             stmnt.setString(1, search);
             stmnt.setString(2, search);
@@ -1388,7 +1388,7 @@ public class PostgreSQLManager implements DatabaseManager
             }
 
             PreparedStatement stmnt = connection
-                    .prepareStatement("select * from Package where receive_date between ? and ? and tracking_number like ?");
+                    .prepareStatement("SELECT * FROM Package WHERE receive_date BETWEEN ? AND ? AND tracking_number LIKE ?");
 
             stmnt.setString(1, startDate);
             stmnt.setString(2, endDate);
@@ -1406,7 +1406,7 @@ public class PostgreSQLManager implements DatabaseManager
             }
 
             stmnt = connection
-                    .prepareStatement("select * from Package where receive_date between ? and ? and first_name like ?");
+                    .prepareStatement("SELECT * FROM Package WHERE receive_date BETWEEN ? AND ? AND first_name LIKE ?");
 
             stmnt.setString(1, startDate);
             stmnt.setString(2, endDate);
@@ -1423,7 +1423,7 @@ public class PostgreSQLManager implements DatabaseManager
             }
 
             stmnt = connection
-                    .prepareStatement("select * from Package where receive_date between ? and ? and last_name like ?");
+                    .prepareStatement("SELECT * FROM Package WHERE receive_date BETWEEN ? AND ? AND last_name LIKE ?");
 
             stmnt.setString(1, startDate);
             stmnt.setString(2, endDate);
@@ -1440,7 +1440,7 @@ public class PostgreSQLManager implements DatabaseManager
             }
 
             stmnt = connection
-                    .prepareStatement("select * from Package where receive_date between ? and ? and box_number like ?");
+                    .prepareStatement("SELECT * FROM Package WHERE receive_date BETWEEN ? AND ? AND box_number LIKE ?");
 
             stmnt.setString(1, startDate);
             stmnt.setString(2, startDate);
@@ -1593,7 +1593,7 @@ public class PostgreSQLManager implements DatabaseManager
         {
             connect();
 
-            PreparedStatement stmnt = connection.prepareStatement("select address_string from EmailAddress where address_id=?");
+            PreparedStatement stmnt = connection.prepareStatement("SELECT address_string FROM EmailAddress WHERE address_id=?");
             stmnt.setInt(1, s.getStopId());
             ResultSet rs = stmnt.executeQuery();
 
@@ -1618,5 +1618,54 @@ public class PostgreSQLManager implements DatabaseManager
         }
 
         return results;
+    }
+
+    public boolean addEmailAddress(Stop s, String address)
+    {
+        try
+        {
+            connect();
+
+            PreparedStatement stmnt = connection.prepareStatement("INSERT INTO EmailAddress(address_string, is_used, stop_id) VALUES (?,?,?)");
+
+            stmnt.setString(1, address);
+            stmnt.setBoolean(2, true);
+            stmnt.setInt(3, s.getStopId());
+
+            return stmnt.execute();
+        }
+        catch (SQLException e)
+        {
+            Logger.log(e);
+            return false;
+        }
+        finally
+        {
+            disconnect();
+        }
+    }
+
+    public boolean deleteEmailAddress(Stop s, String address)
+    {
+        try
+        {
+            connect();
+
+            PreparedStatement stmnt = connection.prepareStatement("UPDATE EmailAddress SET is_used=0 WHERE address_string=? AND stop_id=?");
+
+            stmnt.setString(1, address);
+            stmnt.setInt(2, s.getStopId());
+
+            return stmnt.executeUpdate() > 0;
+        }
+        catch (SQLException e)
+        {
+            Logger.log(e);
+            return false;
+        }
+        finally
+        {
+            disconnect();
+        }
     }
 }

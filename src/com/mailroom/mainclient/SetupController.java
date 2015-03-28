@@ -1,21 +1,20 @@
 package com.mailroom.mainclient;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.management.ManagementFactory;
-import java.net.URL;
-import java.util.Properties;
-import java.util.ResourceBundle;
-
+import com.mailroom.common.*;
+import com.panemu.tiwulfx.dialog.MessageDialog;
+import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 
-import com.mailroom.common.*;
-import com.panemu.tiwulfx.dialog.MessageDialog;
-import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
+import java.io.File;
+import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.net.URL;
+import java.util.Properties;
+import java.util.ResourceBundle;
 
 /**
  * Controls SetupFx.fxml in com.mailroom.fxml.mainclient

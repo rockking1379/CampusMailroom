@@ -1,5 +1,31 @@
 package com.mailroom.mainclient;
 
+import com.mailroom.common.*;
+import com.mailroom.common.Package;
+import com.panemu.tiwulfx.dialog.MessageDialog;
+import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.FlowPane;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.print.PrinterException;
 import java.io.File;
@@ -12,28 +38,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 import java.util.ResourceBundle;
-import javax.swing.JTextArea;
-
-import com.mailroom.common.*;
-import com.mailroom.common.Package;
-import com.panemu.tiwulfx.dialog.MessageDialog;
-import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.FlowPane;
-
-import javax.mail.*;
-import javax.mail.internet.*;
 
 /**
  * Controls PrintPageFx.fxml in com.mailroom.fxml.mainclient
@@ -352,55 +356,73 @@ public class PrintPageController implements Initializable
                         }
 
                         //Email Stuff....damn
-                        try
+                        if (Boolean.valueOf(MainFrame.properties.getProperty("EMAILENABLE")))
                         {
-                            Properties props = new Properties();
-                            props.put("mail.smtp.auth", "false");
-                            props.put("mail.smtp.starttls.enable", "true");
-                            props.put("mail.smtp.host", "mail.adams.edu");
-                            props.put("mail.smtp.port", 25);
-                            Session sess = Session.getDefaultInstance(props);
-                            MimeMessage message = new MimeMessage(sess);
-
-                            message.setFrom(new InternetAddress("no-reply@adams.edu"));
-                            message.setSubject("Package Delivery Notice");
-                            message.setText("Your Department has Packages Available!\n\nPackages are available for pickup after 2:00PM");
-
-                            for (CheckBox c : routeBoxes)
+                            if (MainFrame.properties.getProperty("EMAILSEND").equals("PRINT"))
                             {
-                                if (c.isSelected())
+                                try
                                 {
-                                    for (Route r : dbManager.getRoutes())
-                                    {
-                                        if (r.getRouteName().equals(c.getText()))
-                                        {
-                                            for (Stop s : dbManager.getStopsOnRoute(r))
-                                            {
-                                                ArrayList<String> addresses = (ArrayList<String>) dbManager.getEmailAddress(s);
+                                    Properties props = new Properties();
 
-                                                if (addresses.size() > 0)
+                                    if (Boolean.valueOf(MainFrame.properties.getProperty("EMAILAUTHREQ")))
+                                    {
+                                        props.put("mail.smtp.auth", "true");
+                                        props.put("mail.user", MainFrame.properties.getProperty("EMAILUSERNAME"));
+                                        props.put("mail.password", MainFrame.properties.getProperty("EMAILPASSWORD"));
+                                    }
+                                    else
+                                    {
+                                        props.put("mail.smtp.auth", "false");
+                                    }
+                                    props.put("mail.smtp.starttls.enable", "true");
+                                    props.put("mail.smtp.host", MainFrame.properties.getProperty("EMAILHOST"));
+                                    props.put("mail.smtp.port", MainFrame.properties.getProperty("EMAILPORT"));
+                                    Session sess = Session.getDefaultInstance(props);
+                                    MimeMessage message = new MimeMessage(sess);
+
+                                    message.setFrom(new InternetAddress(MainFrame.properties.getProperty("EMAILREPLYTO")));
+                                    message.setSubject("Package Delivery Notice");
+                                    message.setText(MainFrame.properties.getProperty("EMAILMESSAGE"));
+
+                                    for (CheckBox c : routeBoxes)
+                                    {
+                                        if (c.isSelected())
+                                        {
+                                            for (Route r : dbManager.getRoutes())
+                                            {
+                                                if (r.getRouteName().equals(c.getText()))
                                                 {
-                                                    for (String str : addresses)
+                                                    for (Stop s : dbManager.getStopsOnRoute(r))
                                                     {
-                                                        message.addRecipients(Message.RecipientType.BCC, str);
+                                                        ArrayList<String> addresses = (ArrayList<String>) dbManager.getEmailAddress(s);
+                                                        if (addresses.size() > 0)
+                                                        {
+                                                            for (String str : addresses)
+                                                            {
+                                                                message.addRecipients(Message.RecipientType.BCC, str);
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
                                         }
                                     }
+
+                                    Transport.send(message);
+                                }
+                                catch (MessagingException e)
+                                {
+                                    Logger.log(e);
+                                    MessageDialogBuilder.error().message("Error Sending Email").title("ERROR").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
                                 }
                             }
-                        }
-                        catch (MessagingException e)
-                        {
-                            Logger.log(e);
-                            MessageDialogBuilder.error().message("Error Sending Email").title("ERROR").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
                         }
                     }
                 }
                 catch (PrinterException e)
                 {
                     Logger.log(e);
+                    MessageDialogBuilder.error().message("Error Printing").title("ERROR").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
                 }
             }
             catch (IOException e)
@@ -432,6 +454,101 @@ public class PrintPageController implements Initializable
             {
                 c.setSelected(false);
             }
+        }
+    }
+
+    public static boolean printReport(ObservableList<Package> toPrint)
+    {
+        ArrayList<String> strReport = new ArrayList<String>();
+
+        String head = "";
+
+        for (int i = 0; i <= 15; i++)
+        {
+            head += " ";
+        }
+
+        head += "Route: ";
+        head += "Custom Print" + " ";
+        strReport.add(head);
+
+        String stopHead = "";
+        String last = "Last      ";
+        String first = "First     ";
+        String box = "Box#      ";
+        String track = "Track#    ";
+        String sign = "Sign Here";
+
+        stopHead += "\nPackage Delivery for ";
+        stopHead += "Special";
+        stopHead += "	Date: ";
+
+        Date d = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+        stopHead += format.format(d);
+        strReport.add(stopHead);
+        stopHead = "";
+        stopHead += last;
+        stopHead += first;
+        stopHead += box;
+        stopHead += track;
+        stopHead += sign;
+        strReport.add(stopHead);
+
+        for (Package p : toPrint)
+        {
+            String strPackage = "";
+            strPackage += p.getLastName();
+            for (int i = 0; i < last.length()
+                    - p.getLastName().length(); i++)
+            {
+                strPackage += " ";
+            }
+            strPackage += p.getFirstName();
+            for (int i = 0; i < first.length()
+                    - p.getFirstName().length(); i++)
+            {
+                strPackage += " ";
+            }
+            strPackage += p.getBoxOffice();
+            for (int i = 0; i < box.length()
+                    - p.getBoxOffice().length(); i++)
+            {
+                strPackage += " ";
+            }
+            strPackage += p.getTrackingNumber()
+                    .substring(
+                            3,
+                            p.getTrackingNumber()
+                                    .length());
+            for (int i = 0; i < track.length()
+                    - p.getTrackingNumber().length(); i++)
+            {
+                strPackage += " ";
+            }
+            strPackage += "_____________________________________";
+
+            strReport.add(strPackage);
+        }
+
+        JTextArea txtArea = new JTextArea();
+        txtArea.setSize(470, 277);
+
+        txtArea.setText("");
+
+        for (String s : strReport)
+        {
+            txtArea.setText(txtArea.getText() + s + "\n");
+        }
+
+        try
+        {
+            return txtArea.print();
+        }
+        catch (PrinterException e)
+        {
+            Logger.log(e);
+            return false;
         }
     }
 }

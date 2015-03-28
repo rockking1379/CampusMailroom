@@ -1,14 +1,15 @@
 package com.mailroom.mainclient;
 
-import java.io.IOException;
-
-import javafx.fxml.*;
-import javafx.scene.*;
-import javafx.stage.*;
-
-import com.mailroom.common.*;
+import com.mailroom.common.Logger;
 import com.mailroom.common.Package;
 import com.mailroom.otherclient.OtherMainFrame;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+
+import java.io.IOException;
 
 /**
  * Used for Editing Package Data that has already been saved in the database

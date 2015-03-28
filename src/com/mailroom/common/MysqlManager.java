@@ -27,9 +27,9 @@ public class MysqlManager implements DatabaseManager
     private static final String personString = "CREATE TABLE Person(person_id INTEGER PRIMARY KEY AUTO_INCREMENT,id_number VARCHAR(50),email_address VARCHAR(50),first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,box_number VARCHAR(50),stop_id INTEGER,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id))";
     private static final String userString = "CREATE TABLE Users(user_id INTEGER PRIMARY KEY AUTO_INCREMENT,user_name VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,password INTEGER NOT NULL,administrator BOOLEAN NOT NULL,active BOOLEAN)";
     private static final String packageString = "CREATE TABLE Package(package_id INTEGER PRIMARY KEY AUTO_INCREMENT,tracking_number VARCHAR(50) NOT NULL,receive_date DATE NOT NULL,email_address VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,box_number VARCHAR(50) NOT NULL,at_stop BOOLEAN NOT NULL,picked_up BOOLEAN NOT NULL,pick_up_date DATE,stop_id INTEGER,courier_id INTEGER,user_id INTEGER,returned BOOLEAN,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id),FOREIGN KEY(courier_id) REFERENCES Courier(courier_id),FOREIGN KEY(user_id) REFERENCES Users(user_id))";
-    private static final String routeInsert = "insert into Route(route_name, is_used) values('unassigned', 1)";
-    private static final String stopInsert = "insert into Stop(stop_name,route_id,is_used,route_order,student) values('unassigned',1,1,0,0)";
-    private static final String devString = "insert into Users(user_name, first_name, last_name, password, administrator, active) values('DEV', 'Developer', 'Access', 2145483,1,1);";
+    private static final String routeInsert = "INSERT INTO Route(route_name, is_used) VALUES('unassigned', 1)";
+    private static final String stopInsert = "INSERT INTO Stop(stop_name,route_id,is_used,route_order,student) VALUES('unassigned',1,1,0,0)";
+    private static final String devString = "INSERT INTO Users(user_name, first_name, last_name, password, administrator, active) VALUES('DEV', 'Developer', 'Access', 2145483,1,1);";
 
     /**
      * Used in Settings database to identify database manager type to create
@@ -82,7 +82,7 @@ public class MysqlManager implements DatabaseManager
 
     // User Actions//
     /*
-	 * (non-Javadoc)
+     * (non-Javadoc)
 	 * 
 	 * @see com.mailroom.common.DatabaseManager#login(java.lang.String, int)
 	 */
@@ -97,7 +97,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmt = connection
-                    .prepareStatement("select * from Users where user_name=? and password=? and active=1");
+                    .prepareStatement("SELECT * FROM Users WHERE user_name=? AND password=? AND active=1");
             stmt.setQueryTimeout(5);
             stmt.setString(1, userName);
             stmt.setInt(2, password);
@@ -132,7 +132,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("insert into Users(user_name, first_name, last_name, password, administrator, active) values(?,?,?,?,?,1)");
+                    .prepareStatement("INSERT INTO Users(user_name, first_name, last_name, password, administrator, active) VALUES(?,?,?,?,?,1)");
             stmnt.setQueryTimeout(5);
 
             stmnt.setString(1, u.getUserName());
@@ -162,7 +162,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Users set password=? where user_name=? and password=?");
+                    .prepareStatement("UPDATE Users SET password=? WHERE user_name=? AND password=?");
             stmnt.setQueryTimeout(5);
 
             stmnt.setInt(1, newPassword);
@@ -190,7 +190,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Users set active=0 where user_id=?");
+                    .prepareStatement("UPDATE Users SET active=0 WHERE user_id=?");
 
             stmnt.setInt(1, u.getUserId());
 
@@ -218,7 +218,7 @@ public class MysqlManager implements DatabaseManager
             connect();
 
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Users set administrator=? where user_id=?");
+                    .prepareStatement("UPDATE Users SET administrator=? WHERE user_id=?");
 
             stmnt.setBoolean(1, status);
             stmnt.setInt(2, u.getUserId());
@@ -247,7 +247,7 @@ public class MysqlManager implements DatabaseManager
             connect();
 
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Users set active=1, password=? where user_id=?");
+                    .prepareStatement("UPDATE Users SET active=1, password=? WHERE user_id=?");
 
             stmnt.setInt(1, password);
             stmnt.setInt(2, u.getUserId());
@@ -279,7 +279,7 @@ public class MysqlManager implements DatabaseManager
             Statement stmnt = connection.createStatement();
 
             ResultSet rs = stmnt
-                    .executeQuery("select * from Users where active=0");
+                    .executeQuery("SELECT * FROM Users WHERE active=0");
 
             while (rs.next())
             {
@@ -312,7 +312,7 @@ public class MysqlManager implements DatabaseManager
             Statement stmnt = connection.createStatement();
 
             ResultSet rs = stmnt
-                    .executeQuery("select * from Users where active=1");
+                    .executeQuery("SELECT * FROM Users WHERE active=1");
 
             while (rs.next())
             {
@@ -346,7 +346,7 @@ public class MysqlManager implements DatabaseManager
             stmnt.setQueryTimeout(5);
 
             ResultSet rs = stmnt
-                    .executeQuery("select * from Stop where is_used=1 order by stop_name asc");
+                    .executeQuery("SELECT * FROM Stop WHERE is_used=1 ORDER BY stop_name ASC");
 
             while (rs.next())
             {
@@ -379,7 +379,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Stop set student=? where stop_id=?");
+                    .prepareStatement("UPDATE Stop SET student=? WHERE stop_id=?");
             stmnt.setQueryTimeout(5);
 
             stmnt.setBoolean(1, s.getStudent());
@@ -407,7 +407,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Stop set route_id=? where stop_id=?");
+                    .prepareStatement("UPDATE Stop SET route_id=? WHERE stop_id=?");
 
             stmnt.setInt(1, r.getRouteId());
             stmnt.setInt(2, s.getStopId());
@@ -436,7 +436,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("insert into Stop(stop_name, route_id, is_used, route_order, student) values(?,?,1,?,?)");
+                    .prepareStatement("INSERT INTO Stop(stop_name, route_id, is_used, route_order, student) VALUES(?,?,1,?,?)");
             stmnt.setQueryTimeout(5);
 
             stmnt.setString(1, s.getStopName());
@@ -471,7 +471,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Stop set is_used=0 where stop_id=?");
+                    .prepareStatement("UPDATE Stop SET is_used=0 WHERE stop_id=?");
             stmnt.setQueryTimeout(5);
 
             stmnt.setInt(1, s.getStopId());
@@ -497,7 +497,7 @@ public class MysqlManager implements DatabaseManager
             connect();
 
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Stop set route_order=? where stop_id=?");
+                    .prepareStatement("UPDATE Stop SET route_order=? WHERE stop_id=?");
 
             stmnt.setInt(1, pos);
             stmnt.setInt(2, s.getStopId());
@@ -531,7 +531,7 @@ public class MysqlManager implements DatabaseManager
             stmnt.setQueryTimeout(5);
 
             ResultSet rs = stmnt
-                    .executeQuery("select * from Stop where route_id=1 and is_used=1");
+                    .executeQuery("SELECT * FROM Stop WHERE route_id=1 AND is_used=1");
 
             return processStopResult(rs, "unassigned");
         }
@@ -558,7 +558,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("select * from Stop where route_id=? and is_used=1");
+                    .prepareStatement("SELECT * FROM Stop WHERE route_id=? AND is_used=1");
             stmnt.setQueryTimeout(5);
 
             stmnt.setInt(1, r.getRouteId());
@@ -614,7 +614,7 @@ public class MysqlManager implements DatabaseManager
             stmnt.setQueryTimeout(5);
 
             ResultSet rs = stmnt
-                    .executeQuery("select * from Route where is_used=1 order by route_name asc;");
+                    .executeQuery("SELECT * FROM Route WHERE is_used=1 ORDER BY route_name ASC;");
 
             while (rs.next())
             {
@@ -645,7 +645,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Route set route_name=? where route_id=?");
+                    .prepareStatement("UPDATE Route SET route_name=? WHERE route_id=?");
             stmnt.setQueryTimeout(5);
 
             stmnt.setString(1, r.getRouteName());
@@ -672,7 +672,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("insert into Route(route_name, is_used) values(?,1)");
+                    .prepareStatement("INSERT INTO Route(route_name, is_used) VALUES(?,1)");
             stmnt.setQueryTimeout(5);
 
             stmnt.setString(1, route_name);
@@ -697,7 +697,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Route set is_used=0 where route_id=?");
+                    .prepareStatement("UPDATE Route SET is_used=0 WHERE route_id=?");
             stmnt.setQueryTimeout(5);
 
             stmnt.setInt(1, r.getRouteId());
@@ -705,7 +705,7 @@ public class MysqlManager implements DatabaseManager
             if (stmnt.executeUpdate() > 0)
             {
                 stmnt = connection
-                        .prepareStatement("update Stop set route_id=1 where route_id=?");
+                        .prepareStatement("UPDATE Stop SET route_id=1 WHERE route_id=?");
                 stmnt.setInt(1, r.getRouteId());
 
                 stmnt.executeUpdate();
@@ -740,7 +740,7 @@ public class MysqlManager implements DatabaseManager
             stmnt.setQueryTimeout(5);
 
             ResultSet rs = stmnt
-                    .executeQuery("select * from Courier where is_used=1 order by courier_name asc");
+                    .executeQuery("SELECT * FROM Courier WHERE is_used=1 ORDER BY courier_name ASC");
 
             while (rs.next())
             {
@@ -774,7 +774,7 @@ public class MysqlManager implements DatabaseManager
             connect();
 
             PreparedStatement stmnt = connection
-                    .prepareStatement("insert into Courier(courier_name, is_used) values(?,1)");
+                    .prepareStatement("INSERT INTO Courier(courier_name, is_used) VALUES(?,1)");
 
             stmnt.setString(1, courier_name);
 
@@ -800,7 +800,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Courier set courier_name=? where courier_id=?");
+                    .prepareStatement("UPDATE Courier SET courier_name=? WHERE courier_id=?");
             stmnt.setQueryTimeout(5);
 
             stmnt.setString(1, c.getCourierName());
@@ -826,7 +826,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("update Courier set is_used=0 where courier_id=?");
+                    .prepareStatement("UPDATE Courier SET is_used=0 WHERE courier_id=?");
             stmnt.setQueryTimeout(5);
 
             stmnt.setInt(1, c.getCourierId());
@@ -861,7 +861,7 @@ public class MysqlManager implements DatabaseManager
             stmnt.setQueryTimeout(5);
 
             ResultSet rs = stmnt
-                    .executeQuery("select * from Package where picked_up=0 and returned=0");
+                    .executeQuery("SELECT * FROM Package WHERE picked_up=0 AND returned=0");
 
             packages = null;
             packages = processPackageResult(rs);
@@ -885,7 +885,7 @@ public class MysqlManager implements DatabaseManager
             PreparedStatement stmnt;
 
             stmnt = connection
-                    .prepareStatement("select * from Package where picked_up=0 and returned=0 and stop_id=?");
+                    .prepareStatement("SELECT * FROM Package WHERE picked_up=0 AND returned=0 AND stop_id=?");
             stmnt.setInt(1, stopId);
 
             stmnt.setQueryTimeout(5);
@@ -914,7 +914,7 @@ public class MysqlManager implements DatabaseManager
             connect();
 
             PreparedStatement stmnt = connection
-                    .prepareStatement("select package_id from Package where tracking_number=?");
+                    .prepareStatement("SELECT package_id FROM Package WHERE tracking_number=?");
             stmnt.setString(1, trackingNumber);
 
             ResultSet rs = stmnt.executeQuery();
@@ -945,20 +945,20 @@ public class MysqlManager implements DatabaseManager
             PreparedStatement stmnt;
 
             stmnt = connection
-                    .prepareStatement("update Package set at_stop=? where package_id=?");
+                    .prepareStatement("UPDATE Package SET at_stop=? WHERE package_id=?");
             stmnt.setQueryTimeout(5);
             stmnt.setBoolean(1, atStop);
             stmnt.setInt(2, packageId);
             stmnt.executeUpdate();
 
             stmnt = connection
-                    .prepareStatement("update Package set picked_up=? where package_id=?");
+                    .prepareStatement("UPDATE Package SET picked_up=? WHERE package_id=?");
             stmnt.setBoolean(1, pickedUp);
             stmnt.setInt(2, packageId);
             stmnt.executeUpdate();
 
             stmnt = connection
-                    .prepareStatement("update Package set pick_up_date=? where package_id=?");
+                    .prepareStatement("UPDATE Package SET pick_up_date=? WHERE package_id=?");
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date now = new Date();
             String date = format.format(now);
@@ -988,7 +988,7 @@ public class MysqlManager implements DatabaseManager
             PreparedStatement stmnt;
 
             stmnt = connection
-                    .prepareStatement("update Package set tracking_number=?, email_address=?, first_name=?, last_name=?, box_number=?, at_stop=?, picked_up=?, stop_id=?, courier_id=?, returned=? where package_id=?");
+                    .prepareStatement("UPDATE Package SET tracking_number=?, email_address=?, first_name=?, last_name=?, box_number=?, at_stop=?, picked_up=?, stop_id=?, courier_id=?, returned=? WHERE package_id=?");
             stmnt.setQueryTimeout(5);
             stmnt.setString(1, p.getFullTrackingNumber());
             stmnt.setString(2, p.getEmailAddress());
@@ -1022,8 +1022,8 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("insert into Package(tracking_number, receive_date, email_address, first_name, last_name, box_number, at_stop, picked_up, stop_id, courier_id, user_id, returned)"
-                            + " values(?,?,?,?,?,?,0,0,?,?,?,0)");
+                    .prepareStatement("INSERT INTO Package(tracking_number, receive_date, email_address, first_name, last_name, box_number, at_stop, picked_up, stop_id, courier_id, user_id, returned)"
+                            + " VALUES(?,?,?,?,?,?,0,0,?,?,?,0)");
             stmnt.setQueryTimeout(5);
 
             stmnt.setString(1, p.getFullTrackingNumber());
@@ -1063,12 +1063,12 @@ public class MysqlManager implements DatabaseManager
             if (s.getStudent())
             {
                 stmnt = connection
-                        .prepareStatement("select * from Package where receive_date=? and stop_id=? and at_stop=0 order by box_number asc");
+                        .prepareStatement("SELECT * FROM Package WHERE receive_date=? AND stop_id=? AND at_stop=0 ORDER BY box_number ASC");
             }
             else
             {
                 stmnt = connection
-                        .prepareStatement("select * from Package where receive_date=? and stop_id=? and at_stop=0 order by last_name asc, first_name asc");
+                        .prepareStatement("SELECT * FROM Package WHERE receive_date=? AND stop_id=? AND at_stop=0 ORDER BY last_name ASC, first_name ASC");
             }
 
             Date d = new Date();
@@ -1102,7 +1102,7 @@ public class MysqlManager implements DatabaseManager
             connect();
 
             PreparedStatement stmnt = connection
-                    .prepareStatement("select * from Package where receive_date=? and stop_id=? and at_stop=0");
+                    .prepareStatement("SELECT * FROM Package WHERE receive_date=? AND stop_id=? AND at_stop=0");
 
             Date d = new Date();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -1151,7 +1151,7 @@ public class MysqlManager implements DatabaseManager
                 if (stop == null)
                 {
                     stmnt = connection
-                            .prepareStatement("select * from Stop where stop_id=?");
+                            .prepareStatement("SELECT * FROM Stop WHERE stop_id=?");
                     stmnt.setInt(1, rs.getInt("stop_id"));
                     ResultSet s = stmnt.executeQuery();
                     if (s.next())
@@ -1163,7 +1163,7 @@ public class MysqlManager implements DatabaseManager
                 }
 
                 stmnt = connection
-                        .prepareStatement("select * from Courier where courier_id=?");
+                        .prepareStatement("SELECT * FROM Courier WHERE courier_id=?");
                 stmnt.setInt(1, rs.getInt("courier_id"));
                 ResultSet c = stmnt.executeQuery();
                 if (c.next())
@@ -1174,7 +1174,7 @@ public class MysqlManager implements DatabaseManager
                 c.close();
 
                 stmnt = connection
-                        .prepareStatement("select * from Users where user_id=?");
+                        .prepareStatement("SELECT * FROM Users WHERE user_id=?");
                 stmnt.setInt(1, rs.getInt("user_id"));
                 ResultSet u = stmnt.executeQuery();
                 if (u.next())
@@ -1218,7 +1218,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("select * from Person where first_name like ? and last_name like ? and box_number=?");
+                    .prepareStatement("SELECT * FROM Person WHERE first_name LIKE ? AND last_name LIKE ? AND box_number=?");
             stmnt.setQueryTimeout(5);
             stmnt.setString(1, firstName);
             stmnt.setString(2, lastName);
@@ -1283,7 +1283,7 @@ public class MysqlManager implements DatabaseManager
             }
 
             PreparedStatement stmnt = connection
-                    .prepareStatement("select * from Package where tracking_number like ? or first_name like ? or last_name like ?  or box_number like ? order by package_id desc");
+                    .prepareStatement("SELECT * FROM Package WHERE tracking_number LIKE ? OR first_name LIKE ? OR last_name LIKE ?  OR box_number LIKE ? ORDER BY package_id DESC");
 
             stmnt.setString(1, search);
             stmnt.setString(2, search);
@@ -1335,7 +1335,7 @@ public class MysqlManager implements DatabaseManager
             }
 
             PreparedStatement stmnt = connection
-                    .prepareStatement("select * from Package where receive_date between ? and ? and tracking_number like ?");
+                    .prepareStatement("SELECT * FROM Package WHERE receive_date BETWEEN ? AND ? AND tracking_number LIKE ?");
 
             stmnt.setString(1, startDate);
             stmnt.setString(2, endDate);
@@ -1353,7 +1353,7 @@ public class MysqlManager implements DatabaseManager
             }
 
             stmnt = connection
-                    .prepareStatement("select * from Package where receive_date between ? and ? and first_name like ?");
+                    .prepareStatement("SELECT * FROM Package WHERE receive_date BETWEEN ? AND ? AND first_name LIKE ?");
 
             stmnt.setString(1, startDate);
             stmnt.setString(2, endDate);
@@ -1370,7 +1370,7 @@ public class MysqlManager implements DatabaseManager
             }
 
             stmnt = connection
-                    .prepareStatement("select * from Package where receive_date between ? and ? and last_name like ?");
+                    .prepareStatement("SELECT * FROM Package WHERE receive_date BETWEEN ? AND ? AND last_name LIKE ?");
 
             stmnt.setString(1, startDate);
             stmnt.setString(2, endDate);
@@ -1387,7 +1387,7 @@ public class MysqlManager implements DatabaseManager
             }
 
             stmnt = connection
-                    .prepareStatement("select * from Package where receive_date between ? and ? and box_number like ?");
+                    .prepareStatement("SELECT * FROM Package WHERE receive_date BETWEEN ? AND ? AND box_number LIKE ?");
 
             stmnt.setString(1, startDate);
             stmnt.setString(2, startDate);
@@ -1535,7 +1535,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
 
-            PreparedStatement stmnt = connection.prepareStatement("select address_string from EmailAddresses where address_id=?");
+            PreparedStatement stmnt = connection.prepareStatement("SELECT address_string FROM EmailAddress WHERE stop_id=?");
             stmnt.setInt(1, s.getStopId());
             ResultSet rs = stmnt.executeQuery();
 
@@ -1560,5 +1560,54 @@ public class MysqlManager implements DatabaseManager
         }
 
         return results;
+    }
+
+    public boolean addEmailAddress(Stop s, String address)
+    {
+        try
+        {
+            connect();
+
+            PreparedStatement stmnt = connection.prepareStatement("INSERT INTO EmailAddress(address_string, is_used, stop_id) VALUES (?,?,?)");
+
+            stmnt.setString(1, address);
+            stmnt.setBoolean(2, true);
+            stmnt.setInt(3, s.getStopId());
+
+            return stmnt.execute();
+        }
+        catch (SQLException e)
+        {
+            Logger.log(e);
+            return false;
+        }
+        finally
+        {
+            disconnect();
+        }
+    }
+
+    public boolean deleteEmailAddress(Stop s, String address)
+    {
+        try
+        {
+            connect();
+
+            PreparedStatement stmnt = connection.prepareStatement("UPDATE EmailAddress SET is_used=0 WHERE address_string=? AND stop_id=?");
+
+            stmnt.setString(1, address);
+            stmnt.setInt(2, s.getStopId());
+
+            return stmnt.executeUpdate() > 0;
+        }
+        catch (SQLException e)
+        {
+            Logger.log(e);
+            return false;
+        }
+        finally
+        {
+            disconnect();
+        }
     }
 }

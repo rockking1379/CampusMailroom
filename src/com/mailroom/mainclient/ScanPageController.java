@@ -1,28 +1,31 @@
 package com.mailroom.mainclient;
 
-import java.io.IOException;
-import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-//import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
-import java.util.ResourceBundle;
-
+import com.mailroom.common.*;
+import com.mailroom.common.Package;
+import com.panemu.tiwulfx.dialog.MessageDialog;
+import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-import com.mailroom.common.*;
-import com.mailroom.common.Package;
-import com.panemu.tiwulfx.dialog.MessageDialog;
-import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
+import java.io.IOException;
+import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
+import java.util.ResourceBundle;
+
+//import java.util.ArrayList;
 
 /**
  * Controls ScanPageFx.fxml in com.mailroom.fxml.mainclient

@@ -1,19 +1,20 @@
 package com.mailroom.mainclient;
 
+import com.mailroom.common.*;
+import com.panemu.tiwulfx.dialog.MessageDialog;
+import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-
-import javafx.application.*;
-import javafx.fxml.*;
-import javafx.scene.*;
-import javafx.scene.image.Image;
-import javafx.stage.*;
-
-import com.mailroom.common.*;
-import com.panemu.tiwulfx.dialog.*;
 
 /**
  * Main Entry Point for MainClient

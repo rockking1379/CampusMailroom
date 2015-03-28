@@ -1,13 +1,5 @@
 package com.mailroom.common;
 
-import java.io.IOException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-import java.util.ResourceBundle;
-
 import com.mailroom.mainclient.MainFrame;
 import com.mailroom.mainclient.PackageEditWindow;
 import com.mailroom.otherclient.OtherMainFrame;
@@ -15,7 +7,6 @@ import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import com.panemu.tiwulfx.table.CheckBoxColumn;
 import com.panemu.tiwulfx.table.TextColumn;
-
 import extfx.scene.control.DatePicker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,6 +22,14 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+
+import java.io.IOException;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * Controls AdvSearchFx.fxml in com.mailroom.fxml.common

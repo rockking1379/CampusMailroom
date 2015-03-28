@@ -1,13 +1,9 @@
 package com.mailroom.mainclient;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.management.ManagementFactory;
-import java.net.URL;
-import java.util.List;
-import java.util.Properties;
-import java.util.ResourceBundle;
-
+import com.mailroom.common.*;
+import com.panemu.tiwulfx.dialog.MessageDialog;
+import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,9 +14,14 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
-import com.mailroom.common.*;
-import com.panemu.tiwulfx.dialog.MessageDialog;
-import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.net.URL;
+import java.util.List;
+import java.util.Properties;
+import java.util.ResourceBundle;
 
 /**
  * Controls SettingsPageFx.fxml in com.mailroom.fxml.mainclient
@@ -39,6 +40,8 @@ public class SettingsController implements Initializable
     @FXML
     private Tab tabCourierManagement;
     @FXML
+    private Tab tabEmailManagement;
+    @FXML
     private Tab tabAbout;
     @FXML
     private TabPane tabpaneMainPane;
@@ -55,15 +58,13 @@ public class SettingsController implements Initializable
     @FXML
     private PasswordField pwdDatabasePassword;
     @FXML
-    private ComboBox<Boolean> cboxAutoUpdate;
-    @FXML
     private Button btnBrowse;
+    @FXML
+    private CheckBox cboxGeneralEmailEnabled;
     @FXML
     private Button btnSave;
     @FXML
     private Button btnCancel;
-    @FXML
-    private Slider sldrAutoUpdateFreq;
 
     // Account Management//
     @FXML
@@ -145,6 +146,8 @@ public class SettingsController implements Initializable
     @FXML
     private CheckBox cboxStopUpdateStudent;
     @FXML
+    private CheckBox cboxStopUpdateAutoRemove;
+    @FXML
     private Button btnStopUpdateSave;
 
     // Route Management//
@@ -189,13 +192,43 @@ public class SettingsController implements Initializable
     @FXML
     private Button btnCourierCreate;
 
-    // Software Update//
+    // Email Management //
+
+    // Message //
     @FXML
-    private Label lblUpdateCurrentVersion;
+    private TextField txtEmailMessageReplyTo;
     @FXML
-    private Label lblUpdateAvailableVersion;
+    private ComboBox<String> cboxEmailMessageSendTime;
     @FXML
-    private Button btnUpdate;
+    private TextArea txtEmailMessageContent;
+    @FXML
+    private Button btnEmailMessageSave;
+
+    // Sending //
+    @FXML
+    private TextField txtEmailSendingHost;
+    @FXML
+    private TextField txtEmailSendingPort;
+    @FXML
+    private ComboBox<Boolean> cboxEmailSendingAuthReq;
+    @FXML
+    private TextField txtEmailSendingAuthUserName;
+    @FXML
+    private TextField txtEmailSendingAuthPassword;
+    @FXML
+    private Button btnEmailSendingSave;
+
+    // Addresses //
+    @FXML
+    private ComboBox<Stop> cboxEmailAddressStop;
+    @FXML
+    private ListView<String> lviewEmailAddresses;
+    @FXML
+    private Button btnEmailAddressRemove;
+    @FXML
+    private Button btnEmailAddressAdd;
+    @FXML
+    private TextField txtEmailAddressAdd;
 
     // About Tab//
     @FXML
@@ -302,14 +335,6 @@ public class SettingsController implements Initializable
         lblUserId.textProperty().set(
                 "User ID: " + String.valueOf(MainFrame.cUser.getUserId()));
 
-        cboxAutoUpdate.getItems().clear();
-        cboxAutoUpdate.getItems().add(true);
-        cboxAutoUpdate.getItems().add(false);
-        cboxAutoUpdate
-                .setValue(Boolean.valueOf(prefs.getProperty("AUTOUPDATE")));
-        sldrAutoUpdateFreq.valueProperty().set(
-                Double.valueOf(prefs.getProperty("AUFREQ")));
-
         lblAboutVersion.setText("Version: " + prefs.getProperty("VERSION")
                 + " Build " + prefs.getProperty("BUILD"));
 
@@ -317,6 +342,41 @@ public class SettingsController implements Initializable
                 SelectionMode.MULTIPLE);
         lviewRouteUnassigned.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE);
+
+        cboxGeneralEmailEnabled.setSelected(Boolean.valueOf(prefs.getProperty("EMAILENABLE")));
+
+        if (!cboxGeneralEmailEnabled.isSelected())
+        {
+            tabpaneMainPane.getTabs().remove(tabEmailManagement);
+        }
+        else
+        {
+            cboxEmailMessageSendTime.getItems().clear();
+
+//            cboxEmailMessageSendTime.getItems().add("START UP");
+            cboxEmailMessageSendTime.getItems().add("PRINT");
+//            cboxEmailMessageSendTime.getItems().add("CLOSING");
+
+            cboxEmailMessageSendTime.setValue(MainFrame.properties.getProperty("EMAILSEND"));
+
+            cboxEmailSendingAuthReq.getItems().clear();
+
+            cboxEmailSendingAuthReq.getItems().add(true);
+            cboxEmailSendingAuthReq.getItems().add(false);
+
+            cboxEmailSendingAuthReq.setValue(Boolean.valueOf(MainFrame.properties.getProperty("EMAILAUTHREQ")));
+
+            if (cboxEmailSendingAuthReq.getValue())
+            {
+                txtEmailSendingAuthUserName.setText(MainFrame.properties.getProperty("EMAILUSERNAME"));
+                txtEmailSendingAuthPassword.setText(MainFrame.properties.getProperty("EMAILPASSWORD"));
+            }
+
+            txtEmailSendingHost.setText(MainFrame.properties.getProperty("EMAILHOST"));
+            txtEmailSendingPort.setText(MainFrame.properties.getProperty("EMAILPORT"));
+            txtEmailMessageReplyTo.setText(MainFrame.properties.getProperty("EMAILREPLYTO"));
+            txtEmailMessageContent.setText(MainFrame.properties.getProperty("EMAILMESSAGE"));
+        }
 
         loadAdminComboBoxes();
         loadRouteComboBoxes();
@@ -338,28 +398,6 @@ public class SettingsController implements Initializable
     }
 
     // General Settings//
-
-    /**
-     * Processes Checkbox ticking for enabling/disable Auto Update
-     * on Main Screen
-     *
-     * @param ae ActionEvent from OS
-     */
-    public void cboxAutoUpdateAction(ActionEvent ae)
-    {
-        ae.consume();
-        if (cboxAutoUpdate.getValue())
-        {
-            sldrAutoUpdateFreq.disableProperty().set(false);
-        }
-        else
-        {
-            sldrAutoUpdateFreq.disableProperty().set(true);
-        }
-        prefs.setProperty("AUTOUPDATE", cboxAutoUpdate.getValue().toString());
-        MainFrame.properties.setProperty("AUTOUPDATE", cboxAutoUpdate
-                .getValue().toString());
-    }
 
     /**
      * Processes Change in Database Type
@@ -466,10 +504,6 @@ public class SettingsController implements Initializable
                 MainFrame.properties.setProperty("USERNAME", "");
                 MainFrame.properties.setProperty("PASSWORD", "");
                 MainFrame.properties.setProperty("DBNAME", "");
-                MainFrame.properties.setProperty("AUTOUPDATE",
-                        Boolean.toString(cboxAutoUpdate.getValue()));
-                MainFrame.properties.setProperty("AUFREQ", sldrAutoUpdateFreq
-                        .valueProperty().getValue().toString());
 
                 break;
             }
@@ -484,10 +518,6 @@ public class SettingsController implements Initializable
                         pwdDatabasePassword.getText());
                 MainFrame.properties.setProperty("DBNAME",
                         txtDatabaseName.getText());
-                MainFrame.properties.setProperty("AUTOUPDATE",
-                        Boolean.toString(cboxAutoUpdate.getValue()));
-                MainFrame.properties.setProperty("AUFREQ", sldrAutoUpdateFreq
-                        .valueProperty().getValue().toString());
                 break;
             }
             case PostgreSQLManager.dbId:
@@ -501,10 +531,6 @@ public class SettingsController implements Initializable
                         pwdDatabasePassword.getText());
                 MainFrame.properties.setProperty("DBNAME",
                         txtDatabaseName.getText());
-                MainFrame.properties.setProperty("AUTOUPDATE",
-                        Boolean.toString(cboxAutoUpdate.getValue()));
-                MainFrame.properties.setProperty("AUFREQ", sldrAutoUpdateFreq
-                        .valueProperty().getValue().toString());
                 break;
             }
             default:
@@ -866,6 +892,15 @@ public class SettingsController implements Initializable
         }
     }
 
+    public void cboxGeneralEmailEnabledAction(ActionEvent ae)
+    {
+        ae.consume();
+
+        tabpaneMainPane.getTabs().remove(tabAbout);
+        tabpaneMainPane.getTabs().add(tabEmailManagement);
+        tabpaneMainPane.getTabs().add(tabAbout);
+    }
+
     /**
      * Populates Admin Comboboxes with data from Database
      */
@@ -974,8 +1009,17 @@ public class SettingsController implements Initializable
         ae.consume();
         cboxStopUpdate.getValue()
                 .setStudent(cboxStopUpdateStudent.isSelected());
+        cboxStopUpdate.getValue().setAutoRemove(cboxStopUpdateAutoRemove.isSelected());
         dbManager.updateStop(cboxStopUpdate.getValue());
         loadRouteComboBoxes();
+    }
+
+    public void cboxStopUpdateAction(ActionEvent ae)
+    {
+        ae.consume();
+
+        cboxStopUpdateStudent.setSelected(cboxStopUpdate.getValue().getStudent());
+        cboxStopUpdateAutoRemove.setSelected(cboxStopUpdate.getValue().getAutoRemove());
     }
 
     /**
@@ -985,6 +1029,7 @@ public class SettingsController implements Initializable
     {
         cboxStopDelete.getItems().clear();
         cboxStopUpdate.getItems().clear();
+        cboxEmailAddressStop.getItems().clear();
 
         dbManager.loadStops();
 
@@ -994,6 +1039,7 @@ public class SettingsController implements Initializable
             {
                 cboxStopDelete.getItems().add(s);
                 cboxStopUpdate.getItems().add(s);
+                cboxEmailAddressStop.getItems().add(s);
             }
         }
 
@@ -1117,9 +1163,13 @@ public class SettingsController implements Initializable
     {
         ae.consume();
         lviewDesignStops.getItems().clear();
-        for (Stop s : dbManager.getStopsOnRoute(cboxDesignRoute.getValue()))
+
+        if (cboxDesignRoute.getValue() != null)
         {
-            lviewDesignStops.getItems().add(s);
+            for (Stop s : dbManager.getStopsOnRoute(cboxDesignRoute.getValue()))
+            {
+                lviewDesignStops.getItems().add(s);
+            }
         }
     }
 
@@ -1273,9 +1323,9 @@ public class SettingsController implements Initializable
             List<Stop> stops = dbManager.getStopsOnRoute(cboxRouteSelect
                     .getValue());
 
-            for (Stop s1 : stops)
+            for (Stop s : stops)
             {
-                lviewRouteOnRoute.getItems().add(s1);
+                lviewRouteOnRoute.getItems().add(s);
             }
         }
         else
@@ -1399,26 +1449,112 @@ public class SettingsController implements Initializable
         }
     }
 
-    // Software Update//
+    // Email Management //
 
     /**
-     * Opens Software Updater
-     * Not used currently
+     * Removes Email from Contact List for Stop
      *
      * @param ae ActionEvent from OS
      */
-    public void btnUpdateAction(ActionEvent ae)
+    public void btnEmailAddressRemoveAction(ActionEvent ae)
     {
         ae.consume();
-        try
+
+        ObservableList<String> toRemove = lviewEmailAddresses.getSelectionModel().getSelectedItems();
+
+        for (String str : toRemove)
         {
-            File f = new File("./Updater.jar");
-            Runtime.getRuntime().exec("java -jar " + f.getAbsolutePath());
-            System.exit(0);
+            dbManager.deleteEmailAddress(cboxEmailAddressStop.getValue(), str);
         }
-        catch (IOException e)
+    }
+
+    /**
+     * Adds new Email Address to Contact List for Stop
+     *
+     * @param ae ActionEvent from OS
+     */
+    public void btnEmailAddressAddAction(ActionEvent ae)
+    {
+        ae.consume();
+
+        dbManager.addEmailAddress(cboxEmailAddressStop.getValue(), txtEmailAddressAdd.getText());
+        txtEmailAddressAdd.setText("");
+        cboxEmailAddressStop.setValue(cboxEmailAddressStop.getValue());
+    }
+
+    /**
+     * ComboBox controlling what Stop's Contact List is being Viewed
+     *
+     * @param ae ActionEvent from OS
+     */
+    public void cboxEmailAddressStopAction(ActionEvent ae)
+    {
+        ae.consume();
+
+        lviewEmailAddresses.getItems().clear();
+
+        for (String s : dbManager.getEmailAddress(cboxEmailAddressStop.getValue()))
         {
-            Logger.log(e);
+            lviewEmailAddresses.getItems().add(s);
+        }
+    }
+
+    /**
+     * Saves Settings for Email Message
+     *
+     * @param ae ActionEvent from OS
+     */
+    public void btnEmailMessageSaveAction(ActionEvent ae)
+    {
+        ae.consume();
+
+        MainFrame.properties.setProperty("EMAILREPLYTO", txtEmailMessageReplyTo.getText());
+        MainFrame.properties.setProperty("EMAILMESSAGE", txtEmailMessageContent.getText());
+        MainFrame.properties.setProperty("EMAILSEND", cboxEmailMessageSendTime.getValue());
+
+        MainFrame.saveProperties();
+    }
+
+    /**
+     * Saves Settings for Email Sending
+     *
+     * @param ae ActionEvent from OS
+     */
+    public void btnEmailSendingSaveAction(ActionEvent ae)
+    {
+        ae.consume();
+
+        MainFrame.properties.setProperty("EMAILHOST", txtEmailSendingHost.getText());
+        MainFrame.properties.setProperty("EMAILPORT", txtEmailSendingPort.getText());
+        MainFrame.properties.setProperty("EMAILAUTHREQ", cboxEmailSendingAuthReq.getValue().toString());
+
+        if (cboxEmailSendingAuthReq.getValue())
+        {
+            MainFrame.properties.setProperty("EMAILUSERNAME", txtEmailSendingAuthUserName.getText());
+            MainFrame.properties.setProperty("EMAILPASSWORD", txtEmailSendingAuthPassword.getText());
+        }
+
+        MainFrame.saveProperties();
+    }
+
+    /**
+     * Controls Email Authentication Credential usability
+     *
+     * @param ae ActionEvent from OS
+     */
+    public void cboxEmailSendingAuthReqAction(ActionEvent ae)
+    {
+        ae.consume();
+
+        if (cboxEmailSendingAuthReq.getValue())
+        {
+            txtEmailSendingAuthUserName.setDisable(false);
+            txtEmailSendingAuthPassword.setDisable(false);
+        }
+        if (!cboxEmailSendingAuthReq.getValue())
+        {
+            txtEmailSendingAuthUserName.setDisable(true);
+            txtEmailSendingAuthPassword.setDisable(true);
         }
     }
 }

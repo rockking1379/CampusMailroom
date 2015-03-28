@@ -1,17 +1,14 @@
 package com.mailroom.otherclient;
 
-import com.mailroom.common.*;
+import com.mailroom.common.DatabaseManager;
+import com.mailroom.common.Logger;
 import com.mailroom.common.Package;
+import com.mailroom.common.Stop;
 import com.mailroom.mainclient.PackageEditWindow;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import com.panemu.tiwulfx.table.TextColumn;
 import com.panemu.tiwulfx.table.TickColumn;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,10 +16,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Controls MainPageFx.fxml in com.mailroom.fxml.otherclient

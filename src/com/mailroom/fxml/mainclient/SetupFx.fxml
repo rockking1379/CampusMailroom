@@ -1,81 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.collections.*?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #01A217" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.mainclient.SetupController">
-  <children>
-    <TabPane fx:id="tabpaneMainPane" layoutX="0.0" layoutY="0.0" prefHeight="550.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
-      <tabs>
-        <Tab fx:id="tabDatabaseSetup" closable="false" text="Database Setup">
-          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
-              <children>
-                <ComboBox fx:id="cboxDbSetupDbType" layoutX="14.0" layoutY="50.0" onAction="#cboxDbSetupDbTypeAction" prefHeight="50.0" prefWidth="200.0" promptText="Database Type">
-                  <items>
-                    <FXCollections fx:factory="observableArrayList">
-                      <String fx:value="Item 1" />
-                      <String fx:value="Item 2" />
-                      <String fx:value="Item 3" />
-                    </FXCollections>
-                  </items>
-                </ComboBox>
-                <TextField fx:id="txtDbSetupDbLocation" layoutX="14.0" layoutY="105.0" prefHeight="25.0" prefWidth="200.0" promptText="Database Location" />
-                <Button fx:id="btnDbSetupBrowse" layoutX="219.0" layoutY="107.0" mnemonicParsing="false" onAction="#btnDbSetupBrowseAction" text="Browse..." />
-                <TextField fx:id="txtDbSetupDbName" disable="true" layoutX="14.0" layoutY="135.0" prefHeight="25.0" prefWidth="125.0" promptText="Database Name" />
-                <TextField fx:id="txtDbSetupDbUsername" disable="true" layoutX="144.0" layoutY="135.0" prefHeight="25.0" prefWidth="125.0" promptText="Username" />
-                <PasswordField fx:id="pwdDbSetupDbPassword" disable="true" layoutX="274.0" layoutY="135.0" prefHeight="25.0" prefWidth="125.0" promptText="Password" />
-                <TextField fx:id="txtDbSetupPrefix" layoutX="14.0" layoutY="165.0" prefHeight="25.0" prefWidth="184.0" promptText="Tracking Number Pre-Fix" />
-                <Button fx:id="btnDbSetupVerify" layoutX="203.0" layoutY="165.0" maxWidth="-1.0" mnemonicParsing="false" onAction="#btnDbSetupVerifyAction" prefHeight="25.0" prefWidth="66.0" text="Verify" />
-                <Button fx:id="btnDbSetupNext" disable="true" layoutX="274.0" layoutY="165.0" mnemonicParsing="false" onAction="#btnDbSetupNextAction" prefHeight="25.0" prefWidth="66.0" text="Next" />
-              </children>
-            </AnchorPane>
-          </content>
-        </Tab>
-        <Tab fx:id="tabAccountSetup" closable="false" disable="true" text="Account Creation">
-          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
-              <children>
-                <TextField fx:id="txtAccSetupFirstName" layoutX="14.0" layoutY="56.0" prefHeight="25.0" prefWidth="200.0" promptText="First Name" />
-                <TextField fx:id="txtAccSetupLastName" layoutX="219.0" layoutY="56.0" prefHeight="25.0" prefWidth="200.0" promptText="Last Name" />
-                <TextField fx:id="txtAccSetupUserName" layoutX="424.0" layoutY="56.0" prefHeight="25.0" prefWidth="200.0" promptText="Username" />
-                <PasswordField fx:id="pwdAccSetupPwd" layoutX="14.0" layoutY="91.0" prefHeight="25.0" prefWidth="200.0" promptText="Password" />
-                <PasswordField fx:id="pwdAccSetupConfPwd" layoutX="219.0" layoutY="91.0" prefHeight="25.0" prefWidth="200.0" promptText="Confirm Password" />
-                <CheckBox fx:id="cboxAccSetupAdmin" layoutX="424.0" layoutY="91.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Administrator" />
-                <Button fx:id="btnAccSetupAddUser" layoutX="14.0" layoutY="126.0" mnemonicParsing="false" onAction="#btnAccSetupAddUserAction" prefHeight="25.0" prefWidth="132.0" text="Add User" />
-                <Button fx:id="btnAccSetupNext" layoutX="148.0" layoutY="126.0" mnemonicParsing="false" onAction="#btnAccSetupNextAction" prefHeight="25.0" prefWidth="66.0" text="Next" />
-              </children>
-            </AnchorPane>
-          </content>
-        </Tab>
-        <Tab fx:id="tabCourierSetup" closable="false" disable="true" text="Courier Setup">
-          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
-              <children>
-                <TextField fx:id="txtCourierSetupCourierName" layoutX="14.0" layoutY="56.0" prefHeight="25.0" prefWidth="200.0" promptText="Courier Name" />
-                <Button fx:id="btnCourierSetupAddCourier" layoutX="14.0" layoutY="86.0" mnemonicParsing="false" onAction="#btnCourierSetupAddCourierAction" prefHeight="25.0" prefWidth="132.0" text="Add Courier" />
-                <Button fx:id="btnCourierSetupNext" layoutX="148.0" layoutY="86.0" mnemonicParsing="false" onAction="#btnCourierSetupNextAction" prefHeight="25.0" prefWidth="66.0" text="Next" />
-              </children>
-            </AnchorPane>
-          </content>
-        </Tab>
-        <Tab fx:id="tabStopSetup" closable="false" disable="true" text="Stop Setup">
-          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #01A217">
-              <children>
-                <TextField fx:id="txtStopSetupStopName" layoutX="14.0" layoutY="56.0" prefHeight="25.0" prefWidth="200.0" promptText="Stop Name" />
-                <Button fx:id="btnStopSetupAddStop" layoutX="14.0" layoutY="86.0" mnemonicParsing="false" onAction="#btnStopSetupAddStopAction" prefHeight="25.0" prefWidth="132.0" text="Add Stop" />
-                <Button fx:id="btnStopSetupFinish" layoutX="148.0" layoutY="86.0" mnemonicParsing="false" onAction="#btnStopSetupFinishAction" prefHeight="25.0" prefWidth="66.0" text="Finish" />
-              </children>
-            </AnchorPane>
-          </content>
-        </Tab>
-      </tabs>
-    </TabPane>
-    <ProgressBar fx:id="pbarProgress" layoutX="200.0" layoutY="555.0" prefHeight="40.0" prefWidth="400.0" progress="0.0" />
-  </children>
+<?import java.lang.String?>
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #01A217"
+            xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2"
+            fx:controller="com.mailroom.mainclient.SetupController">
+    <children>
+        <TabPane fx:id="tabpaneMainPane" layoutX="0.0" layoutY="0.0" prefHeight="550.0" prefWidth="800.0"
+                 tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab fx:id="tabDatabaseSetup" closable="false" text="Database Setup">
+                    <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
+                                    style="-fx-background-color: #01A217">
+                            <children>
+                                <ComboBox fx:id="cboxDbSetupDbType" layoutX="14.0" layoutY="50.0"
+                                          onAction="#cboxDbSetupDbTypeAction" prefHeight="50.0" prefWidth="200.0"
+                                          promptText="Database Type">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="Item 1"/>
+                                            <String fx:value="Item 2"/>
+                                            <String fx:value="Item 3"/>
+                                        </FXCollections>
+                                    </items>
+                                </ComboBox>
+                                <TextField fx:id="txtDbSetupDbLocation" layoutX="14.0" layoutY="105.0" prefHeight="25.0"
+                                           prefWidth="200.0" promptText="Database Location"/>
+                                <Button fx:id="btnDbSetupBrowse" layoutX="219.0" layoutY="107.0" mnemonicParsing="false"
+                                        onAction="#btnDbSetupBrowseAction" text="Browse..."/>
+                                <TextField fx:id="txtDbSetupDbName" disable="true" layoutX="14.0" layoutY="135.0"
+                                           prefHeight="25.0" prefWidth="125.0" promptText="Database Name"/>
+                                <TextField fx:id="txtDbSetupDbUsername" disable="true" layoutX="144.0" layoutY="135.0"
+                                           prefHeight="25.0" prefWidth="125.0" promptText="Username"/>
+                                <PasswordField fx:id="pwdDbSetupDbPassword" disable="true" layoutX="274.0"
+                                               layoutY="135.0" prefHeight="25.0" prefWidth="125.0"
+                                               promptText="Password"/>
+                                <TextField fx:id="txtDbSetupPrefix" layoutX="14.0" layoutY="165.0" prefHeight="25.0"
+                                           prefWidth="184.0" promptText="Tracking Number Pre-Fix"/>
+                                <Button fx:id="btnDbSetupVerify" layoutX="203.0" layoutY="165.0" maxWidth="-1.0"
+                                        mnemonicParsing="false" onAction="#btnDbSetupVerifyAction" prefHeight="25.0"
+                                        prefWidth="66.0" text="Verify"/>
+                                <Button fx:id="btnDbSetupNext" disable="true" layoutX="274.0" layoutY="165.0"
+                                        mnemonicParsing="false" onAction="#btnDbSetupNextAction" prefHeight="25.0"
+                                        prefWidth="66.0" text="Next"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabAccountSetup" closable="false" disable="true" text="Account Creation">
+                    <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
+                                    style="-fx-background-color: #01A217">
+                            <children>
+                                <TextField fx:id="txtAccSetupFirstName" layoutX="14.0" layoutY="56.0" prefHeight="25.0"
+                                           prefWidth="200.0" promptText="First Name"/>
+                                <TextField fx:id="txtAccSetupLastName" layoutX="219.0" layoutY="56.0" prefHeight="25.0"
+                                           prefWidth="200.0" promptText="Last Name"/>
+                                <TextField fx:id="txtAccSetupUserName" layoutX="424.0" layoutY="56.0" prefHeight="25.0"
+                                           prefWidth="200.0" promptText="Username"/>
+                                <PasswordField fx:id="pwdAccSetupPwd" layoutX="14.0" layoutY="91.0" prefHeight="25.0"
+                                               prefWidth="200.0" promptText="Password"/>
+                                <PasswordField fx:id="pwdAccSetupConfPwd" layoutX="219.0" layoutY="91.0"
+                                               prefHeight="25.0" prefWidth="200.0" promptText="Confirm Password"/>
+                                <CheckBox fx:id="cboxAccSetupAdmin" layoutX="424.0" layoutY="91.0"
+                                          mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0"
+                                          text="Administrator"/>
+                                <Button fx:id="btnAccSetupAddUser" layoutX="14.0" layoutY="126.0"
+                                        mnemonicParsing="false" onAction="#btnAccSetupAddUserAction" prefHeight="25.0"
+                                        prefWidth="132.0" text="Add User"/>
+                                <Button fx:id="btnAccSetupNext" layoutX="148.0" layoutY="126.0" mnemonicParsing="false"
+                                        onAction="#btnAccSetupNextAction" prefHeight="25.0" prefWidth="66.0"
+                                        text="Next"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabCourierSetup" closable="false" disable="true" text="Courier Setup">
+                    <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
+                                    style="-fx-background-color: #01A217">
+                            <children>
+                                <TextField fx:id="txtCourierSetupCourierName" layoutX="14.0" layoutY="56.0"
+                                           prefHeight="25.0" prefWidth="200.0" promptText="Courier Name"/>
+                                <Button fx:id="btnCourierSetupAddCourier" layoutX="14.0" layoutY="86.0"
+                                        mnemonicParsing="false" onAction="#btnCourierSetupAddCourierAction"
+                                        prefHeight="25.0" prefWidth="132.0" text="Add Courier"/>
+                                <Button fx:id="btnCourierSetupNext" layoutX="148.0" layoutY="86.0"
+                                        mnemonicParsing="false" onAction="#btnCourierSetupNextAction" prefHeight="25.0"
+                                        prefWidth="66.0" text="Next"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabStopSetup" closable="false" disable="true" text="Stop Setup">
+                    <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
+                                    style="-fx-background-color: #01A217">
+                            <children>
+                                <TextField fx:id="txtStopSetupStopName" layoutX="14.0" layoutY="56.0" prefHeight="25.0"
+                                           prefWidth="200.0" promptText="Stop Name"/>
+                                <Button fx:id="btnStopSetupAddStop" layoutX="14.0" layoutY="86.0"
+                                        mnemonicParsing="false" onAction="#btnStopSetupAddStopAction" prefHeight="25.0"
+                                        prefWidth="132.0" text="Add Stop"/>
+                                <Button fx:id="btnStopSetupFinish" layoutX="148.0" layoutY="86.0"
+                                        mnemonicParsing="false" onAction="#btnStopSetupFinishAction" prefHeight="25.0"
+                                        prefWidth="66.0" text="Finish"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+        <ProgressBar fx:id="pbarProgress" layoutX="200.0" layoutY="555.0" prefHeight="40.0" prefWidth="400.0"
+                     progress="0.0"/>
+    </children>
 </AnchorPane>

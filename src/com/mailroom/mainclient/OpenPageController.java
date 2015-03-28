@@ -1,25 +1,31 @@
 package com.mailroom.mainclient;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
+import com.mailroom.common.DatabaseManager;
+import com.mailroom.common.Logger;
+import com.mailroom.common.Package;
+import com.mailroom.common.User;
+import com.panemu.tiwulfx.dialog.MessageDialog;
+import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
+import com.panemu.tiwulfx.table.TextColumn;
+import com.panemu.tiwulfx.table.TickColumn;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.*;
 
-import com.mailroom.common.*;
-import com.mailroom.common.Package;
-import com.panemu.tiwulfx.dialog.MessageDialog;
-import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
-import com.panemu.tiwulfx.table.*;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Controls OpenPageFx.fxml in com.mailroom.fxml.mainclient
@@ -31,7 +37,6 @@ public class OpenPageController implements Initializable
     // Misc//
     private DatabaseManager dbManager;
     private User cUser;
-    private AutoUpdater au;
     private PackageEditWindow editWindow;
 
     // UI Elements//
@@ -54,11 +59,7 @@ public class OpenPageController implements Initializable
     @FXML
     private Button btnLogout;
     @FXML
-    private Label lblAutoUpdate;
-    @FXML
     private TableView<Package> tblViewTable;
-    @FXML
-    private Label lblTickCount;
 
     // Columns//
     private TickColumn<Package> clmnDelivered;
@@ -132,10 +133,6 @@ public class OpenPageController implements Initializable
         tblViewTable.getColumns().add(clmnCourier);
         tblViewTable.getColumns().add(clmnDateReceived);
         tblViewTable.getColumns().add(clmnUserName);
-        //
-        // lblTickCount.setText(clmnDelivered.getTickedRecords().size() +
-        // " Selected");
-        lblTickCount.setVisible(false);
 
         dbManager.loadAllPackages();
 
@@ -148,17 +145,6 @@ public class OpenPageController implements Initializable
         else
         {
             tblViewTable.getItems().addAll(dbManager.getPackages());
-        }
-
-        if (Boolean.valueOf(MainFrame.properties.getProperty("AUTOUPDATE")))
-        {
-            lblAutoUpdate.setText("Auto Update Enabled");
-            au = new AutoUpdater(btnRefresh);
-        }
-        else
-        {
-            lblAutoUpdate.setText("Auto Update Disabled");
-            au = null;
         }
 
         editWindow = MainFrame.editWindow;
@@ -174,10 +160,6 @@ public class OpenPageController implements Initializable
         ae.consume();
         try
         {
-            if (au != null)
-            {
-                au.stop();
-            }
             Parent root = FXMLLoader.load(getClass().getResource(
                     "/com/mailroom/fxml/mainclient/ScanPageFx.fxml"));
             Scene scene = new Scene(root);
@@ -198,20 +180,33 @@ public class OpenPageController implements Initializable
     public void btnPrintAction(ActionEvent ae)
     {
         ae.consume();
-        try
+
+        ObservableList<Package> packages = (ObservableList<Package>) clmnDelivered.getTickedRecords();
+
+        if (packages.size() > 0)
         {
-            if (au != null)
+            if (PrintPageController.printReport(packages))
             {
-                au.stop();
+                btnRefresh.fire();
             }
-            Parent root = FXMLLoader.load(getClass().getResource(
-                    "/com/mailroom/fxml/mainclient/PrintPageFx.fxml"));
-            Scene scene = new Scene(root);
-            MainFrame.stage.setScene(scene);
+            else
+            {
+                MessageDialogBuilder.error().message("Error Printing").show(MainFrame.stage.getScene().getWindow());
+            }
         }
-        catch (IOException e)
+        else
         {
-            Logger.log(e);
+            try
+            {
+                Parent root = FXMLLoader.load(getClass().getResource(
+                        "/com/mailroom/fxml/mainclient/PrintPageFx.fxml"));
+                Scene scene = new Scene(root);
+                MainFrame.stage.setScene(scene);
+            }
+            catch (IOException e)
+            {
+                Logger.log(e);
+            }
         }
     }
 
@@ -283,10 +278,6 @@ public class OpenPageController implements Initializable
         ae.consume();
         try
         {
-            if (au != null)
-            {
-                au.stop();
-            }
             Parent root = FXMLLoader.load(getClass().getResource(
                     "/com/mailroom/fxml/mainclient/SettingsPageFx.fxml"));
             Scene scene = new Scene(root);
@@ -317,10 +308,6 @@ public class OpenPageController implements Initializable
         {
             try
             {
-                if (au != null)
-                {
-                    au.stop();
-                }
                 Parent root = FXMLLoader.load(getClass().getResource(
                         "/com/mailroom/fxml/mainclient/LoginFx.fxml"));
                 Scene scene = new Scene(root);
@@ -350,11 +337,6 @@ public class OpenPageController implements Initializable
         if (a == MessageDialog.Answer.YES_OK)
         {
             MainFrame.saveProperties();
-
-            if (au != null)
-            {
-                au.stop();
-            }
 
             dbManager.dispose();
 
@@ -397,62 +379,6 @@ public class OpenPageController implements Initializable
         {
             editWindow.show(tblViewTable.getItems().get(
                     tblViewTable.getSelectionModel().getSelectedIndex()));
-        }
-    }
-
-    /**
-     * Background task for automatically applying updates from
-     * on screen table to the database
-     * also reloads table after applying updates
-     * enabled/disabled in settings
-     *
-     * @author James
-     */
-    private class AutoUpdater implements Runnable
-    {
-        Button btn = null;
-        private boolean running;
-
-        /**
-         * Constructor
-         *
-         * @param btn Button to be fired everytime update is performed
-         */
-        public AutoUpdater(Button btn)
-        {
-            this.btn = btn;
-            new Thread(this).start();
-            running = true;
-        }
-
-        /**
-         * Main run loop for thread
-         */
-        public void run()
-        {
-            while (running)
-            {
-                try
-                {
-                    Thread.sleep((long) (Double.valueOf(MainFrame.properties
-                            .getProperty("AUFREQ")) * 1000));
-                    btn.fire();
-                }
-                catch (NumberFormatException e)
-                {
-                    Logger.log(e);
-                }
-                catch (InterruptedException e)
-                {
-                    Logger.log(e);
-                }
-            }
-        }
-
-        //stops thread from continuing the run loop
-        public void stop()
-        {
-            running = false;
         }
     }
 }

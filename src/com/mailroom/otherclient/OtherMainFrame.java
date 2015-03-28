@@ -1,10 +1,9 @@
 package com.mailroom.otherclient;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
-
+import com.mailroom.common.*;
+import com.mailroom.mainclient.PackageEditWindow;
+import com.panemu.tiwulfx.dialog.MessageDialog;
+import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,15 +11,10 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import com.mailroom.common.ConfigException;
-import com.mailroom.common.DatabaseManager;
-import com.mailroom.common.Logger;
-import com.mailroom.common.MysqlManager;
-import com.mailroom.common.PostgreSQLManager;
-import com.mailroom.common.SQLiteManager;
-import com.mailroom.mainclient.PackageEditWindow;
-import com.panemu.tiwulfx.dialog.MessageDialog;
-import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 
 /**
  * Defines Main Entry Point for OtherClient

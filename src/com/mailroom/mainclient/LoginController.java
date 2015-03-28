@@ -1,18 +1,26 @@
 package com.mailroom.mainclient;
 
+import com.mailroom.common.DatabaseManager;
+import com.mailroom.common.Logger;
+import com.mailroom.common.User;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.event.ActionEvent;
-import javafx.fxml.*;
-import com.mailroom.common.*;
 
 /**
  * Controls LoginFx.fxml in com.mailroom.fxml.mainclient
