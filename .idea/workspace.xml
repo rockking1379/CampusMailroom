@@ -3,40 +3,12 @@
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
       <artifact name="MainFrame:jar" />
+      <artifact name="OtherClient:jar" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5925d2b-0f9f-4f83-bdc8-55ac03077826" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/common/AdvSearchController.java" afterPath="$PROJECT_DIR$/src/com/mailroom/common/AdvSearchController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/fxml/common/AdvSearchFx.fxml" afterPath="$PROJECT_DIR$/src/com/mailroom/fxml/common/AdvSearchFx.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/common/DatabaseManager.java" afterPath="$PROJECT_DIR$/src/com/mailroom/common/DatabaseManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/common/Logger.java" afterPath="$PROJECT_DIR$/src/com/mailroom/common/Logger.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/mainclient/LoginController.java" afterPath="$PROJECT_DIR$/src/com/mailroom/mainclient/LoginController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/LoginFx.fxml" afterPath="$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/LoginFx.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MailroomRewrite.iml" afterPath="$PROJECT_DIR$/MailroomRewrite.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/mainclient/MainFrame.java" afterPath="$PROJECT_DIR$/src/com/mailroom/mainclient/MainFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/otherclient/MainPageController.java" afterPath="$PROJECT_DIR$/src/com/mailroom/otherclient/MainPageController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/fxml/otherclient/MainPageFx.fxml" afterPath="$PROJECT_DIR$/src/com/mailroom/fxml/otherclient/MainPageFx.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/common/MysqlManager.java" afterPath="$PROJECT_DIR$/src/com/mailroom/common/MysqlManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/mainclient/OpenPageController.java" afterPath="$PROJECT_DIR$/src/com/mailroom/mainclient/OpenPageController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/OpenPageFx.fxml" afterPath="$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/OpenPageFx.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/otherclient/OtherMainFrame.java" afterPath="$PROJECT_DIR$/src/com/mailroom/otherclient/OtherMainFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/mainclient/PackageEditController.java" afterPath="$PROJECT_DIR$/src/com/mailroom/mainclient/PackageEditController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/PackageEditFx.fxml" afterPath="$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/PackageEditFx.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/mainclient/PackageEditWindow.java" afterPath="$PROJECT_DIR$/src/com/mailroom/mainclient/PackageEditWindow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/common/PostgreSQLManager.java" afterPath="$PROJECT_DIR$/src/com/mailroom/common/PostgreSQLManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/mainclient/PrintPageController.java" afterPath="$PROJECT_DIR$/src/com/mailroom/mainclient/PrintPageController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/PrintPageFx.fxml" afterPath="$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/PrintPageFx.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/common/SQLiteManager.java" afterPath="$PROJECT_DIR$/src/com/mailroom/common/SQLiteManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/mainclient/ScanPageController.java" afterPath="$PROJECT_DIR$/src/com/mailroom/mainclient/ScanPageController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/ScanPageFx.fxml" afterPath="$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/ScanPageFx.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/mainclient/SettingsController.java" afterPath="$PROJECT_DIR$/src/com/mailroom/mainclient/SettingsController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/SettingsPageFx.fxml" afterPath="$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/SettingsPageFx.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/mainclient/SetupController.java" afterPath="$PROJECT_DIR$/src/com/mailroom/mainclient/SetupController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/SetupFx.fxml" afterPath="$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/SetupFx.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/updater/UpdaterController.java" afterPath="$PROJECT_DIR$/src/com/mailroom/updater/UpdaterController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mailroom/fxml/updater/UpdaterFx.fxml" afterPath="$PROJECT_DIR$/src/com/mailroom/fxml/updater/UpdaterFx.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MailroomRewrite.iws" />
@@ -138,7 +110,6 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="1559" column="1" selection-start-line="1559" selection-start-column="1" selection-end-line="1559" selection-end-column="1" />
               <folding>
-                <element signature="imports" expanded="false" />
                 <element signature="docComment;class#SettingsController#0" expanded="false" />
                 <element signature="method#initialize#0;class#SettingsController#0" expanded="false" />
                 <element signature="docComment;method#keyPressedAction#0;class#SettingsController#0" expanded="false" />
@@ -224,11 +195,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PrintPageController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PrintPageController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/mailroom/mainclient/PrintPageController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="529" column="0" selection-start-line="529" selection-start-column="0" selection-end-line="529" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.6670294">
+              <caret line="401" column="118" selection-start-line="401" selection-start-column="118" selection-end-line="401" selection-end-column="118" />
               <folding />
             </state>
           </provider>
@@ -247,7 +218,7 @@
       <file leaf-file-name="console.sql" pinned="false" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/4674b585-45a7-4887-9ca7-9a9fc270cb6c/console.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.8333333">
+            <state vertical-scroll-proportion="0.0">
               <caret line="5" column="43" selection-start-line="5" selection-start-column="43" selection-end-line="5" selection-end-column="43" />
               <folding>
                 <marker date="1427564751370" expanded="true" signature="251:318" placeholder="select * fro..Package..." />
@@ -256,11 +227,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DatabaseManager.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DatabaseManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/mailroom/common/DatabaseManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.4003295">
-              <caret line="129" column="0" selection-start-line="129" selection-start-column="0" selection-end-line="129" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="36" column="7" selection-start-line="36" selection-start-column="7" selection-end-line="36" selection-end-column="7" />
               <folding>
                 <element signature="docComment;class#DatabaseManager#0" expanded="false" />
                 <element signature="docComment;class#SearchType#0;class#DatabaseManager#0" expanded="false" />
@@ -460,7 +431,6 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="1598" column="43" selection-start-line="1598" selection-start-column="43" selection-end-line="1598" selection-end-column="43" />
               <folding>
-                <element signature="imports" expanded="false" />
                 <marker date="1427566118468" expanded="true" signature="416:444" placeholder="DROP TABLE I..." />
                 <marker date="1427566118468" expanded="true" signature="491:517" placeholder="DROP TABLE I..." />
                 <marker date="1427566118468" expanded="true" signature="566:593" placeholder="DROP TABLE I..." />
@@ -637,7 +607,6 @@
         <option value="$PROJECT_DIR$/src/com/mailroom/updater/UpdaterController.java" />
         <option value="db-console:/f7a2e825/2ac20cc4-f539-4056-bed5-472aefc68dc8/" />
         <option value="$PROJECT_DIR$/src/com/mailroom/mainclient/OpenPageController.java" />
-        <option value="$PROJECT_DIR$/src/com/mailroom/mainclient/PrintPageController.java" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/4674b585-45a7-4887-9ca7-9a9fc270cb6c/console.sql" />
         <option value="$PROJECT_DIR$/configuration.properties" />
         <option value="$PROJECT_DIR$/src/com/mailroom/common/SQLiteManager.java" />
@@ -645,6 +614,7 @@
         <option value="$PROJECT_DIR$/src/com/mailroom/common/PostgreSQLManager.java" />
         <option value="$PROJECT_DIR$/src/com/mailroom/mainclient/SettingsController.java" />
         <option value="$PROJECT_DIR$/src/com/mailroom/common/DatabaseManager.java" />
+        <option value="$PROJECT_DIR$/src/com/mailroom/mainclient/PrintPageController.java" />
       </list>
     </option>
   </component>
@@ -711,6 +681,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -851,9 +823,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1188,11 +1158,13 @@
       <workItem from="1427424170677" duration="7268000" />
       <workItem from="1427495009400" duration="10628000" />
       <workItem from="1427560577150" duration="5513000" />
+      <workItem from="1427566406204" duration="302000" />
+      <workItem from="1427569964038" duration="382000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50324000" />
+    <option name="totallyTimeSpent" value="51008000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1208,11 +1180,9 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32946146" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23548046" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1015625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17552084" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1225,7 +1195,9 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23548046" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1255,7 +1227,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="false" />
             <element signature="docComment;class#SettingsController#0" expanded="false" />
             <element signature="method#initialize#0;class#SettingsController#0" expanded="false" />
             <element signature="docComment;method#keyPressedAction#0;class#SettingsController#0" expanded="false" />
@@ -1344,18 +1315,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="docComment;class#OpenPageController#0" expanded="false" />
-            <element signature="docComment;method#btnScanPackageAction#0;class#OpenPageController#0" expanded="false" />
-            <element signature="docComment;method#btnPrintAction#0;class#OpenPageController#0" expanded="false" />
-            <element signature="docComment;method#btnRefreshAction#0;class#OpenPageController#0" expanded="false" />
-            <element signature="docComment;method#btnSettingsAction#0;class#OpenPageController#0" expanded="false" />
-            <element signature="docComment;method#btnLogoutAction#0;class#OpenPageController#0" expanded="false" />
-            <element signature="docComment;method#btnQuitAction#0;class#OpenPageController#0" expanded="false" />
-            <element signature="docComment;method#keyPressedAction#0;class#OpenPageController#0" expanded="false" />
-            <element signature="docComment;method#tblMouseClickAction#0;class#OpenPageController#0" expanded="false" />
-            <element signature="method#tblMouseClickAction#0;class#OpenPageController#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1437,14 +1396,14 @@
       </provider>
     </entry>
     <entry file="dbDummy://dbtable:/f7a2e825/e8aaf294-b04c-4677-9504-e329e51953ae/mailroom.dbo.Stop">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1603,26 +1562,26 @@
       </provider>
     </entry>
     <entry file="dbDummy://dbtable:/f7a2e825/0fa2374e-6938-4ddc-8c8c-859cfdeffef5/..sqlite_sequence">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="dbDummy://dbtable:/f7a2e825/4674b585-45a7-4887-9ca7-9a9fc270cb6c/..sqlite_sequence">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1630,18 +1589,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.092491835">
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding>
-            <element signature="docComment;class#OpenPageController#0" expanded="false" />
-            <element signature="docComment;method#btnScanPackageAction#0;class#OpenPageController#0" expanded="false" />
-            <element signature="docComment;method#btnPrintAction#0;class#OpenPageController#0" expanded="false" />
-            <element signature="docComment;method#btnRefreshAction#0;class#OpenPageController#0" expanded="false" />
-            <element signature="docComment;method#btnSettingsAction#0;class#OpenPageController#0" expanded="false" />
-            <element signature="docComment;method#btnLogoutAction#0;class#OpenPageController#0" expanded="false" />
-            <element signature="docComment;method#btnQuitAction#0;class#OpenPageController#0" expanded="false" />
-            <element signature="docComment;method#keyPressedAction#0;class#OpenPageController#0" expanded="false" />
-            <element signature="docComment;method#tblMouseClickAction#0;class#OpenPageController#0" expanded="false" />
-            <element signature="method#tblMouseClickAction#0;class#OpenPageController#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1657,14 +1604,14 @@
       </provider>
     </entry>
     <entry file="dbDummy://dbtable:/f7a2e825/4674b585-45a7-4887-9ca7-9a9fc270cb6c/..EmailAddress">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1672,28 +1619,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="132" column="33" selection-start-line="132" selection-start-column="33" selection-end-line="132" selection-end-column="33" />
-          <folding>
-            <element signature="e#3199#3200#0" expanded="true" />
-            <element signature="e#3243#3244#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/4674b585-45a7-4887-9ca7-9a9fc270cb6c/console.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.8333333">
+        <state vertical-scroll-proportion="0.0">
           <caret line="5" column="43" selection-start-line="5" selection-start-column="43" selection-end-line="5" selection-end-column="43" />
           <folding>
             <marker date="1427564751370" expanded="true" signature="251:318" placeholder="select * fro..Package..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/mailroom/mainclient/PrintPageController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="529" column="0" selection-start-line="529" selection-start-column="0" selection-end-line="529" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1710,7 +1645,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="1559" column="1" selection-start-line="1559" selection-start-column="1" selection-end-line="1559" selection-end-column="1" />
           <folding>
-            <element signature="imports" expanded="false" />
             <element signature="docComment;class#SettingsController#0" expanded="false" />
             <element signature="method#initialize#0;class#SettingsController#0" expanded="false" />
             <element signature="docComment;method#keyPressedAction#0;class#SettingsController#0" expanded="false" />
@@ -1928,7 +1862,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="1598" column="43" selection-start-line="1598" selection-start-column="43" selection-end-line="1598" selection-end-column="43" />
           <folding>
-            <element signature="imports" expanded="false" />
             <marker date="1427566118468" expanded="true" signature="416:444" placeholder="DROP TABLE I..." />
             <marker date="1427566118468" expanded="true" signature="491:517" placeholder="DROP TABLE I..." />
             <marker date="1427566118468" expanded="true" signature="566:593" placeholder="DROP TABLE I..." />
@@ -2096,8 +2029,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/mailroom/common/DatabaseManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.4003295">
-          <caret line="129" column="0" selection-start-line="129" selection-start-column="0" selection-end-line="129" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="36" column="7" selection-start-line="36" selection-start-column="7" selection-end-line="36" selection-end-column="7" />
           <folding>
             <element signature="docComment;class#DatabaseManager#0" expanded="false" />
             <element signature="docComment;class#SearchType#0;class#DatabaseManager#0" expanded="false" />
@@ -2157,6 +2090,14 @@
             <element signature="docComment;method#addEmailAddress#0;class#DatabaseManager#0" expanded="false" />
             <element signature="docComment;method#deleteEmailAddress#0;class#DatabaseManager#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/mailroom/mainclient/PrintPageController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6670294">
+          <caret line="401" column="118" selection-start-line="401" selection-start-column="118" selection-end-line="401" selection-end-column="118" />
+          <folding />
         </state>
       </provider>
     </entry>

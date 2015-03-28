@@ -408,7 +408,10 @@ public class PrintPageController implements Initializable
                                         }
                                     }
 
-                                    Transport.send(message);
+                                    if(message.getAllRecipients().length > 0)
+                                    {
+                                        Transport.send(message);
+                                    }
                                 }
                                 catch (MessagingException e)
                                 {
