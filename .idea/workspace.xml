@@ -198,381 +198,9 @@
       <file leaf-file-name="PrintPageController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/mailroom/mainclient/PrintPageController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6670294">
-              <caret line="401" column="118" selection-start-line="401" selection-start-column="118" selection-end-line="401" selection-end-column="118" />
+            <state vertical-scroll-proportion="0.49945593">
+              <caret line="358" column="82" selection-start-line="358" selection-start-column="82" selection-end-line="358" selection-end-column="82" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="configuration.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/configuration.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="12" column="18" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="console.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/4674b585-45a7-4887-9ca7-9a9fc270cb6c/console.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="43" selection-start-line="5" selection-start-column="43" selection-end-line="5" selection-end-column="43" />
-              <folding>
-                <marker date="1427564751370" expanded="true" signature="251:318" placeholder="select * fro..Package..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DatabaseManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/mailroom/common/DatabaseManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="36" column="7" selection-start-line="36" selection-start-column="7" selection-end-line="36" selection-end-column="7" />
-              <folding>
-                <element signature="docComment;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;class#SearchType#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="class#SearchType#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;field#SEARCH_BEGINS_WITH#0;class#SearchType#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;field#SEARCH_CONTAINS#0;class#SearchType#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;field#SEARCH_ENDS_WITH#0;class#SearchType#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;field#dbId#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;field#dbName#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#login#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#addUser#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#changePassword#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#deleteUser#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#setUserAdmin#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#reactivateUser#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#getDeactivatedUsers#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#getActiveUsers#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#loadStops#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#updateStop#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#addStopToRoute#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#addStop#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#deleteStop#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#setRoutePosition#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#getStops#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#getUnassignedStops#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#getStopsOnRoute#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#processStopResult#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#loadRoutes#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#getRoutes#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#updateRoute#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#addRoute#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#deleteRoute#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#loadCouriers#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#getCouriers#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#addCourier#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#updateCourier#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#deleteCourier#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#getPackages#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#loadAllPackages#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#loadPackages#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#checkTrackingNumber#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#updatePackage#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#updatePackage#1;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#addPackage#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#getPackagesForStop#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#printPackagesForStop#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#processPackageResult#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#findPerson#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#searchPackages#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#searchPackages#1;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#connect#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#disconnect#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#dispose#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#create#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#verify#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#getEmailAddress#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#addEmailAddress#0;class#DatabaseManager#0" expanded="false" />
-                <element signature="docComment;method#deleteEmailAddress#0;class#DatabaseManager#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SQLiteManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/mailroom/common/SQLiteManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="1578" column="0" selection-start-line="1578" selection-start-column="0" selection-end-line="1578" selection-end-column="0" />
-              <folding>
-                <element signature="docComment;class#SQLiteManager#0" expanded="false" />
-                <element signature="docComment;field#dbId#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="docComment;field#dbName#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#SQLiteManager#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#login#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="e#4079#4151#0" expanded="false" />
-                <element signature="method#addUser#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="e#5080#5118#0" expanded="false" />
-                <element signature="method#changePassword#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#deleteUser#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#setUserAdmin#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#reactivateUser#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#getDeactivatedUsers#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#getActiveUsers#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#loadStops#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#addStopToRoute#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#addStop#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="e#12581#12650#0" expanded="false" />
-                <element signature="method#deleteStop#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#setRoutePosition#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#getUnassignedStops#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#getStopsOnRoute#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#processStopResult#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#loadRoutes#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#updateRoute#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#addRoute#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#deleteRoute#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#loadCouriers#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#addCourier#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#updateCourier#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#deleteCourier#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#loadAllPackages#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#loadPackages#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#checkTrackingNumber#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#updatePackage#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#updatePackage#1;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#addPackage#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#printPackagesForStop#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#getPackagesForStop#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#processPackageResult#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#findPerson#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#searchPackages#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#searchPackages#1;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#connect#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#disconnect#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#dispose#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#create#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#verify#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#getEmailAddress#0;class#SQLiteManager#0" expanded="false" />
-                <element signature="method#addEmailAddress#0;class#SQLiteManager#0" expanded="false" />
-                <marker date="1427566118437" expanded="false" signature="420:448" placeholder="DROP TABLE I..." />
-                <marker date="1427566118437" expanded="false" signature="495:521" placeholder="DROP TABLE I..." />
-                <marker date="1427566118437" expanded="false" signature="570:597" placeholder="DROP TABLE I..." />
-                <marker date="1427566118437" expanded="false" signature="647:675" placeholder="DROP TABLE I..." />
-                <marker date="1427566118437" expanded="false" signature="722:747" placeholder="DROP TABLE I..." />
-                <marker date="1427566118437" expanded="false" signature="795:821" placeholder="DROP TABLE I..." />
-                <marker date="1427566118437" expanded="false" signature="871:981" placeholder="CREATE TABLE..Route..." />
-                <marker date="1427566118437" expanded="false" signature="1030:1295" placeholder="CREATE TABLE..Stop..." />
-                <marker date="1427566118437" expanded="false" signature="1347:1472" placeholder="CREATE TABLE..Courier..." />
-                <marker date="1427566118437" expanded="false" signature="1523:1783" placeholder="CREATE TABLE..Person..." />
-                <marker date="1427566118437" expanded="false" signature="1832:2059" placeholder="CREATE TABLE..Users..." />
-                <marker date="1427566118437" expanded="false" signature="2111:2657" placeholder="CREATE TABLE..Package..." />
-                <marker date="1427566118437" expanded="false" signature="2707:2769" placeholder="insert into ..." />
-                <marker date="1427566118437" expanded="false" signature="2818:2911" placeholder="insert into ..." />
-                <marker date="1427566118437" expanded="false" signature="2959:3093" placeholder="insert into ..." />
-                <marker date="1427566118437" expanded="false" signature="4320:4385" placeholder="select * fro..Users..." />
-                <marker date="1427566118437" expanded="false" signature="5313:5417" placeholder="insert into ..." />
-                <marker date="1427566118437" expanded="false" signature="6201:6261" placeholder="update Users..." />
-                <marker date="1427566118437" expanded="false" signature="6892:6933" placeholder="update Users..." />
-                <marker date="1427566118437" expanded="false" signature="7490:7538" placeholder="update Users..." />
-                <marker date="1427566118437" expanded="false" signature="8136:8189" placeholder="update Users..." />
-                <marker date="1427566118437" expanded="false" signature="8832:8866" placeholder="select * fro..Users..." />
-                <marker date="1427566118437" expanded="false" signature="9620:9654" placeholder="select * fro..Users..." />
-                <marker date="1427566118437" expanded="false" signature="10448:10505" placeholder="select * fro..Stop..." />
-                <marker date="1427566118437" expanded="true" signature="11405:11461" placeholder="update Stop ..." />
-                <marker date="1427566118437" expanded="false" signature="12118:12160" placeholder="update Stop ..." />
-                <marker date="1427566118437" expanded="false" signature="12803:12889" placeholder="insert into ..." />
-                <marker date="1427566118437" expanded="false" signature="13741:13782" placeholder="update Stop ..." />
-                <marker date="1427566118437" expanded="false" signature="14306:14351" placeholder="update Stop ..." />
-                <marker date="1427566118437" expanded="false" signature="15021:15070" placeholder="select * fro..Stop..." />
-                <marker date="1427566118437" expanded="false" signature="15582:15656" placeholder="select * fro..Stop..." />
-                <marker date="1427566118437" expanded="false" signature="16995:17054" placeholder="select * fro..Route..." />
-                <marker date="1427566118437" expanded="false" signature="17668:17714" placeholder="update Route..." />
-                <marker date="1427566118437" expanded="false" signature="18349:18399" placeholder="insert into ..." />
-                <marker date="1427566118437" expanded="false" signature="18909:18952" placeholder="update Route..." />
-                <marker date="1427566118437" expanded="false" signature="19176:19219" placeholder="update Stop ..." />
-                <marker date="1427566118437" expanded="false" signature="19951:20014" placeholder="select * fro..Courier..." />
-                <marker date="1427566118437" expanded="false" signature="20688:20742" placeholder="insert into ..." />
-                <marker date="1427566118437" expanded="false" signature="21244:21296" placeholder="update Couri..." />
-                <marker date="1427566118437" expanded="false" signature="21865:21912" placeholder="update Couri..." />
-                <marker date="1427566118437" expanded="false" signature="22614:22668" placeholder="select * fro..Package..." />
-                <marker date="1427566118437" expanded="false" signature="23122:23190" placeholder="select * fro..Package..." />
-                <marker date="1427566118437" expanded="false" signature="23768:23822" placeholder="select packa..Package..." />
-                <marker date="1427566118437" expanded="false" signature="24475:24522" placeholder="update Packa..." />
-                <marker date="1427566118437" expanded="false" signature="24751:24800" placeholder="update Packa..." />
-                <marker date="1427566118437" expanded="false" signature="24993:25045" placeholder="update Packa..." />
-                <marker date="1427566118437" expanded="false" signature="25711:25885" placeholder="update Packa..." />
-                <marker date="1427566118437" expanded="false" signature="26907:27132" placeholder="insert into ..." />
-                <marker date="1427566118437" expanded="false" signature="28212:28306" placeholder="select * fro..Package..." />
-                <marker date="1427566118437" expanded="false" signature="28433:28542" placeholder="select * fro..Package..." />
-                <marker date="1427566118437" expanded="false" signature="29313:29383" placeholder="select * fro..Package..." />
-                <marker date="1427566118437" expanded="false" signature="30653:30687" placeholder="select * fro..Stop..." />
-                <marker date="1427566118437" expanded="false" signature="31201:31241" placeholder="select * fro..Courier..." />
-                <marker date="1427566118437" expanded="false" signature="31651:31686" placeholder="select * fro..Users..." />
-                <marker date="1427566118437" expanded="false" signature="33259:33341" placeholder="select * fro..Person..." />
-                <marker date="1427566118437" expanded="false" signature="35148:35284" placeholder="select * fro..Package..." />
-                <marker date="1427566118437" expanded="false" signature="36567:36650" placeholder="select * fro..Package..." />
-                <marker date="1427566118437" expanded="false" signature="37146:37224" placeholder="select * fro..Package..." />
-                <marker date="1427566118437" expanded="false" signature="37662:37739" placeholder="select * fro..Package..." />
-                <marker date="1427566118437" expanded="false" signature="38177:38255" placeholder="select * fro..Package..." />
-                <marker date="1427566118437" expanded="false" signature="41379:41434" placeholder="SELECT addre..EmailAddress..." />
-                <marker date="1427566118437" expanded="false" signature="41379:41438" placeholder="SELECT addre..EmailAddress..." />
-                <marker date="1427566118437" expanded="false" signature="41379:41439" placeholder="SELECT addre..EmailAddress..." />
-                <marker date="1427566118437" expanded="false" signature="41379:41448" placeholder="SELECT addre..EmailAddress..." />
-                <marker date="1427566118437" expanded="false" signature="41385:41434" placeholder="select addre..EmailAddress..." />
-                <marker date="1427566118437" expanded="false" signature="42183:42256" placeholder="INSERT INTO ..." />
-                <marker date="1427566118437" expanded="true" signature="42747:42803" placeholder="UPDATE Email..." />
-                <marker date="1427566118437" expanded="true" signature="42747:42807" placeholder="UPDATE Email..." />
-                <marker date="1427566118437" expanded="true" signature="42747:42817" placeholder="UPDATE Email..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MysqlManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/mailroom/common/MysqlManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="1598" column="43" selection-start-line="1598" selection-start-column="43" selection-end-line="1598" selection-end-column="43" />
-              <folding>
-                <marker date="1427566118468" expanded="true" signature="416:444" placeholder="DROP TABLE I..." />
-                <marker date="1427566118468" expanded="true" signature="491:517" placeholder="DROP TABLE I..." />
-                <marker date="1427566118468" expanded="true" signature="566:593" placeholder="DROP TABLE I..." />
-                <marker date="1427566118468" expanded="true" signature="643:671" placeholder="DROP TABLE I..." />
-                <marker date="1427566118468" expanded="true" signature="718:743" placeholder="DROP TABLE I..." />
-                <marker date="1427566118468" expanded="true" signature="791:817" placeholder="DROP TABLE I..." />
-                <marker date="1427566118468" expanded="true" signature="867:978" placeholder="CREATE TABLE..Route..." />
-                <marker date="1427566118468" expanded="true" signature="1027:1246" placeholder="CREATE TABLE..Stop..." />
-                <marker date="1427566118468" expanded="true" signature="1298:1424" placeholder="CREATE TABLE..Courier..." />
-                <marker date="1427566118468" expanded="true" signature="1475:1736" placeholder="CREATE TABLE..Person..." />
-                <marker date="1427566118468" expanded="true" signature="1785:2013" placeholder="CREATE TABLE..Users..." />
-                <marker date="1427566118468" expanded="true" signature="2065:2612" placeholder="CREATE TABLE..Package..." />
-                <marker date="1427566118468" expanded="true" signature="2662:2724" placeholder="insert into ..." />
-                <marker date="1427566118468" expanded="true" signature="2773:2866" placeholder="insert into ..." />
-                <marker date="1427566118468" expanded="true" signature="2914:3048" placeholder="insert into ..." />
-                <marker date="1427566118468" expanded="true" signature="4851:4916" placeholder="select * fro..Users..." />
-                <marker date="1427566118468" expanded="true" signature="5844:5948" placeholder="insert into ..." />
-                <marker date="1427566118468" expanded="true" signature="6732:6792" placeholder="update Users..." />
-                <marker date="1427566118468" expanded="true" signature="7423:7464" placeholder="update Users..." />
-                <marker date="1427566118468" expanded="true" signature="8021:8069" placeholder="update Users..." />
-                <marker date="1427566118468" expanded="true" signature="8667:8720" placeholder="update Users..." />
-                <marker date="1427566118468" expanded="true" signature="9363:9397" placeholder="select * fro..Users..." />
-                <marker date="1427566118468" expanded="true" signature="10151:10185" placeholder="select * fro..Users..." />
-                <marker date="1427566118468" expanded="true" signature="10979:11036" placeholder="select * fro..Stop..." />
-                <marker date="1427566118468" expanded="true" signature="11906:11947" placeholder="update Stop ..." />
-                <marker date="1427566118468" expanded="true" signature="12552:12594" placeholder="update Stop ..." />
-                <marker date="1427566118468" expanded="true" signature="13237:13323" placeholder="insert into ..." />
-                <marker date="1427566118468" expanded="true" signature="14175:14216" placeholder="update Stop ..." />
-                <marker date="1427566118468" expanded="true" signature="14740:14785" placeholder="update Stop ..." />
-                <marker date="1427566118468" expanded="true" signature="15455:15504" placeholder="select * fro..Stop..." />
-                <marker date="1427566118468" expanded="true" signature="16016:16065" placeholder="select * fro..Stop..." />
-                <marker date="1427566118468" expanded="true" signature="17349:17408" placeholder="select * fro..Route..." />
-                <marker date="1427566118468" expanded="true" signature="18022:18068" placeholder="update Route..." />
-                <marker date="1427566118468" expanded="true" signature="18703:18753" placeholder="insert into ..." />
-                <marker date="1427566118468" expanded="true" signature="19263:19306" placeholder="update Route..." />
-                <marker date="1427566118468" expanded="true" signature="19530:19573" placeholder="update Stop ..." />
-                <marker date="1427566118468" expanded="true" signature="20305:20368" placeholder="select * fro..Courier..." />
-                <marker date="1427566118468" expanded="true" signature="21042:21096" placeholder="insert into ..." />
-                <marker date="1427566118468" expanded="true" signature="21598:21650" placeholder="update Couri..." />
-                <marker date="1427566118468" expanded="true" signature="22219:22266" placeholder="update Couri..." />
-                <marker date="1427566118468" expanded="true" signature="22968:23022" placeholder="select * fro..Package..." />
-                <marker date="1427566118468" expanded="true" signature="23476:23544" placeholder="select * fro..Package..." />
-                <marker date="1427566118468" expanded="true" signature="24122:24176" placeholder="select packa..Package..." />
-                <marker date="1427566118468" expanded="true" signature="24829:24876" placeholder="update Packa..." />
-                <marker date="1427566118468" expanded="true" signature="25105:25154" placeholder="update Packa..." />
-                <marker date="1427566118468" expanded="true" signature="25347:25399" placeholder="update Packa..." />
-                <marker date="1427566118468" expanded="true" signature="26065:26239" placeholder="update Packa..." />
-                <marker date="1427566118468" expanded="true" signature="27261:27486" placeholder="insert into ..." />
-                <marker date="1427566118468" expanded="true" signature="28566:28660" placeholder="select * fro..Package..." />
-                <marker date="1427566118468" expanded="true" signature="28787:28896" placeholder="select * fro..Package..." />
-                <marker date="1427566118468" expanded="true" signature="29667:29737" placeholder="select * fro..Package..." />
-                <marker date="1427566118468" expanded="true" signature="31007:31041" placeholder="select * fro..Stop..." />
-                <marker date="1427566118468" expanded="true" signature="31526:31566" placeholder="select * fro..Courier..." />
-                <marker date="1427566118468" expanded="true" signature="31976:32011" placeholder="select * fro..Users..." />
-                <marker date="1427566118468" expanded="true" signature="33584:33666" placeholder="select * fro..Person..." />
-                <marker date="1427566118468" expanded="true" signature="35473:35611" placeholder="select * fro..Package..." />
-                <marker date="1427566118468" expanded="true" signature="36894:36977" placeholder="select * fro..Package..." />
-                <marker date="1427566118468" expanded="true" signature="37473:37551" placeholder="select * fro..Package..." />
-                <marker date="1427566118468" expanded="true" signature="37989:38066" placeholder="select * fro..Package..." />
-                <marker date="1427566118468" expanded="true" signature="38504:38582" placeholder="select * fro..Package..." />
-                <marker date="1427566118468" expanded="true" signature="41668:41723" placeholder="select addre..EmailAddresses..." />
-                <marker date="1427566118468" expanded="true" signature="42458:42516" placeholder="insert INTO ..." />
-                <marker date="1427566118468" expanded="true" signature="42458:42531" placeholder="insert INTO ..." />
-                <marker date="1427566118468" expanded="true" signature="43061:43093" placeholder="UPDATE Email..." />
-                <marker date="1427566118468" expanded="true" signature="43061:43117" placeholder="UPDATE Email..." />
-                <marker date="1427566118468" expanded="true" signature="43061:43131" placeholder="UPDATE Email..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PostgreSQLManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/mailroom/common/PostgreSQLManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="1650" column="9" selection-start-line="1650" selection-start-column="9" selection-end-line="1650" selection-end-column="9" />
-              <folding>
-                <marker date="1427566118285" expanded="true" signature="426:454" placeholder="DROP TABLE I..." />
-                <marker date="1427566118285" expanded="true" signature="501:527" placeholder="DROP TABLE I..." />
-                <marker date="1427566118285" expanded="true" signature="576:603" placeholder="DROP TABLE I..." />
-                <marker date="1427566118285" expanded="true" signature="653:681" placeholder="DROP TABLE I..." />
-                <marker date="1427566118285" expanded="true" signature="728:753" placeholder="DROP TABLE I..." />
-                <marker date="1427566118285" expanded="true" signature="801:827" placeholder="DROP TABLE I..." />
-                <marker date="1427566118285" expanded="true" signature="877:972" placeholder="CREATE TABLE..Route..." />
-                <marker date="1427566118285" expanded="true" signature="1021:1202" placeholder="CREATE TABLE..Stop..." />
-                <marker date="1427566118285" expanded="true" signature="1254:1364" placeholder="CREATE TABLE..Courier..." />
-                <marker date="1427566118285" expanded="true" signature="1415:1621" placeholder="CREATE TABLE..Person..." />
-                <marker date="1427566118285" expanded="true" signature="1670:1882" placeholder="CREATE TABLE..Users..." />
-                <marker date="1427566118285" expanded="true" signature="1934:2399" placeholder="CREATE TABLE..Package..." />
-                <marker date="1427566118285" expanded="true" signature="2449:2514" placeholder="insert into ..." />
-                <marker date="1427566118285" expanded="true" signature="2563:2659" placeholder="insert into ..." />
-                <marker date="1427566118285" expanded="true" signature="2707:2847" placeholder="insert into ..." />
-                <marker date="1427566118285" expanded="true" signature="4281:4349" placeholder="select * fro..Users..." />
-                <marker date="1427566118285" expanded="true" signature="5310:5417" placeholder="insert into ..." />
-                <marker date="1427566118285" expanded="true" signature="6363:6423" placeholder="update Users..." />
-                <marker date="1427566118285" expanded="true" signature="7216:7257" placeholder="update Users..." />
-                <marker date="1427566118285" expanded="true" signature="7980:8028" placeholder="update Users..." />
-                <marker date="1427566118285" expanded="true" signature="8792:8848" placeholder="update Users..." />
-                <marker date="1427566118285" expanded="true" signature="9657:9695" placeholder="select * fro..Users..." />
-                <marker date="1427566118285" expanded="true" signature="10482:10519" placeholder="select * fro..Users..." />
-                <marker date="1427566118285" expanded="true" signature="11346:11406" placeholder="select * fro..Stop..." />
-                <marker date="1427566118285" expanded="true" signature="12338:12379" placeholder="update Stop ..." />
-                <marker date="1427566118285" expanded="true" signature="13017:13059" placeholder="update Stop ..." />
-                <marker date="1427566118285" expanded="true" signature="13735:13824" placeholder="insert into ..." />
-                <marker date="1427566118285" expanded="true" signature="14709:14754" placeholder="update Stop ..." />
-                <marker date="1427566118285" expanded="true" signature="15311:15356" placeholder="update Stop ..." />
-                <marker date="1427566118285" expanded="true" signature="16026:16078" placeholder="select * fro..Stop..." />
-                <marker date="1427566118285" expanded="true" signature="16623:16675" placeholder="select * fro..Stop..." />
-                <marker date="1427566118285" expanded="true" signature="18025:18087" placeholder="select * fro..Route..." />
-                <marker date="1427566118285" expanded="true" signature="18734:18780" placeholder="update Route..." />
-                <marker date="1427566118285" expanded="true" signature="19448:19501" placeholder="insert into ..." />
-                <marker date="1427566118285" expanded="true" signature="20044:20091" placeholder="update Route..." />
-                <marker date="1427566118285" expanded="true" signature="20315:20358" placeholder="update Stop ..." />
-                <marker date="1427566118285" expanded="true" signature="21123:21189" placeholder="select * fro..Courier..." />
-                <marker date="1427566118285" expanded="true" signature="21896:21953" placeholder="insert into ..." />
-                <marker date="1427566118285" expanded="true" signature="22488:22540" placeholder="update Couri..." />
-                <marker date="1427566118285" expanded="true" signature="23142:23193" placeholder="update Couri..." />
-                <marker date="1427566118285" expanded="true" signature="23928:23990" placeholder="select * fro..Package..." />
-                <marker date="1427566118285" expanded="true" signature="24491:24567" placeholder="select * fro..Package..." />
-                <marker date="1427566118285" expanded="true" signature="25178:25232" placeholder="select packa..Package..." />
-                <marker date="1427566118285" expanded="true" signature="25885:25932" placeholder="update Packa..." />
-                <marker date="1427566118285" expanded="true" signature="26161:26210" placeholder="update Packa..." />
-                <marker date="1427566118285" expanded="true" signature="26403:26455" placeholder="update Packa..." />
-                <marker date="1427566118285" expanded="true" signature="27121:27295" placeholder="update Packa..." />
-                <marker date="1427566118285" expanded="true" signature="28317:28554" placeholder="insert into ..." />
-                <marker date="1427566118285" expanded="true" signature="29688:29786" placeholder="select * fro..Package..." />
-                <marker date="1427566118285" expanded="true" signature="29913:30026" placeholder="select * fro..Package..." />
-                <marker date="1427566118285" expanded="true" signature="30797:30871" placeholder="select * fro..Package..." />
-                <marker date="1427566118285" expanded="true" signature="32174:32208" placeholder="select * fro..Stop..." />
-                <marker date="1427566118285" expanded="true" signature="32693:32733" placeholder="select * fro..Courier..." />
-                <marker date="1427566118285" expanded="true" signature="33143:33178" placeholder="select * fro..Users..." />
-                <marker date="1427566118285" expanded="true" signature="34784:34866" placeholder="select * fro..Person..." />
-                <marker date="1427566118285" expanded="true" signature="36706:36843" placeholder="select * fro..Package..." />
-                <marker date="1427566118285" expanded="true" signature="38159:38242" placeholder="select * fro..Package..." />
-                <marker date="1427566118285" expanded="true" signature="38738:38816" placeholder="select * fro..Package..." />
-                <marker date="1427566118285" expanded="true" signature="39254:39331" placeholder="select * fro..Package..." />
-                <marker date="1427566118285" expanded="true" signature="39769:39847" placeholder="select * fro..Package..." />
-                <marker date="1427566118285" expanded="true" signature="43109:43167" placeholder="select addre..EmailAddress..." />
-                <marker date="1427566118285" expanded="true" signature="43902:43975" placeholder="insert INTO ..." />
-                <marker date="1427566118285" expanded="true" signature="44505:44561" placeholder="UPDATE Email..." />
-                <marker date="1427566118285" expanded="true" signature="44505:44575" placeholder="UPDATE Email..." />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -681,8 +309,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -823,7 +450,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -846,7 +474,7 @@
     <property name="dynamic.classpath" value="false" />
     <property name="FullScreen" value="false" />
     <property name="LayoutCode.rearrangeEntriesJava" value="false" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RunManager" selected="Application.MainFrame">
@@ -1160,25 +788,25 @@
       <workItem from="1427560577150" duration="5513000" />
       <workItem from="1427566406204" duration="302000" />
       <workItem from="1427569964038" duration="382000" />
+      <workItem from="1427570963182" duration="1506000" />
+      <workItem from="1427600539600" duration="208000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51008000" />
+    <option name="totallyTimeSpent" value="52722000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32946146" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32946146" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32946146" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1015625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1187,14 +815,16 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39915523" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39915523" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32946146" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32946146" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23548046" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1408,31 +1038,24 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/PrintPageFx.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.38812786">
           <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/mailroom/fxml/common/AdvSearchFx.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32130584">
-          <caret line="11" column="10" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/mailroom/fxml/common/AdvSearchFx.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2863706">
           <caret line="11" column="15" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
         </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/mailroom/common/ConfigException.java">
@@ -1593,14 +1216,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/SettingsPageFx.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.05730337">
           <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="dbDummy://dbtable:/f7a2e825/4674b585-45a7-4887-9ca7-9a9fc270cb6c/..EmailAddress">
@@ -1622,21 +1245,393 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/4674b585-45a7-4887-9ca7-9a9fc270cb6c/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="43" selection-start-line="5" selection-start-column="43" selection-end-line="5" selection-end-column="43" />
-          <folding>
-            <marker date="1427564751370" expanded="true" signature="251:318" placeholder="select * fro..Package..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/configuration.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="12" column="18" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/mailroom/common/SQLiteManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1578" column="0" selection-start-line="1578" selection-start-column="0" selection-end-line="1578" selection-end-column="0" />
+          <folding>
+            <element signature="docComment;class#SQLiteManager#0" expanded="false" />
+            <element signature="docComment;field#dbId#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="docComment;field#dbName#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#SQLiteManager#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#login#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="e#4079#4151#0" expanded="false" />
+            <element signature="method#addUser#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="e#5080#5118#0" expanded="false" />
+            <element signature="method#changePassword#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#deleteUser#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#setUserAdmin#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#reactivateUser#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#getDeactivatedUsers#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#getActiveUsers#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#loadStops#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#addStopToRoute#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#addStop#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="e#12581#12650#0" expanded="false" />
+            <element signature="method#deleteStop#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#setRoutePosition#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#getUnassignedStops#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#getStopsOnRoute#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#processStopResult#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#loadRoutes#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#updateRoute#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#addRoute#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#deleteRoute#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#loadCouriers#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#addCourier#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#updateCourier#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#deleteCourier#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#loadAllPackages#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#loadPackages#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#checkTrackingNumber#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#updatePackage#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#updatePackage#1;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#addPackage#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#printPackagesForStop#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#getPackagesForStop#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#processPackageResult#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#findPerson#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#searchPackages#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#searchPackages#1;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#connect#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#disconnect#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#dispose#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#create#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#verify#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#getEmailAddress#0;class#SQLiteManager#0" expanded="false" />
+            <element signature="method#addEmailAddress#0;class#SQLiteManager#0" expanded="false" />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="DROP TABLE I..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="DROP TABLE I..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="DROP TABLE I..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="DROP TABLE I..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="DROP TABLE I..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="DROP TABLE I..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="CREATE TABLE..Route..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="CREATE TABLE..Stop..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="CREATE TABLE..Courier..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="CREATE TABLE..Person..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="CREATE TABLE..Users..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="CREATE TABLE..Package..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Users..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="update Users..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="update Users..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="update Users..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="update Users..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Users..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Users..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Stop..." />
+            <marker date="1427566118437" expanded="true" signature="-1:-1" placeholder="update Stop ..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="update Stop ..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="update Stop ..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="update Stop ..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Stop..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Stop..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Route..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="update Route..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="update Route..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="update Stop ..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Courier..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="update Couri..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="update Couri..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select packa..Package..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="update Packa..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="update Packa..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="update Packa..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="update Packa..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Stop..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Courier..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Users..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Person..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="SELECT addre..EmailAddress..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="SELECT addre..EmailAddress..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="SELECT addre..EmailAddress..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="SELECT addre..EmailAddress..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="select addre..EmailAddress..." />
+            <marker date="1427566118437" expanded="false" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1427566118437" expanded="true" signature="-1:-1" placeholder="UPDATE Email..." />
+            <marker date="1427566118437" expanded="true" signature="-1:-1" placeholder="UPDATE Email..." />
+            <marker date="1427566118437" expanded="true" signature="-1:-1" placeholder="UPDATE Email..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/mailroom/common/MysqlManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1598" column="43" selection-start-line="1598" selection-start-column="43" selection-end-line="1598" selection-end-column="43" />
+          <folding>
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="DROP TABLE I..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="DROP TABLE I..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="DROP TABLE I..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="DROP TABLE I..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="DROP TABLE I..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="DROP TABLE I..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..Route..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..Stop..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..Courier..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..Person..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..Users..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..Package..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Users..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="update Users..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="update Users..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="update Users..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="update Users..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Users..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Users..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Stop..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="update Stop ..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="update Stop ..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="update Stop ..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="update Stop ..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Stop..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Stop..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Route..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="update Route..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="update Route..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="update Stop ..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Courier..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="update Couri..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="update Couri..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select packa..Package..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="update Packa..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="update Packa..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="update Packa..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="update Packa..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Stop..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Courier..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Users..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Person..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="select addre..EmailAddresses..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="insert INTO ..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="insert INTO ..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="UPDATE Email..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="UPDATE Email..." />
+            <marker date="1427566118468" expanded="true" signature="-1:-1" placeholder="UPDATE Email..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/OpenPageFx.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/LoginFx.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.20917226">
+          <caret line="11" column="10" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/4674b585-45a7-4887-9ca7-9a9fc270cb6c/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.09561305">
+          <caret line="5" column="43" selection-start-line="5" selection-start-column="43" selection-end-line="5" selection-end-column="43" />
+          <folding>
+            <marker date="1427564751370" expanded="true" signature="-1:-1" placeholder="select * fro..Package..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/mailroom/common/DatabaseManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="36" column="7" selection-start-line="36" selection-start-column="7" selection-end-line="36" selection-end-column="7" />
+          <folding>
+            <element signature="docComment;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;class#SearchType#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="class#SearchType#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;field#SEARCH_BEGINS_WITH#0;class#SearchType#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;field#SEARCH_CONTAINS#0;class#SearchType#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;field#SEARCH_ENDS_WITH#0;class#SearchType#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;field#dbId#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;field#dbName#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#login#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#addUser#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#changePassword#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#deleteUser#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#setUserAdmin#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#reactivateUser#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#getDeactivatedUsers#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#getActiveUsers#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#loadStops#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#updateStop#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#addStopToRoute#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#addStop#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#deleteStop#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#setRoutePosition#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#getStops#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#getUnassignedStops#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#getStopsOnRoute#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#processStopResult#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#loadRoutes#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#getRoutes#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#updateRoute#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#addRoute#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#deleteRoute#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#loadCouriers#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#getCouriers#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#addCourier#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#updateCourier#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#deleteCourier#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#getPackages#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#loadAllPackages#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#loadPackages#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#checkTrackingNumber#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#updatePackage#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#updatePackage#1;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#addPackage#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#getPackagesForStop#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#printPackagesForStop#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#processPackageResult#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#findPerson#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#searchPackages#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#searchPackages#1;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#connect#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#disconnect#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#dispose#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#create#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#verify#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#getEmailAddress#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#addEmailAddress#0;class#DatabaseManager#0" expanded="false" />
+            <element signature="docComment;method#deleteEmailAddress#0;class#DatabaseManager#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/mailroom/common/PostgreSQLManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5005441">
+          <caret line="1650" column="9" selection-start-line="1650" selection-start-column="9" selection-end-line="1650" selection-end-column="9" />
+          <folding>
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="DROP TABLE I..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="DROP TABLE I..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="DROP TABLE I..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="DROP TABLE I..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="DROP TABLE I..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="DROP TABLE I..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..Route..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..Stop..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..Courier..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..Person..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..Users..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..Package..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Users..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="update Users..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="update Users..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="update Users..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="update Users..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Users..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Users..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Stop..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="update Stop ..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="update Stop ..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="update Stop ..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="update Stop ..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Stop..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Stop..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Route..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="update Route..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="update Route..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="update Stop ..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Courier..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="update Couri..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="update Couri..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select packa..Package..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="update Packa..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="update Packa..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="update Packa..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="update Packa..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Stop..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Courier..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Users..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Person..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select * fro..Package..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="select addre..EmailAddress..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="insert INTO ..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="UPDATE Email..." />
+            <marker date="1427566118285" expanded="true" signature="-1:-1" placeholder="UPDATE Email..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1729,374 +1724,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/mailroom/common/SQLiteManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1578" column="0" selection-start-line="1578" selection-start-column="0" selection-end-line="1578" selection-end-column="0" />
-          <folding>
-            <element signature="docComment;class#SQLiteManager#0" expanded="false" />
-            <element signature="docComment;field#dbId#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="docComment;field#dbName#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#SQLiteManager#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#login#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="e#4079#4151#0" expanded="false" />
-            <element signature="method#addUser#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="e#5080#5118#0" expanded="false" />
-            <element signature="method#changePassword#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#deleteUser#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#setUserAdmin#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#reactivateUser#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#getDeactivatedUsers#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#getActiveUsers#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#loadStops#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#addStopToRoute#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#addStop#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="e#12581#12650#0" expanded="false" />
-            <element signature="method#deleteStop#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#setRoutePosition#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#getUnassignedStops#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#getStopsOnRoute#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#processStopResult#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#loadRoutes#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#updateRoute#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#addRoute#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#deleteRoute#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#loadCouriers#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#addCourier#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#updateCourier#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#deleteCourier#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#loadAllPackages#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#loadPackages#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#checkTrackingNumber#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#updatePackage#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#updatePackage#1;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#addPackage#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#printPackagesForStop#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#getPackagesForStop#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#processPackageResult#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#findPerson#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#searchPackages#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#searchPackages#1;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#connect#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#disconnect#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#dispose#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#create#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#verify#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#getEmailAddress#0;class#SQLiteManager#0" expanded="false" />
-            <element signature="method#addEmailAddress#0;class#SQLiteManager#0" expanded="false" />
-            <marker date="1427566118437" expanded="false" signature="420:448" placeholder="DROP TABLE I..." />
-            <marker date="1427566118437" expanded="false" signature="495:521" placeholder="DROP TABLE I..." />
-            <marker date="1427566118437" expanded="false" signature="570:597" placeholder="DROP TABLE I..." />
-            <marker date="1427566118437" expanded="false" signature="647:675" placeholder="DROP TABLE I..." />
-            <marker date="1427566118437" expanded="false" signature="722:747" placeholder="DROP TABLE I..." />
-            <marker date="1427566118437" expanded="false" signature="795:821" placeholder="DROP TABLE I..." />
-            <marker date="1427566118437" expanded="false" signature="871:981" placeholder="CREATE TABLE..Route..." />
-            <marker date="1427566118437" expanded="false" signature="1030:1295" placeholder="CREATE TABLE..Stop..." />
-            <marker date="1427566118437" expanded="false" signature="1347:1472" placeholder="CREATE TABLE..Courier..." />
-            <marker date="1427566118437" expanded="false" signature="1523:1783" placeholder="CREATE TABLE..Person..." />
-            <marker date="1427566118437" expanded="false" signature="1832:2059" placeholder="CREATE TABLE..Users..." />
-            <marker date="1427566118437" expanded="false" signature="2111:2657" placeholder="CREATE TABLE..Package..." />
-            <marker date="1427566118437" expanded="false" signature="2707:2769" placeholder="insert into ..." />
-            <marker date="1427566118437" expanded="false" signature="2818:2911" placeholder="insert into ..." />
-            <marker date="1427566118437" expanded="false" signature="2959:3093" placeholder="insert into ..." />
-            <marker date="1427566118437" expanded="false" signature="4320:4385" placeholder="select * fro..Users..." />
-            <marker date="1427566118437" expanded="false" signature="5313:5417" placeholder="insert into ..." />
-            <marker date="1427566118437" expanded="false" signature="6201:6261" placeholder="update Users..." />
-            <marker date="1427566118437" expanded="false" signature="6892:6933" placeholder="update Users..." />
-            <marker date="1427566118437" expanded="false" signature="7490:7538" placeholder="update Users..." />
-            <marker date="1427566118437" expanded="false" signature="8136:8189" placeholder="update Users..." />
-            <marker date="1427566118437" expanded="false" signature="8832:8866" placeholder="select * fro..Users..." />
-            <marker date="1427566118437" expanded="false" signature="9620:9654" placeholder="select * fro..Users..." />
-            <marker date="1427566118437" expanded="false" signature="10448:10505" placeholder="select * fro..Stop..." />
-            <marker date="1427566118437" expanded="true" signature="11405:11461" placeholder="update Stop ..." />
-            <marker date="1427566118437" expanded="false" signature="12118:12160" placeholder="update Stop ..." />
-            <marker date="1427566118437" expanded="false" signature="12803:12889" placeholder="insert into ..." />
-            <marker date="1427566118437" expanded="false" signature="13741:13782" placeholder="update Stop ..." />
-            <marker date="1427566118437" expanded="false" signature="14306:14351" placeholder="update Stop ..." />
-            <marker date="1427566118437" expanded="false" signature="15021:15070" placeholder="select * fro..Stop..." />
-            <marker date="1427566118437" expanded="false" signature="15582:15656" placeholder="select * fro..Stop..." />
-            <marker date="1427566118437" expanded="false" signature="16995:17054" placeholder="select * fro..Route..." />
-            <marker date="1427566118437" expanded="false" signature="17668:17714" placeholder="update Route..." />
-            <marker date="1427566118437" expanded="false" signature="18349:18399" placeholder="insert into ..." />
-            <marker date="1427566118437" expanded="false" signature="18909:18952" placeholder="update Route..." />
-            <marker date="1427566118437" expanded="false" signature="19176:19219" placeholder="update Stop ..." />
-            <marker date="1427566118437" expanded="false" signature="19951:20014" placeholder="select * fro..Courier..." />
-            <marker date="1427566118437" expanded="false" signature="20688:20742" placeholder="insert into ..." />
-            <marker date="1427566118437" expanded="false" signature="21244:21296" placeholder="update Couri..." />
-            <marker date="1427566118437" expanded="false" signature="21865:21912" placeholder="update Couri..." />
-            <marker date="1427566118437" expanded="false" signature="22614:22668" placeholder="select * fro..Package..." />
-            <marker date="1427566118437" expanded="false" signature="23122:23190" placeholder="select * fro..Package..." />
-            <marker date="1427566118437" expanded="false" signature="23768:23822" placeholder="select packa..Package..." />
-            <marker date="1427566118437" expanded="false" signature="24475:24522" placeholder="update Packa..." />
-            <marker date="1427566118437" expanded="false" signature="24751:24800" placeholder="update Packa..." />
-            <marker date="1427566118437" expanded="false" signature="24993:25045" placeholder="update Packa..." />
-            <marker date="1427566118437" expanded="false" signature="25711:25885" placeholder="update Packa..." />
-            <marker date="1427566118437" expanded="false" signature="26907:27132" placeholder="insert into ..." />
-            <marker date="1427566118437" expanded="false" signature="28212:28306" placeholder="select * fro..Package..." />
-            <marker date="1427566118437" expanded="false" signature="28433:28542" placeholder="select * fro..Package..." />
-            <marker date="1427566118437" expanded="false" signature="29313:29383" placeholder="select * fro..Package..." />
-            <marker date="1427566118437" expanded="false" signature="30653:30687" placeholder="select * fro..Stop..." />
-            <marker date="1427566118437" expanded="false" signature="31201:31241" placeholder="select * fro..Courier..." />
-            <marker date="1427566118437" expanded="false" signature="31651:31686" placeholder="select * fro..Users..." />
-            <marker date="1427566118437" expanded="false" signature="33259:33341" placeholder="select * fro..Person..." />
-            <marker date="1427566118437" expanded="false" signature="35148:35284" placeholder="select * fro..Package..." />
-            <marker date="1427566118437" expanded="false" signature="36567:36650" placeholder="select * fro..Package..." />
-            <marker date="1427566118437" expanded="false" signature="37146:37224" placeholder="select * fro..Package..." />
-            <marker date="1427566118437" expanded="false" signature="37662:37739" placeholder="select * fro..Package..." />
-            <marker date="1427566118437" expanded="false" signature="38177:38255" placeholder="select * fro..Package..." />
-            <marker date="1427566118437" expanded="false" signature="41379:41434" placeholder="SELECT addre..EmailAddress..." />
-            <marker date="1427566118437" expanded="false" signature="41379:41438" placeholder="SELECT addre..EmailAddress..." />
-            <marker date="1427566118437" expanded="false" signature="41379:41439" placeholder="SELECT addre..EmailAddress..." />
-            <marker date="1427566118437" expanded="false" signature="41379:41448" placeholder="SELECT addre..EmailAddress..." />
-            <marker date="1427566118437" expanded="false" signature="41385:41434" placeholder="select addre..EmailAddress..." />
-            <marker date="1427566118437" expanded="false" signature="42183:42256" placeholder="INSERT INTO ..." />
-            <marker date="1427566118437" expanded="true" signature="42747:42803" placeholder="UPDATE Email..." />
-            <marker date="1427566118437" expanded="true" signature="42747:42807" placeholder="UPDATE Email..." />
-            <marker date="1427566118437" expanded="true" signature="42747:42817" placeholder="UPDATE Email..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/mailroom/common/MysqlManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1598" column="43" selection-start-line="1598" selection-start-column="43" selection-end-line="1598" selection-end-column="43" />
-          <folding>
-            <marker date="1427566118468" expanded="true" signature="416:444" placeholder="DROP TABLE I..." />
-            <marker date="1427566118468" expanded="true" signature="491:517" placeholder="DROP TABLE I..." />
-            <marker date="1427566118468" expanded="true" signature="566:593" placeholder="DROP TABLE I..." />
-            <marker date="1427566118468" expanded="true" signature="643:671" placeholder="DROP TABLE I..." />
-            <marker date="1427566118468" expanded="true" signature="718:743" placeholder="DROP TABLE I..." />
-            <marker date="1427566118468" expanded="true" signature="791:817" placeholder="DROP TABLE I..." />
-            <marker date="1427566118468" expanded="true" signature="867:978" placeholder="CREATE TABLE..Route..." />
-            <marker date="1427566118468" expanded="true" signature="1027:1246" placeholder="CREATE TABLE..Stop..." />
-            <marker date="1427566118468" expanded="true" signature="1298:1424" placeholder="CREATE TABLE..Courier..." />
-            <marker date="1427566118468" expanded="true" signature="1475:1736" placeholder="CREATE TABLE..Person..." />
-            <marker date="1427566118468" expanded="true" signature="1785:2013" placeholder="CREATE TABLE..Users..." />
-            <marker date="1427566118468" expanded="true" signature="2065:2612" placeholder="CREATE TABLE..Package..." />
-            <marker date="1427566118468" expanded="true" signature="2662:2724" placeholder="insert into ..." />
-            <marker date="1427566118468" expanded="true" signature="2773:2866" placeholder="insert into ..." />
-            <marker date="1427566118468" expanded="true" signature="2914:3048" placeholder="insert into ..." />
-            <marker date="1427566118468" expanded="true" signature="4851:4916" placeholder="select * fro..Users..." />
-            <marker date="1427566118468" expanded="true" signature="5844:5948" placeholder="insert into ..." />
-            <marker date="1427566118468" expanded="true" signature="6732:6792" placeholder="update Users..." />
-            <marker date="1427566118468" expanded="true" signature="7423:7464" placeholder="update Users..." />
-            <marker date="1427566118468" expanded="true" signature="8021:8069" placeholder="update Users..." />
-            <marker date="1427566118468" expanded="true" signature="8667:8720" placeholder="update Users..." />
-            <marker date="1427566118468" expanded="true" signature="9363:9397" placeholder="select * fro..Users..." />
-            <marker date="1427566118468" expanded="true" signature="10151:10185" placeholder="select * fro..Users..." />
-            <marker date="1427566118468" expanded="true" signature="10979:11036" placeholder="select * fro..Stop..." />
-            <marker date="1427566118468" expanded="true" signature="11906:11947" placeholder="update Stop ..." />
-            <marker date="1427566118468" expanded="true" signature="12552:12594" placeholder="update Stop ..." />
-            <marker date="1427566118468" expanded="true" signature="13237:13323" placeholder="insert into ..." />
-            <marker date="1427566118468" expanded="true" signature="14175:14216" placeholder="update Stop ..." />
-            <marker date="1427566118468" expanded="true" signature="14740:14785" placeholder="update Stop ..." />
-            <marker date="1427566118468" expanded="true" signature="15455:15504" placeholder="select * fro..Stop..." />
-            <marker date="1427566118468" expanded="true" signature="16016:16065" placeholder="select * fro..Stop..." />
-            <marker date="1427566118468" expanded="true" signature="17349:17408" placeholder="select * fro..Route..." />
-            <marker date="1427566118468" expanded="true" signature="18022:18068" placeholder="update Route..." />
-            <marker date="1427566118468" expanded="true" signature="18703:18753" placeholder="insert into ..." />
-            <marker date="1427566118468" expanded="true" signature="19263:19306" placeholder="update Route..." />
-            <marker date="1427566118468" expanded="true" signature="19530:19573" placeholder="update Stop ..." />
-            <marker date="1427566118468" expanded="true" signature="20305:20368" placeholder="select * fro..Courier..." />
-            <marker date="1427566118468" expanded="true" signature="21042:21096" placeholder="insert into ..." />
-            <marker date="1427566118468" expanded="true" signature="21598:21650" placeholder="update Couri..." />
-            <marker date="1427566118468" expanded="true" signature="22219:22266" placeholder="update Couri..." />
-            <marker date="1427566118468" expanded="true" signature="22968:23022" placeholder="select * fro..Package..." />
-            <marker date="1427566118468" expanded="true" signature="23476:23544" placeholder="select * fro..Package..." />
-            <marker date="1427566118468" expanded="true" signature="24122:24176" placeholder="select packa..Package..." />
-            <marker date="1427566118468" expanded="true" signature="24829:24876" placeholder="update Packa..." />
-            <marker date="1427566118468" expanded="true" signature="25105:25154" placeholder="update Packa..." />
-            <marker date="1427566118468" expanded="true" signature="25347:25399" placeholder="update Packa..." />
-            <marker date="1427566118468" expanded="true" signature="26065:26239" placeholder="update Packa..." />
-            <marker date="1427566118468" expanded="true" signature="27261:27486" placeholder="insert into ..." />
-            <marker date="1427566118468" expanded="true" signature="28566:28660" placeholder="select * fro..Package..." />
-            <marker date="1427566118468" expanded="true" signature="28787:28896" placeholder="select * fro..Package..." />
-            <marker date="1427566118468" expanded="true" signature="29667:29737" placeholder="select * fro..Package..." />
-            <marker date="1427566118468" expanded="true" signature="31007:31041" placeholder="select * fro..Stop..." />
-            <marker date="1427566118468" expanded="true" signature="31526:31566" placeholder="select * fro..Courier..." />
-            <marker date="1427566118468" expanded="true" signature="31976:32011" placeholder="select * fro..Users..." />
-            <marker date="1427566118468" expanded="true" signature="33584:33666" placeholder="select * fro..Person..." />
-            <marker date="1427566118468" expanded="true" signature="35473:35611" placeholder="select * fro..Package..." />
-            <marker date="1427566118468" expanded="true" signature="36894:36977" placeholder="select * fro..Package..." />
-            <marker date="1427566118468" expanded="true" signature="37473:37551" placeholder="select * fro..Package..." />
-            <marker date="1427566118468" expanded="true" signature="37989:38066" placeholder="select * fro..Package..." />
-            <marker date="1427566118468" expanded="true" signature="38504:38582" placeholder="select * fro..Package..." />
-            <marker date="1427566118468" expanded="true" signature="41668:41723" placeholder="select addre..EmailAddresses..." />
-            <marker date="1427566118468" expanded="true" signature="42458:42516" placeholder="insert INTO ..." />
-            <marker date="1427566118468" expanded="true" signature="42458:42531" placeholder="insert INTO ..." />
-            <marker date="1427566118468" expanded="true" signature="43061:43093" placeholder="UPDATE Email..." />
-            <marker date="1427566118468" expanded="true" signature="43061:43117" placeholder="UPDATE Email..." />
-            <marker date="1427566118468" expanded="true" signature="43061:43131" placeholder="UPDATE Email..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/mailroom/common/PostgreSQLManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1650" column="9" selection-start-line="1650" selection-start-column="9" selection-end-line="1650" selection-end-column="9" />
-          <folding>
-            <marker date="1427566118285" expanded="true" signature="426:454" placeholder="DROP TABLE I..." />
-            <marker date="1427566118285" expanded="true" signature="501:527" placeholder="DROP TABLE I..." />
-            <marker date="1427566118285" expanded="true" signature="576:603" placeholder="DROP TABLE I..." />
-            <marker date="1427566118285" expanded="true" signature="653:681" placeholder="DROP TABLE I..." />
-            <marker date="1427566118285" expanded="true" signature="728:753" placeholder="DROP TABLE I..." />
-            <marker date="1427566118285" expanded="true" signature="801:827" placeholder="DROP TABLE I..." />
-            <marker date="1427566118285" expanded="true" signature="877:972" placeholder="CREATE TABLE..Route..." />
-            <marker date="1427566118285" expanded="true" signature="1021:1202" placeholder="CREATE TABLE..Stop..." />
-            <marker date="1427566118285" expanded="true" signature="1254:1364" placeholder="CREATE TABLE..Courier..." />
-            <marker date="1427566118285" expanded="true" signature="1415:1621" placeholder="CREATE TABLE..Person..." />
-            <marker date="1427566118285" expanded="true" signature="1670:1882" placeholder="CREATE TABLE..Users..." />
-            <marker date="1427566118285" expanded="true" signature="1934:2399" placeholder="CREATE TABLE..Package..." />
-            <marker date="1427566118285" expanded="true" signature="2449:2514" placeholder="insert into ..." />
-            <marker date="1427566118285" expanded="true" signature="2563:2659" placeholder="insert into ..." />
-            <marker date="1427566118285" expanded="true" signature="2707:2847" placeholder="insert into ..." />
-            <marker date="1427566118285" expanded="true" signature="4281:4349" placeholder="select * fro..Users..." />
-            <marker date="1427566118285" expanded="true" signature="5310:5417" placeholder="insert into ..." />
-            <marker date="1427566118285" expanded="true" signature="6363:6423" placeholder="update Users..." />
-            <marker date="1427566118285" expanded="true" signature="7216:7257" placeholder="update Users..." />
-            <marker date="1427566118285" expanded="true" signature="7980:8028" placeholder="update Users..." />
-            <marker date="1427566118285" expanded="true" signature="8792:8848" placeholder="update Users..." />
-            <marker date="1427566118285" expanded="true" signature="9657:9695" placeholder="select * fro..Users..." />
-            <marker date="1427566118285" expanded="true" signature="10482:10519" placeholder="select * fro..Users..." />
-            <marker date="1427566118285" expanded="true" signature="11346:11406" placeholder="select * fro..Stop..." />
-            <marker date="1427566118285" expanded="true" signature="12338:12379" placeholder="update Stop ..." />
-            <marker date="1427566118285" expanded="true" signature="13017:13059" placeholder="update Stop ..." />
-            <marker date="1427566118285" expanded="true" signature="13735:13824" placeholder="insert into ..." />
-            <marker date="1427566118285" expanded="true" signature="14709:14754" placeholder="update Stop ..." />
-            <marker date="1427566118285" expanded="true" signature="15311:15356" placeholder="update Stop ..." />
-            <marker date="1427566118285" expanded="true" signature="16026:16078" placeholder="select * fro..Stop..." />
-            <marker date="1427566118285" expanded="true" signature="16623:16675" placeholder="select * fro..Stop..." />
-            <marker date="1427566118285" expanded="true" signature="18025:18087" placeholder="select * fro..Route..." />
-            <marker date="1427566118285" expanded="true" signature="18734:18780" placeholder="update Route..." />
-            <marker date="1427566118285" expanded="true" signature="19448:19501" placeholder="insert into ..." />
-            <marker date="1427566118285" expanded="true" signature="20044:20091" placeholder="update Route..." />
-            <marker date="1427566118285" expanded="true" signature="20315:20358" placeholder="update Stop ..." />
-            <marker date="1427566118285" expanded="true" signature="21123:21189" placeholder="select * fro..Courier..." />
-            <marker date="1427566118285" expanded="true" signature="21896:21953" placeholder="insert into ..." />
-            <marker date="1427566118285" expanded="true" signature="22488:22540" placeholder="update Couri..." />
-            <marker date="1427566118285" expanded="true" signature="23142:23193" placeholder="update Couri..." />
-            <marker date="1427566118285" expanded="true" signature="23928:23990" placeholder="select * fro..Package..." />
-            <marker date="1427566118285" expanded="true" signature="24491:24567" placeholder="select * fro..Package..." />
-            <marker date="1427566118285" expanded="true" signature="25178:25232" placeholder="select packa..Package..." />
-            <marker date="1427566118285" expanded="true" signature="25885:25932" placeholder="update Packa..." />
-            <marker date="1427566118285" expanded="true" signature="26161:26210" placeholder="update Packa..." />
-            <marker date="1427566118285" expanded="true" signature="26403:26455" placeholder="update Packa..." />
-            <marker date="1427566118285" expanded="true" signature="27121:27295" placeholder="update Packa..." />
-            <marker date="1427566118285" expanded="true" signature="28317:28554" placeholder="insert into ..." />
-            <marker date="1427566118285" expanded="true" signature="29688:29786" placeholder="select * fro..Package..." />
-            <marker date="1427566118285" expanded="true" signature="29913:30026" placeholder="select * fro..Package..." />
-            <marker date="1427566118285" expanded="true" signature="30797:30871" placeholder="select * fro..Package..." />
-            <marker date="1427566118285" expanded="true" signature="32174:32208" placeholder="select * fro..Stop..." />
-            <marker date="1427566118285" expanded="true" signature="32693:32733" placeholder="select * fro..Courier..." />
-            <marker date="1427566118285" expanded="true" signature="33143:33178" placeholder="select * fro..Users..." />
-            <marker date="1427566118285" expanded="true" signature="34784:34866" placeholder="select * fro..Person..." />
-            <marker date="1427566118285" expanded="true" signature="36706:36843" placeholder="select * fro..Package..." />
-            <marker date="1427566118285" expanded="true" signature="38159:38242" placeholder="select * fro..Package..." />
-            <marker date="1427566118285" expanded="true" signature="38738:38816" placeholder="select * fro..Package..." />
-            <marker date="1427566118285" expanded="true" signature="39254:39331" placeholder="select * fro..Package..." />
-            <marker date="1427566118285" expanded="true" signature="39769:39847" placeholder="select * fro..Package..." />
-            <marker date="1427566118285" expanded="true" signature="43109:43167" placeholder="select addre..EmailAddress..." />
-            <marker date="1427566118285" expanded="true" signature="43902:43975" placeholder="insert INTO ..." />
-            <marker date="1427566118285" expanded="true" signature="44505:44561" placeholder="UPDATE Email..." />
-            <marker date="1427566118285" expanded="true" signature="44505:44575" placeholder="UPDATE Email..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/OpenPageFx.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/mailroom/fxml/mainclient/LoginFx.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/mailroom/common/DatabaseManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="7" selection-start-line="36" selection-start-column="7" selection-end-line="36" selection-end-column="7" />
-          <folding>
-            <element signature="docComment;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;class#SearchType#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="class#SearchType#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;field#SEARCH_BEGINS_WITH#0;class#SearchType#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;field#SEARCH_CONTAINS#0;class#SearchType#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;field#SEARCH_ENDS_WITH#0;class#SearchType#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;field#dbId#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;field#dbName#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#login#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#addUser#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#changePassword#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#deleteUser#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#setUserAdmin#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#reactivateUser#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#getDeactivatedUsers#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#getActiveUsers#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#loadStops#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#updateStop#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#addStopToRoute#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#addStop#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#deleteStop#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#setRoutePosition#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#getStops#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#getUnassignedStops#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#getStopsOnRoute#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#processStopResult#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#loadRoutes#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#getRoutes#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#updateRoute#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#addRoute#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#deleteRoute#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#loadCouriers#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#getCouriers#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#addCourier#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#updateCourier#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#deleteCourier#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#getPackages#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#loadAllPackages#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#loadPackages#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#checkTrackingNumber#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#updatePackage#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#updatePackage#1;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#addPackage#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#getPackagesForStop#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#printPackagesForStop#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#processPackageResult#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#findPerson#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#searchPackages#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#searchPackages#1;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#connect#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#disconnect#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#dispose#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#create#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#verify#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#getEmailAddress#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#addEmailAddress#0;class#DatabaseManager#0" expanded="false" />
-            <element signature="docComment;method#deleteEmailAddress#0;class#DatabaseManager#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/mailroom/mainclient/PrintPageController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6670294">
-          <caret line="401" column="118" selection-start-line="401" selection-start-column="118" selection-end-line="401" selection-end-column="118" />
+        <state vertical-scroll-proportion="0.49945593">
+          <caret line="358" column="82" selection-start-line="358" selection-start-column="82" selection-end-line="358" selection-end-column="82" />
           <folding />
         </state>
       </provider>

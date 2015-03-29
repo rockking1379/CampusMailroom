@@ -331,30 +331,6 @@ public class PrintPageController implements Initializable
                 {
                     if (jtext.print())
                     {
-                        //auto remove packages...oh boy
-                        for (CheckBox c : routeBoxes)
-                        {
-                            if (c.isSelected())
-                            {
-                                for (Route r : dbManager.getRoutes())
-                                {
-                                    if (r.getRouteName().equals(c.getText()))
-                                    {
-                                        for (Stop s : dbManager.getStopsOnRoute(r))
-                                        {
-                                            if (s.getAutoRemove())
-                                            {
-                                                for (Package p : dbManager.getPackagesForStop(s))
-                                                {
-                                                    dbManager.updatePackage(p.getPackageId(), true, true);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
                         //Email Stuff....damn
                         if (Boolean.valueOf(MainFrame.properties.getProperty("EMAILENABLE")))
                         {
@@ -394,12 +370,15 @@ public class PrintPageController implements Initializable
                                                 {
                                                     for (Stop s : dbManager.getStopsOnRoute(r))
                                                     {
-                                                        ArrayList<String> addresses = (ArrayList<String>) dbManager.getEmailAddress(s);
-                                                        if (addresses.size() > 0)
+                                                        if(dbManager.getPackagesForStop(s).size() > 0)
                                                         {
-                                                            for (String str : addresses)
+                                                            ArrayList<String> addresses = (ArrayList<String>) dbManager.getEmailAddress(s);
+                                                            if (addresses.size() > 0)
                                                             {
-                                                                message.addRecipients(Message.RecipientType.BCC, str);
+                                                                for (String str : addresses)
+                                                                {
+                                                                    message.addRecipients(Message.RecipientType.BCC, str);
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -417,6 +396,30 @@ public class PrintPageController implements Initializable
                                 {
                                     Logger.log(e);
                                     MessageDialogBuilder.error().message("Error Sending Email").title("ERROR").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+                                }
+                            }
+                        }
+
+                        //auto remove packages...oh boy
+                        for (CheckBox c : routeBoxes)
+                        {
+                            if (c.isSelected())
+                            {
+                                for (Route r : dbManager.getRoutes())
+                                {
+                                    if (r.getRouteName().equals(c.getText()))
+                                    {
+                                        for (Stop s : dbManager.getStopsOnRoute(r))
+                                        {
+                                            if (s.getAutoRemove())
+                                            {
+                                                for (Package p : dbManager.getPackagesForStop(s))
+                                                {
+                                                    dbManager.updatePackage(p.getPackageId(), true, true);
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
