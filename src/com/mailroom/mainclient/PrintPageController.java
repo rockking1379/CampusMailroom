@@ -539,7 +539,7 @@ public class PrintPageController implements Initializable
 
         JTextArea txtArea = new JTextArea();
         txtArea.setSize(470, 277);
-
+        txtArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
         txtArea.setText("");
 
         for (String s : strReport)
