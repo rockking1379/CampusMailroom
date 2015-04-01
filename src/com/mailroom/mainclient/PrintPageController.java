@@ -355,6 +355,7 @@ public class PrintPageController implements Initializable
                                     props.put("mail.smtp.port", MainFrame.properties.getProperty("EMAILPORT"));
                                     Session sess = Session.getDefaultInstance(props);
                                     MimeMessage message = new MimeMessage(sess);
+                                    boolean sendEmail = false;
 
                                     message.setFrom(new InternetAddress(MainFrame.properties.getProperty("EMAILREPLYTO")));
                                     message.setSubject("Package Delivery Notice");
@@ -375,6 +376,7 @@ public class PrintPageController implements Initializable
                                                             ArrayList<String> addresses = (ArrayList<String>) dbManager.getEmailAddress(s);
                                                             if (addresses.size() > 0)
                                                             {
+                                                                sendEmail = true;
                                                                 for (String str : addresses)
                                                                 {
                                                                     message.addRecipients(Message.RecipientType.BCC, str);
@@ -387,7 +389,7 @@ public class PrintPageController implements Initializable
                                         }
                                     }
 
-                                    if(message.getAllRecipients().length > 0)
+                                    if(sendEmail)
                                     {
                                         Transport.send(message);
                                     }

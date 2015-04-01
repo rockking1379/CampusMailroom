@@ -19,14 +19,16 @@ public class SQLiteManager implements DatabaseManager
     private static final String userDrop = "DROP TABLE IF EXISTS Users";
     private static final String personDrop = "DROP TABLE IF EXISTS Person";
     private static final String courierDrop = "DROP TABLE IF EXISTS Courier";
+    private static final String emailDrop = "DROP TABLE IF EXISTS EmailAddress";
     private static final String stopDrop = "DROP TABLE IF EXISTS Stop";
     private static final String routeDrop = "DROP TABLE IF EXISTS Route";
     private static final String routeString = "CREATE TABLE Route(route_id INTEGER PRIMARY KEY AUTOINCREMENT,route_name VARCHAR(50) NOT NULL,is_used BOOLEAN)";
-    private static final String stopString = "CREATE TABLE Stop(stop_id INTEGER PRIMARY KEY AUTOINCREMENT,stop_name VARCHAR(50) NOT NULL,route_id INTEGER,is_used BOOLEAN NOT NULL,route_order INTEGER,student BOOLEAN,auto_remove BOOLEAN,contact_email VARCHAR(100),FOREIGN KEY(route_id) REFERENCES Route(route_id))";
+    private static final String stopString = "CREATE TABLE Stop(stop_id INTEGER PRIMARY KEY AUTOINCREMENT,stop_name VARCHAR(50) NOT NULL,route_id INTEGER,is_used BOOLEAN NOT NULL,route_order INTEGER,student BOOLEAN,auto_remove BOOLEAN,FOREIGN KEY(route_id) REFERENCES Route(route_id))";
     private static final String courierString = "CREATE TABLE Courier(courier_id INTEGER PRIMARY KEY AUTOINCREMENT,courier_name VARCHAR(50) NOT NULL,is_used BOOLEAN NOT NULL)";
     private static final String personString = "CREATE TABLE Person(person_id INTEGER PRIMARY KEY AUTOINCREMENT,id_number VARCHAR(50),email_address VARCHAR(50),first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,box_number VARCHAR(50),stop_id INTEGER,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id))";
     private static final String userString = "CREATE TABLE Users(user_id INTEGER PRIMARY KEY AUTOINCREMENT,user_name VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,password INTEGER NOT NULL,administrator BOOLEAN NOT NULL,active BOOLEAN)";
     private static final String packageString = "CREATE TABLE Package(package_id INTEGER PRIMARY KEY AUTOINCREMENT,tracking_number VARCHAR(50) NOT NULL,receive_date DATE NOT NULL,email_address VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,box_number VARCHAR(50) NOT NULL,at_stop BOOLEAN NOT NULL,picked_up BOOLEAN NOT NULL,pick_up_date DATE,stop_id INTEGER,courier_id INTEGER,user_id INTEGER,returned BOOLEAN,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id),FOREIGN KEY(courier_id) REFERENCES Courier(courier_id),FOREIGN KEY(user_id) REFERENCES Users(user_id))";
+    private static final String emailString = "CREATE TABLE EmailAddress(address_id INTEGER PRIMARY KEY, address_string VARCHAR(50), is_used BOOLEAN, stop_id INTEGER, FOREIGN KEY(stop_id) REFERENCES Stop(stop_id));";
     private static final String routeInsert = "INSERT INTO Route(route_name, is_used) VALUES('unassigned', 1)";
     private static final String stopInsert = "INSERT INTO Stop(stop_name,route_id,is_used,route_order,student) VALUES('unassigned',1,1,0,0)";
     private static final String devString = "INSERT INTO Users(user_name, first_name, last_name, password, administrator, active) VALUES('DEV', 'Developer', 'Access', 2145483,1,1);";
@@ -1457,6 +1459,7 @@ public class SQLiteManager implements DatabaseManager
             stmnt.execute(userDrop);
             stmnt.execute(personDrop);
             stmnt.execute(courierDrop);
+            stmnt.execute(emailDrop);
             stmnt.execute(stopDrop);
             stmnt.execute(routeDrop);
             stmnt.execute(routeString);
@@ -1465,6 +1468,7 @@ public class SQLiteManager implements DatabaseManager
             stmnt.execute(personString);
             stmnt.execute(userString);
             stmnt.execute(packageString);
+            stmnt.execute(emailString);
             stmnt.execute(routeInsert);
             stmnt.execute(stopInsert);
 
