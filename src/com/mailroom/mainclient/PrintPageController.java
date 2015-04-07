@@ -284,7 +284,12 @@ public class PrintPageController implements Initializable
 
         if (!dir.exists())
         {
-            dir.mkdir();
+            boolean dirResult = dir.mkdir();
+
+            if(dirResult)
+            {
+                System.out.println("Directory Created");
+            }
         }
 
         Date d = new Date();
@@ -303,83 +308,86 @@ public class PrintPageController implements Initializable
         {
             try
             {
-                f.createNewFile();
+                boolean fileResult = f.createNewFile();
 
-                FileOutputStream ostream = new FileOutputStream(
-                        f.getAbsolutePath());
-                OutputStreamWriter owriter = new OutputStreamWriter(ostream,
-                        "UTF-8");
-
-                for (String s : strReport)
+                if(fileResult)
                 {
-                    owriter.write(s + "\n");
-                }
+                    FileOutputStream ostream = new FileOutputStream(
+                            f.getAbsolutePath());
+                    OutputStreamWriter owriter = new OutputStreamWriter(ostream,
+                            "UTF-8");
 
-                owriter.close();
-                ostream.close();
-
-                JTextArea jtext = new JTextArea();
-                jtext.setSize(470, 277);
-                jtext.setText("");
-                jtext.setFont(new Font("Monospaced", Font.PLAIN, 12));
-                for (String s : strReport)
-                {
-                    jtext.setText(jtext.getText() + s + "\n");
-                }
-
-                try
-                {
-                    if (jtext.print())
+                    for (String s : strReport)
                     {
-                        //Email Stuff....damn
-                        if (Boolean.valueOf(MainFrame.properties.getProperty("EMAILENABLE")))
+                        owriter.write(s + "\n");
+                    }
+
+                    owriter.close();
+                    ostream.close();
+
+                    JTextArea jtext = new JTextArea();
+                    jtext.setSize(470, 277);
+                    jtext.setText("");
+                    jtext.setFont(new Font("Monospaced", Font.PLAIN, 12));
+                    for (String s : strReport)
+                    {
+                        jtext.setText(jtext.getText() + s + "\n");
+                    }
+
+                    try
+                    {
+                        if (jtext.print())
                         {
-                            if (MainFrame.properties.getProperty("EMAILSEND").equals("PRINT"))
+                            //Email Stuff....damn
+                            if (Boolean.valueOf(MainFrame.properties.getProperty("EMAILENABLE")))
                             {
-                                try
+                                if (MainFrame.properties.getProperty("EMAILSEND").equals("PRINT"))
                                 {
-                                    Properties props = new Properties();
-
-                                    if (Boolean.valueOf(MainFrame.properties.getProperty("EMAILAUTHREQ")))
+                                    try
                                     {
-                                        props.put("mail.smtp.auth", "true");
-                                        props.put("mail.user", MainFrame.properties.getProperty("EMAILUSERNAME"));
-                                        props.put("mail.password", MainFrame.properties.getProperty("EMAILPASSWORD"));
-                                    }
-                                    else
-                                    {
-                                        props.put("mail.smtp.auth", "false");
-                                    }
-                                    props.put("mail.smtp.starttls.enable", "true");
-                                    props.put("mail.smtp.host", MainFrame.properties.getProperty("EMAILHOST"));
-                                    props.put("mail.smtp.port", MainFrame.properties.getProperty("EMAILPORT"));
-                                    Session sess = Session.getDefaultInstance(props);
-                                    MimeMessage message = new MimeMessage(sess);
-                                    boolean sendEmail = false;
+                                        Properties props = new Properties();
 
-                                    message.setFrom(new InternetAddress(MainFrame.properties.getProperty("EMAILREPLYTO")));
-                                    message.setSubject("Package Delivery Notice");
-                                    message.setText(MainFrame.properties.getProperty("EMAILMESSAGE"));
-
-                                    for (CheckBox c : routeBoxes)
-                                    {
-                                        if (c.isSelected())
+                                        if (Boolean.valueOf(MainFrame.properties.getProperty("EMAILAUTHREQ")))
                                         {
-                                            for (Route r : dbManager.getRoutes())
+                                            props.put("mail.smtp.auth", "true");
+                                            props.put("mail.user", MainFrame.properties.getProperty("EMAILUSERNAME"));
+                                            props.put("mail.password", MainFrame.properties.getProperty("EMAILPASSWORD"));
+                                        }
+                                        else
+                                        {
+                                            props.put("mail.smtp.auth", "false");
+                                        }
+                                        props.put("mail.smtp.starttls.enable", "true");
+                                        props.put("mail.smtp.host", MainFrame.properties.getProperty("EMAILHOST"));
+                                        props.put("mail.smtp.port", MainFrame.properties.getProperty("EMAILPORT"));
+                                        Session sess = Session.getDefaultInstance(props);
+                                        MimeMessage message = new MimeMessage(sess);
+                                        boolean sendEmail = false;
+
+                                        message.setFrom(new InternetAddress(MainFrame.properties.getProperty("EMAILREPLYTO")));
+                                        message.setSubject("Package Delivery Notice");
+                                        message.setText(MainFrame.properties.getProperty("EMAILMESSAGE"));
+
+                                        for (CheckBox c : routeBoxes)
+                                        {
+                                            if (c.isSelected())
                                             {
-                                                if (r.getRouteName().equals(c.getText()))
+                                                for (Route r : dbManager.getRoutes())
                                                 {
-                                                    for (Stop s : dbManager.getStopsOnRoute(r))
+                                                    if (r.getRouteName().equals(c.getText()))
                                                     {
-                                                        if(dbManager.getPackagesForStop(s).size() > 0)
+                                                        for (Stop s : dbManager.getStopsOnRoute(r))
                                                         {
-                                                            ArrayList<String> addresses = (ArrayList<String>) dbManager.getEmailAddress(s);
-                                                            if (addresses.size() > 0)
+                                                            if (dbManager.getPackagesForStop(s).size() > 0)
                                                             {
-                                                                sendEmail = true;
-                                                                for (String str : addresses)
+                                                                ArrayList<String> addresses = (ArrayList<String>) dbManager.getEmailAddress(s);
+                                                                if (addresses.size() > 0)
                                                                 {
-                                                                    message.addRecipients(Message.RecipientType.BCC, str);
+                                                                    sendEmail = true;
+                                                                    for (String str : addresses)
+                                                                    {
+                                                                        message.addRecipients(Message.RecipientType.BCC, str);
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -387,37 +395,37 @@ public class PrintPageController implements Initializable
                                                 }
                                             }
                                         }
-                                    }
 
-                                    if(sendEmail)
-                                    {
-                                        Transport.send(message);
+                                        if (sendEmail)
+                                        {
+                                            Transport.send(message);
+                                        }
                                     }
-                                }
-                                catch (MessagingException e)
-                                {
-                                    Logger.log(e);
-                                    MessageDialogBuilder.error().message("Error Sending Email").title("ERROR").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+                                    catch (MessagingException e)
+                                    {
+                                        Logger.log(e);
+                                        MessageDialogBuilder.error().message("Error Sending Email").title("ERROR").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+                                    }
                                 }
                             }
-                        }
 
-                        //auto remove packages...oh boy
-                        for (CheckBox c : routeBoxes)
-                        {
-                            if (c.isSelected())
+                            //auto remove packages...oh boy
+                            for (CheckBox c : routeBoxes)
                             {
-                                for (Route r : dbManager.getRoutes())
+                                if (c.isSelected())
                                 {
-                                    if (r.getRouteName().equals(c.getText()))
+                                    for (Route r : dbManager.getRoutes())
                                     {
-                                        for (Stop s : dbManager.getStopsOnRoute(r))
+                                        if (r.getRouteName().equals(c.getText()))
                                         {
-                                            if (s.getAutoRemove())
+                                            for (Stop s : dbManager.getStopsOnRoute(r))
                                             {
-                                                for (Package p : dbManager.getPackagesForStop(s))
+                                                if (s.getAutoRemove())
                                                 {
-                                                    dbManager.updatePackage(p.getPackageId(), true, true);
+                                                    for (Package p : dbManager.getPackagesForStop(s))
+                                                    {
+                                                        dbManager.updatePackage(p.getPackageId(), true, true);
+                                                    }
                                                 }
                                             }
                                         }
@@ -426,11 +434,11 @@ public class PrintPageController implements Initializable
                             }
                         }
                     }
-                }
-                catch (PrinterException e)
-                {
-                    Logger.log(e);
-                    MessageDialogBuilder.error().message("Error Printing").title("ERROR").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+                    catch (PrinterException e)
+                    {
+                        Logger.log(e);
+                        MessageDialogBuilder.error().message("Error Printing").title("ERROR").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
+                    }
                 }
             }
             catch (IOException e)
