@@ -60,7 +60,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (ClassNotFoundException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
 
         loadRoutes();
@@ -96,7 +96,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
         finally
         {
@@ -128,7 +128,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return false;
         }
         finally
@@ -156,7 +156,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return false;
         }
         finally
@@ -181,7 +181,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             retValue = false;
         }
         finally
@@ -210,7 +210,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             retValue = false;
         }
         finally
@@ -239,7 +239,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             retValue = false;
         }
         finally
@@ -273,7 +273,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
         finally
         {
@@ -306,7 +306,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
         finally
         {
@@ -347,7 +347,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
         finally
         {
@@ -373,7 +373,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return false;
         }
         finally
@@ -400,7 +400,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             retValue = false;
         }
         finally
@@ -439,7 +439,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return false;
         }
         finally
@@ -464,7 +464,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return false;
         }
         finally
@@ -490,7 +490,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return false;
         }
         finally
@@ -521,7 +521,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return null;
         }
         finally
@@ -553,7 +553,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return null;
         }
         finally
@@ -580,7 +580,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return null;
         }
 
@@ -610,7 +610,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
         finally
         {
@@ -641,7 +641,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return false;
         }
         finally
@@ -667,7 +667,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return false;
         }
         finally
@@ -704,7 +704,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return false;
         }
         finally
@@ -736,7 +736,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
         finally
         {
@@ -768,7 +768,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             retValue = false;
         }
         finally
@@ -796,7 +796,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return false;
         }
         finally
@@ -821,7 +821,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return false;
         }
         finally
@@ -854,7 +854,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
         finally
         {
@@ -882,7 +882,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
         finally
         {
@@ -912,7 +912,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
         finally
         {
@@ -1026,7 +1026,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return false;
         }
         finally
@@ -1069,7 +1069,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException ex)
         {
-            Logger.log(ex);
+            Logger.logException(ex);
         }
         finally
         {
@@ -1102,7 +1102,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             result = null;
         }
         finally
@@ -1187,7 +1187,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
 
         return result;
@@ -1231,7 +1231,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
         finally
         {
@@ -1282,7 +1282,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
         finally
         {
@@ -1391,7 +1391,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
         finally
         {
@@ -1412,7 +1412,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
     }
 
@@ -1427,7 +1427,7 @@ public class SQLiteManager implements DatabaseManager
             }
             catch (SQLException e)
             {
-                Logger.log(e);
+                Logger.logException(e);
             }
             finally
             {
@@ -1481,7 +1481,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             retValue = false;
         }
         finally
@@ -1511,7 +1511,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return false;
         }
     }
@@ -1541,7 +1541,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
         finally
         {
@@ -1566,7 +1566,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return false;
         }
         finally
@@ -1590,7 +1590,7 @@ public class SQLiteManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return false;
         }
         finally

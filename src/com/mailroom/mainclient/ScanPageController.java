@@ -105,7 +105,7 @@ public class ScanPageController implements Initializable
         }
         catch (IOException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
         }
     }
@@ -246,28 +246,25 @@ public class ScanPageController implements Initializable
                                 .show(MainFrame.stage.getScene().getWindow());
                     }
                 }
-                else
+                if (ans == MessageDialog.Answer.NO)
                 {
-                    if (ans == MessageDialog.Answer.NO)
-                    {
-                        Package p = new Package(pid, txtTrackingNumber.getText(),
-                                lblDate.getText(), txtEmailAddress.getText(),
-                                txtFirstName.getText(), txtLastName.getText(),
-                                txtBoxOffice.getText(), cboxStops.getValue(),
-                                cboxCourier.getValue(), cUser, false, false, null,
-                                false);
+                    Package p = new Package(pid, txtTrackingNumber.getText(),
+                            lblDate.getText(), txtEmailAddress.getText(),
+                            txtFirstName.getText(), txtLastName.getText(),
+                            txtBoxOffice.getText(), cboxStops.getValue(),
+                            cboxCourier.getValue(), cUser, false, false, null,
+                            false);
 
-                        if (dbManager.updatePackage(p))
-                        {
-                            btnClear.fire();
-                        }
-                        else
-                        {
-                            MessageDialogBuilder.error()
-                                    .message("Error Adding Package").title("Error")
-                                    .buttonType(MessageDialog.ButtonType.OK)
-                                    .show(MainFrame.stage.getScene().getWindow());
-                        }
+                    if (dbManager.updatePackage(p))
+                    {
+                        btnClear.fire();
+                    }
+                    else
+                    {
+                        MessageDialogBuilder.error()
+                                .message("Error Adding Package").title("Error")
+                                .buttonType(MessageDialog.ButtonType.OK)
+                                .show(MainFrame.stage.getScene().getWindow());
                     }
                 }
             }

@@ -60,6 +60,8 @@ public class MainFrame extends Application
      */
     public static void main(String[] args)
     {
+        new PrintCleaner("./Prints", 30);
+
         pubArgs = args;
         launch(args);
     }
@@ -124,12 +126,12 @@ public class MainFrame extends Application
         }
         catch (IOException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             System.exit(-1);
         }
         catch (ConfigException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             MessageDialogBuilder
                     .warning()
                     .message(
@@ -219,7 +221,7 @@ public class MainFrame extends Application
             }
             catch (IOException e)
             {
-                Logger.log(e);
+                Logger.logException(e);
             }
         }
     }

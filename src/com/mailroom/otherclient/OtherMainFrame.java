@@ -103,12 +103,12 @@ public class OtherMainFrame extends Application
         }
         catch (IOException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             System.exit(-1);
         }
         catch (ConfigException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
 
         editWindow = new PackageEditWindow();

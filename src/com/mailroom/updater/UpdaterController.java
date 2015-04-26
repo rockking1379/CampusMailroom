@@ -210,7 +210,7 @@ public class UpdaterController implements Initializable
                                 }
                                 catch (IllegalStateException e)
                                 {
-                                    Logger.log(e);
+                                    Logger.logException(e);
                                 }
 
                                 break;
@@ -230,15 +230,15 @@ public class UpdaterController implements Initializable
                     }
                     catch (MalformedURLException e)
                     {
-                        Logger.log(e);
+                        Logger.logException(e);
                     }
                     catch (IOException e)
                     {
-                        Logger.log(e);
+                        Logger.logException(e);
                     }
                     catch (ParseException e)
                     {
-                        Logger.log(e);
+                        Logger.logException(e);
                     }
                 }
                 else
@@ -253,7 +253,7 @@ public class UpdaterController implements Initializable
             }
             catch (IOException e)
             {
-                Logger.log(e);
+                Logger.logException(e);
                 System.exit(-1);
             }
         }

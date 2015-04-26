@@ -80,7 +80,7 @@ public class LoginController implements Initializable
             }
             catch (IOException e)
             {
-                Logger.log(e);
+                Logger.logException(e);
             }
         }
         else

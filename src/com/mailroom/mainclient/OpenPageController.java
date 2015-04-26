@@ -167,7 +167,7 @@ public class OpenPageController implements Initializable
         }
         catch (IOException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
         }
     }
@@ -205,7 +205,7 @@ public class OpenPageController implements Initializable
             }
             catch (IOException e)
             {
-                Logger.log(e);
+                Logger.logException(e);
             }
         }
     }
@@ -227,7 +227,7 @@ public class OpenPageController implements Initializable
         }
         catch (IOException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
     }
 
@@ -285,7 +285,7 @@ public class OpenPageController implements Initializable
         }
         catch (IOException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
         }
     }
@@ -315,7 +315,7 @@ public class OpenPageController implements Initializable
             }
             catch (IOException e)
             {
-                Logger.log(e);
+                Logger.logException(e);
             }
         }
     }

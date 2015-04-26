@@ -59,7 +59,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (ClassNotFoundException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
 
         conString = "jdbc:postgresql://" + dbLocation + "/" + dbName;
@@ -99,7 +99,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
         }
         finally
@@ -139,7 +139,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
             return false;
         }
@@ -175,7 +175,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
             return false;
         }
@@ -208,7 +208,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
             retValue = false;
         }
@@ -245,7 +245,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
             retValue = false;
         }
@@ -282,7 +282,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
             retValue = false;
         }
@@ -317,7 +317,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
         }
         finally
@@ -351,7 +351,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
         }
         finally
@@ -393,7 +393,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
         }
         finally
@@ -419,7 +419,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
             return false;
         }
@@ -447,7 +447,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
             retValue = false;
         }
@@ -487,7 +487,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
             return false;
         }
@@ -513,7 +513,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
             return false;
         }
@@ -540,7 +540,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return false;
         }
         finally
@@ -571,7 +571,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
             return null;
         }
@@ -604,7 +604,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
             return null;
         }
@@ -630,7 +630,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
             return null;
         }
@@ -661,7 +661,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
         }
         finally
@@ -693,7 +693,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
             return false;
         }
@@ -720,7 +720,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
             return false;
         }
@@ -758,7 +758,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
             return false;
         }
@@ -791,7 +791,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
         }
         finally
@@ -824,7 +824,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
             retValue = false;
         }
@@ -853,7 +853,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
             return false;
         }
@@ -879,7 +879,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
             return false;
         }
@@ -913,7 +913,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
         }
         finally
@@ -943,7 +943,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
         }
         finally
@@ -974,7 +974,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
         finally
         {
@@ -1088,7 +1088,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
             return false;
         }
@@ -1132,7 +1132,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException ex)
         {
-            Logger.log(ex);
+            Logger.logException(ex);
         }
         finally
         {
@@ -1165,7 +1165,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
             result = null;
         }
@@ -1251,7 +1251,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
         }
 
@@ -1296,7 +1296,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
         }
         finally
@@ -1348,7 +1348,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
         }
         finally
@@ -1458,7 +1458,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
         }
         finally
@@ -1480,7 +1480,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
         }
     }
@@ -1496,7 +1496,7 @@ public class PostgreSQLManager implements DatabaseManager
             }
             catch (SQLException e)
             {
-                Logger.log(e);
+                Logger.logException(e);
                 e.printStackTrace();
             }
             finally
@@ -1549,7 +1549,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             e.printStackTrace();
             retValue = false;
         }
@@ -1580,7 +1580,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return false;
         }
     }
@@ -1610,7 +1610,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
         finally
         {
@@ -1636,7 +1636,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return false;
         }
         finally
@@ -1660,7 +1660,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
         catch (SQLException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return false;
         }
         finally

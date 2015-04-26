@@ -280,7 +280,7 @@ public class MainPageController implements Initializable
         }
         catch (IOException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
     }
 
@@ -385,11 +385,11 @@ public class MainPageController implements Initializable
                 }
                 catch (NumberFormatException e)
                 {
-                    Logger.log(e);
+                    Logger.logException(e);
                 }
                 catch (InterruptedException e)
                 {
-                    Logger.log(e);
+                    Logger.logException(e);
                 }
             }
         }

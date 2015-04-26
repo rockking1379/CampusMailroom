@@ -133,7 +133,7 @@ public class PrintPageController implements Initializable
                     }
                     catch (IOException e)
                     {
-                        Logger.log(e);
+                        Logger.logException(e);
                     }
                 }
             }
@@ -148,7 +148,7 @@ public class PrintPageController implements Initializable
                 }
                 catch (IOException e)
                 {
-                    Logger.log(e);
+                    Logger.logException(e);
                 }
             }
         }
@@ -403,7 +403,7 @@ public class PrintPageController implements Initializable
                                     }
                                     catch (MessagingException e)
                                     {
-                                        Logger.log(e);
+                                        Logger.logException(e);
                                         MessageDialogBuilder.error().message("Error Sending Email").title("ERROR").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
                                     }
                                 }
@@ -436,14 +436,14 @@ public class PrintPageController implements Initializable
                     }
                     catch (PrinterException e)
                     {
-                        Logger.log(e);
+                        Logger.logException(e);
                         MessageDialogBuilder.error().message("Error Printing").title("ERROR").buttonType(MessageDialog.ButtonType.OK).show(MainFrame.stage.getScene().getWindow());
                     }
                 }
             }
             catch (IOException e)
             {
-                Logger.log(e);
+                Logger.logException(e);
             }
         }
 
@@ -461,7 +461,7 @@ public class PrintPageController implements Initializable
             }
             catch (IOException e)
             {
-                Logger.log(e);
+                Logger.logException(e);
             }
         }
         else
@@ -563,7 +563,7 @@ public class PrintPageController implements Initializable
         }
         catch (PrinterException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
             return false;
         }
     }

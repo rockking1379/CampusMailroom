@@ -179,7 +179,7 @@ public class SetupController implements Initializable
             }
             catch (IOException e)
             {
-                Logger.log(e);
+                Logger.logException(e);
             }
         }
 
@@ -607,7 +607,7 @@ public class SetupController implements Initializable
             }
             catch (IOException e)
             {
-                Logger.log(e);
+                Logger.logException(e);
             }
         }
         if (restart == MessageDialog.Answer.NO)

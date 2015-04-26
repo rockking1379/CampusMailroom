@@ -576,7 +576,7 @@ public class SettingsController implements Initializable
             }
             catch (IOException e)
             {
-                Logger.log(e);
+                Logger.logException(e);
             }
             dbManager.dispose();
             System.exit(0);
@@ -592,7 +592,7 @@ public class SettingsController implements Initializable
             }
             catch (IOException e)
             {
-                Logger.log(e);
+                Logger.logException(e);
             }
         }
     }
@@ -614,7 +614,7 @@ public class SettingsController implements Initializable
         }
         catch (IOException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
     }
 
@@ -696,7 +696,7 @@ public class SettingsController implements Initializable
                     }
                     catch (IOException e)
                     {
-                        Logger.log(e);
+                        Logger.logException(e);
                     }
                 }
                 else

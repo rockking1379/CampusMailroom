@@ -73,7 +73,7 @@ public class PackageEditWindow extends Window
         }
         catch (IOException e)
         {
-            Logger.log(e);
+            Logger.logException(e);
         }
     }
 

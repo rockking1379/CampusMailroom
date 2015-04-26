@@ -29,7 +29,7 @@ public class Logger
      * @param ex Exception caught
      * @return status of logging success
      */
-    public static boolean log(Exception ex)
+    public static boolean logException(Exception ex)
     {
         File dir = new File("./Logs");
 
