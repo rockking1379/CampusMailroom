@@ -195,7 +195,7 @@ public class MainFrame extends Application
             this.stage.show();
 
             editWindow = new PackageEditWindow();
-            editWindow.show(null);
+            editWindow.show(null, null);
             editWindow.hide();
         }
     }

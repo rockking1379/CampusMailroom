@@ -125,7 +125,7 @@ public class OtherMainFrame extends Application
         OtherMainFrame.stage.setScene(scene);
         OtherMainFrame.stage.setTitle("Main Page");
 
-        editWindow.show(null);
+        editWindow.show(null, null);
         editWindow.hide();
 
         OtherMainFrame.stage.show();

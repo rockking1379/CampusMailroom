@@ -423,7 +423,7 @@ public class AdvSearchController implements Initializable
         if (me.getClickCount() >= 2)
         {
             editWindow.show(tblViewTable.getItems().get(
-                    tblViewTable.getSelectionModel().getSelectedIndex()));
+                    tblViewTable.getSelectionModel().getSelectedIndex()), null);
         }
     }
 }

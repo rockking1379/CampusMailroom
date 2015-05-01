@@ -148,6 +148,11 @@ public class PackageEditController implements Initializable
                         .show(OtherMainFrame.stage.getScene().getWindow());
             }
         }
+
+        if(PackageEditWindow.getActionButton() != null)
+        {
+            PackageEditWindow.getActionButton().fire();
+        }
     }
 
     /**

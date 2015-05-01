@@ -6,6 +6,7 @@ import com.mailroom.otherclient.OtherMainFrame;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -20,6 +21,7 @@ public class PackageEditWindow extends Window
 {
     Stage stg;
     static Package curPackage;
+    static Button actionButton;
     static Window win;
 
     /**
@@ -37,9 +39,10 @@ public class PackageEditWindow extends Window
      *
      * @param p Package to be Shown
      */
-    public void show(Package p)
+    public void show(Package p, Button actBtn)
     {
         curPackage = p;
+        actionButton = actBtn;
 
         try
         {
@@ -103,6 +106,8 @@ public class PackageEditWindow extends Window
     {
         return curPackage;
     }
+
+    public static Button getActionButton() { return actionButton; }
 
     /**
      * Returns current window
