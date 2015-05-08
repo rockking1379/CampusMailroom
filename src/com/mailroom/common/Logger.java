@@ -97,7 +97,7 @@ public class Logger
      */
     public static boolean logEvent(String eventMessage, String userName)
     {
-        boolean retVal = true;
+        boolean retVal;
 
         if(logExists())
         {
@@ -156,13 +156,12 @@ public class Logger
     private static boolean createLog()
     {
         File dir = new File("./Logs");
+        boolean retVal = true;
 
         if (!dir.exists())
         {
-            dir.mkdir();
+            retVal = dir.mkdir();
         }
-
-        boolean retVal = true;
 
         Date d = new Date();
         String sDate = new SimpleDateFormat("yyyy-MM-dd").format(d);
@@ -184,7 +183,7 @@ public class Logger
         {
             try
             {
-                f.createNewFile();
+                retVal = f.createNewFile();
 
                 Connection con = DriverManager.getConnection("jdbc:sqlite:"
                         + fileName);

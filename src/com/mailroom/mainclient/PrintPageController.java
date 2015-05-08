@@ -19,10 +19,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.FlowPane;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.swing.*;
@@ -346,24 +343,32 @@ public class PrintPageController implements Initializable
                                     try
                                     {
                                         Properties props = new Properties();
+                                        props.put("mail.smtp.starttls.enable", "true");
+                                        props.put("mail.smtp.host", MainFrame.properties.getProperty("EMAILHOST"));
+                                        props.put("mail.smtp.port", MainFrame.properties.getProperty("EMAILPORT"));
+                                        Session sess = null;
 
                                         if (Boolean.valueOf(MainFrame.properties.getProperty("EMAILAUTHREQ")))
                                         {
                                             props.put("mail.smtp.auth", "true");
-                                            props.put("mail.user", MainFrame.properties.getProperty("EMAILUSERNAME"));
-                                            props.put("mail.password", MainFrame.properties.getProperty("EMAILPASSWORD"));
+                                            sess = Session.getDefaultInstance(props);
                                         }
                                         else
                                         {
                                             props.put("mail.smtp.auth", "false");
+                                            sess = Session.getInstance(props, new Authenticator(){
+                                                protected PasswordAuthentication getPasswordAuthentication()
+                                                {
+                                                    return new PasswordAuthentication(MainFrame.properties.getProperty("EMAILUSERNAME"), MainFrame.properties.getProperty("EMAILPASSWORD"));
+                                                }
+                                            });
                                         }
-                                        props.put("mail.smtp.starttls.enable", "true");
-                                        props.put("mail.smtp.host", MainFrame.properties.getProperty("EMAILHOST"));
-                                        props.put("mail.smtp.port", MainFrame.properties.getProperty("EMAILPORT"));
-                                        Session sess = Session.getDefaultInstance(props);
                                         MimeMessage message = new MimeMessage(sess);
                                         boolean sendEmail = false;
 
+                                        Address[] a = new Address[1];
+                                        a[0] = new InternetAddress(MainFrame.properties.getProperty("EMAILREPLYTO"));
+                                        message.setReplyTo(a);
                                         message.setFrom(new InternetAddress(MainFrame.properties.getProperty("EMAILREPLYTO")));
                                         message.setSubject("Package Delivery Notice");
                                         message.setText(MainFrame.properties.getProperty("EMAILMESSAGE"));
