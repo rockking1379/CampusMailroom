@@ -1,7 +1,6 @@
 package com.mailroom.common;
 
 import com.mailroom.mainclient.MainFrame;
-import com.mailroom.mainclient.PackageEditWindow;
 import com.mailroom.otherclient.OtherMainFrame;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;

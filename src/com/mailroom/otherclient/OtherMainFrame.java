@@ -1,7 +1,6 @@
 package com.mailroom.otherclient;
 
 import com.mailroom.common.*;
-import com.mailroom.mainclient.PackageEditWindow;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import javafx.application.Application;

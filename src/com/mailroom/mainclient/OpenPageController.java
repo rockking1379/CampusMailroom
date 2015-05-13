@@ -1,9 +1,7 @@
 package com.mailroom.mainclient;
 
-import com.mailroom.common.DatabaseManager;
-import com.mailroom.common.Logger;
 import com.mailroom.common.Package;
-import com.mailroom.common.User;
+import com.mailroom.common.*;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import com.panemu.tiwulfx.table.TextColumn;
