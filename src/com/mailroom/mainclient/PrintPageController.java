@@ -346,16 +346,16 @@ public class PrintPageController implements Initializable
                                         props.put("mail.smtp.starttls.enable", "true");
                                         props.put("mail.smtp.host", MainFrame.properties.getProperty("EMAILHOST"));
                                         props.put("mail.smtp.port", MainFrame.properties.getProperty("EMAILPORT"));
-                                        Session sess = null;
+                                        Session sess;
 
-                                        if (Boolean.valueOf(MainFrame.properties.getProperty("EMAILAUTHREQ")))
+                                        if (!Boolean.valueOf(MainFrame.properties.getProperty("EMAILAUTHREQ")))
                                         {
-                                            props.put("mail.smtp.auth", "true");
+                                            props.put("mail.smtp.auth", "false");
                                             sess = Session.getDefaultInstance(props);
                                         }
                                         else
                                         {
-                                            props.put("mail.smtp.auth", "false");
+                                            props.put("mail.smtp.auth", "true");
                                             sess = Session.getInstance(props, new Authenticator(){
                                                 protected PasswordAuthentication getPasswordAuthentication()
                                                 {
