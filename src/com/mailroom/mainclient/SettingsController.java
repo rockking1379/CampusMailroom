@@ -15,10 +15,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.io.File;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -628,8 +631,7 @@ public class SettingsController implements Initializable
     public void btnChangePwdAction(ActionEvent ae)
     {
         ae.consume();
-        int oldPassword;
-        int newPassword;
+
         String username = MainFrame.cUser.getUserName();
         String oldPwd = pwdChangePwdOld.getText();
         String newPwd = pwdChangePwdNew.getText();
@@ -674,38 +676,53 @@ public class SettingsController implements Initializable
 
             if (verified)
             {
-                oldPassword = (username + oldPwd).hashCode();
-                newPassword = (username + newPwd).hashCode();
-
-                if (dbManager.changePassword(MainFrame.cUser, oldPassword,
-                        newPassword))
+                try
                 {
-                    MessageDialogBuilder
-                            .info()
-                            .message(
-                                    "Password Changed Successfully\nYou will now be logged out")
-                            .title("Success")
-                            .buttonType(MessageDialog.ButtonType.OK)
-                            .show(MainFrame.stage.getScene().getWindow());
-                    try
+                    MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                    byte[] oldPwdOutput = digest.digest(oldPwd.getBytes());
+                    byte[] newPwdOutput = digest.digest(newPwd.getBytes());
+                    byte[] userOutput = digest.digest(username.getBytes());
+
+                    String oldCombine = new HexBinaryAdapter().marshal(userOutput) + new HexBinaryAdapter().marshal(oldPwdOutput);
+                    String newCombine = new HexBinaryAdapter().marshal(userOutput) + new HexBinaryAdapter().marshal(newPwdOutput);
+
+                    byte[] oldPassword = digest.digest(oldCombine.getBytes());
+                    byte[] newPassword = digest.digest(newCombine.getBytes());
+
+                    if (dbManager.changePassword(MainFrame.cUser, oldPassword,
+                            newPassword))
                     {
-                        Parent root = FXMLLoader.load(getClass().getResource(
-                                "/com/mailroom/fxml/mainclient/LoginFx.fxml"));
-                        Scene scene = new Scene(root);
-                        MainFrame.stage.setScene(scene);
+                        MessageDialogBuilder
+                                .info()
+                                .message(
+                                        "Password Changed Successfully\nYou will now be logged out")
+                                .title("Success")
+                                .buttonType(MessageDialog.ButtonType.OK)
+                                .show(MainFrame.stage.getScene().getWindow());
+                        try
+                        {
+                            Parent root = FXMLLoader.load(getClass().getResource(
+                                    "/com/mailroom/fxml/mainclient/LoginFx.fxml"));
+                            Scene scene = new Scene(root);
+                            MainFrame.stage.setScene(scene);
+                        }
+                        catch (IOException e)
+                        {
+                            Logger.logException(e);
+                        }
                     }
-                    catch (IOException e)
+                    else
                     {
-                        Logger.logException(e);
+                        MessageDialogBuilder.error()
+                                .message("Password Change Unsuccessful")
+                                .title("Error")
+                                .buttonType(MessageDialog.ButtonType.OK)
+                                .show(MainFrame.stage.getScene().getWindow());
                     }
                 }
-                else
+                catch(NoSuchAlgorithmException nsae)
                 {
-                    MessageDialogBuilder.error()
-                            .message("Password Change Unsuccessful")
-                            .title("Error")
-                            .buttonType(MessageDialog.ButtonType.OK)
-                            .show(MainFrame.stage.getScene().getWindow());
+                    Logger.logException(nsae);
                 }
             }
         }
@@ -719,7 +736,7 @@ public class SettingsController implements Initializable
     public void btnCreateAccountAction(ActionEvent ae)
     {
         ae.consume();
-        int password;
+        byte[] password;
         String pwd = pwdCreatePwd.getText();
         String pwdConfirm = pwdCreateConfirm.getText();
         if (txtCreateFirstName.getText().equals("")
@@ -736,34 +753,44 @@ public class SettingsController implements Initializable
         {
             if (pwd.equals(pwdConfirm))
             {
-                password = txtCreateUserName.getText().hashCode()
-                        + pwd.hashCode();
-                if (dbManager.addUser(
-                        new User(-1, txtCreateUserName.getText(),
-                                txtCreateFirstName.getText(), txtCreateLastName
-                                .getText(), cboxCreateAdmin
-                                .selectedProperty().get()), password))
+                try
                 {
-                    MessageDialogBuilder
-                            .info()
-                            .message(
-                                    "User " + txtCreateUserName.getText()
-                                            + " Added").title("Success")
-                            .buttonType(MessageDialog.ButtonType.OK)
-                            .show(MainFrame.stage.getScene().getWindow());
-                    btnCreateCancel.fire();
-                    loadAdminComboBoxes();
+                    MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                    byte[] pwdOutput = digest.digest(pwd.getBytes());
+                    byte[] userOutput = digest.digest(cboxAdminReactivate.getValue().toString().getBytes());
+                    String combineOutput = new HexBinaryAdapter().marshal(userOutput) + new HexBinaryAdapter().marshal(pwdOutput);
+                    password = digest.digest(combineOutput.getBytes());
+                    if (dbManager.addUser(
+                            new User(-1, txtCreateUserName.getText(),
+                                    txtCreateFirstName.getText(), txtCreateLastName
+                                    .getText(), cboxCreateAdmin
+                                    .selectedProperty().get()), password))
+                    {
+                        MessageDialogBuilder
+                                .info()
+                                .message(
+                                        "User " + txtCreateUserName.getText()
+                                                + " Added").title("Success")
+                                .buttonType(MessageDialog.ButtonType.OK)
+                                .show(MainFrame.stage.getScene().getWindow());
+                        btnCreateCancel.fire();
+                        loadAdminComboBoxes();
+                    }
+                    else
+                    {
+                        MessageDialogBuilder
+                                .error()
+                                .message(
+                                        "Error Adding User "
+                                                + txtCreateUserName.getText())
+                                .title("Error")
+                                .buttonType(MessageDialog.ButtonType.OK)
+                                .show(MainFrame.stage.getScene().getWindow());
+                    }
                 }
-                else
+                catch(NoSuchAlgorithmException nsae)
                 {
-                    MessageDialogBuilder
-                            .error()
-                            .message(
-                                    "Error Adding User "
-                                            + txtCreateUserName.getText())
-                            .title("Error")
-                            .buttonType(MessageDialog.ButtonType.OK)
-                            .show(MainFrame.stage.getScene().getWindow());
+                    Logger.logException(nsae);
                 }
             }
             else
@@ -814,34 +841,46 @@ public class SettingsController implements Initializable
     public void btnAdminReactivateAction(ActionEvent ae)
     {
         ae.consume();
-        int password;
+        byte[] password;
         String pwd = pwdAdminRePwd.getText();
         String pwdConfirm = pwdAdminReConfirm.getText();
 
         if (pwd.equals(pwdConfirm))
         {
-            password = cboxAdminReactivate.getValue().getUserName().hashCode()
-                    + pwd.hashCode();
-            if (dbManager.reactivateUser(cboxAdminReactivate.getValue(),
-                    password))
+            try
             {
-                MessageDialogBuilder
-                        .info()
-                        .message(
-                                "User " + cboxAdminReactivate.getValue()
-                                        + " reactivated").title("Success")
-                        .buttonType(MessageDialog.ButtonType.OK)
-                        .show(MainFrame.stage.getScene().getWindow());
+                MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                byte[] pwdOutput = digest.digest(pwd.getBytes());
+                byte[] userOutput = digest.digest(cboxAdminReactivate.getValue().toString().getBytes());
+                String combineOutput = new HexBinaryAdapter().marshal(userOutput) + new HexBinaryAdapter().marshal(pwdOutput);
+                password = digest.digest(combineOutput.getBytes());
+
+
+                if (dbManager.reactivateUser(cboxAdminReactivate.getValue(),
+                        password))
+                {
+                    MessageDialogBuilder
+                            .info()
+                            .message(
+                                    "User " + cboxAdminReactivate.getValue()
+                                            + " reactivated").title("Success")
+                            .buttonType(MessageDialog.ButtonType.OK)
+                            .show(MainFrame.stage.getScene().getWindow());
+                }
+                else
+                {
+                    MessageDialogBuilder
+                            .error()
+                            .message(
+                                    "Error Reactivating User: "
+                                            + cboxAdminReactivate.getValue())
+                            .title("Error").buttonType(MessageDialog.ButtonType.OK)
+                            .show(MainFrame.stage.getScene().getWindow());
+                }
             }
-            else
+            catch(NoSuchAlgorithmException nsae)
             {
-                MessageDialogBuilder
-                        .error()
-                        .message(
-                                "Error Reactivating User: "
-                                        + cboxAdminReactivate.getValue())
-                        .title("Error").buttonType(MessageDialog.ButtonType.OK)
-                        .show(MainFrame.stage.getScene().getWindow());
+                Logger.logException(nsae);
             }
             pwdAdminRePwd.setText("");
             pwdAdminReConfirm.setText("");

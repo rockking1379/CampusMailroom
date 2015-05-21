@@ -9,10 +9,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.io.File;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -257,10 +260,10 @@ public class SetupController implements Initializable
                             .show(MainFrame.stage.getScene().getWindow());
                     return;
                 }
-                dbManager = new MysqlManager(txtDbSetupDbLocation.getText(),
-                        txtDbSetupDbUsername.getText(),
-                        pwdDbSetupDbPassword.getText(),
-                        txtDbSetupDbName.getText());
+//                dbManager = new MysqlManager(txtDbSetupDbLocation.getText(),
+//                        txtDbSetupDbUsername.getText(),
+//                        pwdDbSetupDbPassword.getText(),
+//                        txtDbSetupDbName.getText());
                 break;
             }
             case 2:
@@ -297,11 +300,11 @@ public class SetupController implements Initializable
                             .show(MainFrame.stage.getScene().getWindow());
                     return;
                 }
-                dbManager = new PostgreSQLManager(
-                        txtDbSetupDbLocation.getText(),
-                        txtDbSetupDbUsername.getText(),
-                        pwdDbSetupDbPassword.getText(),
-                        txtDbSetupDbName.getText());
+//                dbManager = new PostgreSQLManager(
+//                        txtDbSetupDbLocation.getText(),
+//                        txtDbSetupDbUsername.getText(),
+//                        pwdDbSetupDbPassword.getText(),
+//                        txtDbSetupDbName.getText());
                 break;
             }
             default:
@@ -392,7 +395,7 @@ public class SetupController implements Initializable
     public void btnAccSetupAddUserAction(ActionEvent ae)
     {
         ae.consume();
-        int password;
+        byte[] password;
         String pwd = pwdAccSetupPwd.getText();
         String pwdConfirm = pwdAccSetupConfPwd.getText();
         if (txtAccSetupFirstName.getText().equals("")
@@ -409,44 +412,54 @@ public class SetupController implements Initializable
         {
             if (pwd.equals(pwdConfirm))
             {
-                password = txtAccSetupUserName.getText().hashCode()
-                        + pwd.hashCode();
-                if (dbManager.addUser(
-                        new User(-1, txtAccSetupUserName.getText(),
-                                txtAccSetupFirstName.getText(),
-                                txtAccSetupLastName.getText(),
-                                cboxAccSetupAdmin.selectedProperty().get()),
-                        password))
+                try
                 {
-                    MessageDialog.Answer ans = MessageDialogBuilder.info()
-                            .message("User Added\nAdd Another?")
-                            .buttonType(MessageDialog.ButtonType.YES_NO)
-                            .yesOkButtonText("Yes").noButtonText("No")
-                            .show(MainFrame.stage.getScene().getWindow());
-                    if (ans == MessageDialog.Answer.YES_OK)
+                    MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                    byte[] pwdOutput = digest.digest(pwd.getBytes());
+                    byte[] userOutput = digest.digest(txtAccSetupUserName.getText().getBytes());
+                    String combineOutput = new HexBinaryAdapter().marshal(userOutput) + new HexBinaryAdapter().marshal(pwdOutput);
+                    password = digest.digest(combineOutput.getBytes());
+                    if (dbManager.addUser(
+                            new User(-1, txtAccSetupUserName.getText(),
+                                    txtAccSetupFirstName.getText(),
+                                    txtAccSetupLastName.getText(),
+                                    cboxAccSetupAdmin.selectedProperty().get()),
+                            password))
                     {
-                        txtAccSetupFirstName.setText("");
-                        txtAccSetupLastName.setText("");
-                        txtAccSetupUserName.setText("");
-                        pwdAccSetupPwd.setText("");
-                        pwdAccSetupConfPwd.setText("");
-                        cboxAccSetupAdmin.setSelected(false);
+                        MessageDialog.Answer ans = MessageDialogBuilder.info()
+                                .message("User Added\nAdd Another?")
+                                .buttonType(MessageDialog.ButtonType.YES_NO)
+                                .yesOkButtonText("Yes").noButtonText("No")
+                                .show(MainFrame.stage.getScene().getWindow());
+                        if (ans == MessageDialog.Answer.YES_OK)
+                        {
+                            txtAccSetupFirstName.setText("");
+                            txtAccSetupLastName.setText("");
+                            txtAccSetupUserName.setText("");
+                            pwdAccSetupPwd.setText("");
+                            pwdAccSetupConfPwd.setText("");
+                            cboxAccSetupAdmin.setSelected(false);
+                        }
+                        if (ans == MessageDialog.Answer.NO)
+                        {
+                            btnAccSetupNext.fire();
+                        }
                     }
-                    if (ans == MessageDialog.Answer.NO)
+                    else
                     {
-                        btnAccSetupNext.fire();
+                        MessageDialogBuilder
+                                .error()
+                                .message(
+                                        "Error Adding User "
+                                                + txtAccSetupUserName.getText())
+                                .title("Error")
+                                .buttonType(MessageDialog.ButtonType.OK)
+                                .show(MainFrame.stage.getScene().getWindow());
                     }
                 }
-                else
+                catch(NoSuchAlgorithmException nsae)
                 {
-                    MessageDialogBuilder
-                            .error()
-                            .message(
-                                    "Error Adding User "
-                                            + txtAccSetupUserName.getText())
-                            .title("Error")
-                            .buttonType(MessageDialog.ButtonType.OK)
-                            .show(MainFrame.stage.getScene().getWindow());
+                    Logger.logException(nsae);
                 }
             }
             else

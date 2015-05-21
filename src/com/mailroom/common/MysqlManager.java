@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author James sitzja@grizzlies.adams.edu
  */
-public class MysqlManager implements DatabaseManager
+public abstract class MysqlManager implements DatabaseManager
 {
     private static final String packageDrop = "DROP TABLE IF EXISTS Package";
     private static final String userDrop = "DROP TABLE IF EXISTS Users";
@@ -124,7 +124,7 @@ public class MysqlManager implements DatabaseManager
     }
 
     @Override
-    public boolean addUser(User u, int password)
+    public boolean addUser(User u, byte[] password)
     {
         // conduct insert into user table here
         // settings option should only be available to admin
@@ -138,7 +138,7 @@ public class MysqlManager implements DatabaseManager
             stmnt.setString(1, u.getUserName());
             stmnt.setString(2, u.getFirstName());
             stmnt.setString(3, u.getLastName());
-            stmnt.setInt(4, password);
+            stmnt.setBytes(4, password);
             stmnt.setBoolean(5, u.getAdmin());
 
             return stmnt.executeUpdate() > 0;
@@ -155,7 +155,7 @@ public class MysqlManager implements DatabaseManager
     }
 
     @Override
-    public boolean changePassword(User u, int oldPassword, int newPassword)
+    public boolean changePassword(User u, int oldPassword, byte[] newPassword)
     {
         // allow users to change their password
         try
@@ -165,7 +165,7 @@ public class MysqlManager implements DatabaseManager
                     .prepareStatement("UPDATE Users SET password=? WHERE user_name=? AND password=?");
             stmnt.setQueryTimeout(5);
 
-            stmnt.setInt(1, newPassword);
+            stmnt.setBytes(1, newPassword);
             stmnt.setString(2, u.getUserName());
             stmnt.setInt(3, oldPassword);
 
@@ -239,7 +239,7 @@ public class MysqlManager implements DatabaseManager
     }
 
     @Override
-    public boolean reactivateUser(User u, int password)
+    public boolean reactivateUser(User u, byte[] password)
     {
         boolean retValue = false;
         try
@@ -249,7 +249,7 @@ public class MysqlManager implements DatabaseManager
             PreparedStatement stmnt = connection
                     .prepareStatement("UPDATE Users SET active=1, password=? WHERE user_id=?");
 
-            stmnt.setInt(1, password);
+            stmnt.setBytes(1, password);
             stmnt.setInt(2, u.getUserId());
 
             retValue = stmnt.executeUpdate() > 0;

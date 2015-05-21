@@ -107,7 +107,44 @@ public class SQLiteManager implements DatabaseManager
     }
 
     @Override
-    public boolean addUser(User u, int password)
+    public User login(String userName, byte[] password)
+    {
+        User u = new User(-1, null, null, null, false);
+
+        // conduct login if successful recreate 'u' to valid user or return with
+        // nulls and show GUI error
+        try
+        {
+            connect();
+            PreparedStatement stmt = connection
+                    .prepareStatement("SELECT * FROM Users WHERE user_name=? AND password=? AND active=1");
+            stmt.setQueryTimeout(5);
+            stmt.setString(1, userName);
+            stmt.setBytes(2, password);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next())
+            {
+                u = new User(rs.getInt("user_id"), rs.getString("user_name"),
+                        rs.getString("first_name"), rs.getString("last_name"),
+                        rs.getBoolean("administrator"));
+            }
+        }
+        catch (SQLException e)
+        {
+            Logger.logException(e);
+        }
+        finally
+        {
+            disconnect();
+        }
+
+        return u;
+    }
+
+    @Override
+    public boolean addUser(User u, byte[] password)
     {
         // conduct insert into user table here
         // settings option should only be available to admin
@@ -121,7 +158,7 @@ public class SQLiteManager implements DatabaseManager
             stmnt.setString(1, u.getUserName());
             stmnt.setString(2, u.getFirstName());
             stmnt.setString(3, u.getLastName());
-            stmnt.setInt(4, password);
+            stmnt.setBytes(4, password);
             stmnt.setBoolean(5, u.getAdmin());
 
             return stmnt.executeUpdate() > 0;
@@ -138,7 +175,7 @@ public class SQLiteManager implements DatabaseManager
     }
 
     @Override
-    public boolean changePassword(User u, int oldPassword, int newPassword)
+    public boolean changePassword(User u, byte[] oldPassword, byte[] newPassword)
     {
         // allow users to change their password
         try
@@ -148,7 +185,35 @@ public class SQLiteManager implements DatabaseManager
                     .prepareStatement("UPDATE Users SET password=? WHERE user_name=? AND password=?");
             stmnt.setQueryTimeout(5);
 
-            stmnt.setInt(1, newPassword);
+            stmnt.setBytes(1, newPassword);
+            stmnt.setString(2, u.getUserName());
+            stmnt.setBytes(3, oldPassword);
+
+            return stmnt.executeUpdate() > 0;
+        }
+        catch (SQLException e)
+        {
+            Logger.logException(e);
+            return false;
+        }
+        finally
+        {
+            disconnect();
+        }
+    }
+
+    @Override
+    public boolean changePassword(User u, int oldPassword, byte[] newPassword)
+    {
+        // allow users to change their password
+        try
+        {
+            connect();
+            PreparedStatement stmnt = connection
+                    .prepareStatement("UPDATE Users SET password=? WHERE user_name=? AND password=?");
+            stmnt.setQueryTimeout(5);
+
+            stmnt.setBytes(1, newPassword);
             stmnt.setString(2, u.getUserName());
             stmnt.setInt(3, oldPassword);
 
@@ -222,7 +287,7 @@ public class SQLiteManager implements DatabaseManager
     }
 
     @Override
-    public boolean reactivateUser(User u, int password)
+    public boolean reactivateUser(User u, byte[] password)
     {
         boolean retValue = false;
         try
@@ -232,7 +297,7 @@ public class SQLiteManager implements DatabaseManager
             PreparedStatement stmnt = connection
                     .prepareStatement("UPDATE Users SET active=1, password=? WHERE user_id=?");
 
-            stmnt.setInt(1, password);
+            stmnt.setBytes(1, password);
             stmnt.setInt(2, u.getUserId());
 
             retValue = stmnt.executeUpdate() > 0;

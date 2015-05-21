@@ -18,8 +18,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.io.IOException;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 
 /**
@@ -68,7 +71,42 @@ public class LoginController implements Initializable
 
         User u = dbManager.login(txtUserName.getText(), hash);
 
-        if (u.getUserId() > 0 && u != null)
+        if(u.getUserId() < 0)
+        {
+            try
+            {
+                MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                byte[] pwdOutput = digest.digest(pwd.getBytes());
+                byte[] userOutput = digest.digest(txtUserName.getText().getBytes());
+                String combine = new HexBinaryAdapter().marshal(pwdOutput) + new HexBinaryAdapter().marshal(userOutput);
+                byte[] byteHash = digest.digest(combine.getBytes());
+
+                u = dbManager.login(txtUserName.getText(), byteHash);
+            }
+            catch(NoSuchAlgorithmException nsae)
+            {
+                Logger.logException(nsae);
+            }
+        }
+        else
+        {
+            try
+            {
+                MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                byte[] pwdOutput = digest.digest(pwd.getBytes());
+                byte[] userOutput = digest.digest(txtUserName.getText().getBytes());
+                String combine = new HexBinaryAdapter().marshal(pwdOutput) + new HexBinaryAdapter().marshal(userOutput);
+                byte[] byteHash = digest.digest(combine.getBytes());
+
+                dbManager.changePassword(u, hash, byteHash);
+            }
+            catch(NoSuchAlgorithmException nsae)
+            {
+                Logger.logException(nsae);
+            }
+        }
+
+        if (u.getUserId() > 0)
         {
             try
             {

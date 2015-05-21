@@ -51,7 +51,18 @@ public interface DatabaseManager
      * @return returns a valid user on success or user with user_id=-1 on
      * failure
      */
+    @Deprecated
     User login(String userName, int password);
+
+    /**
+     * Allows a User to Login into System
+     * Only called from MainClient
+     *
+     * @param username username of user
+     * @param password MessageDigest used for password
+     * @return returns a valud user on success or with user_id=-1 on failure
+     */
+    User login(String username, byte[] password);
 
     /**
      * Adds User to System
@@ -60,7 +71,7 @@ public interface DatabaseManager
      * @param password integer hash of username and password added together
      * @return status of SQL Execution
      */
-    boolean addUser(User u, int password);
+    boolean addUser(User u, byte[] password);
 
     /**
      * Changes Password of User
@@ -70,7 +81,17 @@ public interface DatabaseManager
      * @param newPassword new password hash
      * @return status of SQL Execution
      */
-    boolean changePassword(User u, int oldPassword, int newPassword);
+    boolean changePassword(User u, byte[] oldPassword, byte[] newPassword);
+
+    /**
+     * Temporary method for converting between password schemes
+     * @param u User needing changed
+     * @param oldPassword old password hash
+     * @param newPassword new MessageDigest
+     * @return status of SQL Execution
+     */
+    @Deprecated
+    boolean changePassword(User u, int oldPassword, byte[] newPassword);
 
     /**
      * Deletes User from System
@@ -97,7 +118,7 @@ public interface DatabaseManager
      * together
      * @return status of SQL Exectuion
      */
-    boolean reactivateUser(User u, int password);
+    boolean reactivateUser(User u, byte[] password);
 
     /**
      * Gets List of Deactivated Users
