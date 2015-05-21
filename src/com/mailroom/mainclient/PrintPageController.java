@@ -348,7 +348,7 @@ public class PrintPageController implements Initializable
                                         props.put("mail.smtp.port", MainFrame.properties.getProperty("EMAILPORT"));
                                         Session sess;
 
-                                        if (!Boolean.valueOf(MainFrame.properties.getProperty("EMAILAUTHREQ")))
+                                        if (MainFrame.properties.getProperty("EMAILAUTHREQ").equalsIgnoreCase("false"))
                                         {
                                             props.put("mail.smtp.auth", "false");
                                             sess = Session.getDefaultInstance(props);
