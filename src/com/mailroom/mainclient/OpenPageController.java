@@ -1,7 +1,7 @@
 package com.mailroom.mainclient;
 
-import com.mailroom.common.Package;
 import com.mailroom.common.*;
+import com.mailroom.common.Package;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import com.panemu.tiwulfx.table.TextColumn;
@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 /**
  * Controls OpenPageFx.fxml in com.mailroom.fxml.mainclient
  *
- * @author James sitzja@grizzlies.adams.edu
+ * @author James rockking1379@gmail.com
  */
 public class OpenPageController implements Initializable
 {

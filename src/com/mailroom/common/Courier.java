@@ -3,7 +3,7 @@ package com.mailroom.common;
 /**
  * Represents A Courier
  *
- * @author James sitzja@grizzlies.adams.edu
+ * @author James rockking1379@gmail.com
  */
 public class Courier
 {

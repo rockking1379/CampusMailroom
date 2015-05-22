@@ -111,7 +111,10 @@ public class PackageEditWindow extends Window
         return curPackage;
     }
 
-    public static Button getActionButton() { return actionButton; }
+    public static Button getActionButton()
+    {
+        return actionButton;
+    }
 
     /**
      * Returns current window

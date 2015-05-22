@@ -12,7 +12,7 @@ import java.util.Date;
  * Custom Logger Class for logging Errors and Exceptions <br>
  * Will put them into a database located in logs
  *
- * @author James sitzja@grizzlies.adams.edu
+ * @author James rockking1379@gmail.com
  */
 public class Logger
 {
@@ -32,9 +32,9 @@ public class Logger
      */
     public static boolean logException(Exception ex)
     {
-        boolean retVal = true;
+        boolean retVal;
 
-        if(logExists())
+        if (logExists())
         {
             Date d = new Date();
             String sDate = new SimpleDateFormat("yyyy-MM-dd").format(d);
@@ -68,14 +68,14 @@ public class Logger
             }
             catch (IOException e)
             {
-                System.err.println("Logging Erorr");
+                System.err.println("Logging Error");
                 e.printStackTrace();
                 retVal = false;
             }
         }
         else
         {
-            if(createLog())
+            if (createLog())
             {
                 return logException(ex);
             }
@@ -91,15 +91,16 @@ public class Logger
     /**
      * Logs System Event
      * Used for general purpose logging
+     *
      * @param eventMessage Message of Event
-     * @param userName User Name of User currently logged in
+     * @param userName User Name of User logging event. Can and often will be 'SYSTEM'
      * @return status of logging success
      */
     public static boolean logEvent(String eventMessage, String userName)
     {
         boolean retVal;
 
-        if(logExists())
+        if (logExists())
         {
             Date d = new Date();
             String sDate = new SimpleDateFormat("yyyy-MM-dd").format(d);
@@ -129,7 +130,7 @@ public class Logger
         }
         else
         {
-            if(createLog())
+            if (createLog())
             {
                 return logEvent(eventMessage, userName);
             }

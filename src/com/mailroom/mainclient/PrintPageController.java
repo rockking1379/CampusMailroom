@@ -39,7 +39,7 @@ import java.util.ResourceBundle;
 /**
  * Controls PrintPageFx.fxml in com.mailroom.fxml.mainclient
  *
- * @author James sitzja@grizzlies.adams.edu
+ * @author James rockking1379@gmail.com
  */
 public class PrintPageController implements Initializable
 {
@@ -286,7 +286,7 @@ public class PrintPageController implements Initializable
         {
             boolean dirResult = dir.mkdir();
 
-            if(dirResult)
+            if (dirResult)
             {
                 System.out.println("Directory Created");
             }
@@ -310,7 +310,7 @@ public class PrintPageController implements Initializable
             {
                 boolean fileResult = f.createNewFile();
 
-                if(fileResult)
+                if (fileResult)
                 {
                     FileOutputStream ostream = new FileOutputStream(
                             f.getAbsolutePath());
@@ -360,7 +360,8 @@ public class PrintPageController implements Initializable
                                         else
                                         {
                                             props.put("mail.smtp.auth", "true");
-                                            sess = Session.getInstance(props, new Authenticator(){
+                                            sess = Session.getInstance(props, new Authenticator()
+                                            {
                                                 protected PasswordAuthentication getPasswordAuthentication()
                                                 {
                                                     return new PasswordAuthentication(MainFrame.properties.getProperty("EMAILUSERNAME"), MainFrame.properties.getProperty("EMAILPASSWORD"));

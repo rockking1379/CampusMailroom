@@ -3,7 +3,7 @@ package com.mailroom.common;
 /**
  * Represents a Route For Stops and Packages
  *
- * @author James sitzja@grizzlies.adams.edu
+ * @author James rockking1379@gmail.com
  */
 public class Route
 {

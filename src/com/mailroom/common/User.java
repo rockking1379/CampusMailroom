@@ -4,7 +4,7 @@ package com.mailroom.common;
  * Represents A User <br>
  * Used for Checking In Packages, Settings Permissions, etc.
  *
- * @author James sitzja@grizzlies.adams.edu
+ * @author James rockking1379@gmail.com
  */
 public class User
 {

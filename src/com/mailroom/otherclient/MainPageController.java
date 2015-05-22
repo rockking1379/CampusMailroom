@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 /**
  * Controls MainPageFx.fxml in com.mailroom.fxml.otherclient
  *
- * @author James sitzja@grizzlies.adams.edu
+ * @author James rockking1379@gmail.com
  */
 public class MainPageController implements Initializable
 {

@@ -14,6 +14,11 @@ import javafx.scene.input.KeyEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for com.mailroom.fxml.common.PackageEditFx
+ *
+ * @author James rockking1379@gmail.com
+ */
 public class PackageEditController implements Initializable
 {
     Package curPackage;
@@ -45,6 +50,11 @@ public class PackageEditController implements Initializable
     @FXML
     private CheckBox cboxReturned;
 
+    /**
+     * Initializes the controller
+     * @param arg0 not sure
+     * @param arg1 still not sure
+     */
     @Override
     public void initialize(URL arg0, ResourceBundle arg1)
     {
@@ -147,7 +157,7 @@ public class PackageEditController implements Initializable
             }
         }
 
-        if(PackageEditWindow.getActionButton() != null)
+        if (PackageEditWindow.getActionButton() != null)
         {
             PackageEditWindow.getActionButton().fire();
         }

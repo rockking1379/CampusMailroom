@@ -33,7 +33,7 @@ import java.util.ResourceBundle;
 /**
  * Controls AdvSearchFx.fxml in com.mailroom.fxml.common
  *
- * @author James sitzja@grizzlies.adams.edu
+ * @author James rockking1379@gmail.com
  */
 public class AdvSearchController implements Initializable
 {

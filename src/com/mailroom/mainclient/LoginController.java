@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.io.IOException;
 import java.net.URL;
@@ -26,7 +27,7 @@ import java.util.ResourceBundle;
 /**
  * Controls LoginFx.fxml in com.mailroom.fxml.mainclient
  *
- * @author James sitzja@grizzlies.adams.edu
+ * @author James rockking1379@gmail.com
  */
 public class LoginController implements Initializable
 {
@@ -70,7 +71,7 @@ public class LoginController implements Initializable
         Logger.logEvent("Attempting Login Using Old Hashing", txtUserName.getText());
         User u = dbManager.login(txtUserName.getText(), hash);
 
-        if(u.getUserId() < 0)
+        if (u.getUserId() < 0)
         {
             Logger.logEvent("Attempting Login Using New Hashing", txtUserName.getText());
             try
@@ -83,7 +84,7 @@ public class LoginController implements Initializable
 
                 u = dbManager.login(txtUserName.getText(), byteHash);
             }
-            catch(NoSuchAlgorithmException nsae)
+            catch (NoSuchAlgorithmException nsae)
             {
                 Logger.logException(nsae);
             }
@@ -101,7 +102,7 @@ public class LoginController implements Initializable
 
                 dbManager.changePassword(u, hash, byteHash);
             }
-            catch(NoSuchAlgorithmException nsae)
+            catch (NoSuchAlgorithmException nsae)
             {
                 Logger.logException(nsae);
             }

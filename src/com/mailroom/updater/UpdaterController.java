@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
 /**
  * Controls UpdaterFx.fxml in com.mailroom.fxml.updater
  *
- * @author James sitzja@grizzlies.adams.edu
+ * @author James rockking1379@gmail.com
  */
 public class UpdaterController implements Initializable
 {

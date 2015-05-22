@@ -7,7 +7,7 @@ import java.util.List;
  * Database Interface. All methods need overwridden and logic implemented
  * All methods are called at some point in the program
  *
- * @author James sitzja@grizzlies.adams.edu
+ * @author James rockking1379@gmail.com
  */
 public interface DatabaseManager
 {
@@ -85,6 +85,7 @@ public interface DatabaseManager
 
     /**
      * Temporary method for converting between password schemes
+     *
      * @param u User needing changed
      * @param oldPassword old password hash
      * @param newPassword new MessageDigest

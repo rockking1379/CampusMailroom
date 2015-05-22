@@ -18,7 +18,7 @@ import java.util.Properties;
 /**
  * Defines Main Entry Point for OtherClient
  *
- * @author James sitzja@grizzlies.adams.edu
+ * @author James rockking1379@gmail.com
  */
 public class OtherMainFrame extends Application
 {

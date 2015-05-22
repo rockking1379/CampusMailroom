@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
 /**
  * Controls SettingsPageFx.fxml in com.mailroom.fxml.mainclient
  *
- * @author James sitzja@grizzlies.adams.edu
+ * @author James rockking1379@gmail.com
  */
 public class SettingsController implements Initializable
 {
@@ -720,7 +720,7 @@ public class SettingsController implements Initializable
                                 .show(MainFrame.stage.getScene().getWindow());
                     }
                 }
-                catch(NoSuchAlgorithmException nsae)
+                catch (NoSuchAlgorithmException nsae)
                 {
                     Logger.logException(nsae);
                 }
@@ -788,7 +788,7 @@ public class SettingsController implements Initializable
                                 .show(MainFrame.stage.getScene().getWindow());
                     }
                 }
-                catch(NoSuchAlgorithmException nsae)
+                catch (NoSuchAlgorithmException nsae)
                 {
                     Logger.logException(nsae);
                 }
@@ -878,7 +878,7 @@ public class SettingsController implements Initializable
                             .show(MainFrame.stage.getScene().getWindow());
                 }
             }
-            catch(NoSuchAlgorithmException nsae)
+            catch (NoSuchAlgorithmException nsae)
             {
                 Logger.logException(nsae);
             }

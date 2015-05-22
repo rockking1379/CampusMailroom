@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 /**
  * Defines Main Entry Point for Updater
  *
- * @author James sitzja@grizzlies.adams.edu
+ * @author James rockking1379@gmail.com
  */
 public class UpdaterMainFrame extends Application
 {

@@ -19,7 +19,7 @@ import java.util.Properties;
 /**
  * Main Entry Point for MainClient
  *
- * @author James sitzja@grizzlies.adams.edu
+ * @author James rockking1379@gmail.com
  */
 public class MainFrame extends Application
 {

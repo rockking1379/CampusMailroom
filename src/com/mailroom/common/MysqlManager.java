@@ -11,7 +11,7 @@ import java.util.List;
  * Database Manager for MySQL Database <br>
  * Extends DatabaseManager
  *
- * @author James sitzja@grizzlies.adams.edu
+ * @author James rockking1379@gmail.com
  */
 public abstract class MysqlManager implements DatabaseManager
 {

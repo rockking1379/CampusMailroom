@@ -4,7 +4,7 @@ package com.mailroom.common;
  * Represents a Person <br>
  * Used for AutoFill
  *
- * @author James sitzja@grizzlies.adams.edu
+ * @author James rockking1379@gmail.com
  */
 public class Person
 {

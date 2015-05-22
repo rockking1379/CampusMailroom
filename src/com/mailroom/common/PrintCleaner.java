@@ -19,6 +19,7 @@ public class PrintCleaner implements Runnable
 
     /**
      * Creates new cleaner
+     *
      * @param directoryLocation Location of directory to search in
      * @param maxAge maximum age of a file measured in days
      */
@@ -44,7 +45,7 @@ public class PrintCleaner implements Runnable
 
             ArrayList<File> toDelete = new ArrayList<File>();
 
-            if(files != null)
+            if (files != null)
             {
                 for (File f : files)
                 {
@@ -60,7 +61,7 @@ public class PrintCleaner implements Runnable
                 f.delete();
             }
         }
-        catch(NullPointerException npe)
+        catch (NullPointerException npe)
         {
             Logger.logException(npe);
         }

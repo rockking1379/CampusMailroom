@@ -4,7 +4,7 @@ package com.mailroom.common;
  * Represents a Configuration Error In Configuration File <br>
  * Configuration Error Means Multiple Database Types are set to True
  *
- * @author James sitzja@grizzlies.adams.edu
+ * @author James rockking1379@gmail.com
  */
 public class ConfigException extends Exception
 {

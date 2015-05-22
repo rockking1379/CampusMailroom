@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 /**
  * Controls SetupFx.fxml in com.mailroom.fxml.mainclient
  *
- * @author James sitzja@grizzlies.adams.edu
+ * @author James rockking1379@gmail.com
  */
 public class SetupController implements Initializable
 {
@@ -457,7 +457,7 @@ public class SetupController implements Initializable
                                 .show(MainFrame.stage.getScene().getWindow());
                     }
                 }
-                catch(NoSuchAlgorithmException nsae)
+                catch (NoSuchAlgorithmException nsae)
                 {
                     Logger.logException(nsae);
                 }
