@@ -65,20 +65,20 @@ public class OtherMainFrame extends Application
                     }
                     case MysqlManager.dbId:
                     {
-//                        dbManager = new MysqlManager(
-//                                properties.getProperty("DATABASE"),
-//                                properties.getProperty("USERNAME"),
-//                                properties.getProperty("PASSWORD"),
-//                                properties.getProperty("DBNAME"));
+                        dbManager = new MysqlManager(
+                                properties.getProperty("DATABASE"),
+                                properties.getProperty("USERNAME"),
+                                properties.getProperty("PASSWORD"),
+                                properties.getProperty("DBNAME"));
                         break;
                     }
                     case PostgreSQLManager.dbId:
                     {
-//                        dbManager = new PostgreSQLManager(
-//                                properties.getProperty("DATABASE"),
-//                                properties.getProperty("USERNAME"),
-//                                properties.getProperty("PASSWORD"),
-//                                properties.getProperty("DBNAME"));
+                        dbManager = new PostgreSQLManager(
+                                properties.getProperty("DATABASE"),
+                                properties.getProperty("USERNAME"),
+                                properties.getProperty("PASSWORD"),
+                                properties.getProperty("DBNAME"));
                         break;
                     }
                     default:

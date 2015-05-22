@@ -30,7 +30,7 @@ public class SQLiteManager implements DatabaseManager
     private static final String packageString = "CREATE TABLE Package(package_id INTEGER PRIMARY KEY AUTOINCREMENT,tracking_number VARCHAR(50) NOT NULL,receive_date DATE NOT NULL,email_address VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,box_number VARCHAR(50) NOT NULL,at_stop BOOLEAN NOT NULL,picked_up BOOLEAN NOT NULL,pick_up_date DATE,stop_id INTEGER,courier_id INTEGER,user_id INTEGER,returned BOOLEAN,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id),FOREIGN KEY(courier_id) REFERENCES Courier(courier_id),FOREIGN KEY(user_id) REFERENCES Users(user_id))";
     private static final String emailString = "CREATE TABLE EmailAddress(address_id INTEGER PRIMARY KEY, address_string VARCHAR(50), is_used BOOLEAN, stop_id INTEGER, FOREIGN KEY(stop_id) REFERENCES Stop(stop_id));";
     private static final String routeInsert = "INSERT INTO Route(route_name, is_used) VALUES('unassigned', 1)";
-    private static final String stopInsert = "INSERT INTO Stop(stop_name,route_id,is_used,route_order,student) VALUES('unassigned',1,1,0,0)";
+    private static final String stopInsert = "INSERT INTO Stop(stop_name,route_id,is_used,route_order,student, auto_remove) VALUES('unassigned',1,1,0,0,0)";
     private static final String devString = "INSERT INTO Users(user_name, first_name, last_name, password, administrator, active) VALUES('DEV', 'Developer', 'Access', 2145483,1,1);";
 
     /**
@@ -405,7 +405,7 @@ public class SQLiteManager implements DatabaseManager
                         stops.add(new Stop(rs.getInt("stop_id"), rs
                                 .getString("stop_name"), route
                                 .getRouteName(), rs.getInt("route_order"), rs
-                                .getBoolean("Student"), rs.getBoolean("auto_remove")));
+                                .getBoolean("student"), rs.getBoolean("auto_remove")));
                     }
                 }
             }
@@ -427,7 +427,7 @@ public class SQLiteManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("UPDATE Stop SET Student=?, auto_remove=? WHERE stop_id=?");
+                    .prepareStatement("UPDATE Stop SET student=?, auto_remove=? WHERE stop_id=?");
             stmnt.setQueryTimeout(5);
 
             stmnt.setBoolean(1, s.getStudent());
@@ -485,7 +485,7 @@ public class SQLiteManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("INSERT INTO Stop(stop_name, route_id, is_used, route_order, Student) VALUES(?,?,1,?,?)");
+                    .prepareStatement("INSERT INTO Stop(stop_name, route_id, is_used, route_order, student) VALUES(?,?,1,?,?)");
             stmnt.setQueryTimeout(5);
 
             stmnt.setString(1, s.getStopName());
@@ -639,7 +639,7 @@ public class SQLiteManager implements DatabaseManager
             {
                 results.add(new Stop(rs.getInt("stop_id"), rs
                         .getString("stop_name"), route_name, rs
-                        .getInt("route_order"), rs.getBoolean("Student"),
+                        .getInt("route_order"), rs.getBoolean("student"),
                         rs.getBoolean("auto_remove")));
             }
         }

@@ -62,7 +62,7 @@ public interface DatabaseManager
      * @param password MessageDigest used for password
      * @return returns a valud user on success or with user_id=-1 on failure
      */
-    User login(String username, byte[] password);
+    User login(String userName, byte[] password);
 
     /**
      * Adds User to System

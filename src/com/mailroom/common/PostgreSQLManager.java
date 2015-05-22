@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author James rockking1379@gmail.com
  */
-public abstract class PostgreSQLManager implements DatabaseManager
+public class PostgreSQLManager implements DatabaseManager
 {
     private static final String packageDrop = "DROP TABLE IF EXISTS Package";
     private static final String userDrop = "DROP TABLE IF EXISTS Users";
@@ -22,13 +22,13 @@ public abstract class PostgreSQLManager implements DatabaseManager
     private static final String stopDrop = "DROP TABLE IF EXISTS Stop";
     private static final String routeDrop = "DROP TABLE IF EXISTS Route";
     private static final String routeString = "CREATE TABLE Route(route_id SERIAL PRIMARY KEY,route_name VARCHAR(50) NOT NULL,is_used BOOLEAN)";
-    private static final String stopString = "CREATE TABLE Stop(stop_id SERIAL PRIMARY KEY,stop_name VARCHAR(50) NOT NULL,route_id INTEGER REFERENCES Route(route_id),is_used BOOLEAN NOT NULL,route_order INTEGER,student BOOLEAN)";
+    private static final String stopString = "CREATE TABLE Stop(stop_id SERIAL PRIMARY KEY,stop_name VARCHAR(50) NOT NULL,route_id INTEGER REFERENCES Route(route_id),is_used BOOLEAN NOT NULL,route_order INTEGER,student BOOLEAN, auto_remove BOOLEAN)";
     private static final String courierString = "CREATE TABLE Courier(courier_id SERIAL PRIMARY KEY,courier_name VARCHAR(50) NOT NULL,is_used BOOLEAN NOT NULL)";
     private static final String personString = "CREATE TABLE Person(person_id SERIAL PRIMARY KEY,id_number VARCHAR(50),email_address VARCHAR(50),first_name VARCHAR(50),last_name VARCHAR(50),box_number VARCHAR(50),stop_id INTEGER REFERENCES Stop(stop_id))";
     private static final String userString = "CREATE TABLE Users(user_id SERIAL PRIMARY KEY,user_name VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,password INTEGER NOT NULL,administrator BOOLEAN NOT NULL,active BOOLEAN)";
     private static final String packageString = "CREATE TABLE Package(package_id SERIAL PRIMARY KEY,tracking_number VARCHAR(50) NOT NULL,receive_date DATE NOT NULL,email_address VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,box_number VARCHAR(50) NOT NULL,at_stop BOOLEAN NOT NULL,picked_up BOOLEAN NOT NULL,pick_up_date DATE,stop_id INTEGER REFERENCES Stop(stop_id),courier_id INTEGER REFERENCES Courier(courier_id),user_id INTEGER REFERENCES Users(user_id),returned BOOLEAN)";
     private static final String routeInsert = "INSERT INTO Route(route_name, is_used) VALUES('unassigned', TRUE)";
-    private static final String stopInsert = "INSERT INTO Stop(stop_name,route_id,is_used,route_order,student) VALUES('unassigned',1,TRUE,0,0)";
+    private static final String stopInsert = "INSERT INTO Stop(stop_name,route_id,is_used,route_order,student, auto_remove) VALUES('unassigned',1,TRUE,0,0, FALSE)";
     private static final String devString = "INSERT INTO Users(user_name, first_name, last_name, password, administrator, active) VALUES('DEV', 'Developer', 'Access', 2145483,TRUE,TRUE);";
 
     /**
@@ -111,6 +111,44 @@ public abstract class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
+    public User login(String userName, byte[] password)
+    {
+        User u = new User(-1, null, null, null, false);
+
+        // conduct login if successful recreate 'u' to valid user or return with
+        // nulls and show GUI error
+        try
+        {
+            connect();
+            PreparedStatement stmt = connection
+                    .prepareStatement("SELECT * FROM Users WHERE user_name=? AND password=? AND active=TRUE");
+            stmt.setQueryTimeout(5);
+            stmt.setString(1, userName);
+            stmt.setBytes(2, password);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next())
+            {
+                u = new User(rs.getInt("user_id"), rs.getString("user_name"),
+                        rs.getString("first_name"), rs.getString("last_name"),
+                        rs.getBoolean("administrator"));
+            }
+        }
+        catch (SQLException e)
+        {
+            Logger.logException(e);
+            e.printStackTrace();
+        }
+        finally
+        {
+            disconnect();
+        }
+
+        return u;
+    }
+
+    @Override
     public boolean addUser(User u, byte[] password)
     {
         // conduct insert into user table here
@@ -127,6 +165,42 @@ public abstract class PostgreSQLManager implements DatabaseManager
             stmnt.setString(3, u.getLastName());
             stmnt.setBytes(4, password);
             stmnt.setBoolean(5, u.getAdmin());
+
+            if (stmnt.executeUpdate() > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (SQLException e)
+        {
+            Logger.logException(e);
+            e.printStackTrace();
+            return false;
+        }
+        finally
+        {
+            disconnect();
+        }
+    }
+
+    @Override
+    public boolean changePassword(User u, byte[] oldPassword, byte[] newPassword)
+    {
+        // allow users to change their password
+        try
+        {
+            connect();
+            PreparedStatement stmnt = connection
+                    .prepareStatement("UPDATE Users SET password=? WHERE user_name=? AND password=?");
+            stmnt.setQueryTimeout(5);
+
+            stmnt.setBytes(1, newPassword);
+            stmnt.setString(2, u.getUserName());
+            stmnt.setBytes(3, oldPassword);
 
             if (stmnt.executeUpdate() > 0)
             {
@@ -386,7 +460,7 @@ public abstract class PostgreSQLManager implements DatabaseManager
                         stops.add(new Stop(rs.getInt("stop_id"), rs
                                 .getString("stop_name"), routes.get(i)
                                 .getRouteName(), rs.getInt("route_order"), rs
-                                .getBoolean("Student")));
+                                .getBoolean("student"), rs.getBoolean("auto_remove")));
                     }
                 }
             }
@@ -409,7 +483,7 @@ public abstract class PostgreSQLManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("UPDATE Stop SET Student=? WHERE stop_id=?");
+                    .prepareStatement("UPDATE Stop SET student=? WHERE stop_id=?");
             stmnt.setQueryTimeout(5);
 
             stmnt.setBoolean(1, s.getStudent());
@@ -468,7 +542,7 @@ public abstract class PostgreSQLManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("INSERT INTO Stop(stop_name, route_id, is_used, route_order, Student) VALUES(?,?,TRUE,?,?)");
+                    .prepareStatement("INSERT INTO Stop(stop_name, route_id, is_used, route_order, student) VALUES(?,?,TRUE,?,?)");
             stmnt.setQueryTimeout(5);
 
             stmnt.setString(1, s.getStopName());
@@ -625,7 +699,7 @@ public abstract class PostgreSQLManager implements DatabaseManager
             {
                 results.add(new Stop(rs.getInt("stop_id"), rs
                         .getString("stop_name"), route_name, rs
-                        .getInt("route_order"), rs.getBoolean("Student")));
+                        .getInt("route_order"), rs.getBoolean("student")));
             }
         }
         catch (SQLException e)
