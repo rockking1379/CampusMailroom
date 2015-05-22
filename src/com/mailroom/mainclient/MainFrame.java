@@ -70,6 +70,7 @@ public class MainFrame extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
+        Logger.logEvent("Starting System", "SYSTEM");
         boolean setup = true;
         // read settings file
         try
@@ -208,6 +209,7 @@ public class MainFrame extends Application
     {
         if (properties != null)
         {
+            Logger.logEvent("Saving Properties", "SYSTEM");
             try
             {
                 File propFile = new File("./configuration.properties");

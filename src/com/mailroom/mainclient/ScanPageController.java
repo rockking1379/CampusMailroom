@@ -67,6 +67,7 @@ public class ScanPageController implements Initializable
     @Override
     public void initialize(URL arg0, ResourceBundle arg1)
     {
+        Logger.logEvent("Loading ScanPage", "SYSTEM");
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date now = new Date();
         lblDate.setText(format.format(now));
@@ -96,6 +97,7 @@ public class ScanPageController implements Initializable
     public void btnExitAction(ActionEvent ae)
     {
         ae.consume();
+        Logger.logEvent("Exit ScanPage Requested", cUser.getUserName());
         try
         {
             Parent root = FXMLLoader.load(getClass().getResource(
@@ -118,6 +120,7 @@ public class ScanPageController implements Initializable
     public void btnClearAction(ActionEvent ae)
     {
         ae.consume();
+        Logger.logEvent("Cleared All Fields", cUser.getUserName());
         txtTrackingNumber.setText("");
         txtFirstName.setText("");
         txtLastName.setText("");
@@ -137,6 +140,7 @@ public class ScanPageController implements Initializable
     public void btnSaveAction(ActionEvent ae)
     {
         ae.consume();
+        Logger.logEvent("Verifying Package Data", "SYSTEM");
         boolean verified = true;
 
         if (txtTrackingNumber.getText().length() < 4)
@@ -190,6 +194,8 @@ public class ScanPageController implements Initializable
         }
         if (verified)
         {
+            Logger.logEvent("Checking if Tracking Number Exists\n" +
+                    "Tracking Number: " + txtTrackingNumber.getText(), "SYSTEM");
             int pid = dbManager
                     .checkTrackingNumber(txtTrackingNumber.getText());
             if (pid == -1)
@@ -200,7 +206,7 @@ public class ScanPageController implements Initializable
                         txtBoxOffice.getText(), cboxStops.getValue(),
                         cboxCourier.getValue(), cUser, false, false, null,
                         false);
-
+                Logger.logEvent("Submitting Package to Database", cUser.getUserName());
                 if (dbManager.addPackage(p))
                 {
                     btnClear.fire();
@@ -215,6 +221,7 @@ public class ScanPageController implements Initializable
             }
             else
             {
+                Logger.logEvent("Tracking Number Already Exists", "SYSTEM");
                 MessageDialog.Answer ans = MessageDialogBuilder
                         .error()
                         .title("Tracking Number Found")
@@ -227,6 +234,7 @@ public class ScanPageController implements Initializable
 
                 if (ans == MessageDialog.Answer.YES_OK)
                 {
+                    Logger.logEvent("User Selected to Create New Record", cUser.getUserName());
                     Package p = new Package(-1, txtTrackingNumber.getText(),
                             lblDate.getText(), txtEmailAddress.getText(),
                             txtFirstName.getText(), txtLastName.getText(),
@@ -248,6 +256,7 @@ public class ScanPageController implements Initializable
                 }
                 if (ans == MessageDialog.Answer.NO)
                 {
+                    Logger.logEvent("User Selected to Overwrite Existing Record", cUser.getUserName());
                     Package p = new Package(pid, txtTrackingNumber.getText(),
                             lblDate.getText(), txtEmailAddress.getText(),
                             txtFirstName.getText(), txtLastName.getText(),
@@ -279,6 +288,7 @@ public class ScanPageController implements Initializable
     public void btnRandomGenerateAction(ActionEvent ae)
     {
         ae.consume();
+        Logger.logEvent("Generating Random Tracking Number", cUser.getUserName());
         String tnum = MainFrame.properties.getProperty("TNUMPREFIX");
 
         for (int i = 0; i < 16; i++)

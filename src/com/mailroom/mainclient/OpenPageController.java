@@ -65,6 +65,7 @@ public class OpenPageController implements Initializable
     @Override
     public void initialize(URL arg0, ResourceBundle arg1)
     {
+        Logger.logEvent("Loading Main Screen", "SYSTEM");
         MainFrame.stage.setTitle("Main Page");
 
         cUser = MainFrame.cUser;
@@ -296,6 +297,7 @@ public class OpenPageController implements Initializable
     public void btnLogoutAction(ActionEvent ae)
     {
         ae.consume();
+        Logger.logEvent("Logout Requested", cUser.getUserName());
         MessageDialog.Answer a = MessageDialogBuilder.confirmation()
                 .message("Confirm Logout?").title("Logout")
                 .buttonType(MessageDialog.ButtonType.YES_NO)
@@ -326,6 +328,7 @@ public class OpenPageController implements Initializable
     public void btnQuitAction(ActionEvent ae)
     {
         ae.consume();
+        Logger.logEvent("System Exit Requested", cUser.getUserName());
         MessageDialog.Answer a = MessageDialogBuilder.confirmation()
                 .message("Confirm Quit?").title("Quit")
                 .buttonType(MessageDialog.ButtonType.YES_NO)

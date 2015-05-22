@@ -38,7 +38,7 @@ public class Logger
         {
             Date d = new Date();
             String sDate = new SimpleDateFormat("yyyy-MM-dd").format(d);
-            String fileName = "./Logs/" + sDate + ".err";
+            String fileName = "./Logs/" + sDate + ".db";
 
             try
             {
@@ -103,7 +103,7 @@ public class Logger
         {
             Date d = new Date();
             String sDate = new SimpleDateFormat("yyyy-MM-dd").format(d);
-            String fileName = "./Logs/" + sDate + ".err";
+            String fileName = "./Logs/" + sDate + ".db";
 
             try
             {
@@ -147,7 +147,7 @@ public class Logger
         File dir = new File("./Logs");
         Date d = new Date();
         String sDate = new SimpleDateFormat("yyyy-MM-dd").format(d);
-        String fileName = "./Logs/" + sDate + ".err";
+        String fileName = "./Logs/" + sDate + ".db";
         File f = new File(fileName);
 
         return (dir.exists() && f.exists());
@@ -165,7 +165,7 @@ public class Logger
 
         Date d = new Date();
         String sDate = new SimpleDateFormat("yyyy-MM-dd").format(d);
-        String fileName = "./Logs/" + sDate + ".err";
+        String fileName = "./Logs/" + sDate + ".db";
         File f = new File(fileName);
 
         try

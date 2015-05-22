@@ -58,7 +58,7 @@ public class PrintPageController implements Initializable
     public void initialize(URL arg0, ResourceBundle arg1)
     {
         this.dbManager = MainFrame.dbManager;
-
+        Logger.logEvent("Loading Printing Screen", "SYSTEM");
         dbManager.loadRoutes();
 
         routeBoxes = new ArrayList<CheckBox>();
@@ -119,6 +119,7 @@ public class PrintPageController implements Initializable
 
                 if (exit == MessageDialog.Answer.YES_OK)
                 {
+                    Logger.logEvent("Exiting Printing Screen", "SYSTEM");
                     try
                     {
                         Parent root = FXMLLoader
@@ -136,6 +137,7 @@ public class PrintPageController implements Initializable
             }
             else
             {
+                Logger.logEvent("Exiting Printing Screen", "SYSTEM");
                 try
                 {
                     Parent root = FXMLLoader.load(getClass().getResource(
@@ -159,7 +161,7 @@ public class PrintPageController implements Initializable
     public void btnCreateReportAction(ActionEvent ae)
     {
         ae.consume();
-
+        Logger.logEvent("Generating Package Report", MainFrame.cUser.getUserName());
         txtAreaReport.setText("");
         strReport = new ArrayList<String>();
 
@@ -277,6 +279,7 @@ public class PrintPageController implements Initializable
     public void btnPrintReportAction(ActionEvent ae)
     {
         ae.consume();
+        Logger.logEvent("Printing Package Report", MainFrame.cUser.getUserName());
         File dir = new File("./Prints");
 
         if (!dir.exists())
@@ -340,6 +343,7 @@ public class PrintPageController implements Initializable
                             {
                                 if (MainFrame.properties.getProperty("EMAILSEND").equals("PRINT"))
                                 {
+                                    Logger.logEvent("Email Notification Enabled!\nSending Now!", "SYSTEM");
                                     try
                                     {
                                         Properties props = new Properties();
@@ -413,7 +417,7 @@ public class PrintPageController implements Initializable
                                     }
                                 }
                             }
-
+                            Logger.logEvent("Auto Removing Packages", "SYSTEM");
                             //auto remove packages...oh boy
                             for (CheckBox c : routeBoxes)
                             {
@@ -480,6 +484,7 @@ public class PrintPageController implements Initializable
 
     public static boolean printReport(ObservableList<Package> toPrint)
     {
+        Logger.logEvent("Special Report Generating", MainFrame.cUser.getUserName());
         ArrayList<String> strReport = new ArrayList<String>();
 
         String head = "";
@@ -561,7 +566,7 @@ public class PrintPageController implements Initializable
         {
             txtArea.setText(txtArea.getText() + s + "\n");
         }
-
+        Logger.logEvent("Sending Special Report to Printer", "SYSTEM");
         try
         {
             return txtArea.print();

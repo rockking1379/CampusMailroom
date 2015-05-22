@@ -16,8 +16,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.io.IOException;
 import java.net.URL;
@@ -35,8 +33,6 @@ public class LoginController implements Initializable
     private DatabaseManager dbManager;
 
     @FXML
-    private AnchorPane anchorPane;
-    @FXML
     public ImageView imgLogo;
     @FXML
     private TextField txtUserName;
@@ -52,6 +48,7 @@ public class LoginController implements Initializable
     @Override
     public void initialize(URL arg0, ResourceBundle arg1)
     {
+        Logger.logEvent("Loading Login Screen", "SYSTEM");
         dbManager = MainFrame.dbManager;
 
         imgLogo.setImage(MainFrame.imageLogo);
@@ -65,14 +62,17 @@ public class LoginController implements Initializable
     public void btnLoginAction(ActionEvent ae)
     {
         ae.consume();
+        Logger.logEvent("Login Requested", "SYSTEM");
 
         String pwd = pwdPassword.getText();
         int hash = txtUserName.getText().hashCode() + pwd.hashCode();
 
+        Logger.logEvent("Attempting Login Using Old Hashing", txtUserName.getText());
         User u = dbManager.login(txtUserName.getText(), hash);
 
         if(u.getUserId() < 0)
         {
+            Logger.logEvent("Attempting Login Using New Hashing", txtUserName.getText());
             try
             {
                 MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -90,6 +90,7 @@ public class LoginController implements Initializable
         }
         else
         {
+            Logger.logEvent("Switching UserName Hashing", txtUserName.getText());
             try
             {
                 MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -108,6 +109,7 @@ public class LoginController implements Initializable
 
         if (u.getUserId() > 0)
         {
+            Logger.logEvent("User Login Successful", u.getUserName());
             try
             {
                 MainFrame.cUser = u;
@@ -123,6 +125,7 @@ public class LoginController implements Initializable
         }
         else
         {
+            Logger.logEvent("User Login Failed", "SYSTEM");
             lblLoginError.setVisible(true);
         }
     }
@@ -135,7 +138,7 @@ public class LoginController implements Initializable
     public void btnQuitAction(ActionEvent ae)
     {
         ae.consume();
-
+        Logger.logEvent("System Exit Requested", "SYSTEM");
         MainFrame.saveProperties();
 
         dbManager.dispose();
