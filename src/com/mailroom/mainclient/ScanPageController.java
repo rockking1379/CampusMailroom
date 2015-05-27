@@ -1,8 +1,8 @@
 package com.mailroom.mainclient;
 
+import com.mailroom.common.database.DatabaseManager;
 import com.mailroom.common.objects.Courier;
 import com.mailroom.common.objects.Package;
-import com.mailroom.common.database.DatabaseManager;
 import com.mailroom.common.objects.Stop;
 import com.mailroom.common.objects.User;
 import com.mailroom.common.utils.Logger;

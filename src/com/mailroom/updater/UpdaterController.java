@@ -1,7 +1,7 @@
 package com.mailroom.updater;
 
-import com.mailroom.common.utils.Logger;
 import com.mailroom.common.gui.UpdateChecker;
+import com.mailroom.common.utils.Logger;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import javafx.application.Platform;

@@ -1,8 +1,8 @@
 package com.mailroom.mainclient;
 
-import com.mailroom.common.objects.Package;
 import com.mailroom.common.database.DatabaseManager;
 import com.mailroom.common.gui.PackageEditWindow;
+import com.mailroom.common.objects.Package;
 import com.mailroom.common.objects.User;
 import com.mailroom.common.utils.Logger;
 import com.panemu.tiwulfx.dialog.MessageDialog;
