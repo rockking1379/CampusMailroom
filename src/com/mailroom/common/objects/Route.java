@@ -1,4 +1,4 @@
-package com.mailroom.common;
+package com.mailroom.common.objects;
 
 /**
  * Represents a Route For Stops and Packages

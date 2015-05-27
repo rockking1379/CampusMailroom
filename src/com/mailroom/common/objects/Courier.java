@@ -1,4 +1,4 @@
-package com.mailroom.common;
+package com.mailroom.common.objects;
 
 /**
  * Represents A Courier

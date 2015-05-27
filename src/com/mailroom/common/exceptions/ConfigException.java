@@ -1,4 +1,4 @@
-package com.mailroom.common;
+package com.mailroom.common.exceptions;
 
 /**
  * Represents a Configuration Error In Configuration File <br>

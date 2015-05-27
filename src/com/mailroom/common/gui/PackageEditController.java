@@ -1,5 +1,7 @@
-package com.mailroom.common;
+package com.mailroom.common.gui;
 
+import com.mailroom.common.*;
+import com.mailroom.common.Package;
 import com.mailroom.mainclient.MainFrame;
 import com.mailroom.otherclient.OtherMainFrame;
 import com.panemu.tiwulfx.dialog.MessageDialog;
@@ -21,7 +23,7 @@ import java.util.ResourceBundle;
  */
 public class PackageEditController implements Initializable
 {
-    Package curPackage;
+    com.mailroom.common.Package curPackage;
 
     @FXML
     private Label lblPackageId;
@@ -52,6 +54,7 @@ public class PackageEditController implements Initializable
 
     /**
      * Initializes the controller
+     *
      * @param arg0 not sure
      * @param arg1 still not sure
      */

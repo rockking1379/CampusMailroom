@@ -1,4 +1,7 @@
-package com.mailroom.common;
+package com.mailroom.common.database;
+
+import com.mailroom.common.*;
+import com.mailroom.common.Package;
 
 import java.sql.*;
 import java.text.DateFormat;
@@ -8,12 +11,12 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Database Manager for MySQL Database <br>
+ * A Database Manager for PostgreSQL Server <br>
  * Extends DatabaseManager
  *
  * @author James rockking1379@gmail.com
  */
-public class MysqlManager implements DatabaseManager
+public class PostgreSQLManager implements DatabaseManager
 {
     private static final String packageDrop = "DROP TABLE IF EXISTS Package";
     private static final String userDrop = "DROP TABLE IF EXISTS Users";
@@ -21,71 +24,57 @@ public class MysqlManager implements DatabaseManager
     private static final String courierDrop = "DROP TABLE IF EXISTS Courier";
     private static final String stopDrop = "DROP TABLE IF EXISTS Stop";
     private static final String routeDrop = "DROP TABLE IF EXISTS Route";
-    private static final String routeString = "CREATE TABLE Route(route_id INTEGER PRIMARY KEY AUTO_INCREMENT,route_name VARCHAR(50) NOT NULL,is_used BOOLEAN)";
-    private static final String stopString = "CREATE TABLE Stop(stop_id INTEGER PRIMARY KEY AUTO_INCREMENT,stop_name VARCHAR(50) NOT NULL,route_id INTEGER,is_used BOOLEAN NOT NULL,route_order INTEGER,student BOOLEAN, auto_remove BOoLEAN,FOREIGN KEY(route_id) REFERENCES Route(route_id))";
-    private static final String courierString = "CREATE TABLE Courier(courier_id INTEGER PRIMARY KEY AUTO_INCREMENT,courier_name VARCHAR(50) NOT NULL,is_used BOOLEAN NOT NULL)";
-    private static final String personString = "CREATE TABLE Person(person_id INTEGER PRIMARY KEY AUTO_INCREMENT,id_number VARCHAR(50),email_address VARCHAR(50),first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,box_number VARCHAR(50),stop_id INTEGER,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id))";
-    private static final String userString = "CREATE TABLE Users(user_id INTEGER PRIMARY KEY AUTO_INCREMENT,user_name VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,password INTEGER NOT NULL,administrator BOOLEAN NOT NULL,active BOOLEAN)";
-    private static final String packageString = "CREATE TABLE Package(package_id INTEGER PRIMARY KEY AUTO_INCREMENT,tracking_number VARCHAR(50) NOT NULL,receive_date DATE NOT NULL,email_address VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,box_number VARCHAR(50) NOT NULL,at_stop BOOLEAN NOT NULL,picked_up BOOLEAN NOT NULL,pick_up_date DATE,stop_id INTEGER,courier_id INTEGER,user_id INTEGER,returned BOOLEAN,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id),FOREIGN KEY(courier_id) REFERENCES Courier(courier_id),FOREIGN KEY(user_id) REFERENCES Users(user_id))";
-    private static final String routeInsert = "INSERT INTO Route(route_name, is_used) VALUES('unassigned', 1)";
-    private static final String stopInsert = "INSERT INTO Stop(stop_name,route_id,is_used,route_order,student,auto_remove) VALUES('unassigned',1,1,0,0,0)";
-    private static final String devString = "INSERT INTO Users(user_name, first_name, last_name, password, administrator, active) VALUES('DEV', 'Developer', 'Access', 2145483,1,1);";
+    private static final String routeString = "CREATE TABLE Route(route_id SERIAL PRIMARY KEY,route_name VARCHAR(50) NOT NULL,is_used BOOLEAN)";
+    private static final String stopString = "CREATE TABLE Stop(stop_id SERIAL PRIMARY KEY,stop_name VARCHAR(50) NOT NULL,route_id INTEGER REFERENCES Route(route_id),is_used BOOLEAN NOT NULL,route_order INTEGER,student BOOLEAN, auto_remove BOOLEAN)";
+    private static final String courierString = "CREATE TABLE Courier(courier_id SERIAL PRIMARY KEY,courier_name VARCHAR(50) NOT NULL,is_used BOOLEAN NOT NULL)";
+    private static final String personString = "CREATE TABLE Person(person_id SERIAL PRIMARY KEY,id_number VARCHAR(50),email_address VARCHAR(50),first_name VARCHAR(50),last_name VARCHAR(50),box_number VARCHAR(50),stop_id INTEGER REFERENCES Stop(stop_id))";
+    private static final String userString = "CREATE TABLE Users(user_id SERIAL PRIMARY KEY,user_name VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,password INTEGER NOT NULL,administrator BOOLEAN NOT NULL,active BOOLEAN)";
+    private static final String packageString = "CREATE TABLE Package(package_id SERIAL PRIMARY KEY,tracking_number VARCHAR(50) NOT NULL,receive_date DATE NOT NULL,email_address VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,box_number VARCHAR(50) NOT NULL,at_stop BOOLEAN NOT NULL,picked_up BOOLEAN NOT NULL,pick_up_date DATE,stop_id INTEGER REFERENCES Stop(stop_id),courier_id INTEGER REFERENCES Courier(courier_id),user_id INTEGER REFERENCES Users(user_id),returned BOOLEAN)";
+    private static final String routeInsert = "INSERT INTO Route(route_name, is_used) VALUES('unassigned', TRUE)";
+    private static final String stopInsert = "INSERT INTO Stop(stop_name,route_id,is_used,route_order,student, auto_remove) VALUES('unassigned',1,TRUE,0,0, FALSE)";
+    private static final String devString = "INSERT INTO Users(user_name, first_name, last_name, password, administrator, active) VALUES('DEV', 'Developer', 'Access', 2145483,TRUE,TRUE);";
 
     /**
      * Used in Settings database to identify database manager type to create
      */
-    public static final int dbId = 1;
+    public static final int dbId = 2;
     /**
      * Used in Settings for displaying name
      */
-    public static final String dbName = "1:MySQL";
+    public static final String dbName = "2:PostgreSQL";
 
     private Connection connection;
     private String conString;
+    private String dbUser;
+    private String dbPassword;
 
     private List<Courier> couriers;
     private List<Route> routes;
     private List<Stop> stops;
-    private List<Package> packages;
+    private List<com.mailroom.common.Package> packages;
 
-    /*
-     * Constructs new Database Manager configured for MySQL
-     *
-     * @param dbLocation server address of database
-     *
-     * @param dbUsername username for database server
-     *
-     * @param dbPassword password for database server
-     *
-     * @param dbName name of database
-     */
-    public MysqlManager(String dbLocation, String dbUsername,
-                        String dbPassword, String dbName)
+    public PostgreSQLManager(String dbLocation, String dbUsername,
+                             String dbPassword, String dbName)
     {
-
         try
         {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("org.postgresql.Driver");
         }
         catch (ClassNotFoundException e)
         {
             Logger.logException(e);
-            e.printStackTrace();
         }
 
-        conString = "jdbc:mysql://" + dbLocation + "/" + dbName + "?user="
-                + dbUsername + "&password=" + dbPassword;
+        conString = "jdbc:postgresql://" + dbLocation + "/" + dbName;
+        dbUser = dbUsername;
+        this.dbPassword = dbPassword;
+
         loadRoutes();
         loadStops();
         loadCouriers();
     }
 
     // User Actions//
-    /*
-     * (non-Javadoc)
-	 * 
-	 * @see com.mailroom.common.DatabaseManager#login(java.lang.String, int)
-	 */
     @Override
     public User login(String userName, int password)
     {
@@ -97,7 +86,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmt = connection
-                    .prepareStatement("SELECT * FROM Users WHERE user_name=? AND password=? AND active=1");
+                    .prepareStatement("SELECT * FROM Users WHERE user_name=? AND password=? AND active=TRUE");
             stmt.setQueryTimeout(5);
             stmt.setString(1, userName);
             stmt.setInt(2, password);
@@ -114,6 +103,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
         }
         finally
         {
@@ -134,7 +124,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmt = connection
-                    .prepareStatement("SELECT * FROM Users WHERE user_name=? AND password=? AND active=1");
+                    .prepareStatement("SELECT * FROM Users WHERE user_name=? AND password=? AND active=TRUE");
             stmt.setQueryTimeout(5);
             stmt.setString(1, userName);
             stmt.setBytes(2, password);
@@ -151,6 +141,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
         }
         finally
         {
@@ -169,7 +160,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("INSERT INTO Users(user_name, first_name, last_name, password, administrator, active) VALUES(?,?,?,?,?,1)");
+                    .prepareStatement("INSERT INTO Users(user_name, first_name, last_name, password, administrator, active) VALUES(?,?,?,?,?,TRUE)");
             stmnt.setQueryTimeout(5);
 
             stmnt.setString(1, u.getUserName());
@@ -178,11 +169,19 @@ public class MysqlManager implements DatabaseManager
             stmnt.setBytes(4, password);
             stmnt.setBoolean(5, u.getAdmin());
 
-            return stmnt.executeUpdate() > 0;
+            if (stmnt.executeUpdate() > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             return false;
         }
         finally
@@ -206,11 +205,19 @@ public class MysqlManager implements DatabaseManager
             stmnt.setString(2, u.getUserName());
             stmnt.setBytes(3, oldPassword);
 
-            return stmnt.executeUpdate() > 0;
+            if (stmnt.executeUpdate() > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             return false;
         }
         finally
@@ -234,11 +241,19 @@ public class MysqlManager implements DatabaseManager
             stmnt.setString(2, u.getUserName());
             stmnt.setInt(3, oldPassword);
 
-            return stmnt.executeUpdate() > 0;
+            if (stmnt.executeUpdate() > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             return false;
         }
         finally
@@ -259,11 +274,19 @@ public class MysqlManager implements DatabaseManager
 
             stmnt.setInt(1, u.getUserId());
 
-            retValue = stmnt.executeUpdate() > 0;
+            if (stmnt.executeUpdate() > 0)
+            {
+                retValue = true;
+            }
+            else
+            {
+                retValue = false;
+            }
         }
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             retValue = false;
         }
         finally
@@ -288,11 +311,19 @@ public class MysqlManager implements DatabaseManager
             stmnt.setBoolean(1, status);
             stmnt.setInt(2, u.getUserId());
 
-            retValue = stmnt.executeUpdate() > 0;
+            if (stmnt.executeUpdate() > 0)
+            {
+                retValue = true;
+            }
+            else
+            {
+                retValue = false;
+            }
         }
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             retValue = false;
         }
         finally
@@ -312,16 +343,24 @@ public class MysqlManager implements DatabaseManager
             connect();
 
             PreparedStatement stmnt = connection
-                    .prepareStatement("UPDATE Users SET active=1, password=? WHERE user_id=?");
+                    .prepareStatement("UPDATE Users SET active=TRUE, password=? WHERE user_id=?");
 
             stmnt.setBytes(1, password);
             stmnt.setInt(2, u.getUserId());
 
-            retValue = stmnt.executeUpdate() > 0;
+            if (stmnt.executeUpdate() > 0)
+            {
+                retValue = true;
+            }
+            else
+            {
+                retValue = false;
+            }
         }
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             retValue = false;
         }
         finally
@@ -344,7 +383,7 @@ public class MysqlManager implements DatabaseManager
             Statement stmnt = connection.createStatement();
 
             ResultSet rs = stmnt
-                    .executeQuery("SELECT * FROM Users WHERE active=0");
+                    .executeQuery("SELECT * FROM Users WHERE active=FALSE");
 
             while (rs.next())
             {
@@ -356,6 +395,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
         }
         finally
         {
@@ -377,7 +417,7 @@ public class MysqlManager implements DatabaseManager
             Statement stmnt = connection.createStatement();
 
             ResultSet rs = stmnt
-                    .executeQuery("SELECT * FROM Users WHERE active=1");
+                    .executeQuery("SELECT * FROM Users WHERE active=TRUE");
 
             while (rs.next())
             {
@@ -389,6 +429,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
         }
         finally
         {
@@ -411,18 +452,18 @@ public class MysqlManager implements DatabaseManager
             stmnt.setQueryTimeout(5);
 
             ResultSet rs = stmnt
-                    .executeQuery("SELECT * FROM Stop WHERE is_used=1 ORDER BY stop_name ASC");
+                    .executeQuery("SELECT * FROM Stop WHERE is_used=TRUE ORDER BY stop_name ASC");
 
             while (rs.next())
             {
-                for (Route route : routes)
+                for (int i = 0; i < routes.size(); i++)
                 {
-                    if (route.getRouteId() == rs.getInt("route_id"))
+                    if (routes.get(i).getRouteId() == rs.getInt("route_id"))
                     {
                         stops.add(new Stop(rs.getInt("stop_id"), rs
-                                .getString("stop_name"), route
+                                .getString("stop_name"), routes.get(i)
                                 .getRouteName(), rs.getInt("route_order"), rs
-                                .getBoolean("Student"), rs.getBoolean("auto_remove")));
+                                .getBoolean("student"), rs.getBoolean("auto_remove")));
                     }
                 }
             }
@@ -430,6 +471,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
         }
         finally
         {
@@ -455,6 +497,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             return false;
         }
         finally
@@ -482,6 +525,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             retValue = false;
         }
         finally
@@ -501,7 +545,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("INSERT INTO Stop(stop_name, route_id, is_used, route_order, student) VALUES(?,?,1,?,?)");
+                    .prepareStatement("INSERT INTO Stop(stop_name, route_id, is_used, route_order, student) VALUES(?,?,TRUE,?,?)");
             stmnt.setQueryTimeout(5);
 
             stmnt.setString(1, s.getStopName());
@@ -521,6 +565,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             return false;
         }
         finally
@@ -536,7 +581,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("UPDATE Stop SET is_used=0 WHERE stop_id=?");
+                    .prepareStatement("UPDATE Stop SET is_used=FALSE WHERE stop_id=?");
             stmnt.setQueryTimeout(5);
 
             stmnt.setInt(1, s.getStopId());
@@ -546,6 +591,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             return false;
         }
         finally
@@ -596,13 +642,14 @@ public class MysqlManager implements DatabaseManager
             stmnt.setQueryTimeout(5);
 
             ResultSet rs = stmnt
-                    .executeQuery("SELECT * FROM Stop WHERE route_id=1 AND is_used=1");
+                    .executeQuery("SELECT * FROM Stop WHERE route_id=1 AND is_used=TRUE");
 
             return processStopResult(rs, "unassigned");
         }
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             return null;
         }
         finally
@@ -623,7 +670,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("SELECT * FROM Stop WHERE route_id=? AND is_used=1");
+                    .prepareStatement("SELECT * FROM Stop WHERE route_id=? AND is_used=TRUE");
             stmnt.setQueryTimeout(5);
 
             stmnt.setInt(1, r.getRouteId());
@@ -635,6 +682,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             return null;
         }
         finally
@@ -654,12 +702,13 @@ public class MysqlManager implements DatabaseManager
             {
                 results.add(new Stop(rs.getInt("stop_id"), rs
                         .getString("stop_name"), route_name, rs
-                        .getInt("route_order"), rs.getBoolean("Student")));
+                        .getInt("route_order"), rs.getBoolean("student")));
             }
         }
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             return null;
         }
 
@@ -679,7 +728,7 @@ public class MysqlManager implements DatabaseManager
             stmnt.setQueryTimeout(5);
 
             ResultSet rs = stmnt
-                    .executeQuery("SELECT * FROM Route WHERE is_used=1 ORDER BY route_name ASC;");
+                    .executeQuery("SELECT * FROM Route WHERE is_used=TRUE ORDER BY route_name ASC;");
 
             while (rs.next())
             {
@@ -690,6 +739,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
         }
         finally
         {
@@ -721,6 +771,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             return false;
         }
         finally
@@ -737,7 +788,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("INSERT INTO Route(route_name, is_used) VALUES(?,1)");
+                    .prepareStatement("INSERT INTO Route(route_name, is_used) VALUES(?,TRUE)");
             stmnt.setQueryTimeout(5);
 
             stmnt.setString(1, route_name);
@@ -747,6 +798,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             return false;
         }
         finally
@@ -762,7 +814,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("UPDATE Route SET is_used=0 WHERE route_id=?");
+                    .prepareStatement("UPDATE Route SET is_used=FALSE WHERE route_id=?");
             stmnt.setQueryTimeout(5);
 
             stmnt.setInt(1, r.getRouteId());
@@ -784,6 +836,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             return false;
         }
         finally
@@ -805,7 +858,7 @@ public class MysqlManager implements DatabaseManager
             stmnt.setQueryTimeout(5);
 
             ResultSet rs = stmnt
-                    .executeQuery("SELECT * FROM Courier WHERE is_used=1 ORDER BY courier_name ASC");
+                    .executeQuery("SELECT * FROM Courier WHERE is_used=TRUE ORDER BY courier_name ASC");
 
             while (rs.next())
             {
@@ -816,6 +869,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
         }
         finally
         {
@@ -839,7 +893,7 @@ public class MysqlManager implements DatabaseManager
             connect();
 
             PreparedStatement stmnt = connection
-                    .prepareStatement("INSERT INTO Courier(courier_name, is_used) VALUES(?,1)");
+                    .prepareStatement("INSERT INTO Courier(courier_name, is_used) VALUES(?,TRUE)");
 
             stmnt.setString(1, courier_name);
 
@@ -848,6 +902,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             retValue = false;
         }
         finally
@@ -876,6 +931,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             return false;
         }
         finally
@@ -891,7 +947,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("UPDATE Courier SET is_used=0 WHERE courier_id=?");
+                    .prepareStatement("UPDATE Courier SET is_used=FALSE WHERE courier_id=?");
             stmnt.setQueryTimeout(5);
 
             stmnt.setInt(1, c.getCourierId());
@@ -901,6 +957,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             return false;
         }
         finally
@@ -926,7 +983,7 @@ public class MysqlManager implements DatabaseManager
             stmnt.setQueryTimeout(5);
 
             ResultSet rs = stmnt
-                    .executeQuery("SELECT * FROM Package WHERE picked_up=0 AND returned=0");
+                    .executeQuery("SELECT * FROM Package WHERE picked_up=FALSE AND returned=FALSE");
 
             packages = null;
             packages = processPackageResult(rs);
@@ -934,6 +991,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
         }
         finally
         {
@@ -948,9 +1006,10 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt;
+            ;
 
             stmnt = connection
-                    .prepareStatement("SELECT * FROM Package WHERE picked_up=0 AND returned=0 AND stop_id=?");
+                    .prepareStatement("SELECT * FROM Package WHERE picked_up=FALSE AND returned=FALSE AND stop_id=?");
             stmnt.setInt(1, stopId);
 
             stmnt.setQueryTimeout(5);
@@ -962,6 +1021,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
         }
         finally
         {
@@ -1088,11 +1148,11 @@ public class MysqlManager implements DatabaseManager
             connect();
             PreparedStatement stmnt = connection
                     .prepareStatement("INSERT INTO Package(tracking_number, receive_date, email_address, first_name, last_name, box_number, at_stop, picked_up, stop_id, courier_id, user_id, returned)"
-                            + " VALUES(?,?,?,?,?,?,0,0,?,?,?,0)");
+                            + " VALUES(?,?,?,?,?,?,FALSE,FALSE,?,?,?,FALSE)");
             stmnt.setQueryTimeout(5);
 
             stmnt.setString(1, p.getFullTrackingNumber());
-            stmnt.setString(2, p.getReceivedDate());
+            stmnt.setDate(2, java.sql.Date.valueOf(p.getReceivedDate()));
             stmnt.setString(3, p.getEmailAddress());
             stmnt.setString(4, p.getFirstName());
             stmnt.setString(5, p.getLastName());
@@ -1106,6 +1166,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             return false;
         }
         finally
@@ -1128,12 +1189,12 @@ public class MysqlManager implements DatabaseManager
             if (s.getStudent())
             {
                 stmnt = connection
-                        .prepareStatement("SELECT * FROM Package WHERE receive_date=? AND stop_id=? AND at_stop=0 ORDER BY box_number ASC");
+                        .prepareStatement("SELECT * FROM Package WHERE receive_date=? AND stop_id=? AND at_stop=FALSE ORDER BY box_number ASC");
             }
             else
             {
                 stmnt = connection
-                        .prepareStatement("SELECT * FROM Package WHERE receive_date=? AND stop_id=? AND at_stop=0 ORDER BY last_name ASC, first_name ASC");
+                        .prepareStatement("SELECT * FROM Package WHERE receive_date=? AND stop_id=? AND at_stop=FALSE ORDER BY last_name ASC, first_name ASC");
             }
 
             Date d = new Date();
@@ -1167,7 +1228,7 @@ public class MysqlManager implements DatabaseManager
             connect();
 
             PreparedStatement stmnt = connection
-                    .prepareStatement("SELECT * FROM Package WHERE receive_date=? AND stop_id=? AND at_stop=0");
+                    .prepareStatement("SELECT * FROM Package WHERE receive_date=? AND stop_id=? AND at_stop=FALSE");
 
             Date d = new Date();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -1182,6 +1243,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             result = null;
         }
         finally
@@ -1267,6 +1329,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
         }
 
         return result;
@@ -1311,6 +1374,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
         }
         finally
         {
@@ -1348,7 +1412,7 @@ public class MysqlManager implements DatabaseManager
             }
 
             PreparedStatement stmnt = connection
-                    .prepareStatement("SELECT * FROM Package WHERE tracking_number LIKE ? OR first_name LIKE ? OR last_name LIKE ?  OR box_number LIKE ? ORDER BY package_id DESC");
+                    .prepareStatement("SELECT * FROM Package WHERE tracking_number LIKE ? OR first_name LIKE ? OR last_name LIKE ? OR box_number LIKE ? ORDER BY package_id DESC");
 
             stmnt.setString(1, search);
             stmnt.setString(2, search);
@@ -1362,6 +1426,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
         }
         finally
         {
@@ -1471,6 +1536,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
         }
         finally
         {
@@ -1486,11 +1552,13 @@ public class MysqlManager implements DatabaseManager
     {
         try
         {
-            connection = DriverManager.getConnection(conString);
+            connection = DriverManager.getConnection(conString, dbUser,
+                    dbPassword);
         }
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
         }
     }
 
@@ -1506,6 +1574,7 @@ public class MysqlManager implements DatabaseManager
             catch (SQLException e)
             {
                 Logger.logException(e);
+                e.printStackTrace();
             }
             finally
             {
@@ -1558,6 +1627,7 @@ public class MysqlManager implements DatabaseManager
         catch (SQLException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
             retValue = false;
         }
         finally
@@ -1600,7 +1670,7 @@ public class MysqlManager implements DatabaseManager
         {
             connect();
 
-            PreparedStatement stmnt = connection.prepareStatement("SELECT address_string FROM EmailAddress WHERE stop_id=?");
+            PreparedStatement stmnt = connection.prepareStatement("SELECT address_string FROM EmailAddress WHERE address_id=?");
             stmnt.setInt(1, s.getStopId());
             ResultSet rs = stmnt.executeQuery();
 

@@ -1,5 +1,7 @@
-package com.mailroom.common;
+package com.mailroom.common.gui;
 
+import com.mailroom.common.*;
+import com.mailroom.common.Package;
 import com.mailroom.mainclient.MainFrame;
 import com.mailroom.otherclient.OtherMainFrame;
 import com.panemu.tiwulfx.dialog.MessageDialog;
@@ -46,7 +48,7 @@ public class AdvSearchController implements Initializable
     @FXML
     private TextField txtBoxOffice;
     @FXML
-    private TableView<Package> tblViewTable;
+    private TableView<com.mailroom.common.Package> tblViewTable;
     @FXML
     private Button btnExit;
     @FXML

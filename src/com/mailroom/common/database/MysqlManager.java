@@ -1,4 +1,7 @@
-package com.mailroom.common;
+package com.mailroom.common.database;
+
+import com.mailroom.common.*;
+import com.mailroom.common.Package;
 
 import java.sql.*;
 import java.text.DateFormat;
@@ -8,67 +11,84 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * A Database Manager for SQLite Database <br>
+ * Database Manager for MySQL Database <br>
  * Extends DatabaseManager
  *
  * @author James rockking1379@gmail.com
  */
-public class SQLiteManager implements DatabaseManager
+public class MysqlManager implements DatabaseManager
 {
     private static final String packageDrop = "DROP TABLE IF EXISTS Package";
     private static final String userDrop = "DROP TABLE IF EXISTS Users";
     private static final String personDrop = "DROP TABLE IF EXISTS Person";
     private static final String courierDrop = "DROP TABLE IF EXISTS Courier";
-    private static final String emailDrop = "DROP TABLE IF EXISTS EmailAddress";
     private static final String stopDrop = "DROP TABLE IF EXISTS Stop";
     private static final String routeDrop = "DROP TABLE IF EXISTS Route";
-    private static final String routeString = "CREATE TABLE Route(route_id INTEGER PRIMARY KEY AUTOINCREMENT,route_name VARCHAR(50) NOT NULL,is_used BOOLEAN)";
-    private static final String stopString = "CREATE TABLE Stop(stop_id INTEGER PRIMARY KEY AUTOINCREMENT,stop_name VARCHAR(50) NOT NULL,route_id INTEGER,is_used BOOLEAN NOT NULL,route_order INTEGER,student BOOLEAN,auto_remove BOOLEAN,FOREIGN KEY(route_id) REFERENCES Route(route_id))";
-    private static final String courierString = "CREATE TABLE Courier(courier_id INTEGER PRIMARY KEY AUTOINCREMENT,courier_name VARCHAR(50) NOT NULL,is_used BOOLEAN NOT NULL)";
-    private static final String personString = "CREATE TABLE Person(person_id INTEGER PRIMARY KEY AUTOINCREMENT,id_number VARCHAR(50),email_address VARCHAR(50),first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,box_number VARCHAR(50),stop_id INTEGER,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id))";
-    private static final String userString = "CREATE TABLE Users(user_id INTEGER PRIMARY KEY AUTOINCREMENT,user_name VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,password INTEGER NOT NULL,administrator BOOLEAN NOT NULL,active BOOLEAN)";
-    private static final String packageString = "CREATE TABLE Package(package_id INTEGER PRIMARY KEY AUTOINCREMENT,tracking_number VARCHAR(50) NOT NULL,receive_date DATE NOT NULL,email_address VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,box_number VARCHAR(50) NOT NULL,at_stop BOOLEAN NOT NULL,picked_up BOOLEAN NOT NULL,pick_up_date DATE,stop_id INTEGER,courier_id INTEGER,user_id INTEGER,returned BOOLEAN,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id),FOREIGN KEY(courier_id) REFERENCES Courier(courier_id),FOREIGN KEY(user_id) REFERENCES Users(user_id))";
-    private static final String emailString = "CREATE TABLE EmailAddress(address_id INTEGER PRIMARY KEY, address_string VARCHAR(50), is_used BOOLEAN, stop_id INTEGER, FOREIGN KEY(stop_id) REFERENCES Stop(stop_id));";
+    private static final String routeString = "CREATE TABLE Route(route_id INTEGER PRIMARY KEY AUTO_INCREMENT,route_name VARCHAR(50) NOT NULL,is_used BOOLEAN)";
+    private static final String stopString = "CREATE TABLE Stop(stop_id INTEGER PRIMARY KEY AUTO_INCREMENT,stop_name VARCHAR(50) NOT NULL,route_id INTEGER,is_used BOOLEAN NOT NULL,route_order INTEGER,student BOOLEAN, auto_remove BOoLEAN,FOREIGN KEY(route_id) REFERENCES Route(route_id))";
+    private static final String courierString = "CREATE TABLE Courier(courier_id INTEGER PRIMARY KEY AUTO_INCREMENT,courier_name VARCHAR(50) NOT NULL,is_used BOOLEAN NOT NULL)";
+    private static final String personString = "CREATE TABLE Person(person_id INTEGER PRIMARY KEY AUTO_INCREMENT,id_number VARCHAR(50),email_address VARCHAR(50),first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,box_number VARCHAR(50),stop_id INTEGER,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id))";
+    private static final String userString = "CREATE TABLE Users(user_id INTEGER PRIMARY KEY AUTO_INCREMENT,user_name VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,password INTEGER NOT NULL,administrator BOOLEAN NOT NULL,active BOOLEAN)";
+    private static final String packageString = "CREATE TABLE Package(package_id INTEGER PRIMARY KEY AUTO_INCREMENT,tracking_number VARCHAR(50) NOT NULL,receive_date DATE NOT NULL,email_address VARCHAR(50) NOT NULL,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,box_number VARCHAR(50) NOT NULL,at_stop BOOLEAN NOT NULL,picked_up BOOLEAN NOT NULL,pick_up_date DATE,stop_id INTEGER,courier_id INTEGER,user_id INTEGER,returned BOOLEAN,FOREIGN KEY(stop_id) REFERENCES Stop(stop_id),FOREIGN KEY(courier_id) REFERENCES Courier(courier_id),FOREIGN KEY(user_id) REFERENCES Users(user_id))";
     private static final String routeInsert = "INSERT INTO Route(route_name, is_used) VALUES('unassigned', 1)";
-    private static final String stopInsert = "INSERT INTO Stop(stop_name,route_id,is_used,route_order,student, auto_remove) VALUES('unassigned',1,1,0,0,0)";
+    private static final String stopInsert = "INSERT INTO Stop(stop_name,route_id,is_used,route_order,student,auto_remove) VALUES('unassigned',1,1,0,0,0)";
     private static final String devString = "INSERT INTO Users(user_name, first_name, last_name, password, administrator, active) VALUES('DEV', 'Developer', 'Access', 2145483,1,1);";
 
     /**
-     * Used in config file to identify database manager type to create
+     * Used in Settings database to identify database manager type to create
      */
-    public static final int dbId = 0;
+    public static final int dbId = 1;
     /**
      * Used in Settings for displaying name
      */
-    public static final String dbName = "0:SQLite";
+    public static final String dbName = "1:MySQL";
 
     private Connection connection;
-    private String dbLocation;
+    private String conString;
+
     private List<Courier> couriers;
     private List<Route> routes;
     private List<Stop> stops;
-    private List<Package> packages;
+    private List<com.mailroom.common.Package> packages;
 
-    public SQLiteManager(String dbLocation)
+    /*
+     * Constructs new Database Manager configured for MySQL
+     *
+     * @param dbLocation server address of database
+     *
+     * @param dbUsername username for database server
+     *
+     * @param dbPassword password for database server
+     *
+     * @param dbName name of database
+     */
+    public MysqlManager(String dbLocation, String dbUsername,
+                        String dbPassword, String dbName)
     {
-        dbLocation = dbLocation.replace('\\', '/');
 
-        this.dbLocation = dbLocation;
         try
         {
-            Class.forName("org.sqlite.JDBC");
+            Class.forName("com.mysql.jdbc.Driver");
         }
         catch (ClassNotFoundException e)
         {
             Logger.logException(e);
+            e.printStackTrace();
         }
 
+        conString = "jdbc:mysql://" + dbLocation + "/" + dbName + "?user="
+                + dbUsername + "&password=" + dbPassword;
         loadRoutes();
         loadStops();
         loadCouriers();
     }
 
     // User Actions//
+    /*
+     * (non-Javadoc)
+	 * 
+	 * @see com.mailroom.common.database.DatabaseManager#login(java.lang.String, int)
+	 */
     @Override
     public User login(String userName, int password)
     {
@@ -405,7 +425,7 @@ public class SQLiteManager implements DatabaseManager
                         stops.add(new Stop(rs.getInt("stop_id"), rs
                                 .getString("stop_name"), route
                                 .getRouteName(), rs.getInt("route_order"), rs
-                                .getBoolean("student"), rs.getBoolean("auto_remove")));
+                                .getBoolean("Student"), rs.getBoolean("auto_remove")));
                     }
                 }
             }
@@ -427,12 +447,11 @@ public class SQLiteManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("UPDATE Stop SET student=?, auto_remove=? WHERE stop_id=?");
+                    .prepareStatement("UPDATE Stop SET student=? WHERE stop_id=?");
             stmnt.setQueryTimeout(5);
 
             stmnt.setBoolean(1, s.getStudent());
-            stmnt.setBoolean(2, s.getAutoRemove());
-            stmnt.setInt(3, s.getStopId());
+            stmnt.setInt(2, s.getStopId());
 
             return stmnt.executeUpdate() > 0;
         }
@@ -607,7 +626,7 @@ public class SQLiteManager implements DatabaseManager
         {
             connect();
             PreparedStatement stmnt = connection
-                    .prepareStatement("SELECT * FROM Stop WHERE route_id=? AND is_used=1 ORDER BY route_order ASC");
+                    .prepareStatement("SELECT * FROM Stop WHERE route_id=? AND is_used=1");
             stmnt.setQueryTimeout(5);
 
             stmnt.setInt(1, r.getRouteId());
@@ -628,7 +647,6 @@ public class SQLiteManager implements DatabaseManager
     }
 
     @Override
-
     public List<Stop> processStopResult(ResultSet rs, String route_name)
     {
         List<Stop> results = new ArrayList<Stop>();
@@ -639,8 +657,7 @@ public class SQLiteManager implements DatabaseManager
             {
                 results.add(new Stop(rs.getInt("stop_id"), rs
                         .getString("stop_name"), route_name, rs
-                        .getInt("route_order"), rs.getBoolean("student"),
-                        rs.getBoolean("auto_remove")));
+                        .getInt("route_order"), rs.getBoolean("Student")));
             }
         }
         catch (SQLException e)
@@ -1209,7 +1226,7 @@ public class SQLiteManager implements DatabaseManager
                     {
                         stop = new Stop(s.getInt("stop_id"),
                                 s.getString("stop_name"), "Unknown", 0,
-                                s.getBoolean("student"), s.getBoolean("auto_remove"));
+                                s.getBoolean("student"));
                     }
                 }
 
@@ -1334,7 +1351,7 @@ public class SQLiteManager implements DatabaseManager
             }
 
             PreparedStatement stmnt = connection
-                    .prepareStatement("SELECT * FROM Package WHERE tracking_number LIKE ? OR first_name LIKE ? OR last_name LIKE ? OR box_number LIKE ?ORDER BY package_id DESC");
+                    .prepareStatement("SELECT * FROM Package WHERE tracking_number LIKE ? OR first_name LIKE ? OR last_name LIKE ?  OR box_number LIKE ? ORDER BY package_id DESC");
 
             stmnt.setString(1, search);
             stmnt.setString(2, search);
@@ -1472,8 +1489,7 @@ public class SQLiteManager implements DatabaseManager
     {
         try
         {
-            connection = DriverManager.getConnection("jdbc:sqlite:"
-                    + dbLocation);
+            connection = DriverManager.getConnection(conString);
         }
         catch (SQLException e)
         {
@@ -1524,7 +1540,6 @@ public class SQLiteManager implements DatabaseManager
             stmnt.execute(userDrop);
             stmnt.execute(personDrop);
             stmnt.execute(courierDrop);
-            stmnt.execute(emailDrop);
             stmnt.execute(stopDrop);
             stmnt.execute(routeDrop);
             stmnt.execute(routeString);
@@ -1533,7 +1548,6 @@ public class SQLiteManager implements DatabaseManager
             stmnt.execute(personString);
             stmnt.execute(userString);
             stmnt.execute(packageString);
-            stmnt.execute(emailString);
             stmnt.execute(routeInsert);
             stmnt.execute(stopInsert);
 
@@ -1589,7 +1603,7 @@ public class SQLiteManager implements DatabaseManager
         {
             connect();
 
-            PreparedStatement stmnt = connection.prepareStatement("SELECT address_string FROM EmailAddress WHERE stop_id=? AND is_used=1");
+            PreparedStatement stmnt = connection.prepareStatement("SELECT address_string FROM EmailAddress WHERE stop_id=?");
             stmnt.setInt(1, s.getStopId());
             ResultSet rs = stmnt.executeQuery();
 
@@ -1622,10 +1636,11 @@ public class SQLiteManager implements DatabaseManager
         {
             connect();
 
-            PreparedStatement stmnt = connection.prepareStatement("INSERT INTO EmailAddress(address_string, is_used, stop_id) VALUES (?,1,?)");
+            PreparedStatement stmnt = connection.prepareStatement("INSERT INTO EmailAddress(address_string, is_used, stop_id) VALUES (?,?,?)");
 
             stmnt.setString(1, address);
-            stmnt.setInt(2, s.getStopId());
+            stmnt.setBoolean(2, true);
+            stmnt.setInt(3, s.getStopId());
 
             return stmnt.execute();
         }

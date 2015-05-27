@@ -1,4 +1,4 @@
-package com.mailroom.common;
+package com.mailroom.common.objects;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

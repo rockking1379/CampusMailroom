@@ -1,4 +1,4 @@
-package com.mailroom.common;
+package com.mailroom.common.utils;
 
 import java.io.*;
 import java.sql.Connection;

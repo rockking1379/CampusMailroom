@@ -1,4 +1,6 @@
-package com.mailroom.common;
+package com.mailroom.common.cleaners;
+
+import com.mailroom.common.Logger;
 
 import java.io.File;
 import java.util.ArrayList;

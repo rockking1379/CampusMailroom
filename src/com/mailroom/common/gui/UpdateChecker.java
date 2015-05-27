@@ -1,8 +1,10 @@
-package com.mailroom.common;
+package com.mailroom.common.gui;
 
+import com.mailroom.common.Logger;
 import com.mailroom.mainclient.MainFrame;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
@@ -11,8 +13,6 @@ import org.controlsfx.control.Notifications;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
-import javafx.event.ActionEvent;
 
 import java.awt.*;
 import java.io.*;
@@ -61,7 +61,7 @@ public class UpdateChecker implements Runnable
 
             int response = con.getResponseCode();
 
-            switch(response)
+            switch (response)
             {
                 case HttpURLConnection.HTTP_OK:
                 {
@@ -80,7 +80,7 @@ public class UpdateChecker implements Runnable
 
                     String newVersion = versionMaker(objects);
 
-                    if(!curVersion.equals(newVersion))
+                    if (!curVersion.equals(newVersion))
                     {
                         Logger.logEvent("Update Checking Complete! Updates Available", "UPDATER");
 
@@ -122,7 +122,7 @@ public class UpdateChecker implements Runnable
                 }
             }
         }
-        catch(MalformedURLException mue)
+        catch (MalformedURLException mue)
         {
             Logger.logException(mue);
         }
@@ -138,9 +138,9 @@ public class UpdateChecker implements Runnable
         {
             Logger.logException(e);
         }
-        catch(UnsupportedClassVersionError error)
+        catch (UnsupportedClassVersionError error)
         {
-            if(MainFrame.stage != null)
+            if (MainFrame.stage != null)
             {
                 MessageDialog.Answer answer = MessageDialogBuilder.info()
                         .message("A Newer Version is Availabe\nUpgrade Now?")
@@ -155,11 +155,11 @@ public class UpdateChecker implements Runnable
                 }
             }
         }
-        catch(IllegalStateException e)
+        catch (IllegalStateException e)
         {
             //ignore this
         }
-        catch(NullPointerException e)
+        catch (NullPointerException e)
         {
             //ignore this too
         }
@@ -173,7 +173,7 @@ public class UpdateChecker implements Runnable
             String systemName = System.getProperty("os.name");
             MainFrame.saveProperties();
 
-            if(systemName.equalsIgnoreCase("linux"))
+            if (systemName.equalsIgnoreCase("linux"))
             {
                 ProcessBuilder pb = new ProcessBuilder("java", "-jar", f.getCanonicalPath());
                 pb.directory(new File("."));
@@ -186,7 +186,7 @@ public class UpdateChecker implements Runnable
 
             System.exit(0);
         }
-        catch(IOException e)
+        catch (IOException e)
         {
             Logger.logException(e);
             MessageDialogBuilder.error()
@@ -201,9 +201,9 @@ public class UpdateChecker implements Runnable
     {
         String res = "";
 
-        for(int i=0; i<values.length; i++)
+        for (int i = 0; i < values.length; i++)
         {
-            if(i < values.length - 1)
+            if (i < values.length - 1)
             {
                 res += String.valueOf(values[i]) + ".";
             }

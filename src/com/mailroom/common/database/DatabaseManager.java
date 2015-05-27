@@ -1,4 +1,7 @@
-package com.mailroom.common;
+package com.mailroom.common.database;
+
+import com.mailroom.common.*;
+import com.mailroom.common.Package;
 
 import java.sql.ResultSet;
 import java.util.List;
@@ -300,7 +303,7 @@ public interface DatabaseManager
      *
      * @return List of Loaded Packages
      */
-    List<Package> getPackages();
+    List<com.mailroom.common.Package> getPackages();
 
     /**
      * Loads All Packages Packages should not be delivered nor picked up
