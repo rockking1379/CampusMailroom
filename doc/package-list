@@ -1,4 +1,9 @@
-com.mailroom.common
+com.mailroom.common.cleaners
+com.mailroom.common.database
+com.mailroom.common.exceptions
+com.mailroom.common.gui
+com.mailroom.common.objects
+com.mailroom.common.utils
 com.mailroom.mainclient
 com.mailroom.otherclient
 com.mailroom.updater

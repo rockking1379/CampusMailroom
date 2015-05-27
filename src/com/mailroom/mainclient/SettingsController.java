@@ -1,6 +1,14 @@
 package com.mailroom.mainclient;
 
-import com.mailroom.common.*;
+import com.mailroom.common.database.DatabaseManager;
+import com.mailroom.common.database.MysqlManager;
+import com.mailroom.common.database.PostgreSQLManager;
+import com.mailroom.common.database.SQLiteManager;
+import com.mailroom.common.objects.Courier;
+import com.mailroom.common.objects.Route;
+import com.mailroom.common.objects.Stop;
+import com.mailroom.common.objects.User;
+import com.mailroom.common.utils.Logger;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import javafx.collections.ObservableList;
@@ -10,8 +18,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -23,7 +31,6 @@ import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.lang.management.ManagementFactory;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -567,7 +574,7 @@ public class SettingsController implements Initializable
                 File f = new File("./Richardson Hall.jar");
                 String systemName = System.getProperty("os.name");
 
-                if(systemName.equalsIgnoreCase("linux"))
+                if (systemName.equalsIgnoreCase("linux"))
                 {
                     ProcessBuilder pb = new ProcessBuilder("java", "-jar", f.getCanonicalPath());
                     pb.directory(new File("."));

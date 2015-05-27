@@ -5,7 +5,7 @@
 <AnchorPane id="AnchorPane" fx:id="apaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" onKeyPressed="#keyPressAction" prefHeight="600.0" prefWidth="800.0"
             style="-fx-background-color: #01A217" xmlns:fx="http://javafx.com/fxml/1"
-            xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.common.AdvSearchController">
+            xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.common.gui.AdvSearchController">
     <children>
         <TableView fx:id="tblViewTable" layoutX="161.0" layoutY="14.0" onKeyPressed="#keyPressAction"
                    onMouseClicked="#tblMouseClickAction" prefHeight="572.0" prefWidth="625.0"/>

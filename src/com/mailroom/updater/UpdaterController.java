@@ -1,7 +1,7 @@
 package com.mailroom.updater;
 
-import com.mailroom.common.Logger;
-import com.mailroom.common.UpdateChecker;
+import com.mailroom.common.utils.Logger;
+import com.mailroom.common.gui.UpdateChecker;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import javafx.application.Platform;
@@ -68,7 +68,7 @@ public class UpdaterController implements Initializable
         btnUpdate.setVisible(false);
         btnExit.setVisible(false);
 
-        Platform.runLater(new updater());
+        Platform.runLater(new Updater());
     }
 
     /**
@@ -84,9 +84,8 @@ public class UpdaterController implements Initializable
         {
             File f = new File("./Richardson Hall.jar");
             String systemName = System.getProperty("os.name");
-            System.out.println(systemName);
 
-            if(systemName.equalsIgnoreCase("linux"))
+            if (systemName.equalsIgnoreCase("linux"))
             {
                 ProcessBuilder pb = new ProcessBuilder("java", "-jar", f.getCanonicalPath());
                 pb.directory(new File("."));
@@ -111,7 +110,7 @@ public class UpdaterController implements Initializable
      *
      * @author James
      */
-    private class updater implements Runnable
+    private class Updater implements Runnable
     {
         /**
          * Main Updater Method <br>
@@ -184,7 +183,7 @@ public class UpdaterController implements Initializable
                                 jObject = (JSONObject) obj;
                                 data = (JSONObject) jObject.get("data");
                                 JSONArray files = (JSONArray) data.get("files");
-                                for (int i=0;i<files.size();i++)
+                                for (int i = 0; i < files.size(); i++)
                                 {
                                     String fileName = files.get(i).toString();
                                     String urlFileName = fileName.replace(" ", "%20");

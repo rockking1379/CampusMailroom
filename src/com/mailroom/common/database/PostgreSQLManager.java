@@ -1,7 +1,8 @@
 package com.mailroom.common.database;
 
-import com.mailroom.common.*;
-import com.mailroom.common.Package;
+import com.mailroom.common.objects.*;
+import com.mailroom.common.objects.Package;
+import com.mailroom.common.utils.Logger;
 
 import java.sql.*;
 import java.text.DateFormat;
@@ -51,7 +52,7 @@ public class PostgreSQLManager implements DatabaseManager
     private List<Courier> couriers;
     private List<Route> routes;
     private List<Stop> stops;
-    private List<com.mailroom.common.Package> packages;
+    private List<Package> packages;
 
     public PostgreSQLManager(String dbLocation, String dbUsername,
                              String dbPassword, String dbName)

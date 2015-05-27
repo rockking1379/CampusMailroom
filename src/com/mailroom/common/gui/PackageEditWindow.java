@@ -1,7 +1,7 @@
 package com.mailroom.common.gui;
 
-import com.mailroom.common.*;
-import com.mailroom.common.Package;
+import com.mailroom.common.objects.Package;
+import com.mailroom.common.utils.Logger;
 import com.mailroom.mainclient.MainFrame;
 import com.mailroom.otherclient.OtherMainFrame;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +22,7 @@ import java.io.IOException;
 public class PackageEditWindow extends Window
 {
     Stage stg;
-    static com.mailroom.common.Package curPackage;
+    static com.mailroom.common.objects.Package curPackage;
     static Button actionButton;
     static Window win;
 

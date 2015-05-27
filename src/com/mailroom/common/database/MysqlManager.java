@@ -1,7 +1,8 @@
 package com.mailroom.common.database;
 
-import com.mailroom.common.*;
-import com.mailroom.common.Package;
+import com.mailroom.common.objects.Package;
+import com.mailroom.common.objects.*;
+import com.mailroom.common.utils.Logger;
 
 import java.sql.*;
 import java.text.DateFormat;
@@ -49,7 +50,7 @@ public class MysqlManager implements DatabaseManager
     private List<Courier> couriers;
     private List<Route> routes;
     private List<Stop> stops;
-    private List<com.mailroom.common.Package> packages;
+    private List<com.mailroom.common.objects.Package> packages;
 
     /*
      * Constructs new Database Manager configured for MySQL

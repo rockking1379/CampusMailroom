@@ -1,13 +1,19 @@
 package com.mailroom.mainclient;
 
-import com.mailroom.common.*;
+import com.mailroom.common.database.DatabaseManager;
+import com.mailroom.common.database.MysqlManager;
+import com.mailroom.common.database.PostgreSQLManager;
+import com.mailroom.common.database.SQLiteManager;
+import com.mailroom.common.objects.Stop;
+import com.mailroom.common.objects.User;
+import com.mailroom.common.utils.Logger;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
@@ -15,7 +21,6 @@ import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.lang.management.ManagementFactory;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -607,7 +612,7 @@ public class SetupController implements Initializable
                 String systemName = System.getProperty("os.name");
                 System.out.println(systemName);
 
-                if(systemName.equalsIgnoreCase("linux"))
+                if (systemName.equalsIgnoreCase("linux"))
                 {
                     ProcessBuilder pb = new ProcessBuilder("java", "-jar", f.getCanonicalPath());
                     pb.directory(new File("."));

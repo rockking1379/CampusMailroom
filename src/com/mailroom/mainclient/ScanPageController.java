@@ -1,7 +1,11 @@
 package com.mailroom.mainclient;
 
-import com.mailroom.common.*;
-import com.mailroom.common.Package;
+import com.mailroom.common.objects.Courier;
+import com.mailroom.common.objects.Package;
+import com.mailroom.common.database.DatabaseManager;
+import com.mailroom.common.objects.Stop;
+import com.mailroom.common.objects.User;
+import com.mailroom.common.utils.Logger;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import javafx.event.ActionEvent;

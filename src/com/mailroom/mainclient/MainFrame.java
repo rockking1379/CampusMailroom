@@ -1,6 +1,14 @@
 package com.mailroom.mainclient;
 
-import com.mailroom.common.*;
+import com.mailroom.common.cleaners.PrintCleaner;
+import com.mailroom.common.database.DatabaseManager;
+import com.mailroom.common.database.MysqlManager;
+import com.mailroom.common.database.PostgreSQLManager;
+import com.mailroom.common.database.SQLiteManager;
+import com.mailroom.common.exceptions.ConfigException;
+import com.mailroom.common.gui.PackageEditWindow;
+import com.mailroom.common.objects.User;
+import com.mailroom.common.utils.Logger;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import javafx.application.Application;

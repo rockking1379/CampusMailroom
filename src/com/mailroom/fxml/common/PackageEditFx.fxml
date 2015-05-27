@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressedAction" prefHeight="600.0" prefWidth="256.0" style="-fx-background-color: #01A217" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.common.PackageEditController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressedAction" prefHeight="600.0" prefWidth="256.0" style="-fx-background-color: #01A217" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.common.gui.PackageEditController">
   <children>
     <TextField fx:id="txtTrackingNumber" layoutX="14.0" layoutY="44.0" prefHeight="25.0" prefWidth="228.0" promptText="Tracking Number" />
     <Label fx:id="lblPackageId" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="227.99990000000253" text="Package ID" textAlignment="CENTER" />

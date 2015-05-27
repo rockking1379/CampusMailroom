@@ -1,6 +1,6 @@
 package com.mailroom.common.gui;
 
-import com.mailroom.common.Logger;
+import com.mailroom.common.utils.Logger;
 import com.mailroom.mainclient.MainFrame;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
