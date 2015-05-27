@@ -96,7 +96,7 @@ public class UpdateChecker implements Runnable
                             {
                                 ae.consume();
 
-                                //begin upgrade
+                                launchUpdater();
                             }
                         });
                         notificationBuilder.owner(stg);
@@ -169,7 +169,22 @@ public class UpdateChecker implements Runnable
     {
         try
         {
-            Desktop.getDesktop().open(new File("./Updater.jar"));
+            File f = new File("./Updater.jar");
+            String systemName = System.getProperty("os.name");
+            MainFrame.saveProperties();
+
+            if(systemName.equalsIgnoreCase("linux"))
+            {
+                ProcessBuilder pb = new ProcessBuilder("java", "-jar", f.getCanonicalPath());
+                pb.directory(new File("."));
+                pb.start();
+            }
+            else
+            {
+                Desktop.getDesktop().open(f);
+            }
+
+            System.exit(0);
         }
         catch(IOException e)
         {

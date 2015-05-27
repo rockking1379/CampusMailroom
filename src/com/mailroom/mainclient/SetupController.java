@@ -7,9 +7,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
@@ -260,10 +263,10 @@ public class SetupController implements Initializable
                             .show(MainFrame.stage.getScene().getWindow());
                     return;
                 }
-//                dbManager = new MysqlManager(txtDbSetupDbLocation.getText(),
-//                        txtDbSetupDbUsername.getText(),
-//                        pwdDbSetupDbPassword.getText(),
-//                        txtDbSetupDbName.getText());
+                dbManager = new MysqlManager(txtDbSetupDbLocation.getText(),
+                        txtDbSetupDbUsername.getText(),
+                        pwdDbSetupDbPassword.getText(),
+                        txtDbSetupDbName.getText());
                 break;
             }
             case 2:
@@ -300,11 +303,11 @@ public class SetupController implements Initializable
                             .show(MainFrame.stage.getScene().getWindow());
                     return;
                 }
-//                dbManager = new PostgreSQLManager(
-//                        txtDbSetupDbLocation.getText(),
-//                        txtDbSetupDbUsername.getText(),
-//                        pwdDbSetupDbPassword.getText(),
-//                        txtDbSetupDbName.getText());
+                dbManager = new PostgreSQLManager(
+                        txtDbSetupDbLocation.getText(),
+                        txtDbSetupDbUsername.getText(),
+                        pwdDbSetupDbPassword.getText(),
+                        txtDbSetupDbName.getText());
                 break;
             }
             default:
@@ -597,26 +600,23 @@ public class SetupController implements Initializable
 
         if (restart == MessageDialog.Answer.YES_OK)
         {
-            StringBuilder cmd = new StringBuilder();
-            cmd.append(System.getProperty("java.home") + File.separator + "bin"
-                    + File.separator + "java ");
-            for (String jvmArg : ManagementFactory.getRuntimeMXBean()
-                    .getInputArguments())
-            {
-                cmd.append(jvmArg + " ");
-            }
-            cmd.append("-cp ")
-                    .append(ManagementFactory.getRuntimeMXBean().getClassPath())
-                    .append(" ");
-            cmd.append(MainFrame.class.getName()).append(" ");
-            for (String arg : MainFrame.pubArgs)
-            {
-                cmd.append(arg).append(" ");
-            }
             try
             {
                 dbManager.dispose();
-                Runtime.getRuntime().exec(cmd.toString());
+                File f = new File("./Richardson Hall.jar");
+                String systemName = System.getProperty("os.name");
+                System.out.println(systemName);
+
+                if(systemName.equalsIgnoreCase("linux"))
+                {
+                    ProcessBuilder pb = new ProcessBuilder("java", "-jar", f.getCanonicalPath());
+                    pb.directory(new File("."));
+                    pb.start();
+                }
+                else
+                {
+                    Desktop.getDesktop().open(f);
+                }
             }
             catch (IOException e)
             {

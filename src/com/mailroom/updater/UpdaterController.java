@@ -84,6 +84,7 @@ public class UpdaterController implements Initializable
         {
             File f = new File("./Richardson Hall.jar");
             String systemName = System.getProperty("os.name");
+            System.out.println(systemName);
 
             if(systemName.equalsIgnoreCase("linux"))
             {

@@ -11,11 +11,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
@@ -557,25 +562,21 @@ public class SettingsController implements Initializable
 
         if (restart == MessageDialog.Answer.YES_OK)
         {
-            StringBuilder cmd = new StringBuilder();
-            cmd.append(System.getProperty("java.home") + File.separator + "bin"
-                    + File.separator + "java ");
-            for (String jvmArg : ManagementFactory.getRuntimeMXBean()
-                    .getInputArguments())
-            {
-                cmd.append(jvmArg + " ");
-            }
-            cmd.append("-cp ")
-                    .append(ManagementFactory.getRuntimeMXBean().getClassPath())
-                    .append(" ");
-            cmd.append(MainFrame.class.getName()).append(" ");
-            for (String arg : MainFrame.pubArgs)
-            {
-                cmd.append(arg).append(" ");
-            }
             try
             {
-                Runtime.getRuntime().exec(cmd.toString());
+                File f = new File("./Richardson Hall.jar");
+                String systemName = System.getProperty("os.name");
+
+                if(systemName.equalsIgnoreCase("linux"))
+                {
+                    ProcessBuilder pb = new ProcessBuilder("java", "-jar", f.getCanonicalPath());
+                    pb.directory(new File("."));
+                    pb.start();
+                }
+                else
+                {
+                    Desktop.getDesktop().open(f);
+                }
             }
             catch (IOException e)
             {
