@@ -83,7 +83,18 @@ public class UpdaterController implements Initializable
         try
         {
             File f = new File("./Richardson Hall.jar");
-            Desktop.getDesktop().open(f);
+            String systemName = System.getProperty("os.name");
+
+            if(systemName.equalsIgnoreCase("linux"))
+            {
+                ProcessBuilder pb = new ProcessBuilder("java", "-jar", f.getCanonicalPath());
+                pb.directory(new File("."));
+                pb.start();
+            }
+            else
+            {
+                Desktop.getDesktop().open(f);
+            }
         }
         catch (IOException e)
         {
