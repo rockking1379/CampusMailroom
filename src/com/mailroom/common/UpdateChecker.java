@@ -28,7 +28,7 @@ import java.util.Properties;
  */
 public class UpdateChecker implements Runnable
 {
-    private static final String serverAddress = "http://72.166.198.214";
+    private static final String serverAddress = "http://update.codegeekhosting.me";
     private static final int serverPort = 3000;
     private static final String productGuid = "ADAMSMAIL";
 
