@@ -1,18 +1,22 @@
 package com.mailroom.updater;
 
 import com.mailroom.common.Logger;
+import com.mailroom.common.UpdateChecker;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.awt.*;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -57,13 +61,14 @@ public class UpdaterController implements Initializable
     public void btnUpdateAction(ActionEvent ae)
     {
         ae.consume();
-        pindicatorProgress.setProgress(-1);
+//        pindicatorProgress.setProgress(-1);
         lblDownload.setVisible(true);
         lblWaiting.setVisible(true);
         lblFinished.setVisible(false);
+        btnUpdate.setVisible(false);
         btnExit.setVisible(false);
 
-        new updater();
+        Platform.runLater(new updater());
     }
 
     /**
@@ -75,7 +80,17 @@ public class UpdaterController implements Initializable
     {
         ae.consume();
         pindicatorProgress.setProgress(1);
-        System.exit(1);
+        try
+        {
+            File f = new File("./Richardson Hall.jar");
+            Desktop.getDesktop().open(f);
+        }
+        catch (IOException e)
+        {
+            Logger.logException(e);
+        }
+
+        System.exit(0);
     }
 
     /**
@@ -86,17 +101,6 @@ public class UpdaterController implements Initializable
      */
     private class updater implements Runnable
     {
-        private Thread t;
-
-        /**
-         * Constructor
-         */
-        public updater()
-        {
-            t = new Thread(this);
-            t.start();
-        }
-
         /**
          * Main Updater Method <br>
          * Where all real logic happens
@@ -118,12 +122,14 @@ public class UpdaterController implements Initializable
                     // Once done, move on to remote file retrieval/processing
                     try
                     {
-                        URL url = new URL(
-                                "http://minecraft.math.adams.edu/ptracker/version.php");
+                        String sUrl = UpdateChecker.getServerAddress()
+                                + ":" + String.valueOf(UpdateChecker.getServerPort());
+
+                        URL url = new URL(sUrl + "/products/" + UpdateChecker.getProductGuid());
                         HttpURLConnection con = (HttpURLConnection) url
                                 .openConnection();
                         con.setRequestMethod("GET");
-                        con.setRequestProperty("Accept", "txt/plain");
+                        con.setRequestProperty("Accept", "application/json");
                         con.connect();
 
                         int response = con.getResponseCode();
@@ -138,25 +144,23 @@ public class UpdaterController implements Initializable
                                         con.getInputStream());
                                 BufferedReader br = new BufferedReader(isr);
                                 String json = br.readLine();
-
                                 JSONParser parser = new JSONParser();
-
                                 Object obj = parser.parse(json);
-                                JSONObject version = (JSONObject) obj;
+                                JSONObject jObject = (JSONObject) obj;
+                                JSONObject data = (JSONObject) jObject.get("data");
+                                JSONObject version = (JSONObject) data.get("version");
 
-                                String availVersion = version.get("major")
-                                        + "." + version.get("minor") + "."
-                                        + version.get("revision");
+                                Object[] objects = {version.get("major"), version.get("minor"), version.get("revision")};
+                                String availVersion = UpdateChecker.versionMaker(objects);
                                 br.close();
                                 isr.close();
                                 con.disconnect();
 
-                                url = new URL(
-                                        "http://minecraft.math.adams.edu/ptracker/"
-                                                + availVersion + "/files.php");
+                                url = new URL(sUrl + "/files/" + UpdateChecker.getProductGuid()
+                                        + "/" + availVersion);
                                 con = (HttpURLConnection) url.openConnection();
                                 con.setRequestMethod("GET");
-                                con.setRequestProperty("Accept", "txt/plain");
+                                con.setRequestProperty("Accept", "application/json");
                                 con.connect();
 
                                 isr = new InputStreamReader(
@@ -165,19 +169,14 @@ public class UpdaterController implements Initializable
                                 json = br.readLine();
 
                                 obj = parser.parse(json);
-                                JSONObject files = (JSONObject) obj;
-
-                                int fileCount = Integer.valueOf(files.get(
-                                        "filecount").toString());
-
-                                for (int i = 0; i < fileCount; i++)
+                                jObject = (JSONObject) obj;
+                                data = (JSONObject) jObject.get("data");
+                                JSONArray files = (JSONArray) data.get("files");
+                                for (int i=0;i<files.size();i++)
                                 {
-                                    String fileName = files.get(
-                                            String.valueOf(i)).toString();
-                                    URL jar = new URL(
-                                            "http://minecraft.math.adams.edu/ptracker/"
-                                                    + availVersion + "/"
-                                                    + fileName);
+                                    String fileName = files.get(i).toString();
+                                    String urlFileName = fileName.replace(" ", "%20");
+                                    URL jar = new URL(sUrl + "/files/" + UpdateChecker.getProductGuid() + "/" + availVersion + "/" + urlFileName);
                                     ReadableByteChannel rbc = Channels
                                             .newChannel(jar.openStream());
                                     FileOutputStream fos = new FileOutputStream(
@@ -186,11 +185,11 @@ public class UpdaterController implements Initializable
                                             Long.MAX_VALUE);
                                     fos.close();
                                     rbc.close();
+
+                                    pindicatorProgress.setProgress((double) i / (double) files.size());
                                 }
 
                                 properties.setProperty("VERSION", availVersion);
-                                properties.setProperty("BUILD",
-                                        version.get("build").toString());
 
                                 FileOutputStream oStream = new FileOutputStream(
                                         prop);

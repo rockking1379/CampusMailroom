@@ -47,7 +47,7 @@ public class Logger
                 java.sql.PreparedStatement stmnt = con
                         .prepareStatement("INSERT INTO Error(error_time, error_message, error_stacktrace) VALUES(?,?,?)");
 
-                stmnt.setString(1, sDate);
+                stmnt.setString(1, String.valueOf(d.getTime()));
                 stmnt.setString(2, ex.getMessage());
                 Writer stackTrace = new StringWriter();
                 PrintWriter pWriter = new PrintWriter(stackTrace);

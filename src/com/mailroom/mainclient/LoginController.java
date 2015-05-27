@@ -2,7 +2,9 @@ package com.mailroom.mainclient;
 
 import com.mailroom.common.DatabaseManager;
 import com.mailroom.common.Logger;
+import com.mailroom.common.UpdateChecker;
 import com.mailroom.common.User;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,7 +53,7 @@ public class LoginController implements Initializable
     {
         Logger.logEvent("Loading Login Screen", "SYSTEM");
         dbManager = MainFrame.dbManager;
-
+        Platform.runLater(new UpdateChecker(MainFrame.stage));
         imgLogo.setImage(MainFrame.imageLogo);
     }
 
