@@ -1,7 +1,7 @@
 package com.mailroom.mainclient;
 
 import com.mailroom.common.database.DatabaseManager;
-import com.mailroom.common.gui.UpdateChecker;
+import com.mailroom.common.utils.UpdateChecker;
 import com.mailroom.common.objects.User;
 import com.mailroom.common.utils.Logger;
 import javafx.application.Platform;

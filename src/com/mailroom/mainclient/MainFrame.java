@@ -1,5 +1,6 @@
 package com.mailroom.mainclient;
 
+import com.mailroom.common.cleaners.LogCleaner;
 import com.mailroom.common.cleaners.PrintCleaner;
 import com.mailroom.common.database.DatabaseManager;
 import com.mailroom.common.database.MysqlManager;
@@ -202,7 +203,7 @@ public class MainFrame extends Application
             this.stage.setScene(scene);
             this.stage.setTitle("Login");
             this.stage.show();
-
+            new LogCleaner();
             editWindow = new PackageEditWindow();
             editWindow.show(null, null);
             editWindow.hide();
