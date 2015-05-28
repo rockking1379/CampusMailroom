@@ -1,4 +1,4 @@
-package com.mailroom.common.gui;
+package com.mailroom.common.utils;
 
 import com.mailroom.common.utils.Logger;
 import com.mailroom.mainclient.MainFrame;
