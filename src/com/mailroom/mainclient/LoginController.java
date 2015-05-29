@@ -1,9 +1,9 @@
 package com.mailroom.mainclient;
 
 import com.mailroom.common.database.DatabaseManager;
-import com.mailroom.common.utils.UpdateChecker;
 import com.mailroom.common.objects.User;
 import com.mailroom.common.utils.Logger;
+import com.mailroom.common.utils.UpdateChecker;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

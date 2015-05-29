@@ -9,7 +9,6 @@ import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Cleans Log files
  * Sends away to dev IF there are entries in Error table
- *
+ * <p/>
  * Created by james on 5/28/15.
  */
 public class LogCleaner implements Runnable
@@ -62,7 +61,7 @@ public class LogCleaner implements Runnable
             emailProps.put("mail.smtp.port", MainFrame.properties.get("EMAILPORT"));
             Session session;
 
-            if(MainFrame.properties.getProperty("EMAILAUTHREQ").equalsIgnoreCase("false"))
+            if (MainFrame.properties.getProperty("EMAILAUTHREQ").equalsIgnoreCase("false"))
             {
                 emailProps.put("mail.smtp.auth", "false");
                 session = Session.getDefaultInstance(emailProps);
@@ -92,77 +91,70 @@ public class LogCleaner implements Runnable
 
             ArrayList<File> toDelete = new ArrayList<File>();
 
-            for (File f : logDir.listFiles())
+            File[] files = logDir.listFiles();
+
+            if (files != null)
             {
-                if(!today.before(new Date(f.lastModified())))
+                for (File f : files)
                 {
-                    if (toOld.after(new Date(f.lastModified())))
+                    if (!today.before(new Date(f.lastModified())))
                     {
-                        toDelete.add(f);
-                    }
-                    else
-                    {
-                        if (MainFrame.properties != null)
+                        if (toOld.after(new Date(f.lastModified())))
                         {
-                            if (Boolean.valueOf(MainFrame.properties.getProperty("EMAILENABLE")))
+                            toDelete.add(f);
+                        }
+                        else
+                        {
+                            if (MainFrame.properties != null)
                             {
-                                //make connection
-                                //check for errors
-                                //email
-                                try
+                                if (Boolean.valueOf(MainFrame.properties.getProperty("EMAILENABLE")))
                                 {
-                                    Connection connection = DriverManager.getConnection("jdbc:sqlite:"
-                                            + f.getCanonicalPath());
-
-                                    Statement stmnt = connection.createStatement();
-                                    ResultSet rs = stmnt.executeQuery("SELECT count(error_id) AS c FROM Error");
-
-                                    rs.next();
-                                    if (rs.getInt("c") > 0)
+                                    try
                                     {
-                                        DataSource source = new FileDataSource(f.getCanonicalPath());
-                                        bodyPart.setDataHandler(new DataHandler(source));
-                                        bodyPart.setFileName(f.getName());
-                                        multipart.addBodyPart(bodyPart);
+                                        Connection connection = DriverManager.getConnection("jdbc:sqlite:"
+                                                + f.getCanonicalPath());
 
-                                        message.setContent(multipart);
+                                        Statement stmnt = connection.createStatement();
+                                        ResultSet rs = stmnt.executeQuery("SELECT count(error_id) AS c FROM Error");
+
+                                        rs.next();
+                                        if (rs.getInt("c") > 0)
+                                        {
+                                            DataSource source = new FileDataSource(f.getCanonicalPath());
+                                            bodyPart.setDataHandler(new DataHandler(source));
+                                            bodyPart.setFileName(f.getName());
+                                            multipart.addBodyPart(bodyPart);
+
+                                            message.setContent(multipart);
+                                        }
+
+                                        toDelete.add(f);
                                     }
-
-                                    toDelete.add(f);
-                                }
-                                catch (SQLException e)
-                                {
-                                    Logger.logException(e);
-                                }
-                                catch (IOException e)
-                                {
-                                    Logger.logException(e);
-                                }
-                                catch (AddressException e)
-                                {
-                                    Logger.logException(e);
-                                }
-                                catch (MessagingException e)
-                                {
-                                    Logger.logException(e);
+                                    catch (SQLException e)
+                                    {
+                                        Logger.logException(e);
+                                    }
+                                    catch (IOException e)
+                                    {
+                                        Logger.logException(e);
+                                    }
                                 }
                             }
                         }
                     }
                 }
+
+                Transport.send(message);
             }
-
-            Transport.send(message);
-
-            for(File f : toDelete)
+            for (File f : toDelete)
             {
-                if(f.delete())
+                if (f.delete())
                 {
                     Logger.logEvent("Log " + f.getName() + " Deleted", "LOGCLEANER");
                 }
             }
         }
-        catch(NullPointerException npe)
+        catch (NullPointerException npe)
         {
             Logger.logException(npe);
         }
@@ -172,7 +164,7 @@ public class LogCleaner implements Runnable
         }
         catch (MessagingException e)
         {
-            e.printStackTrace();
+            Logger.logException(e);
         }
     }
 }
