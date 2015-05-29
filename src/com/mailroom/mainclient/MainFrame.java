@@ -224,11 +224,14 @@ public class MainFrame extends Application
                 File propFile = new File("./configuration.properties");
                 if (!propFile.exists())
                 {
-                    propFile.createNewFile();
+                    if (propFile.createNewFile())
+                    {
+
+                        FileOutputStream oStream = new FileOutputStream(propFile);
+                        properties.store(oStream, "System Configuration");
+                        oStream.close();
+                    }
                 }
-                FileOutputStream oStream = new FileOutputStream(propFile);
-                properties.store(oStream, "System Configuration");
-                oStream.close();
             }
             catch (IOException e)
             {
