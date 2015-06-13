@@ -128,7 +128,7 @@ public class LoginController implements Initializable
         }
         else
         {
-            Logger.logEvent("User Login Failed", "SYSTEM");
+            Logger.logEvent("User Login Failed", txtUserName.getText());
             lblLoginError.setVisible(true);
         }
     }
