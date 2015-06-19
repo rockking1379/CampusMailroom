@@ -144,6 +144,7 @@ public class LogCleaner implements Runnable
                     }
                 }
 
+                Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
                 Transport.send(message);
             }
             for (File f : toDelete)
