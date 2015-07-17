@@ -1,19 +1,19 @@
 package com.mailroom.common.cleaners;
 
+import com.mailroom.common.database.LogManager;
 import com.mailroom.common.utils.Logger;
-import com.mailroom.mainclient.MainFrame;
+import org.json.simple.JSONObject;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import javax.mail.*;
-import javax.mail.internet.*;
 import java.io.File;
 import java.io.IOException;
-import java.sql.*;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -28,8 +28,9 @@ public class LogCleaner implements Runnable
      * Maximum Age of a Log file <br>
      * Measured in Days
      */
-    static final int maxAge = 3;
-    static final String devEmail = "rockking1379@gmail.com";
+    static final int MAX_AGE = 3;
+    static final String ERROR_SERVER_ADDRESS = "http://localhost";
+    static final int ERROR_SERVER_PORT = 65000;
 
     public LogCleaner()
     {
@@ -51,44 +52,10 @@ public class LogCleaner implements Runnable
         File logDir = new File("./Logs");
         Date today = new Date();
         today = new Date(today.getTime() - TimeUnit.DAYS.toMillis(1));
-        Date toOld = new Date(today.getTime() - TimeUnit.DAYS.toMillis(maxAge));
+        Date toOld = new Date(today.getTime() - TimeUnit.DAYS.toMillis(MAX_AGE));
 
         try
         {
-            Properties emailProps = new Properties();
-            emailProps.put("mail.smtp.starttls.enable", "true");
-            emailProps.put("mail.smtp.host", MainFrame.properties.get("EMAILHOST"));
-            emailProps.put("mail.smtp.port", MainFrame.properties.get("EMAILPORT"));
-            Session session;
-
-            if (MainFrame.properties.getProperty("EMAILAUTHREQ").equalsIgnoreCase("false"))
-            {
-                emailProps.put("mail.smtp.auth", "false");
-                session = Session.getDefaultInstance(emailProps);
-            }
-            else
-            {
-                emailProps.put("mail.smtp.auth", "true");
-                session = Session.getInstance(emailProps, new Authenticator()
-                {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication()
-                    {
-                        return new PasswordAuthentication(MainFrame.properties.getProperty("EMAILUSERNAME"), MainFrame.properties.getProperty("EMAILPASSWORD"));
-                    }
-                });
-            }
-
-            MimeMessage message = new MimeMessage(session);
-            Address[] a = {new InternetAddress(MainFrame.properties.getProperty("EMAILREPLYTO"))};
-            message.setReplyTo(a);
-            message.setSubject("Mailroom Errors Occurred");
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(devEmail));
-
-            MimeMultipart multipart = new MimeMultipart();
-            MimeBodyPart bodyPart = new MimeBodyPart();
-            bodyPart.setText("Attached is a log file containing errors");
-
             ArrayList<File> toDelete = new ArrayList<File>();
 
             File[] files = logDir.listFiles();
@@ -105,47 +72,23 @@ public class LogCleaner implements Runnable
                         }
                         else
                         {
-                            if (MainFrame.properties != null)
+                            try
                             {
-                                if (Boolean.valueOf(MainFrame.properties.getProperty("EMAILENABLE")))
+                                //create a manager for this log
+                                LogManager logManager = new LogManager(f.getCanonicalPath());
+                                //check if errors exist in log (events will always exist)
+                                if(logManager.countErrors() > 0)
                                 {
-                                    try
-                                    {
-                                        Connection connection = DriverManager.getConnection("jdbc:sqlite:"
-                                                + f.getCanonicalPath());
-
-                                        Statement stmnt = connection.createStatement();
-                                        ResultSet rs = stmnt.executeQuery("SELECT count(error_id) AS c FROM Error");
-
-                                        rs.next();
-                                        if (rs.getInt("c") > 0)
-                                        {
-                                            DataSource source = new FileDataSource(f.getCanonicalPath());
-                                            bodyPart.setDataHandler(new DataHandler(source));
-                                            bodyPart.setFileName(f.getName());
-                                            multipart.addBodyPart(bodyPart);
-
-                                            message.setContent(multipart);
-                                        }
-
-                                        toDelete.add(f);
-                                    }
-                                    catch (SQLException e)
-                                    {
-                                        Logger.logException(e);
-                                    }
-                                    catch (IOException e)
-                                    {
-                                        Logger.logException(e);
-                                    }
+                                    new LogSender(logManager);
                                 }
+                            }
+                            catch (IOException ioe)
+                            {
+                                Logger.logException(ioe);
                             }
                         }
                     }
                 }
-
-                Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-                Transport.send(message);
             }
             for (File f : toDelete)
             {
@@ -159,13 +102,46 @@ public class LogCleaner implements Runnable
         {
             Logger.logException(npe);
         }
-        catch (AddressException e)
+    }
+
+    private class LogSender implements Runnable
+    {
+        LogManager logManager;
+        public LogSender(LogManager logManager)
         {
-            Logger.logException(e);
+            this.logManager = logManager;
+            new Thread(this).start();
         }
-        catch (MessagingException e)
+
+        @Override
+        public void run()
         {
-            Logger.logException(e);
+            try
+            {
+                JSONObject log = logManager.toJSON();URL url = new URL(ERROR_SERVER_ADDRESS + ":" + ERROR_SERVER_PORT);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setDoOutput(true);
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setRequestProperty("Content-Length", String.valueOf(log.toString().length()));
+                OutputStream os = conn.getOutputStream();
+                os.write(log.toString().getBytes());
+                os.flush();
+                os.close();
+
+                if(conn.getResponseCode() != 200)
+                {
+                    Logger.logException(new Exception("Error Submitting Log to Server"));
+                }
+                else
+                {
+                    new File(logManager.getLogLocation()).delete();
+                }
+            }
+            catch(IOException ioe)
+            {
+                Logger.logException(ioe);
+            }
         }
     }
 }
