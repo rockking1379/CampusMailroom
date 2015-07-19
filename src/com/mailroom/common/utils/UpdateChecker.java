@@ -27,9 +27,9 @@ import java.util.Properties;
  */
 public class UpdateChecker implements Runnable
 {
-    private static final String serverAddress = "http://update.codegeekhosting.me";
-    private static final int serverPort = 3000;
-    private static final String productGuid = "ADAMSMAIL";
+    private static final String SERVER_ADDRESS = "http://update.codegeekhosting.me";
+    private static final int SERVER_PORT = 3000;
+    private static final String PRODUCT_GUID = "ADAMSMAIL";
 
     private Stage stg;
 
@@ -49,7 +49,7 @@ public class UpdateChecker implements Runnable
             FileInputStream fStream = new FileInputStream(prop);
             properties.load(fStream);
 
-            String address = serverAddress + ":" + String.valueOf(serverPort) + "/products/" + productGuid;
+            String address = SERVER_ADDRESS + ":" + String.valueOf(SERVER_PORT) + "/products/" + PRODUCT_GUID;
 
             URL url = new URL(address);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -217,16 +217,16 @@ public class UpdateChecker implements Runnable
 
     public static String getProductGuid()
     {
-        return productGuid;
+        return PRODUCT_GUID;
     }
 
     public static String getServerAddress()
     {
-        return serverAddress;
+        return SERVER_ADDRESS;
     }
 
     public static int getServerPort()
     {
-        return serverPort;
+        return SERVER_PORT;
     }
 }

@@ -7,11 +7,8 @@ import org.json.simple.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -29,7 +26,7 @@ public class LogCleaner implements Runnable
      * Measured in Days
      */
     static final int MAX_AGE = 3;
-    static final String ERROR_SERVER_ADDRESS = "http://localhost";
+    static final String ERROR_SERVER_ADDRESS = "http://error.codegeekhosting.me";
     static final int ERROR_SERVER_PORT = 65000;
 
     public LogCleaner()
