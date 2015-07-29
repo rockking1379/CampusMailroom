@@ -53,6 +53,7 @@ public class LogCleaner implements Runnable
 
         try
         {
+            Logger.logEvent("Reading Log Directory", "LOGCLEANER");
             ArrayList<File> toDelete = new ArrayList<File>();
 
             File[] files = logDir.listFiles();
@@ -71,6 +72,7 @@ public class LogCleaner implements Runnable
                         {
                             try
                             {
+                                Logger.logEvent("Found Log Needs Sending", "LOGCLEANER");
                                 //create a manager for this log
                                 LogManager logManager = new LogManager(f.getCanonicalPath());
                                 //check if errors exist in log (events will always exist)
@@ -132,6 +134,7 @@ public class LogCleaner implements Runnable
                 }
                 else
                 {
+                    Logger.logEvent("Log Submitted! Deleting Log!", "LOGCLEANER");
                     new File(logManager.getLogLocation()).delete();
                 }
             }
