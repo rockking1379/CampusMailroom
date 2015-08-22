@@ -30,7 +30,7 @@ public class UpdateChecker implements Runnable
     private static final String SERVER_ADDRESS = "http://update.codegeekhosting.me";
     private static final int SERVER_PORT = 3000;
     private static final String PRODUCT_GUID = "ADAMSMAIL";
-
+    Version version = new Version();
     private Stage stg;
 
     public UpdateChecker(Stage stg)
@@ -44,11 +44,6 @@ public class UpdateChecker implements Runnable
         Logger.logEvent("Checking For Updates", "UPDATER");
         try
         {
-            Properties properties = new Properties();
-            File prop = new File("./configuration.properties");
-            FileInputStream fStream = new FileInputStream(prop);
-            properties.load(fStream);
-
             String address = SERVER_ADDRESS + ":" + String.valueOf(SERVER_PORT) + "/products/" + PRODUCT_GUID;
 
             URL url = new URL(address);
@@ -64,7 +59,7 @@ public class UpdateChecker implements Runnable
             {
                 case HttpURLConnection.HTTP_OK:
                 {
-                    String curVersion = properties.getProperty("VERSION");
+                    String curVersion = version.getVersion();
 
                     InputStreamReader isr = new InputStreamReader(con.getInputStream());
                     BufferedReader br = new BufferedReader(isr);

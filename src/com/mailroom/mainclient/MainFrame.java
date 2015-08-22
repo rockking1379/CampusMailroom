@@ -52,6 +52,7 @@ public class MainFrame extends Application
      * Software Configuration Properties
      */
     public static Properties properties = null;
+
     /**
      * Logo Image to be displayed in Login
      */

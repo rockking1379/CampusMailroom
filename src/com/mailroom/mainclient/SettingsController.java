@@ -9,6 +9,7 @@ import com.mailroom.common.objects.Route;
 import com.mailroom.common.objects.Stop;
 import com.mailroom.common.objects.User;
 import com.mailroom.common.utils.Logger;
+import com.mailroom.common.utils.Version;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import javafx.collections.ObservableList;
@@ -350,8 +351,8 @@ public class SettingsController implements Initializable
         lblUserId.textProperty().set(
                 "User ID: " + String.valueOf(MainFrame.cUser.getUserId()));
 
-        lblAboutVersion.setText("Version: " + prefs.getProperty("VERSION")
-                + " Build " + prefs.getProperty("BUILD"));
+        Version version = new Version();
+        lblAboutVersion.setText("Version: " + version.getVersion());
 
         lviewRouteOnRoute.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE);
