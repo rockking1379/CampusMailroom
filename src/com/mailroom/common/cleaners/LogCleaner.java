@@ -130,7 +130,7 @@ public class LogCleaner implements Runnable
 
                 if(conn.getResponseCode() != 200)
                 {
-                    Logger.logException(new Exception("Error Submitting Log to Server"));
+                    Logger.logException(new Exception("Error Submitting Log to Server\nReceived Status Code: " + String.valueOf(conn.getResponseCode())));
                 }
                 else
                 {
