@@ -1,6 +1,7 @@
 package com.mailroom.mainclient;
 
 import com.mailroom.common.database.DatabaseManager;
+import com.mailroom.common.database.DatabaseManagerFactory;
 import com.mailroom.common.objects.User;
 import com.mailroom.common.utils.Logger;
 import com.mailroom.common.utils.UpdateChecker;
@@ -52,7 +53,7 @@ public class LoginController implements Initializable
     public void initialize(URL arg0, ResourceBundle arg1)
     {
         Logger.logEvent("Loading Login Screen", "SYSTEM");
-        dbManager = MainFrame.dbManager;
+        dbManager = DatabaseManagerFactory.getInstance();
         Platform.runLater(new UpdateChecker(MainFrame.stage));
         imgLogo.setImage(MainFrame.imageLogo);
     }

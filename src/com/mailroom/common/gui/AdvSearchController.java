@@ -1,6 +1,7 @@
 package com.mailroom.common.gui;
 
 import com.mailroom.common.database.DatabaseManager;
+import com.mailroom.common.database.DatabaseManagerFactory;
 import com.mailroom.common.objects.Package;
 import com.mailroom.mainclient.MainFrame;
 import com.mailroom.otherclient.OtherMainFrame;
@@ -149,14 +150,7 @@ public class AdvSearchController implements Initializable
         endDate.setDisable(true);
         apaneAnchor.getChildren().add(endDate);
 
-        if (MainFrame.dbManager != null)
-        {
-            this.dbManager = MainFrame.dbManager;
-        }
-        else
-        {
-            this.dbManager = OtherMainFrame.dbManager;
-        }
+        dbManager = DatabaseManagerFactory.getInstance();
 
         if (MainFrame.stage != null)
         {

@@ -1,9 +1,6 @@
 package com.mailroom.mainclient;
 
-import com.mailroom.common.database.DatabaseManager;
-import com.mailroom.common.database.MysqlManager;
-import com.mailroom.common.database.PostgreSQLManager;
-import com.mailroom.common.database.SQLiteManager;
+import com.mailroom.common.database.*;
 import com.mailroom.common.objects.Courier;
 import com.mailroom.common.objects.Route;
 import com.mailroom.common.objects.Stop;
@@ -258,7 +255,7 @@ public class SettingsController implements Initializable
     {
         MainFrame.stage.setTitle("Settings");
 
-        this.dbManager = MainFrame.dbManager;
+        this.dbManager = DatabaseManagerFactory.getInstance();
         this.prefs = MainFrame.properties;
 
         cboxDatabaseType.getItems().clear();

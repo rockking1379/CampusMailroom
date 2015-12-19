@@ -1,6 +1,7 @@
 package com.mailroom.mainclient;
 
 import com.mailroom.common.database.DatabaseManager;
+import com.mailroom.common.database.DatabaseManagerFactory;
 import com.mailroom.common.gui.PackageEditWindow;
 import com.mailroom.common.objects.Package;
 import com.mailroom.common.objects.User;
@@ -72,7 +73,7 @@ public class OpenPageController implements Initializable
         MainFrame.stage.setTitle("Main Page");
 
         cUser = MainFrame.cUser;
-        dbManager = MainFrame.dbManager;
+        dbManager = DatabaseManagerFactory.getInstance();
 
         String name = "Welcome " + cUser.getFirstName() + " "
                 + cUser.getLastName();

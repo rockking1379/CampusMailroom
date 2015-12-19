@@ -1,5 +1,6 @@
 package com.mailroom.common.gui;
 
+import com.mailroom.common.database.DatabaseManagerFactory;
 import com.mailroom.common.objects.Courier;
 import com.mailroom.common.objects.Package;
 import com.mailroom.common.objects.Stop;
@@ -64,33 +65,16 @@ public class PackageEditController implements Initializable
     {
         curPackage = PackageEditWindow.getPackage();
 
-        if (MainFrame.stage != null)
+        cboxStops.getItems().clear();
+        for (Stop s : DatabaseManagerFactory.getInstance().getStops())
         {
-            cboxStops.getItems().clear();
-            for (Stop s : MainFrame.dbManager.getStops())
-            {
-                cboxStops.getItems().add(s);
-            }
-
-            cboxCourier.getItems().clear();
-            for (Courier c : MainFrame.dbManager.getCouriers())
-            {
-                cboxCourier.getItems().add(c);
-            }
+            cboxStops.getItems().add(s);
         }
-        if (OtherMainFrame.stage != null)
-        {
-            cboxStops.getItems().clear();
-            for (Stop s : OtherMainFrame.dbManager.getStops())
-            {
-                cboxStops.getItems().add(s);
-            }
 
-            cboxCourier.getItems().clear();
-            for (Courier c : OtherMainFrame.dbManager.getCouriers())
-            {
-                cboxCourier.getItems().add(c);
-            }
+        cboxCourier.getItems().clear();
+        for (Courier c : DatabaseManagerFactory.getInstance().getCouriers())
+        {
+            cboxCourier.getItems().add(c);
         }
 
         if (curPackage != null)
@@ -118,7 +102,7 @@ public class PackageEditController implements Initializable
     public void btnSaveAction(ActionEvent ae)
     {
         ae.consume();
-        if (MainFrame.dbManager.updatePackage(new Package(curPackage
+        if (DatabaseManagerFactory.getInstance().updatePackage(new Package(curPackage
                 .getPackageId(), txtTrackingNumber.getText(), curPackage
                 .getReceivedDate(), txtEmailAddress.getText(), txtFirstName
                 .getText(), txtLastName.getText(), txtBoxOffice.getText(),

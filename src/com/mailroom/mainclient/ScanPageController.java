@@ -1,6 +1,7 @@
 package com.mailroom.mainclient;
 
 import com.mailroom.common.database.DatabaseManager;
+import com.mailroom.common.database.DatabaseManagerFactory;
 import com.mailroom.common.objects.Courier;
 import com.mailroom.common.objects.Package;
 import com.mailroom.common.objects.Stop;
@@ -77,7 +78,7 @@ public class ScanPageController implements Initializable
         lblDate.setText(format.format(now));
 
         cUser = MainFrame.cUser;
-        dbManager = MainFrame.dbManager;
+        dbManager = DatabaseManagerFactory.getInstance();
 
         cboxStops.getItems().clear();
         cboxCourier.getItems().clear();

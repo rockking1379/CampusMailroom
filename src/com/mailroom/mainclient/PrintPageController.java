@@ -1,6 +1,7 @@
 package com.mailroom.mainclient;
 
 import com.mailroom.common.database.DatabaseManager;
+import com.mailroom.common.database.DatabaseManagerFactory;
 import com.mailroom.common.objects.Package;
 import com.mailroom.common.objects.Route;
 import com.mailroom.common.objects.Stop;
@@ -60,7 +61,7 @@ public class PrintPageController implements Initializable
     @Override
     public void initialize(URL arg0, ResourceBundle arg1)
     {
-        this.dbManager = MainFrame.dbManager;
+        this.dbManager = DatabaseManagerFactory.getInstance();
         Logger.logEvent("Loading Printing Screen", "SYSTEM");
         dbManager.loadRoutes();
 

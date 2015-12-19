@@ -1,9 +1,6 @@
 package com.mailroom.otherclient;
 
-import com.mailroom.common.database.DatabaseManager;
-import com.mailroom.common.database.MysqlManager;
-import com.mailroom.common.database.PostgreSQLManager;
-import com.mailroom.common.database.SQLiteManager;
+import com.mailroom.common.database.*;
 import com.mailroom.common.exceptions.ConfigException;
 import com.mailroom.common.gui.PackageEditWindow;
 import com.mailroom.common.utils.Logger;
@@ -28,7 +25,6 @@ import java.util.Properties;
  */
 public class OtherMainFrame extends Application
 {
-    public static DatabaseManager dbManager;
     /**
      * Package Edit Window for Program Instance
      */
@@ -51,88 +47,35 @@ public class OtherMainFrame extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
-        try
+        if(DatabaseManagerFactory.getInstance() == null)
         {
-            properties = new Properties();
-            File propFile = new File("./configuration.properties");
-
-            if (propFile.exists())
-            {
-                FileInputStream file = new FileInputStream(propFile);
-                properties.load(file);
-
-                switch (Integer.valueOf(properties.getProperty("DBTYPE")))
-                {
-                    case SQLiteManager.dbId:
-                    {
-                        dbManager = new SQLiteManager(
-                                properties.getProperty("DATABASE"));
-                        break;
-                    }
-                    case MysqlManager.dbId:
-                    {
-                        dbManager = new MysqlManager(
-                                properties.getProperty("DATABASE"),
-                                properties.getProperty("USERNAME"),
-                                properties.getProperty("PASSWORD"),
-                                properties.getProperty("DBNAME"));
-                        break;
-                    }
-                    case PostgreSQLManager.dbId:
-                    {
-                        dbManager = new PostgreSQLManager(
-                                properties.getProperty("DATABASE"),
-                                properties.getProperty("USERNAME"),
-                                properties.getProperty("PASSWORD"),
-                                properties.getProperty("DBNAME"));
-                        break;
-                    }
-                    default:
-                    {
-                        throw new ConfigException(
-                                "Configuration Error\nUnknown Database Type");
-                    }
-                }
-
-                file.close();
-            }
-            else
-            {
-                MessageDialogBuilder
-                        .error()
-                        .message(
-                                "No Config Found!\nPlease Run Other Program First")
-                        .buttonType(MessageDialog.ButtonType.OK).show(null);
-                System.exit(-1);
-            }
-        }
-        catch (IOException e)
-        {
-            Logger.logException(e);
+            MessageDialogBuilder
+                    .error()
+                    .message(
+                            "No Configuration or Bad Configuration Found!\nPlease Run Main Program First")
+                    .buttonType(MessageDialog.ButtonType.OK).show(null);
             System.exit(-1);
         }
-        catch (ConfigException e)
+        else
         {
-            Logger.logException(e);
+            editWindow = new PackageEditWindow();
+
+            OtherMainFrame.stage = stage;
+            OtherMainFrame.stage.getIcons().add(
+                    new Image(getClass().getResourceAsStream(
+                            "/com/mailroom/resources/Icon.png")));
+            OtherMainFrame.stage.setResizable(false);
+            OtherMainFrame.stage.centerOnScreen();
+            Parent root = FXMLLoader.load(getClass().getResource(
+                    "/com/mailroom/fxml/otherclient/MainPageFx.fxml"));
+            Scene scene = new Scene(root, 800, 600);
+            OtherMainFrame.stage.setScene(scene);
+            OtherMainFrame.stage.setTitle("Main Page");
+
+            editWindow.show(null, null);
+            editWindow.hide();
+
+            OtherMainFrame.stage.show();
         }
-
-        editWindow = new PackageEditWindow();
-
-        OtherMainFrame.stage = stage;
-        OtherMainFrame.stage.getIcons().add(
-                new Image(getClass().getResourceAsStream(
-                        "/com/mailroom/resources/Icon.png")));
-        OtherMainFrame.stage.setResizable(false);
-        OtherMainFrame.stage.centerOnScreen();
-        Parent root = FXMLLoader.load(getClass().getResource(
-                "/com/mailroom/fxml/otherclient/MainPageFx.fxml"));
-        Scene scene = new Scene(root, 800, 600);
-        OtherMainFrame.stage.setScene(scene);
-        OtherMainFrame.stage.setTitle("Main Page");
-
-        editWindow.show(null, null);
-        editWindow.hide();
-
-        OtherMainFrame.stage.show();
     }
 }
