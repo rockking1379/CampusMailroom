@@ -1,6 +1,7 @@
 package com.mailroom.otherclient;
 
 import com.mailroom.common.database.DatabaseManager;
+import com.mailroom.common.database.DatabaseManagerFactory;
 import com.mailroom.common.gui.PackageEditWindow;
 import com.mailroom.common.objects.Package;
 import com.mailroom.common.objects.Stop;
@@ -65,7 +66,7 @@ public class MainPageController implements Initializable
     @Override
     public void initialize(URL arg0, ResourceBundle arg1)
     {
-        dbManager = OtherMainFrame.dbManager;
+        dbManager = DatabaseManagerFactory.getInstance();
 
         // Columns
         TextColumn<Package> clmnFirstName;

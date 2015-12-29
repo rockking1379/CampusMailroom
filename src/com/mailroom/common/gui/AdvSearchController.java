@@ -342,7 +342,7 @@ public class AdvSearchController implements Initializable
     public void btnExitAction(ActionEvent ae)
     {
         ae.consume();
-        if (MainFrame.dbManager != null)
+        if (MainFrame.stage != null)
         {
             try
             {
