@@ -61,7 +61,7 @@ public interface DatabaseManager
      * Allows a User to Login into System
      * Only called from MainClient
      *
-     * @param username username of user
+     * @param userName username of user
      * @param password MessageDigest used for password
      * @return returns a valud user on success or with user_id=-1 on failure
      */
