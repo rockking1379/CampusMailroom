@@ -1,0 +1,32 @@
+################
+##Version: 1.2##
+################
+
+##Database Manager##
+-Connections required to database has been minimized
+##ETL##
+-Nothing in this update.
+-Next update will be minor and will change the order
+of the routine to better match how Comp Serv delivers it
+##Update Viewer##
+-Nothing new here
+-Update files will still be deleted after
+being viewed one time by either client
+##Bugs##
+-Known bug with the Tracking Number issue
+-Believed to be caused by calling to many
+searches when conducting Adv Search
+##Package Scanning##
+-If a first name is given, a last name must as well
+-If a last name is given, a first name must as well
+-If neither names are given they are filled in with 'DEPARTMENT'
+##Main Screen##
+-New Menu Item under File
+-Can now simply Logout
+##Printing##
+-Stops with no Packages are not printed
+-Removed the '=====' from printing
+-Moved Date from with the Stop to by the Route
+-
+##Other Notes##
+-As usual write down issues and how to recreate
