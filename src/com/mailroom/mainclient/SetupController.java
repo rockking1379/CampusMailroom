@@ -1,11 +1,11 @@
 package com.mailroom.mainclient;
 
 import com.mailroom.common.database.DatabaseManager;
-import com.mailroom.common.database.MysqlManager;
+import com.mailroom.common.database.MySQLManager;
 import com.mailroom.common.database.PostgreSQLManager;
 import com.mailroom.common.database.SQLiteManager;
-import com.mailroom.common.objects.Stop;
-import com.mailroom.common.objects.User;
+import com.mailroom.common.objects.DbUser;
+import com.mailroom.common.objects.DbStop;
 import com.mailroom.common.utils.Logger;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
@@ -88,7 +88,7 @@ public class SetupController implements Initializable
     @FXML
     private Button btnAccSetupNext;
 
-    // Courier Setup//
+    // DbCourier Setup//
     @FXML
     private TextField txtCourierSetupCourierName;
     @FXML
@@ -96,7 +96,7 @@ public class SetupController implements Initializable
     @FXML
     private Button btnCourierSetupNext;
 
-    // Stop Setup//
+    // DbStop Setup//
     @FXML
     private TextField txtStopSetupStopName;
     @FXML
@@ -110,9 +110,11 @@ public class SetupController implements Initializable
     @Override
     public void initialize(URL arg0, ResourceBundle arg1)
     {
+        MainFrame.stage.getScene().getStylesheets().add(getClass().getResource("/com/mailroom/resources/default.css").toString());
+
         cboxDbSetupDbType.getItems().clear();
         cboxDbSetupDbType.getItems().add(SQLiteManager.dbName);
-        cboxDbSetupDbType.getItems().add(MysqlManager.dbName);
+        cboxDbSetupDbType.getItems().add(MySQLManager.dbName);
         cboxDbSetupDbType.getItems().add(PostgreSQLManager.dbName);
 
         pbarProgress.setProgress(0.25);
@@ -174,7 +176,7 @@ public class SetupController implements Initializable
     }
 
     /**
-     * Allows User to Browse for SQLite Database File
+     * Allows DbUser to Browse for SQLite Database File
      *
      * @param ae ActionEvent from OS
      */
@@ -268,7 +270,7 @@ public class SetupController implements Initializable
                             .show(MainFrame.stage.getScene().getWindow());
                     return;
                 }
-                dbManager = new MysqlManager(txtDbSetupDbLocation.getText(),
+                dbManager = new MySQLManager(txtDbSetupDbLocation.getText(),
                         txtDbSetupDbUsername.getText(),
                         pwdDbSetupDbPassword.getText(),
                         txtDbSetupDbName.getText());
@@ -348,7 +350,7 @@ public class SetupController implements Initializable
                 MessageDialog.Answer dev = MessageDialogBuilder
                         .confirmation()
                         .message(
-                                "Insert Dev User?\nThis is a backdoor that can be used by the developers if active!")
+                                "Insert Dev DbUser?\nThis is a backdoor that can be used by the developers if active!")
                         .buttonType(MessageDialog.ButtonType.YES_NO)
                         .yesOkButtonText("Yes").noButtonText("No!")
                         .show(MainFrame.stage.getScene().getWindow());
@@ -396,7 +398,7 @@ public class SetupController implements Initializable
     // Account Setup//
 
     /**
-     * Adds User to Database
+     * Adds DbUser to Database
      *
      * @param ae ActionEvent from OS
      */
@@ -428,14 +430,14 @@ public class SetupController implements Initializable
                     String combineOutput = new HexBinaryAdapter().marshal(userOutput) + new HexBinaryAdapter().marshal(pwdOutput);
                     password = digest.digest(combineOutput.getBytes());
                     if (dbManager.addUser(
-                            new User(-1, txtAccSetupUserName.getText(),
+                            new DbUser(-1, txtAccSetupUserName.getText(),
                                     txtAccSetupFirstName.getText(),
                                     txtAccSetupLastName.getText(),
                                     cboxAccSetupAdmin.selectedProperty().get()),
                             password))
                     {
                         MessageDialog.Answer ans = MessageDialogBuilder.info()
-                                .message("User Added\nAdd Another?")
+                                .message("DbUser Added\nAdd Another?")
                                 .buttonType(MessageDialog.ButtonType.YES_NO)
                                 .yesOkButtonText("Yes").noButtonText("No")
                                 .show(MainFrame.stage.getScene().getWindow());
@@ -458,7 +460,7 @@ public class SetupController implements Initializable
                         MessageDialogBuilder
                                 .error()
                                 .message(
-                                        "Error Adding User "
+                                        "Error Adding DbUser "
                                                 + txtAccSetupUserName.getText())
                                 .title("Error")
                                 .buttonType(MessageDialog.ButtonType.OK)
@@ -482,7 +484,7 @@ public class SetupController implements Initializable
     }
 
     /**
-     * Changes Tabs from Account over to Courier
+     * Changes Tabs from Account over to DbCourier
      *
      * @param ae ActionEvent from OS
      */
@@ -496,10 +498,10 @@ public class SetupController implements Initializable
         tabpaneMainPane.getSelectionModel().select(tabCourierSetup);
     }
 
-    // Courier Setup//
+    // DbCourier Setup//
 
     /**
-     * Adds Courier to Database
+     * Adds DbCourier to Database
      *
      * @param ae ActionEvent from OS
      */
@@ -511,7 +513,7 @@ public class SetupController implements Initializable
             dbManager.addCourier(txtCourierSetupCourierName.getText());
 
             MessageDialog.Answer ans = MessageDialogBuilder.confirmation()
-                    .message("Courier Added\nAdd Another?")
+                    .message("DbCourier Added\nAdd Another?")
                     .buttonType(MessageDialog.ButtonType.YES_NO)
                     .yesOkButtonText("Yes").noButtonText("No")
                     .show(MainFrame.stage.getScene().getWindow());
@@ -528,14 +530,14 @@ public class SetupController implements Initializable
         else
         {
             MessageDialogBuilder.error()
-                    .message("Courier Name cannot be Empty")
+                    .message("DbCourier Name cannot be Empty")
                     .buttonType(MessageDialog.ButtonType.OK)
                     .show(MainFrame.stage.getScene().getWindow());
         }
     }
 
     /**
-     * Changes Tabs from Courier over to Stop
+     * Changes Tabs from DbCourier over to DbStop
      *
      * @param ae ActionEvent from OS
      */
@@ -549,10 +551,10 @@ public class SetupController implements Initializable
         tabpaneMainPane.getSelectionModel().select(tabStopSetup);
     }
 
-    // Stop Setup//
+    // DbStop Setup//
 
     /**
-     * Adds Stop to Database
+     * Adds DbStop to Database
      *
      * @param ae ActionEvent from OS
      */
@@ -561,7 +563,7 @@ public class SetupController implements Initializable
         ae.consume();
         if (txtStopSetupStopName.getText().equals(""))
         {
-            MessageDialogBuilder.error().message("Stop Name cannot be Empty")
+            MessageDialogBuilder.error().message("DbStop Name cannot be Empty")
                     .buttonType(MessageDialog.ButtonType.OK)
                     .show(MainFrame.stage.getScene().getWindow());
         }
@@ -569,11 +571,11 @@ public class SetupController implements Initializable
         {
             dbManager.loadRoutes();
 
-            dbManager.addStop(new Stop(-1, txtStopSetupStopName.getText(),
+            dbManager.addStop(new DbStop(-1, txtStopSetupStopName.getText(),
                     "unassigned", 0, false, false));
 
             MessageDialog.Answer ans = MessageDialogBuilder.confirmation()
-                    .message("Stop Added\nAdd Another?")
+                    .message("DbStop Added\nAdd Another?")
                     .buttonType(MessageDialog.ButtonType.YES_NO)
                     .yesOkButtonText("Yes").noButtonText("No")
                     .show(MainFrame.stage.getScene().getWindow());

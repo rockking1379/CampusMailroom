@@ -49,9 +49,9 @@ public class PostgreSQLManager implements DatabaseManager
     private String dbUser;
     private String dbPassword;
 
-    private List<Courier> couriers;
-    private List<Route> routes;
-    private List<Stop> stops;
+    private List<DbCourier> dbCouriers;
+    private List<DbRoute> dbRoutes;
+    private List<DbStop> dbStops;
     private List<Package> packages;
 
     public PostgreSQLManager(String dbLocation, String dbUsername,
@@ -75,11 +75,11 @@ public class PostgreSQLManager implements DatabaseManager
         loadCouriers();
     }
 
-    // User Actions//
+    // DbUser Actions//
     @Override
-    public User login(String userName, int password)
+    public DbUser login(String userName, int password)
     {
-        User u = new User(-1, null, null, null, false);
+        DbUser u = new DbUser(-1, null, null, null, false);
 
         // conduct login if successful recreate 'u' to valid user or return with
         // nulls and show GUI error
@@ -96,7 +96,7 @@ public class PostgreSQLManager implements DatabaseManager
 
             while (rs.next())
             {
-                u = new User(rs.getInt("user_id"), rs.getString("user_name"),
+                u = new DbUser(rs.getInt("user_id"), rs.getString("user_name"),
                         rs.getString("first_name"), rs.getString("last_name"),
                         rs.getBoolean("administrator"));
             }
@@ -115,9 +115,9 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public User login(String userName, byte[] password)
+    public DbUser login(String userName, byte[] password)
     {
-        User u = new User(-1, null, null, null, false);
+        DbUser u = new DbUser(-1, null, null, null, false);
 
         // conduct login if successful recreate 'u' to valid user or return with
         // nulls and show GUI error
@@ -134,7 +134,7 @@ public class PostgreSQLManager implements DatabaseManager
 
             while (rs.next())
             {
-                u = new User(rs.getInt("user_id"), rs.getString("user_name"),
+                u = new DbUser(rs.getInt("user_id"), rs.getString("user_name"),
                         rs.getString("first_name"), rs.getString("last_name"),
                         rs.getBoolean("administrator"));
             }
@@ -153,7 +153,7 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public boolean addUser(User u, byte[] password)
+    public boolean addUser(DbUser u, byte[] password)
     {
         // conduct insert into user table here
         // settings option should only be available to admin
@@ -168,7 +168,7 @@ public class PostgreSQLManager implements DatabaseManager
             stmnt.setString(2, u.getFirstName());
             stmnt.setString(3, u.getLastName());
             stmnt.setBytes(4, password);
-            stmnt.setBoolean(5, u.getAdmin());
+            stmnt.setBoolean(5, u.isAdministrator());
 
             if (stmnt.executeUpdate() > 0)
             {
@@ -192,7 +192,7 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public boolean changePassword(User u, byte[] oldPassword, byte[] newPassword)
+    public boolean changePassword(DbUser u, byte[] oldPassword, byte[] newPassword)
     {
         // allow users to change their password
         try
@@ -228,7 +228,7 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public boolean changePassword(User u, int oldPassword, byte[] newPassword)
+    public boolean changePassword(DbUser u, int oldPassword, byte[] newPassword)
     {
         // allow users to change their password
         try
@@ -264,7 +264,7 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public boolean deleteUser(User u)
+    public boolean deleteUser(DbUser u)
     {
         boolean retValue = false;
         try
@@ -299,7 +299,7 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public boolean setUserAdmin(User u, boolean status)
+    public boolean setUserAdmin(DbUser u, boolean status)
     {
         boolean retValue = false;
         try
@@ -336,7 +336,7 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public boolean reactivateUser(User u, byte[] password)
+    public boolean reactivateUser(DbUser u, byte[] password)
     {
         boolean retValue = false;
         try
@@ -373,9 +373,9 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public List<User> getDeactivatedUsers()
+    public List<DbUser> getDeactivatedUsers()
     {
-        List<User> result = new ArrayList<User>();
+        List<DbUser> result = new ArrayList<DbUser>();
 
         try
         {
@@ -388,7 +388,7 @@ public class PostgreSQLManager implements DatabaseManager
 
             while (rs.next())
             {
-                result.add(new User(rs.getInt("user_id"), rs
+                result.add(new DbUser(rs.getInt("user_id"), rs
                         .getString("user_name"), rs.getString("first_name"), rs
                         .getString("last_name"), rs.getBoolean("administrator")));
             }
@@ -407,9 +407,9 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public List<User> getActiveUsers()
+    public List<DbUser> getActiveUsers()
     {
-        List<User> result = new ArrayList<User>();
+        List<DbUser> result = new ArrayList<DbUser>();
 
         try
         {
@@ -422,7 +422,7 @@ public class PostgreSQLManager implements DatabaseManager
 
             while (rs.next())
             {
-                result.add(new User(rs.getInt("user_id"), rs
+                result.add(new DbUser(rs.getInt("user_id"), rs
                         .getString("user_name"), rs.getString("first_name"), rs
                         .getString("last_name"), rs.getBoolean("administrator")));
             }
@@ -440,14 +440,14 @@ public class PostgreSQLManager implements DatabaseManager
         return result;
     }
 
-    // Stop Actions//
+    // DbStop Actions//
     @Override
     public void loadStops()
     {
         try
         {
             connect();
-            stops = new ArrayList<Stop>();
+            dbStops = new ArrayList<DbStop>();
 
             Statement stmnt = connection.createStatement();
             stmnt.setQueryTimeout(5);
@@ -457,12 +457,12 @@ public class PostgreSQLManager implements DatabaseManager
 
             while (rs.next())
             {
-                for (int i = 0; i < routes.size(); i++)
+                for (int i = 0; i < dbRoutes.size(); i++)
                 {
-                    if (routes.get(i).getRouteId() == rs.getInt("route_id"))
+                    if (dbRoutes.get(i).getRouteId() == rs.getInt("route_id"))
                     {
-                        stops.add(new Stop(rs.getInt("stop_id"), rs
-                                .getString("stop_name"), routes.get(i)
+                        dbStops.add(new DbStop(rs.getInt("stop_id"), rs
+                                .getString("stop_name"), dbRoutes.get(i)
                                 .getRouteName(), rs.getInt("route_order"), rs
                                 .getBoolean("student"), rs.getBoolean("auto_remove")));
                     }
@@ -481,7 +481,7 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public boolean updateStop(Stop s)
+    public boolean updateStop(DbStop s)
     {
         try
         {
@@ -508,7 +508,7 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public boolean addStopToRoute(Stop s, Route r)
+    public boolean addStopToRoute(DbStop s, DbRoute r)
     {
         boolean retValue = false;
 
@@ -538,7 +538,7 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public boolean addStop(Stop s)
+    public boolean addStop(DbStop s)
     {
         // the passed in stop should receive a stopId of -1(ignored on insert
         // anyway)
@@ -550,7 +550,7 @@ public class PostgreSQLManager implements DatabaseManager
             stmnt.setQueryTimeout(5);
 
             stmnt.setString(1, s.getStopName());
-            for (Route r : routes)
+            for (DbRoute r : dbRoutes)
             {
                 if (r.getRouteName().equals(s.getRouteName()))
                 {
@@ -576,7 +576,7 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public boolean deleteStop(Stop s)
+    public boolean deleteStop(DbStop s)
     {
         try
         {
@@ -602,7 +602,7 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public boolean setRoutePosition(Stop s, int pos)
+    public boolean setRoutePosition(DbStop s, int pos)
     {
         try
         {
@@ -627,14 +627,13 @@ public class PostgreSQLManager implements DatabaseManager
         }
     }
 
-    @Override
-    public List<Stop> getStops()
+    public List<DbStop> getDbStops()
     {
-        return stops;
+        return dbStops;
     }
 
     @Override
-    public List<Stop> getUnassignedStops()
+    public List<DbStop> getUnassignedStops()
     {
         try
         {
@@ -660,7 +659,7 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public List<Stop> getStopsOnRoute(Route r)
+    public List<DbStop> getStopsOnRoute(DbRoute r)
     {
         if (r == null)
         {
@@ -693,15 +692,15 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public List<Stop> processStopResult(ResultSet rs, String route_name)
+    public List<DbStop> processStopResult(ResultSet rs, String route_name)
     {
-        List<Stop> results = new ArrayList<Stop>();
+        List<DbStop> results = new ArrayList<DbStop>();
 
         try
         {
             while (rs.next())
             {
-                results.add(new Stop(rs.getInt("stop_id"), rs
+                results.add(new DbStop(rs.getInt("stop_id"), rs
                         .getString("stop_name"), route_name, rs
                         .getInt("route_order"), rs.getBoolean("student")));
             }
@@ -716,14 +715,14 @@ public class PostgreSQLManager implements DatabaseManager
         return results;
     }
 
-    // Route Actions//
+    // DbRoute Actions//
     @Override
     public void loadRoutes()
     {
         try
         {
             connect();
-            routes = new ArrayList<Route>();
+            dbRoutes = new ArrayList<DbRoute>();
 
             Statement stmnt = connection.createStatement();
             stmnt.setQueryTimeout(5);
@@ -733,7 +732,7 @@ public class PostgreSQLManager implements DatabaseManager
 
             while (rs.next())
             {
-                routes.add(new Route(rs.getInt("route_id"), rs
+                dbRoutes.add(new DbRoute(rs.getInt("route_id"), rs
                         .getString("route_name")));
             }
         }
@@ -748,14 +747,13 @@ public class PostgreSQLManager implements DatabaseManager
         }
     }
 
-    @Override
-    public List<Route> getRoutes()
+    public List<DbRoute> getDbRoutes()
     {
-        return routes;
+        return dbRoutes;
     }
 
     @Override
-    public boolean updateRoute(Route r)
+    public boolean updateRoute(DbRoute r)
     {
         try
         {
@@ -809,7 +807,7 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public boolean deleteRoute(Route r)
+    public boolean deleteRoute(DbRoute r)
     {
         try
         {
@@ -846,14 +844,14 @@ public class PostgreSQLManager implements DatabaseManager
         }
     }
 
-    // Courier Actions//
+    // DbCourier Actions//
     @Override
     public void loadCouriers()
     {
         try
         {
             connect();
-            couriers = new ArrayList<Courier>();
+            dbCouriers = new ArrayList<DbCourier>();
 
             Statement stmnt = connection.createStatement();
             stmnt.setQueryTimeout(5);
@@ -863,7 +861,7 @@ public class PostgreSQLManager implements DatabaseManager
 
             while (rs.next())
             {
-                couriers.add(new Courier(rs.getInt("courier_id"), rs
+                dbCouriers.add(new DbCourier(rs.getInt("courier_id"), rs
                         .getString("courier_name")));
             }
         }
@@ -878,10 +876,9 @@ public class PostgreSQLManager implements DatabaseManager
         }
     }
 
-    @Override
-    public List<Courier> getCouriers()
+    public List<DbCourier> getDbCouriers()
     {
-        return couriers;
+        return dbCouriers;
     }
 
     @Override
@@ -915,7 +912,7 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public boolean updateCourier(Courier c)
+    public boolean updateCourier(DbCourier c)
     {
         try
         {
@@ -942,7 +939,7 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public boolean deleteCourier(Courier c)
+    public boolean deleteCourier(DbCourier c)
     {
         try
         {
@@ -1123,8 +1120,8 @@ public class PostgreSQLManager implements DatabaseManager
             stmnt.setString(5, p.getBoxOffice());
             stmnt.setBoolean(6, p.isAtStop());
             stmnt.setBoolean(7, p.isPickedUp());
-            stmnt.setInt(8, p.getStop().getStopId());
-            stmnt.setInt(9, p.getCourier().getCourierId());
+            stmnt.setInt(8, p.getDbStop().getStopId());
+            stmnt.setInt(9, p.getDbCourier().getCourierId());
             stmnt.setBoolean(10, p.isReturned());
             stmnt.setInt(11, p.getPackageId());
             stmnt.executeUpdate();
@@ -1158,9 +1155,9 @@ public class PostgreSQLManager implements DatabaseManager
             stmnt.setString(4, p.getFirstName());
             stmnt.setString(5, p.getLastName());
             stmnt.setString(6, p.getBoxOffice());
-            stmnt.setInt(7, p.getStop().getStopId());
-            stmnt.setInt(8, p.getCourier().getCourierId());
-            stmnt.setInt(9, p.getUser().getUserId());
+            stmnt.setInt(7, p.getDbStop().getStopId());
+            stmnt.setInt(8, p.getDbCourier().getCourierId());
+            stmnt.setInt(9, p.getDbUser().getUserId());
 
             return stmnt.executeUpdate() > 0;
         }
@@ -1177,7 +1174,7 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public List<Package> printPackagesForStop(Stop s)
+    public List<Package> printPackagesForStop(DbStop s)
     {
         ArrayList<Package> result = null;
 
@@ -1221,7 +1218,7 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public List<Package> getPackagesForStop(Stop s)
+    public List<Package> getPackagesForStop(DbStop s)
     {
         ArrayList<Package> result = null;
         try
@@ -1263,20 +1260,20 @@ public class PostgreSQLManager implements DatabaseManager
         {
             while (rs.next())
             {
-                Stop stop = null;
-                Courier courier = null;
-                User user = null;
+                DbStop dbStop = null;
+                DbCourier dbCourier = null;
+                DbUser dbUser = null;
                 PreparedStatement stmnt;
 
-                for (Stop s : stops)
+                for (DbStop s : dbStops)
                 {
                     if (s.getStopId() == rs.getInt("stop_id"))
                     {
-                        stop = s;
+                        dbStop = s;
                         break;
                     }
                 }
-                if (stop == null)
+                if (dbStop == null)
                 {
                     stmnt = connection
                             .prepareStatement("SELECT * FROM Stop WHERE stop_id=?");
@@ -1284,7 +1281,7 @@ public class PostgreSQLManager implements DatabaseManager
                     ResultSet s = stmnt.executeQuery();
                     if (s.next())
                     {
-                        stop = new Stop(s.getInt("stop_id"),
+                        dbStop = new DbStop(s.getInt("stop_id"),
                                 s.getString("stop_name"), "Unknown", 0,
                                 s.getBoolean("student"));
                     }
@@ -1296,7 +1293,7 @@ public class PostgreSQLManager implements DatabaseManager
                 ResultSet c = stmnt.executeQuery();
                 if (c.next())
                 {
-                    courier = new Courier(c.getInt("courier_id"),
+                    dbCourier = new DbCourier(c.getInt("courier_id"),
                             c.getString("courier_name"));
                 }
                 c.close();
@@ -1307,7 +1304,7 @@ public class PostgreSQLManager implements DatabaseManager
                 ResultSet u = stmnt.executeQuery();
                 if (u.next())
                 {
-                    user = new User(u.getInt("user_id"),
+                    dbUser = new DbUser(u.getInt("user_id"),
                             u.getString("user_name"),
                             u.getString("first_name"),
                             u.getString("last_name"),
@@ -1320,7 +1317,7 @@ public class PostgreSQLManager implements DatabaseManager
                         .getString("receive_date"), rs
                         .getString("email_address"),
                         rs.getString("first_name"), rs.getString("last_name"),
-                        rs.getString("box_number"), stop, courier, user, rs
+                        rs.getString("box_number"), dbStop, dbCourier, dbUser, rs
                         .getBoolean("at_stop"), rs
                         .getBoolean("picked_up"), rs
                         .getString("pick_up_date"), rs
@@ -1358,7 +1355,7 @@ public class PostgreSQLManager implements DatabaseManager
             // process ResultSet
             while (rs.next())
             {
-                for (Stop s : stops)
+                for (DbStop s : dbStops)
                 {
                     if (s.getStopId() == rs.getInt("stop_id"))
                     {
@@ -1587,9 +1584,9 @@ public class PostgreSQLManager implements DatabaseManager
     @Override
     public void dispose()
     {
-        couriers = null;
-        routes = null;
-        stops = null;
+        dbCouriers = null;
+        dbRoutes = null;
+        dbStops = null;
         packages = null;
     }
 
@@ -1663,7 +1660,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
     }
 
-    public List<String> getEmailAddress(Stop s)
+    public List<String> getEmailAddress(DbStop s)
     {
         List<String> results = new ArrayList<String>();
 
@@ -1698,7 +1695,7 @@ public class PostgreSQLManager implements DatabaseManager
         return results;
     }
 
-    public boolean addEmailAddress(Stop s, String address)
+    public boolean addEmailAddress(DbStop s, String address)
     {
         try
         {
@@ -1723,7 +1720,7 @@ public class PostgreSQLManager implements DatabaseManager
         }
     }
 
-    public boolean deleteEmailAddress(Stop s, String address)
+    public boolean deleteEmailAddress(DbStop s, String address)
     {
         try
         {

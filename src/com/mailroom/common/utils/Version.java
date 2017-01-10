@@ -6,8 +6,8 @@ package com.mailroom.common.utils;
  */
 public class Version
 {
-    public static final String VERSION_MAJOR = "2";
-    public static final String VERSION_MINOR = "7";
+    public static final String VERSION_MAJOR = "3";
+    public static final String VERSION_MINOR = "0";
     public static final String VERSION_REVISION = "0";
 
     public String getMajorVersion()

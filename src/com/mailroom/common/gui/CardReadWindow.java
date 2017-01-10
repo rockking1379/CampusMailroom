@@ -23,12 +23,12 @@ public class CardReadWindow
         ArrayList<Person> results = new ArrayList<Person>();
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Scan User Card");
+        window.setTitle("Scan DbUser Card");
         window.setWidth(200);
         window.setHeight(150);
 
         Label promptLable = new Label();
-        promptLable.setText("Please Swipe User ID");
+        promptLable.setText("Please Swipe DbUser ID");
 
         TextField cardText = new TextField();
         cardText.setOpacity(0);

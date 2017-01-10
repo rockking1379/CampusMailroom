@@ -1,10 +1,11 @@
 package com.mailroom.mainclient;
 
 import com.mailroom.common.database.*;
-import com.mailroom.common.objects.Courier;
-import com.mailroom.common.objects.Route;
-import com.mailroom.common.objects.Stop;
-import com.mailroom.common.objects.User;
+import com.mailroom.common.factories.DatabaseManagerFactory;
+import com.mailroom.common.objects.DbCourier;
+import com.mailroom.common.objects.DbRoute;
+import com.mailroom.common.objects.DbStop;
+import com.mailroom.common.objects.DbUser;
 import com.mailroom.common.utils.Logger;
 import com.mailroom.common.utils.Version;
 import com.panemu.tiwulfx.dialog.MessageDialog;
@@ -121,11 +122,11 @@ public class SettingsController implements Initializable
 
     // Administrative//
     @FXML
-    private ComboBox<User> cboxAdminChange;
+    private ComboBox<DbUser> cboxAdminChange;
     @FXML
-    private ComboBox<User> cboxAdminReactivate;
+    private ComboBox<DbUser> cboxAdminReactivate;
     @FXML
-    private ComboBox<User> cboxAdminDeactivate;
+    private ComboBox<DbUser> cboxAdminDeactivate;
     @FXML
     private CheckBox cboxAdminAdminStatus;
     @FXML
@@ -139,15 +140,15 @@ public class SettingsController implements Initializable
     @FXML
     private Button btnAdminDeactivate;
 
-    // Stop Management//
+    // DbStop Management//
     @FXML
-    private ComboBox<Stop> cboxStopDelete;
+    private ComboBox<DbStop> cboxStopDelete;
     @FXML
     private Button btnStopDelete;
     @FXML
     private TextField txtStopName;
     @FXML
-    private ComboBox<Route> cboxStopRoute;
+    private ComboBox<DbRoute> cboxStopRoute;
     @FXML
     private CheckBox cboxStopCreateStudent;
     @FXML
@@ -155,7 +156,7 @@ public class SettingsController implements Initializable
     @FXML
     private Button btnStopClear;
     @FXML
-    private ComboBox<Stop> cboxStopUpdate;
+    private ComboBox<DbStop> cboxStopUpdate;
     @FXML
     private CheckBox cboxStopUpdateStudent;
     @FXML
@@ -163,19 +164,19 @@ public class SettingsController implements Initializable
     @FXML
     private Button btnStopUpdateSave;
 
-    // Route Management//
+    // DbRoute Management//
     @FXML
-    private ComboBox<Route> cboxRouteSelect;
+    private ComboBox<DbRoute> cboxRouteSelect;
     @FXML
-    private ListView<Stop> lviewRouteUnassigned;
+    private ListView<DbStop> lviewRouteUnassigned;
     @FXML
-    private ListView<Stop> lviewRouteOnRoute;
+    private ListView<DbStop> lviewRouteOnRoute;
     @FXML
     private Button btnRouteAdd;
     @FXML
     private Button btnRouteRemove;
     @FXML
-    private ComboBox<Route> cboxRouteDelete;
+    private ComboBox<DbRoute> cboxRouteDelete;
     @FXML
     private Button btnRouteDelete;
     @FXML
@@ -183,9 +184,9 @@ public class SettingsController implements Initializable
     @FXML
     private Button btnRouteCreate;
     @FXML
-    private ComboBox<Route> cboxDesignRoute;
+    private ComboBox<DbRoute> cboxDesignRoute;
     @FXML
-    private ListView<Stop> lviewDesignStops;
+    private ListView<DbStop> lviewDesignStops;
     @FXML
     private Button btnDesignUp;
     @FXML
@@ -195,9 +196,9 @@ public class SettingsController implements Initializable
     @FXML
     private Button btnDesignDown;
 
-    // Courier Management//
+    // DbCourier Management//
     @FXML
-    private ComboBox<Courier> cboxCourierDelete;
+    private ComboBox<DbCourier> cboxCourierDelete;
     @FXML
     private Button btnCourierDelete;
     @FXML
@@ -233,7 +234,7 @@ public class SettingsController implements Initializable
 
     // Addresses //
     @FXML
-    private ComboBox<Stop> cboxEmailAddressStop;
+    private ComboBox<DbStop> cboxEmailAddressStop;
     @FXML
     private ListView<String> lviewEmailAddresses;
     @FXML
@@ -255,6 +256,8 @@ public class SettingsController implements Initializable
     {
         MainFrame.stage.setTitle("Settings");
 
+        MainFrame.stage.getScene().getStylesheets().add(getClass().getResource("/com/mailroom/resources/default.css").toString());
+
         this.dbManager = DatabaseManagerFactory.getInstance();
         this.prefs = MainFrame.properties;
 
@@ -265,16 +268,16 @@ public class SettingsController implements Initializable
             case SQLiteManager.dbId:
             {
                 cboxDatabaseType.getItems().add(SQLiteManager.dbName);
-                cboxDatabaseType.getItems().add(MysqlManager.dbName);
+                cboxDatabaseType.getItems().add(MySQLManager.dbName);
                 cboxDatabaseType.getItems().add(PostgreSQLManager.dbName);
 
                 cboxDatabaseType.setValue(cboxDatabaseType.getItems().get(0));
 
                 break;
             }
-            case MysqlManager.dbId:
+            case MySQLManager.dbId:
             {
-                cboxDatabaseType.getItems().add(MysqlManager.dbName);
+                cboxDatabaseType.getItems().add(MySQLManager.dbName);
                 cboxDatabaseType.getItems().add(SQLiteManager.dbName);
                 cboxDatabaseType.getItems().add(PostgreSQLManager.dbName);
 
@@ -286,7 +289,7 @@ public class SettingsController implements Initializable
             {
                 cboxDatabaseType.getItems().add(PostgreSQLManager.dbName);
                 cboxDatabaseType.getItems().add(SQLiteManager.dbName);
-                cboxDatabaseType.getItems().add(MysqlManager.dbName);
+                cboxDatabaseType.getItems().add(MySQLManager.dbName);
 
                 cboxDatabaseType.setValue(cboxDatabaseType.getItems().get(0));
 
@@ -305,7 +308,7 @@ public class SettingsController implements Initializable
 
                 break;
             }
-            case MysqlManager.dbId:
+            case MySQLManager.dbId:
             {
                 txtDatabaseLocation.setText(prefs.getProperty("DATABASE"));
                 txtDatabaseName.setText(prefs.getProperty("DBNAME"));
@@ -325,7 +328,7 @@ public class SettingsController implements Initializable
             }
         }
 
-        if (MainFrame.cUser.getAdmin())
+        if (MainFrame.cDbUser.isAdministrator())
         {
             tabGeneral.setDisable(false);
             tabCreateAccount.setDisable(false);
@@ -346,7 +349,7 @@ public class SettingsController implements Initializable
         }
 
         lblUserId.textProperty().set(
-                "User ID: " + String.valueOf(MainFrame.cUser.getUserId()));
+                "DbUser ID: " + String.valueOf(MainFrame.cDbUser.getUserId()));
 
         Version version = new Version();
         lblAboutVersion.setText("Version: " + version.getVersion());
@@ -435,7 +438,7 @@ public class SettingsController implements Initializable
 
                 break;
             }
-            case MysqlManager.dbId:
+            case MySQLManager.dbId:
             {
                 btnBrowse.setDisable(true);
                 txtDatabaseLocation.setText("");
@@ -520,7 +523,7 @@ public class SettingsController implements Initializable
 
                 break;
             }
-            case MysqlManager.dbId:
+            case MySQLManager.dbId:
             {
                 MainFrame.properties.setProperty("DBTYPE", String.valueOf(1));
                 MainFrame.properties.setProperty("DATABASE",
@@ -597,6 +600,7 @@ public class SettingsController implements Initializable
                 Parent root = FXMLLoader.load(getClass().getResource(
                         "/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
                 Scene scene = new Scene(root);
+                scene.getStylesheets().add(getClass().getResource("/com/mailroom/resources/default.css").toString());
                 MainFrame.stage.setScene(scene);
             }
             catch (IOException e)
@@ -619,6 +623,7 @@ public class SettingsController implements Initializable
             Parent root = FXMLLoader.load(getClass().getResource(
                     "/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
             Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/com/mailroom/resources/default.css").toString());
             MainFrame.stage.setScene(scene);
         }
         catch (IOException e)
@@ -638,7 +643,7 @@ public class SettingsController implements Initializable
     {
         ae.consume();
 
-        String username = MainFrame.cUser.getUserName();
+        String username = MainFrame.cDbUser.getUserName();
         String oldPwd = pwdChangePwdOld.getText();
         String newPwd = pwdChangePwdNew.getText();
         String pwdConfirm = pwdChangePwdConfirm.getText();
@@ -695,7 +700,7 @@ public class SettingsController implements Initializable
                     byte[] oldPassword = digest.digest(oldCombine.getBytes());
                     byte[] newPassword = digest.digest(newCombine.getBytes());
 
-                    if (dbManager.changePassword(MainFrame.cUser, oldPassword,
+                    if (dbManager.changePassword(MainFrame.cDbUser, oldPassword,
                             newPassword))
                     {
                         MessageDialogBuilder
@@ -767,7 +772,7 @@ public class SettingsController implements Initializable
                     String combineOutput = new HexBinaryAdapter().marshal(userOutput) + new HexBinaryAdapter().marshal(pwdOutput);
                     password = digest.digest(combineOutput.getBytes());
                     if (dbManager.addUser(
-                            new User(-1, txtCreateUserName.getText(),
+                            new DbUser(-1, txtCreateUserName.getText(),
                                     txtCreateFirstName.getText(), txtCreateLastName
                                     .getText(), cboxCreateAdmin
                                     .selectedProperty().get()), password))
@@ -775,7 +780,7 @@ public class SettingsController implements Initializable
                         MessageDialogBuilder
                                 .info()
                                 .message(
-                                        "User " + txtCreateUserName.getText()
+                                        "DbUser " + txtCreateUserName.getText()
                                                 + " Added").title("Success")
                                 .buttonType(MessageDialog.ButtonType.OK)
                                 .show(MainFrame.stage.getScene().getWindow());
@@ -787,7 +792,7 @@ public class SettingsController implements Initializable
                         MessageDialogBuilder
                                 .error()
                                 .message(
-                                        "Error Adding User "
+                                        "Error Adding DbUser "
                                                 + txtCreateUserName.getText())
                                 .title("Error")
                                 .buttonType(MessageDialog.ButtonType.OK)
@@ -868,7 +873,7 @@ public class SettingsController implements Initializable
                     MessageDialogBuilder
                             .info()
                             .message(
-                                    "User " + cboxAdminReactivate.getValue()
+                                    "DbUser " + cboxAdminReactivate.getValue()
                                             + " reactivated").title("Success")
                             .buttonType(MessageDialog.ButtonType.OK)
                             .show(MainFrame.stage.getScene().getWindow());
@@ -878,7 +883,7 @@ public class SettingsController implements Initializable
                     MessageDialogBuilder
                             .error()
                             .message(
-                                    "Error Reactivating User: "
+                                    "Error Reactivating DbUser: "
                                             + cboxAdminReactivate.getValue())
                             .title("Error").buttonType(MessageDialog.ButtonType.OK)
                             .show(MainFrame.stage.getScene().getWindow());
@@ -911,7 +916,7 @@ public class SettingsController implements Initializable
     public void btnAdminDeactivateAction(ActionEvent ae)
     {
         ae.consume();
-        if (!MainFrame.cUser.getUserName().equals(
+        if (!MainFrame.cDbUser.getUserName().equals(
                 cboxAdminDeactivate.getValue().getUserName()))
         {
             MessageDialog.Answer del = MessageDialogBuilder.warning()
@@ -955,12 +960,12 @@ public class SettingsController implements Initializable
         cboxAdminReactivate.itemsProperty().get().clear();
         cboxAdminDeactivate.itemsProperty().get().clear();
 
-        for (User u : dbManager.getActiveUsers())
+        for (DbUser u : dbManager.getActiveUsers())
         {
             cboxAdminChange.itemsProperty().get().add(u);
             cboxAdminDeactivate.itemsProperty().get().add(u);
         }
-        for (User u : dbManager.getDeactivatedUsers())
+        for (DbUser u : dbManager.getDeactivatedUsers())
         {
             cboxAdminReactivate.itemsProperty().get().add(u);
         }
@@ -982,10 +987,10 @@ public class SettingsController implements Initializable
         }
     }
 
-    // Stop Management//
+    // DbStop Management//
 
     /**
-     * Deletes Stop
+     * Deletes DbStop
      *
      * @param ae ActionEvent from OS
      */
@@ -993,7 +998,7 @@ public class SettingsController implements Initializable
     {
         ae.consume();
         MessageDialog.Answer del = MessageDialogBuilder.confirmation()
-                .message("Delete " + cboxStopDelete.getValue() + " Stop")
+                .message("Delete " + cboxStopDelete.getValue() + " DbStop")
                 .title("Confirm").buttonType(MessageDialog.ButtonType.YES_NO)
                 .yesOkButtonText("Yes").noButtonText("No")
                 .show(MainFrame.stage.getScene().getWindow());
@@ -1008,7 +1013,7 @@ public class SettingsController implements Initializable
     }
 
     /**
-     * Creates new Stop
+     * Creates new DbStop
      *
      * @param ae ActionEvent from OS
      */
@@ -1017,13 +1022,13 @@ public class SettingsController implements Initializable
         ae.consume();
         if (txtStopName.getText().equals(""))
         {
-            MessageDialogBuilder.error().message("Cannot have Empty Stop Name")
+            MessageDialogBuilder.error().message("Cannot have Empty DbStop Name")
                     .title("Error").buttonType(MessageDialog.ButtonType.OK)
                     .show(MainFrame.stage.getScene().getWindow());
         }
         else
         {
-            dbManager.addStop(new Stop(-1, txtStopName.getText(), cboxStopRoute
+            dbManager.addStop(new DbStop(-1, txtStopName.getText(), cboxStopRoute
                     .getValue().getRouteName(), 0, cboxStopCreateStudent
                     .isSelected(), false));
             btnStopClear.fire();
@@ -1033,7 +1038,7 @@ public class SettingsController implements Initializable
     }
 
     /**
-     * Clears Data entries from Create A Stop
+     * Clears Data entries from Create A DbStop
      *
      * @param ae ActionEvent from OS
      */
@@ -1045,7 +1050,7 @@ public class SettingsController implements Initializable
     }
 
     /**
-     * Updates selected Stop
+     * Updates selected DbStop
      *
      * @param ae ActionEvent from OS
      */
@@ -1068,7 +1073,7 @@ public class SettingsController implements Initializable
     }
 
     /**
-     * Populates Stop comboboxes with data from Database
+     * Populates DbStop comboboxes with data from Database
      */
     private void loadStopComboBoxes()
     {
@@ -1078,7 +1083,7 @@ public class SettingsController implements Initializable
 
         dbManager.loadStops();
 
-        for (Stop s : dbManager.getStops())
+        for (DbStop s : dbManager.getDbStops())
         {
             if (s.getStopId() != 1)
             {
@@ -1100,10 +1105,10 @@ public class SettingsController implements Initializable
         }
     }
 
-    // Route Management//
+    // DbRoute Management//
 
     /**
-     * Processes Route selection changing
+     * Processes DbRoute selection changing
      *
      * @param ae ActionEvent from OS
      */
@@ -1114,8 +1119,8 @@ public class SettingsController implements Initializable
     }
 
     /**
-     * Deletes Route
-     * Moves all Stops on Route to unassigned
+     * Deletes DbRoute
+     * Moves all Stops on DbRoute to unassigned
      *
      * @param ae ActionEvent from OS
      */
@@ -1123,7 +1128,7 @@ public class SettingsController implements Initializable
     {
         ae.consume();
         MessageDialog.Answer del = MessageDialogBuilder.confirmation()
-                .message("Delete " + cboxRouteDelete.getValue() + " Route")
+                .message("Delete " + cboxRouteDelete.getValue() + " DbRoute")
                 .title("Confirm").buttonType(MessageDialog.ButtonType.YES_NO)
                 .yesOkButtonText("Yes").noButtonText("No")
                 .show(MainFrame.stage.getScene().getWindow());
@@ -1137,7 +1142,7 @@ public class SettingsController implements Initializable
     }
 
     /**
-     * Creates new Route
+     * Creates new DbRoute
      *
      * @param ae ActionEvent from OS
      */
@@ -1147,7 +1152,7 @@ public class SettingsController implements Initializable
         if (txtRouteName.getText().equals(""))
         {
             MessageDialogBuilder.error()
-                    .message("Cannot have Empty Route Name").title("Error")
+                    .message("Cannot have Empty DbRoute Name").title("Error")
                     .buttonType(MessageDialog.ButtonType.OK)
                     .show(MainFrame.stage.getScene().getWindow());
         }
@@ -1162,17 +1167,17 @@ public class SettingsController implements Initializable
     }
 
     /**
-     * Adds Stop to selected Route
+     * Adds DbStop to selected DbRoute
      *
      * @param ae ActionEvent from OS
      */
     public void btnRouteAddAction(ActionEvent ae)
     {
         ae.consume();
-        List<Stop> selected = lviewRouteUnassigned.selectionModelProperty()
+        List<DbStop> selected = lviewRouteUnassigned.selectionModelProperty()
                 .getValue().getSelectedItems();
 
-        for (Stop s : selected)
+        for (DbStop s : selected)
         {
             dbManager.addStopToRoute(s, cboxRouteSelect.getValue());
         }
@@ -1181,26 +1186,26 @@ public class SettingsController implements Initializable
     }
 
     /**
-     * Removes stop from selected Route
+     * Removes stop from selected DbRoute
      *
      * @param ae ActionEvent from OS
      */
     public void btnRouteRemoveAction(ActionEvent ae)
     {
         ae.consume();
-        List<Stop> selected = lviewRouteOnRoute.selectionModelProperty().get()
+        List<DbStop> selected = lviewRouteOnRoute.selectionModelProperty().get()
                 .getSelectedItems();
 
-        for (Stop s : selected)
+        for (DbStop s : selected)
         {
-            dbManager.addStopToRoute(s, new Route(1, "unassigned"));
+            dbManager.addStopToRoute(s, new DbRoute(1, "unassigned"));
         }
 
         loadRouteListViews();
     }
 
     /**
-     * Process Route Selection Changing
+     * Process DbRoute Selection Changing
      *
      * @param ae ActionEvent from OS
      */
@@ -1211,7 +1216,7 @@ public class SettingsController implements Initializable
 
         if (cboxDesignRoute.getValue() != null)
         {
-            for (Stop s : dbManager.getStopsOnRoute(cboxDesignRoute.getValue()))
+            for (DbStop s : dbManager.getStopsOnRoute(cboxDesignRoute.getValue()))
             {
                 lviewDesignStops.getItems().add(s);
             }
@@ -1219,7 +1224,7 @@ public class SettingsController implements Initializable
     }
 
     /**
-     * Puts Stop at beginning of selected Route
+     * Puts DbStop at beginning of selected DbRoute
      *
      * @param ae ActionEvent from OS
      */
@@ -1228,14 +1233,14 @@ public class SettingsController implements Initializable
         ae.consume();
         if (lviewDesignStops.selectionModelProperty().get().getSelectedItem() != null)
         {
-            Stop selected = lviewDesignStops.selectionModelProperty().get()
+            DbStop selected = lviewDesignStops.selectionModelProperty().get()
                     .getSelectedItem();
             int order = 0;
 
             dbManager.setRoutePosition(selected, order);
             order++;
 
-            for (Stop s : lviewDesignStops.getItems())
+            for (DbStop s : lviewDesignStops.getItems())
             {
                 if (s != selected)
                 {
@@ -1245,7 +1250,7 @@ public class SettingsController implements Initializable
             }
 
             lviewDesignStops.getItems().clear();
-            for (Stop s : dbManager.getStopsOnRoute(cboxDesignRoute.getValue()))
+            for (DbStop s : dbManager.getStopsOnRoute(cboxDesignRoute.getValue()))
             {
                 lviewDesignStops.getItems().add(s);
             }
@@ -1253,7 +1258,7 @@ public class SettingsController implements Initializable
     }
 
     /**
-     * Moves Stop up one position on Selected Route
+     * Moves DbStop up one position on Selected DbRoute
      *
      * @param ae ActionEvent from OS
      */
@@ -1262,10 +1267,10 @@ public class SettingsController implements Initializable
         ae.consume();
         if (lviewDesignStops.selectionModelProperty().get().getSelectedItem() != null)
         {
-            Stop selected = lviewDesignStops.selectionModelProperty().get()
+            DbStop selected = lviewDesignStops.selectionModelProperty().get()
                     .getSelectedItem();
 
-            for (Stop s : lviewDesignStops.getItems())
+            for (DbStop s : lviewDesignStops.getItems())
             {
                 if (s.getRouteOrder() == selected.getRouteOrder() - 1)
                 {
@@ -1275,7 +1280,7 @@ public class SettingsController implements Initializable
             }
 
             lviewDesignStops.getItems().clear();
-            for (Stop s : dbManager.getStopsOnRoute(cboxDesignRoute.getValue()))
+            for (DbStop s : dbManager.getStopsOnRoute(cboxDesignRoute.getValue()))
             {
                 lviewDesignStops.getItems().add(s);
             }
@@ -1283,7 +1288,7 @@ public class SettingsController implements Initializable
     }
 
     /**
-     * Puts stop at End of selected Route
+     * Puts stop at End of selected DbRoute
      *
      * @param ae ActionEvent from OS
      */
@@ -1292,11 +1297,11 @@ public class SettingsController implements Initializable
         ae.consume();
         if (lviewDesignStops.selectionModelProperty().get().getSelectedItem() != null)
         {
-            Stop selected = lviewDesignStops.selectionModelProperty().get()
+            DbStop selected = lviewDesignStops.selectionModelProperty().get()
                     .getSelectedItem();
             int order = 0;
 
-            for (Stop s : lviewDesignStops.getItems())
+            for (DbStop s : lviewDesignStops.getItems())
             {
                 if (s != selected)
                 {
@@ -1308,7 +1313,7 @@ public class SettingsController implements Initializable
             dbManager.setRoutePosition(selected, order);
 
             lviewDesignStops.getItems().clear();
-            for (Stop s : dbManager.getStopsOnRoute(cboxDesignRoute.getValue()))
+            for (DbStop s : dbManager.getStopsOnRoute(cboxDesignRoute.getValue()))
             {
                 lviewDesignStops.getItems().add(s);
             }
@@ -1316,7 +1321,7 @@ public class SettingsController implements Initializable
     }
 
     /**
-     * Moves Stop down one position on Selected Route
+     * Moves DbStop down one position on Selected DbRoute
      *
      * @param ae ActionEvent from OS
      */
@@ -1325,10 +1330,10 @@ public class SettingsController implements Initializable
         ae.consume();
         if (lviewDesignStops.selectionModelProperty().get().getSelectedItem() != null)
         {
-            Stop selected = lviewDesignStops.selectionModelProperty().get()
+            DbStop selected = lviewDesignStops.selectionModelProperty().get()
                     .getSelectedItem();
 
-            for (Stop s : lviewDesignStops.getItems())
+            for (DbStop s : lviewDesignStops.getItems())
             {
                 if (s.getRouteOrder() == selected.getRouteOrder() + 1)
                 {
@@ -1338,7 +1343,7 @@ public class SettingsController implements Initializable
             }
 
             lviewDesignStops.getItems().clear();
-            for (Stop s : dbManager.getStopsOnRoute(cboxDesignRoute.getValue()))
+            for (DbStop s : dbManager.getStopsOnRoute(cboxDesignRoute.getValue()))
             {
                 lviewDesignStops.getItems().add(s);
             }
@@ -1346,7 +1351,7 @@ public class SettingsController implements Initializable
     }
 
     /**
-     * Populates Route listviews with data from Database
+     * Populates DbRoute listviews with data from Database
      */
     private void loadRouteListViews()
     {
@@ -1355,7 +1360,7 @@ public class SettingsController implements Initializable
         lviewRouteUnassigned.getItems().clear();
         lviewRouteOnRoute.getItems().clear();
 
-        for (Stop s : dbManager.getUnassignedStops())
+        for (DbStop s : dbManager.getUnassignedStops())
         {
             if (s.getStopId() != 1)
             {
@@ -1365,10 +1370,10 @@ public class SettingsController implements Initializable
 
         if (cboxRouteSelect.getValue() != null)
         {
-            List<Stop> stops = dbManager.getStopsOnRoute(cboxRouteSelect
+            List<DbStop> dbStops = dbManager.getStopsOnRoute(cboxRouteSelect
                     .getValue());
 
-            for (Stop s : stops)
+            for (DbStop s : dbStops)
             {
                 lviewRouteOnRoute.getItems().add(s);
             }
@@ -1384,7 +1389,7 @@ public class SettingsController implements Initializable
     }
 
     /**
-     * Populates Route comboboxes with data from Database
+     * Populates DbRoute comboboxes with data from Database
      */
     private void loadRouteComboBoxes()
     {
@@ -1395,7 +1400,7 @@ public class SettingsController implements Initializable
         cboxStopRoute.getItems().clear();
         cboxDesignRoute.getItems().clear();
 
-        for (Route r : dbManager.getRoutes())
+        for (DbRoute r : dbManager.getDbRoutes())
         {
             cboxStopRoute.getItems().add(r);
             if (r.getRouteId() != 1)
@@ -1427,10 +1432,10 @@ public class SettingsController implements Initializable
         }
     }
 
-    // Courier Management//
+    // DbCourier Management//
 
     /**
-     * Deletes Courier from Database
+     * Deletes DbCourier from Database
      *
      * @param ae ActionEvent from OS
      */
@@ -1438,7 +1443,7 @@ public class SettingsController implements Initializable
     {
         ae.consume();
         MessageDialog.Answer del = MessageDialogBuilder.confirmation()
-                .message("Delete " + cboxCourierDelete.getValue() + " Courier")
+                .message("Delete " + cboxCourierDelete.getValue() + " DbCourier")
                 .title("Confirm").buttonType(MessageDialog.ButtonType.YES_NO)
                 .yesOkButtonText("Yes").noButtonText("No")
                 .show(MainFrame.stage.getScene().getWindow());
@@ -1452,7 +1457,7 @@ public class SettingsController implements Initializable
     }
 
     /**
-     * Creates new Courier in Databse
+     * Creates new DbCourier in Databse
      *
      * @param ae ActionEvent from OS
      */
@@ -1462,7 +1467,7 @@ public class SettingsController implements Initializable
         if (txtCourierName.getText().equals(""))
         {
             MessageDialogBuilder.error()
-                    .message("Cannot have Empty Courier Name").title("Error")
+                    .message("Cannot have Empty DbCourier Name").title("Error")
                     .buttonType(MessageDialog.ButtonType.OK)
                     .show(MainFrame.stage.getScene().getWindow());
         }
@@ -1475,14 +1480,14 @@ public class SettingsController implements Initializable
     }
 
     /**
-     * Populates Courier Comboboxes with data from Database
+     * Populates DbCourier Comboboxes with data from Database
      */
     private void loadCourierComboBoxes()
     {
         dbManager.loadCouriers();
         cboxCourierDelete.getItems().clear();
 
-        for (Courier c : dbManager.getCouriers())
+        for (DbCourier c : dbManager.getDbCouriers())
         {
             cboxCourierDelete.getItems().add(c);
         }
@@ -1497,7 +1502,7 @@ public class SettingsController implements Initializable
     // Email Management //
 
     /**
-     * Removes Email from Contact List for Stop
+     * Removes Email from Contact List for DbStop
      *
      * @param ae ActionEvent from OS
      */
@@ -1514,7 +1519,7 @@ public class SettingsController implements Initializable
     }
 
     /**
-     * Adds new Email Address to Contact List for Stop
+     * Adds new Email Address to Contact List for DbStop
      *
      * @param ae ActionEvent from OS
      */
@@ -1528,7 +1533,7 @@ public class SettingsController implements Initializable
     }
 
     /**
-     * ComboBox controlling what Stop's Contact List is being Viewed
+     * ComboBox controlling what DbStop's Contact List is being Viewed
      *
      * @param ae ActionEvent from OS
      */

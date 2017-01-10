@@ -24,7 +24,7 @@ public class Person
      * @param firstName First Name of Person
      * @param lastName Last Name of Person
      * @param boxOffice Box/Office Number of Person
-     * @param stopName Name of Stop person is at
+     * @param stopName Name of DbStop person is at
      */
     public Person(String idNumber, String emailAddress, String firstName,
                   String lastName, String boxOffice, String stopName)
@@ -88,9 +88,9 @@ public class Person
     }
 
     /**
-     * Gets Name of Stop Person is at
+     * Gets Name of DbStop Person is at
      *
-     * @return Name of Stop
+     * @return Name of DbStop
      */
     public String getStopName()
     {

@@ -1,13 +1,14 @@
 package com.mailroom.common.cleaners;
 
-import com.mailroom.common.database.LogManager;
+import com.mailroom.common.objects.SysLog;
+import com.mailroom.common.interfaces.ICleaner;
 import com.mailroom.common.utils.Logger;
 import org.json.simple.JSONObject;
 
+import javax.net.ssl.HttpsURLConnection;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,8 +19,9 @@ import java.util.concurrent.TimeUnit;
  * Sends away to dev IF there are entries in Error table
  * <p/>
  * Created by james on 5/28/15.
+ * Updated by james on 1/25/16.
  */
-public class LogCleaner implements Runnable
+public class LogCleaner implements ICleaner
 {
     /**
      * Maximum Age of a Log file <br>
@@ -74,11 +76,11 @@ public class LogCleaner implements Runnable
                             {
                                 Logger.logEvent("Found Log Needs Sending", "LOGCLEANER");
                                 //create a manager for this log
-                                LogManager logManager = new LogManager(f.getCanonicalPath());
+                                SysLog sysLog = new SysLog(f.getCanonicalPath());
                                 //check if errors exist in log (events will always exist)
-                                if(logManager.countErrors() > 0)
+                                if(sysLog.countErrors() > 0)
                                 {
-                                    new LogSender(logManager);
+                                    new LogSender(sysLog);
                                 }
                             }
                             catch (IOException ioe)
@@ -105,10 +107,10 @@ public class LogCleaner implements Runnable
 
     private class LogSender implements Runnable
     {
-        LogManager logManager;
-        public LogSender(LogManager logManager)
+        SysLog sysLog;
+        public LogSender(SysLog sysLog)
         {
-            this.logManager = logManager;
+            this.sysLog = sysLog;
             new Thread(this).start();
         }
 
@@ -117,8 +119,9 @@ public class LogCleaner implements Runnable
         {
             try
             {
-                JSONObject log = logManager.toJSON();URL url = new URL(ERROR_SERVER_ADDRESS + ":" + ERROR_SERVER_PORT);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                JSONObject log = sysLog.toJSON();
+                URL url = new URL(ERROR_SERVER_ADDRESS + ":" + ERROR_SERVER_PORT);
+                HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
                 conn.setDoOutput(true);
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json");
@@ -135,7 +138,7 @@ public class LogCleaner implements Runnable
                 else
                 {
                     Logger.logEvent("Log Submitted! Deleting Log!", "LOGCLEANER");
-                    new File(logManager.getLogLocation()).delete();
+                    new File(sysLog.getLogLocation()).delete();
                 }
             }
             catch(IOException ioe)

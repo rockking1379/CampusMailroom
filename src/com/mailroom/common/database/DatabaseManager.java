@@ -44,10 +44,10 @@ public interface DatabaseManager
      */
     String dbName = "Base Class";
 
-    // User Actions//
+    // DbUser Actions//
 
     /**
-     * Allows User to Login into System Only called from MainClient
+     * Allows DbUser to Login into System Only called from MainClient
      *
      * @param userName username of user
      * @param password integer hash of username and password added together
@@ -55,90 +55,90 @@ public interface DatabaseManager
      * failure
      */
     @Deprecated
-    User login(String userName, int password);
+    DbUser login(String userName, int password);
 
     /**
-     * Allows a User to Login into System
+     * Allows a DbUser to Login into System
      * Only called from MainClient
      *
      * @param userName username of user
      * @param password MessageDigest used for password
      * @return returns a valud user on success or with user_id=-1 on failure
      */
-    User login(String userName, byte[] password);
+    DbUser login(String userName, byte[] password);
 
     /**
-     * Adds User to System
+     * Adds DbUser to System
      *
-     * @param u User to be added
+     * @param u DbUser to be added
      * @param password integer hash of username and password added together
      * @return status of SQL Execution
      */
-    boolean addUser(User u, byte[] password);
+    boolean addUser(DbUser u, byte[] password);
 
     /**
-     * Changes Password of User
+     * Changes Password of DbUser
      *
-     * @param u User requesting password change
+     * @param u DbUser requesting password change
      * @param oldPassword old password hash
      * @param newPassword new password hash
      * @return status of SQL Execution
      */
-    boolean changePassword(User u, byte[] oldPassword, byte[] newPassword);
+    boolean changePassword(DbUser u, byte[] oldPassword, byte[] newPassword);
 
     /**
      * Temporary method for converting between password schemes
      *
-     * @param u User needing changed
+     * @param u DbUser needing changed
      * @param oldPassword old password hash
      * @param newPassword new MessageDigest
      * @return status of SQL Execution
      */
     @Deprecated
-    boolean changePassword(User u, int oldPassword, byte[] newPassword);
+    boolean changePassword(DbUser u, int oldPassword, byte[] newPassword);
 
     /**
-     * Deletes User from System
+     * Deletes DbUser from System
      *
-     * @param u User to Delete
+     * @param u DbUser to Delete
      * @return status of SQL Execution
      */
-    boolean deleteUser(User u);
+    boolean deleteUser(DbUser u);
 
     /**
-     * Sets Administrator status of User
+     * Sets Administrator status of DbUser
      *
-     * @param u User to set Administrator status of
+     * @param u DbUser to set Administrator status of
      * @param status true/false
      * @return status of SQL Execution
      */
-    boolean setUserAdmin(User u, boolean status);
+    boolean setUserAdmin(DbUser u, boolean status);
 
     /**
-     * Reactivates a Deleted User
+     * Reactivates a Deleted DbUser
      *
-     * @param u User to Reactivate
-     * @param password integer hash of User's username and password added
+     * @param u DbUser to Reactivate
+     * @param password integer hash of DbUser's username and password added
      * together
      * @return status of SQL Exectuion
      */
-    boolean reactivateUser(User u, byte[] password);
+    boolean reactivateUser(DbUser u, byte[] password);
 
     /**
      * Gets List of Deactivated Users
      *
      * @return List of Deactivate Users
      */
-    List<User> getDeactivatedUsers();
+    List<DbUser> getDeactivatedUsers();
 
     /**
      * Gets List of Active Users
      *
      * @return List of Active Users
      */
-    List<User> getActiveUsers();
+    List<DbUser> getActiveUsers();
 
-    // Stop Actions//
+    // DbStop Actions//
 
     /**
      * Loads Stops from Database
@@ -146,81 +146,81 @@ public interface DatabaseManager
     void loadStops();
 
     /**
-     * Updates Stop
+     * Updates DbStop
      *
-     * @param s Stop to be Updated
+     * @param s DbStop to be Updated
      * @return Status of SQL Execution
      */
-    boolean updateStop(Stop s);
+    boolean updateStop(DbStop s);
 
     /**
-     * Adds Stop to Route
+     * Adds DbStop to DbRoute
      *
-     * @param s Stop be Added to Route
-     * @param r Route Stop is being Added To
+     * @param s DbStop be Added to DbRoute
+     * @param r DbRoute DbStop is being Added To
      * @return status of SQL Execution
      */
-    boolean addStopToRoute(Stop s, Route r);
+    boolean addStopToRoute(DbStop s, DbRoute r);
 
     /**
-     * Adds new Stop
+     * Adds new DbStop
      *
-     * @param s Stop to be Added
+     * @param s DbStop to be Added
      * @return status of SQL Execution
      */
-    boolean addStop(Stop s);
+    boolean addStop(DbStop s);
 
     /**
-     * "Deletes" Stop Really just flags it as not used by setting 'is_used' to
+     * "Deletes" DbStop Really just flags it as not used by setting 'is_used' to
      * 0/false (depending on DB Type)
      *
-     * @param s Stop to be Deleted
+     * @param s DbStop to be Deleted
      * @return Status of SQL Execution
      */
-    boolean deleteStop(Stop s);
+    boolean deleteStop(DbStop s);
 
     /**
-     * Sets Stop Position on Route
+     * Sets DbStop Position on DbRoute
      *
-     * @param s Stop to be positioned
+     * @param s DbStop to be positioned
      * @param pos position on route
      * @return SQL execution status
      */
-    boolean setRoutePosition(Stop s, int pos);
+    boolean setRoutePosition(DbStop s, int pos);
 
     /**
      * Gets Loaded Stops
      *
      * @return Loaded Stops
      */
-    List<Stop> getStops();
+    List<DbStop> getDbStops();
 
     /**
-     * Gets Stops that are on the Unassigned Route Unassigned Route cannot be
-     * deleted in software and is a default Route inserted at Table Creation
+     * Gets Stops that are on the Unassigned DbRoute Unassigned DbRoute cannot be
+     * deleted in software and is a default DbRoute inserted at Table Creation
      *
-     * @return Stops on Unassigned Route
+     * @return Stops on Unassigned DbRoute
      */
-    List<Stop> getUnassignedStops();
+    List<DbStop> getUnassignedStops();
 
     /**
-     * Gets Stops on Route
+     * Gets Stops on DbRoute
      *
-     * @param r Route Stops should be On
-     * @return List of Stops on specified Route
+     * @param r DbRoute Stops should be On
+     * @return List of Stops on specified DbRoute
      */
-    List<Stop> getStopsOnRoute(Route r);
+    List<DbStop> getStopsOnRoute(DbRoute r);
 
     /**
-     * Processes Stop Results Used to centralize repetitive code
+     * Processes DbStop Results Used to centralize repetitive code
      *
      * @param rs ResultSet to be processed
-     * @param routeName Name of Route these Stops should be using
+     * @param routeName Name of DbRoute these Stops should be using
      * @return List of Stops
      */
-    List<Stop> processStopResult(ResultSet rs, String routeName);
+    List<DbStop> processStopResult(ResultSet rs, String routeName);
 
-    // Route Actions//
+    // DbRoute Actions//
 
     /**
      * Loads Routes from Database
@@ -232,33 +232,33 @@ public interface DatabaseManager
      *
      * @return List of Routes Loaded
      */
-    List<Route> getRoutes();
+    List<DbRoute> getDbRoutes();
 
     /**
-     * Updates A Route
+     * Updates A DbRoute
      *
-     * @param r Route to be updated
+     * @param r DbRoute to be updated
      * @return status of SQL Execution
      */
-    boolean updateRoute(Route r);
+    boolean updateRoute(DbRoute r);
 
     /**
-     * Adds New Route to Database
+     * Adds New DbRoute to Database
      *
-     * @param routeName Name of Route
+     * @param routeName Name of DbRoute
      * @return status of SQL Execution
      */
     boolean addRoute(String routeName);
 
     /**
-     * Deletes Route Flags Route as not used
+     * Deletes DbRoute Flags DbRoute as not used
      *
-     * @param r Route to be Deleted
+     * @param r DbRoute to be Deleted
      * @return Status of SQL Execution
      */
-    boolean deleteRoute(Route r);
+    boolean deleteRoute(DbRoute r);
 
-    // Courier Actions//
+    // DbCourier Actions//
 
     /**
      * Loads Couriers from Database
@@ -270,31 +270,31 @@ public interface DatabaseManager
      *
      * @return Returns List of Loaded Couriers
      */
-    List<Courier> getCouriers();
+    List<DbCourier> getDbCouriers();
 
     /**
-     * Adds new Courier
+     * Adds new DbCourier
      *
-     * @param courierName Name of Courier
-     * @return Status of Courier Execution
+     * @param courierName Name of DbCourier
+     * @return Status of DbCourier Execution
      */
     boolean addCourier(String courierName);
 
     /**
-     * Updates Courier
+     * Updates DbCourier
      *
-     * @param c Courier to be Updated
+     * @param c DbCourier to be Updated
      * @return Status of SQL Execution
      */
-    boolean updateCourier(Courier c);
+    boolean updateCourier(DbCourier c);
 
     /**
-     * Deletes Courier
+     * Deletes DbCourier
      *
-     * @param c Courier to be Deleted
+     * @param c DbCourier to be Deleted
      * @return Status of SQL Execution
      */
-    boolean deleteCourier(Courier c);
+    boolean deleteCourier(DbCourier c);
 
     // Package Actions//
 
@@ -311,9 +311,9 @@ public interface DatabaseManager
     void loadAllPackages();
 
     /**
-     * Loads Packages on Stop where stop_id=stopId
+     * Loads Packages on DbStop where stop_id=stopId
      *
-     * @param stopId stop_id of Stop
+     * @param stopId stop_id of DbStop
      */
     void loadPackages(int stopId);
 
@@ -352,20 +352,20 @@ public interface DatabaseManager
     boolean addPackage(Package p);
 
     /**
-     * Gets Packages on Stop
+     * Gets Packages on DbStop
      *
-     * @param s Stop packages should be on
-     * @return List of Packages on Stop
+     * @param s DbStop packages should be on
+     * @return List of Packages on DbStop
      */
-    List<Package> getPackagesForStop(Stop s);
+    List<Package> getPackagesForStop(DbStop s);
 
     /**
-     * Used for printing packages at a Stop
+     * Used for printing packages at a DbStop
      *
-     * @param s Stop to get packages
+     * @param s DbStop to get packages
      * @return list of packages
      */
-    List<Package> printPackagesForStop(Stop s);
+    List<Package> printPackagesForStop(DbStop s);
 
     /**
      * Processes Package Results
@@ -444,28 +444,28 @@ public interface DatabaseManager
     boolean verify();
 
     /**
-     * Retrieves All Email Address for Stop
+     * Retrieves All Email Address for DbStop
      *
-     * @param s Stop used for getting Email Addresses
+     * @param s DbStop used for getting Email Addresses
      * @return List of Email Addresses
      */
-    List<String> getEmailAddress(Stop s);
+    List<String> getEmailAddress(DbStop s);
 
     /**
-     * Adds new Email Address to Stop Contact List
+     * Adds new Email Address to DbStop Contact List
      *
-     * @param s Stop used for Contact List
+     * @param s DbStop used for Contact List
      * @param address Address to be Added
      * @return Status of SQL Execution
      */
-    boolean addEmailAddress(Stop s, String address);
+    boolean addEmailAddress(DbStop s, String address);
 
     /**
-     * Removes Email Address from Stop Contact List
+     * Removes Email Address from DbStop Contact List
      *
-     * @param s Stop used for Contact List
+     * @param s DbStop used for Contact List
      * @param address Address to be Removed
      * @return Status of SQL Execution
      */
-    boolean deleteEmailAddress(Stop s, String address);
+    boolean deleteEmailAddress(DbStop s, String address);
 }

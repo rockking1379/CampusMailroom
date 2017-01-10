@@ -1,0 +1,13 @@
+.background-element {
+	-fx-background-color : #4D4D4D;
+}
+.data-display{
+	-fx-background-color: #B4B4B4;
+}
+.input-button{
+	-fx-background-color:#ADADAD;
+	-fx-text-fill:#000000;
+	-fx-font-size:10pt;
+	-fx-border-padding:3 6 6 6;
+	-fx-border-radius:5;
+}

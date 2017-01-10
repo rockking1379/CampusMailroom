@@ -1,11 +1,11 @@
 package com.mailroom.mainclient;
 
 import com.mailroom.common.database.DatabaseManager;
-import com.mailroom.common.database.DatabaseManagerFactory;
-import com.mailroom.common.objects.Courier;
+import com.mailroom.common.factories.DatabaseManagerFactory;
+import com.mailroom.common.objects.DbCourier;
+import com.mailroom.common.objects.DbStop;
+import com.mailroom.common.objects.DbUser;
 import com.mailroom.common.objects.Package;
-import com.mailroom.common.objects.Stop;
-import com.mailroom.common.objects.User;
 import com.mailroom.common.utils.Logger;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
@@ -52,9 +52,9 @@ public class ScanPageController implements Initializable
     @FXML
     private Label lblDate;
     @FXML
-    private ComboBox<Stop> cboxStops;
+    private ComboBox<DbStop> cboxStops;
     @FXML
-    private ComboBox<Courier> cboxCourier;
+    private ComboBox<DbCourier> cboxCourier;
     @FXML
     private Button btnSave;
     @FXML
@@ -65,7 +65,7 @@ public class ScanPageController implements Initializable
     private Button btnRandomGenerate;
 
     private DatabaseManager dbManager;
-    private User cUser;
+    private DbUser cDbUser;
     private String stopSearch = "";
     private String courierSearch = "";
 
@@ -77,17 +77,17 @@ public class ScanPageController implements Initializable
         Date now = new Date();
         lblDate.setText(format.format(now));
 
-        cUser = MainFrame.cUser;
+        cDbUser = MainFrame.cDbUser;
         dbManager = DatabaseManagerFactory.getInstance();
 
         cboxStops.getItems().clear();
         cboxCourier.getItems().clear();
 
-        for (Stop s : dbManager.getStops())
+        for (DbStop s : dbManager.getDbStops())
         {
             cboxStops.getItems().add(s);
         }
-        for (Courier c : dbManager.getCouriers())
+        for (DbCourier c : dbManager.getDbCouriers())
         {
             cboxCourier.getItems().add(c);
         }
@@ -102,12 +102,13 @@ public class ScanPageController implements Initializable
     public void btnExitAction(ActionEvent ae)
     {
         ae.consume();
-        Logger.logEvent("Exit ScanPage Requested", cUser.getUserName());
+        Logger.logEvent("Exit ScanPage Requested", cDbUser.getUserName());
         try
         {
             Parent root = FXMLLoader.load(getClass().getResource(
                     "/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
             Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/com/mailroom/resources/default.css").toString());
             MainFrame.stage.setScene(scene);
         }
         catch (IOException e)
@@ -125,7 +126,7 @@ public class ScanPageController implements Initializable
     public void btnClearAction(ActionEvent ae)
     {
         ae.consume();
-        Logger.logEvent("Cleared All Fields", cUser.getUserName());
+        Logger.logEvent("Cleared All Fields", cDbUser.getUserName());
         txtTrackingNumber.setText("");
         txtFirstName.setText("");
         txtLastName.setText("");
@@ -209,9 +210,9 @@ public class ScanPageController implements Initializable
                         lblDate.getText(), txtEmailAddress.getText(),
                         txtFirstName.getText(), txtLastName.getText(),
                         txtBoxOffice.getText(), cboxStops.getValue(),
-                        cboxCourier.getValue(), cUser, false, false, null,
+                        cboxCourier.getValue(), cDbUser, false, false, null,
                         false);
-                Logger.logEvent("Submitting Package to Database", cUser.getUserName());
+                Logger.logEvent("Submitting Package to Database", cDbUser.getUserName());
                 if (dbManager.addPackage(p))
                 {
                     btnClear.fire();
@@ -239,12 +240,12 @@ public class ScanPageController implements Initializable
 
                 if (ans == MessageDialog.Answer.YES_OK)
                 {
-                    Logger.logEvent("User Selected to Create New Record", cUser.getUserName());
+                    Logger.logEvent("DbUser Selected to Create New Record", cDbUser.getUserName());
                     Package p = new Package(-1, txtTrackingNumber.getText(),
                             lblDate.getText(), txtEmailAddress.getText(),
                             txtFirstName.getText(), txtLastName.getText(),
                             txtBoxOffice.getText(), cboxStops.getValue(),
-                            cboxCourier.getValue(), cUser, false, false, null,
+                            cboxCourier.getValue(), cDbUser, false, false, null,
                             false);
 
                     if (dbManager.addPackage(p))
@@ -261,12 +262,12 @@ public class ScanPageController implements Initializable
                 }
                 if (ans == MessageDialog.Answer.NO)
                 {
-                    Logger.logEvent("User Selected to Overwrite Existing Record", cUser.getUserName());
+                    Logger.logEvent("DbUser Selected to Overwrite Existing Record", cDbUser.getUserName());
                     Package p = new Package(pid, txtTrackingNumber.getText(),
                             lblDate.getText(), txtEmailAddress.getText(),
                             txtFirstName.getText(), txtLastName.getText(),
                             txtBoxOffice.getText(), cboxStops.getValue(),
-                            cboxCourier.getValue(), cUser, false, false, null,
+                            cboxCourier.getValue(), cDbUser, false, false, null,
                             false);
 
                     if (dbManager.updatePackage(p))
@@ -293,7 +294,7 @@ public class ScanPageController implements Initializable
     public void btnRandomGenerateAction(ActionEvent ae)
     {
         ae.consume();
-        Logger.logEvent("Generating Random Tracking Number", cUser.getUserName());
+        Logger.logEvent("Generating Random Tracking Number", cDbUser.getUserName());
         String tnum = MainFrame.properties.getProperty("TNUMPREFIX");
 
         for (int i = 0; i < 16; i++)
@@ -377,7 +378,7 @@ public class ScanPageController implements Initializable
                 {
                     stopSearch += ke.getCode().toString();
 
-                    for (Stop s : cboxStops.getItems())
+                    for (DbStop s : cboxStops.getItems())
                     {
                         if (s.getStopName().toUpperCase()
                                 .startsWith(stopSearch.toUpperCase()))
@@ -421,7 +422,7 @@ public class ScanPageController implements Initializable
                 {
                     courierSearch += ke.getCode().toString();
 
-                    for (Courier c : cboxCourier.getItems())
+                    for (DbCourier c : cboxCourier.getItems())
                     {
                         if (c.getCourierName().toUpperCase()
                                 .startsWith(courierSearch.toUpperCase()))

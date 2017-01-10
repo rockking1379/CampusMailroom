@@ -1,10 +1,10 @@
 package com.mailroom.mainclient;
 
 import com.mailroom.common.database.DatabaseManager;
-import com.mailroom.common.database.DatabaseManagerFactory;
+import com.mailroom.common.factories.DatabaseManagerFactory;
+import com.mailroom.common.objects.DbRoute;
+import com.mailroom.common.objects.DbStop;
 import com.mailroom.common.objects.Package;
-import com.mailroom.common.objects.Route;
-import com.mailroom.common.objects.Stop;
 import com.mailroom.common.utils.Logger;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
@@ -67,7 +67,7 @@ public class PrintPageController implements Initializable
 
         routeBoxes = new ArrayList<CheckBox>();
 
-        for (Route r : dbManager.getRoutes())
+        for (DbRoute r : dbManager.getDbRoutes())
         {
             CheckBox c = new CheckBox();
 
@@ -165,7 +165,7 @@ public class PrintPageController implements Initializable
     public void btnCreateReportAction(ActionEvent ae)
     {
         ae.consume();
-        Logger.logEvent("Generating Package Report", MainFrame.cUser.getUserName());
+        Logger.logEvent("Generating Package Report", MainFrame.cDbUser.getUserName());
         txtAreaReport.setText("");
         strReport = new ArrayList<String>();
 
@@ -180,15 +180,15 @@ public class PrintPageController implements Initializable
                     head += " ";
                 }
 
-                head += "Route: ";
+                head += "DbRoute: ";
                 head += c.getText() + " ";
 
-                for (Route r : dbManager.getRoutes())
+                for (DbRoute r : dbManager.getDbRoutes())
                 {
                     boolean added = false;
                     if (r.getRouteName().equals(c.getText()))
                     {
-                        for (Stop s : dbManager.getStopsOnRoute(r))
+                        for (DbStop s : dbManager.getStopsOnRoute(r))
                         {
                             ArrayList<Package> packages = (ArrayList<Package>) dbManager
                                     .printPackagesForStop(s);
@@ -283,7 +283,7 @@ public class PrintPageController implements Initializable
     public void btnPrintReportAction(ActionEvent ae)
     {
         ae.consume();
-        Logger.logEvent("Printing Package Report", MainFrame.cUser.getUserName());
+        Logger.logEvent("Printing Package Report", MainFrame.cDbUser.getUserName());
         File dir = new File("./Prints");
 
         if (!dir.exists())
@@ -386,11 +386,11 @@ public class PrintPageController implements Initializable
                                         {
                                             if (c.isSelected())
                                             {
-                                                for (Route r : dbManager.getRoutes())
+                                                for (DbRoute r : dbManager.getDbRoutes())
                                                 {
                                                     if (r.getRouteName().equals(c.getText()))
                                                     {
-                                                        for (Stop s : dbManager.getStopsOnRoute(r))
+                                                        for (DbStop s : dbManager.getStopsOnRoute(r))
                                                         {
                                                             if (dbManager.getPackagesForStop(s).size() > 0)
                                                             {
@@ -428,11 +428,11 @@ public class PrintPageController implements Initializable
                             {
                                 if (c.isSelected())
                                 {
-                                    for (Route r : dbManager.getRoutes())
+                                    for (DbRoute r : dbManager.getDbRoutes())
                                     {
                                         if (r.getRouteName().equals(c.getText()))
                                         {
-                                            for (Stop s : dbManager.getStopsOnRoute(r))
+                                            for (DbStop s : dbManager.getStopsOnRoute(r))
                                             {
                                                 if (s.getAutoRemove())
                                                 {
@@ -489,7 +489,7 @@ public class PrintPageController implements Initializable
 
     public static boolean printReport(ObservableList<Package> toPrint)
     {
-        Logger.logEvent("Special Report Generating", MainFrame.cUser.getUserName());
+        Logger.logEvent("Special Report Generating", MainFrame.cDbUser.getUserName());
         ArrayList<String> strReport = new ArrayList<String>();
 
         String head = "";
@@ -499,7 +499,7 @@ public class PrintPageController implements Initializable
             head += " ";
         }
 
-        head += "Route: ";
+        head += "DbRoute: ";
         head += "Custom Print" + " ";
         strReport.add(head);
 

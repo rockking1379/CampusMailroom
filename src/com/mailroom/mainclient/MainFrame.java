@@ -2,10 +2,11 @@ package com.mailroom.mainclient;
 
 import com.mailroom.common.cleaners.LogCleaner;
 import com.mailroom.common.cleaners.PrintCleaner;
-import com.mailroom.common.database.*;
+import com.mailroom.common.factories.DatabaseManagerFactory;
 import com.mailroom.common.gui.PackageEditWindow;
-import com.mailroom.common.objects.User;
+import com.mailroom.common.objects.DbUser;
 import com.mailroom.common.utils.Logger;
+import com.mailroom.common.utils.WebCamera;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import javafx.application.Application;
@@ -36,9 +37,9 @@ public class MainFrame extends Application
      */
     public static Stage stage;
     /**
-     * Currently Logged In User
+     * Currently Logged In DbUser
      */
-    public static User cUser;
+    public static DbUser cDbUser;
     /**
      * Software Configuration Properties
      */
@@ -62,6 +63,7 @@ public class MainFrame extends Application
     public static void main(String[] args)
     {
         new PrintCleaner("./Prints", 30);
+        WebCamera.getInstance();
 
         pubArgs = args;
         launch(args);

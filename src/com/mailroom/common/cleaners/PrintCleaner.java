@@ -1,5 +1,6 @@
 package com.mailroom.common.cleaners;
 
+import com.mailroom.common.interfaces.ICleaner;
 import com.mailroom.common.utils.Logger;
 
 import java.io.File;
@@ -13,7 +14,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * Used to clean print outs
  * Created by James on 4/25/2015.
  */
-public class PrintCleaner implements Runnable
+public class PrintCleaner implements ICleaner
 {
     static Lock lock;
     private String directoryLocation;

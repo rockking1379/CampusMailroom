@@ -1,193 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import java.lang.*?>
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            onKeyPressed="#keyPressedAction" prefHeight="600.0" prefWidth="800.0" style="-fx-background: #00FF00;"
-            xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2"
-            fx:controller="com.mailroom.mainclient.SettingsController">
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressedAction" prefHeight="600.0" prefWidth="800.0" styleClass="background-element" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mailroom.mainclient.SettingsController">
     <children>
-        <TabPane fx:id="tabpaneMainPane" layoutX="0.0" layoutY="0.0" minWidth="-1.0" prefHeight="600.0"
-                 prefWidth="800.0" rotateGraphic="false" side="TOP" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0"
-                 tabMinHeight="24.0" tabMinWidth="110.0">
+        <TabPane fx:id="tabpaneMainPane" layoutX="0.0" layoutY="0.0" minWidth="-1.0" prefHeight="600.0" prefWidth="800.0" rotateGraphic="false" side="TOP" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMinHeight="24.0" tabMinWidth="110.0">
             <tabs>
                 <Tab fx:id="tabGeneral" closable="false" disable="false" text="General">
                     <content>
-                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
-                                    style="-fx-background-color: #01A217">
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-element">
                             <children>
-                                <TextField fx:id="txtDatabaseLocation" layoutX="14.0" layoutY="134.0" prefHeight="25.0"
-                                           prefWidth="200.0" promptText="Database Location"/>
-                                <TextField fx:id="txtDatabaseName" layoutX="14.0" layoutY="169.0" prefHeight="25.0"
-                                           prefWidth="125.0" promptText="Database Name"/>
-                                <TextField fx:id="txtDatabaseUserName" layoutX="149.0" layoutY="169.0" prefHeight="25.0"
-                                           prefWidth="125.0" promptText="Username"/>
-                                <Button fx:id="btnBrowse" layoutX="224.0" layoutY="134.0" mnemonicParsing="false"
-                                        onAction="#btnBrowseAction" text="Browse..."/>
-                                <PasswordField id="pwdPassword" fx:id="pwdDatabasePassword" layoutX="284.0"
-                                               layoutY="169.0" prefHeight="25.0" prefWidth="150.0"
-                                               promptText="Password"/>
-                                <Button fx:id="btnSave" layoutX="224.0" layoutY="244.0" mnemonicParsing="false"
-                                        onAction="#btnSaveAction" prefHeight="25.0" prefWidth="66.0" text="Save"/>
-                                <Button fx:id="btnCancel" layoutX="293.0" layoutY="245.0" mnemonicParsing="false"
-                                        onAction="#btnCancelAction" prefHeight="25.0" prefWidth="66.0" text="Cancel"/>
-                                <ComboBox fx:id="cboxDatabaseType" layoutX="14.0" layoutY="65.0"
-                                          onAction="#cboxDatabaseTypeAction" prefHeight="50.0" prefWidth="200.0"
-                                          promptText="Database Type">
+                                <TextField fx:id="txtDatabaseLocation" layoutX="14.0" layoutY="134.0" prefHeight="25.0" prefWidth="200.0" promptText="Database Location" />
+                                <TextField fx:id="txtDatabaseName" layoutX="14.0" layoutY="169.0" prefHeight="25.0" prefWidth="125.0" promptText="Database Name" />
+                                <TextField fx:id="txtDatabaseUserName" layoutX="149.0" layoutY="169.0" prefHeight="25.0" prefWidth="125.0" promptText="Username" />
+                                <Button fx:id="btnBrowse" layoutX="224.0" layoutY="134.0" mnemonicParsing="false" onAction="#btnBrowseAction" styleClass="input-button" text="Browse..." />
+                                <PasswordField id="pwdPassword" fx:id="pwdDatabasePassword" layoutX="284.0" layoutY="169.0" prefHeight="25.0" prefWidth="150.0" promptText="Password" />
+                                <Button fx:id="btnSave" layoutX="224.0" layoutY="244.0" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="25.0" prefWidth="66.0" styleClass="input-button" text="Save" />
+                                <Button fx:id="btnCancel" layoutX="293.0" layoutY="245.0" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="25.0" prefWidth="66.0" styleClass="input-button" text="Cancel" />
+                                <ComboBox fx:id="cboxDatabaseType" layoutX="14.0" layoutY="65.0" onAction="#cboxDatabaseTypeAction" prefHeight="50.0" prefWidth="200.0" promptText="Database Type">
                                     <items>
                                         <FXCollections fx:factory="observableArrayList">
-                                            <String fx:value="Item 1"/>
-                                            <String fx:value="Item 2"/>
-                                            <String fx:value="Item 3"/>
+                                            <String fx:value="Item 1" />
+                                            <String fx:value="Item 2" />
+                                            <String fx:value="Item 3" />
                                         </FXCollections>
                                     </items>
                                 </ComboBox>
-                                <CheckBox fx:id="cboxGeneralEmailEnabled" layoutX="14.0" layoutY="241.0"
-                                          mnemonicParsing="false" onAction="#cboxGeneralEmailEnabledAction"
-                                          prefHeight="25.0" prefWidth="200.0" text="Enable Email Notification"/>
+                                <CheckBox fx:id="cboxGeneralEmailEnabled" layoutX="14.0" layoutY="241.0" mnemonicParsing="false" onAction="#cboxGeneralEmailEnabledAction" prefHeight="25.0" prefWidth="200.0" text="Enable Email Notification" />
                             </children>
                         </AnchorPane>
                     </content>
                 </Tab>
                 <Tab fx:id="tabAccountManagement" closable="false" disable="false" text="Account">
                     <content>
-                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
-                                    style="-fx-background-color: #01A217">
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-element">
                             <children>
-                                <TabPane layoutX="10.0" layoutY="0.0" prefHeight="550.0" prefWidth="775.0"
-                                         tabClosingPolicy="UNAVAILABLE" tabMinWidth="100.0">
+                                <TabPane layoutX="10.0" layoutY="0.0" prefHeight="550.0" prefWidth="775.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="100.0">
                                     <tabs>
                                         <Tab fx:id="tabEditAccount" closable="false" text="Edit">
                                             <content>
-                                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0"
-                                                            prefHeight="527.0" prefWidth="800.0"
-                                                            style="-fx-background-color: #01A217">
+                                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="527.0" prefWidth="800.0" styleClass="background-element">
                                                     <children>
-                                                        <Label fx:id="lblUserId" layoutX="14.0" layoutY="14.0"
-                                                               prefHeight="50.0" prefWidth="150.0" text="User ID:"/>
-                                                        <PasswordField id="pwdOldPassword" fx:id="pwdChangePwdOld"
-                                                                       layoutX="14.0" layoutY="124.0" prefHeight="25.0"
-                                                                       prefWidth="200.0" promptText="Old Password"/>
-                                                        <PasswordField id="pwdNewPassword" fx:id="pwdChangePwdNew"
-                                                                       layoutX="14.0" layoutY="154.0" prefHeight="25.0"
-                                                                       prefWidth="200.0" promptText="New Password"/>
-                                                        <PasswordField id="pwdConfirmPassword"
-                                                                       fx:id="pwdChangePwdConfirm" layoutX="14.0"
-                                                                       layoutY="184.0" prefHeight="25.0"
-                                                                       prefWidth="200.0" promptText="Confirm Password"/>
-                                                        <Label layoutX="14.0" layoutY="64.0" prefHeight="50.0"
-                                                               prefWidth="150.0" text="Change Password"/>
-                                                        <Button fx:id="btnChangePwd" layoutX="48.0" layoutY="214.0"
-                                                                mnemonicParsing="false" onAction="#btnChangePwdAction"
-                                                                prefHeight="25.0" prefWidth="132.0"
-                                                                text="Change Password"/>
+                                                        <Label fx:id="lblUserId" layoutX="14.0" layoutY="14.0" prefHeight="50.0" prefWidth="150.0" text="User ID:" />
+                                                        <PasswordField id="pwdOldPassword" fx:id="pwdChangePwdOld" layoutX="14.0" layoutY="124.0" prefHeight="25.0" prefWidth="200.0" promptText="Old Password" />
+                                                        <PasswordField id="pwdNewPassword" fx:id="pwdChangePwdNew" layoutX="14.0" layoutY="154.0" prefHeight="25.0" prefWidth="200.0" promptText="New Password" />
+                                                        <PasswordField id="pwdConfirmPassword" fx:id="pwdChangePwdConfirm" layoutX="14.0" layoutY="184.0" prefHeight="25.0" prefWidth="200.0" promptText="Confirm Password" />
+                                                        <Label layoutX="14.0" layoutY="64.0" prefHeight="50.0" prefWidth="150.0" text="Change Password" />
+                                                        <Button fx:id="btnChangePwd" layoutX="48.0" layoutY="214.0" mnemonicParsing="false" onAction="#btnChangePwdAction" prefHeight="25.0" prefWidth="132.0" styleClass="input-button" text="Change Password" />
                                                     </children>
                                                 </AnchorPane>
                                             </content>
                                         </Tab>
                                         <Tab fx:id="tabCreateAccount" closable="false" text="Create">
                                             <content>
-                                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0"
-                                                            prefHeight="180.0" prefWidth="200.0"
-                                                            style="-fx-background-color: #01A217">
+                                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-element">
                                                     <children>
-                                                        <TextField id="txtAccountFirstName" fx:id="txtCreateFirstName"
-                                                                   layoutX="14.0" layoutY="56.0" prefHeight="25.0"
-                                                                   prefWidth="200.0" promptText="First Name"/>
-                                                        <TextField id="txtAccountLastName" fx:id="txtCreateLastName"
-                                                                   layoutX="219.0" layoutY="56.0" prefHeight="25.0"
-                                                                   prefWidth="200.0" promptText="Last Name"/>
-                                                        <TextField fx:id="txtCreateUserName" layoutX="424.0"
-                                                                   layoutY="56.0" prefHeight="25.0" prefWidth="200.0"
-                                                                   promptText="User Name"/>
-                                                        <PasswordField fx:id="pwdCreatePwd" layoutX="14.0"
-                                                                       layoutY="91.0" prefHeight="25.0"
-                                                                       prefWidth="200.0" promptText="Password"/>
-                                                        <PasswordField fx:id="pwdCreateConfirm" layoutX="219.0"
-                                                                       layoutY="91.0" prefHeight="25.0"
-                                                                       prefWidth="200.0" promptText="Confirm Password"/>
-                                                        <CheckBox fx:id="cboxCreateAdmin" layoutX="424.0" layoutY="91.0"
-                                                                  mnemonicParsing="false" prefHeight="25.0"
-                                                                  prefWidth="200.0" text="Administrator"/>
-                                                        <Button fx:id="btnCreateAccount" layoutX="14.0" layoutY="126.0"
-                                                                mnemonicParsing="false"
-                                                                onAction="#btnCreateAccountAction" prefHeight="25.0"
-                                                                prefWidth="132.0" text="Create Account"/>
-                                                        <Button fx:id="btnCreateCancel" layoutX="151.0" layoutY="126.0"
-                                                                mnemonicParsing="false"
-                                                                onAction="#btnCreateCancelAction" prefHeight="25.0"
-                                                                prefWidth="66.0" text="Cancel"/>
+                                                        <TextField id="txtAccountFirstName" fx:id="txtCreateFirstName" layoutX="14.0" layoutY="56.0" prefHeight="25.0" prefWidth="200.0" promptText="First Name" />
+                                                        <TextField id="txtAccountLastName" fx:id="txtCreateLastName" layoutX="219.0" layoutY="56.0" prefHeight="25.0" prefWidth="200.0" promptText="Last Name" />
+                                                        <TextField fx:id="txtCreateUserName" layoutX="424.0" layoutY="56.0" prefHeight="25.0" prefWidth="200.0" promptText="User Name" />
+                                                        <PasswordField fx:id="pwdCreatePwd" layoutX="14.0" layoutY="91.0" prefHeight="25.0" prefWidth="200.0" promptText="Password" />
+                                                        <PasswordField fx:id="pwdCreateConfirm" layoutX="219.0" layoutY="91.0" prefHeight="25.0" prefWidth="200.0" promptText="Confirm Password" />
+                                                        <CheckBox fx:id="cboxCreateAdmin" layoutX="424.0" layoutY="91.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Administrator" />
+                                                        <Button fx:id="btnCreateAccount" layoutX="14.0" layoutY="126.0" mnemonicParsing="false" onAction="#btnCreateAccountAction" prefHeight="25.0" prefWidth="132.0" styleClass="input-button" text="Create Account" />
+                                                        <Button fx:id="btnCreateCancel" layoutX="151.0" layoutY="126.0" mnemonicParsing="false" onAction="#btnCreateCancelAction" prefHeight="25.0" prefWidth="66.0" styleClass="input-button" text="Cancel" />
                                                     </children>
                                                 </AnchorPane>
                                             </content>
                                         </Tab>
                                         <Tab fx:id="tabAdministrative" closable="false" text="Administrative">
                                             <content>
-                                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0"
-                                                            prefHeight="180.0" prefWidth="200.0"
-                                                            style="-fx-background-color: #01A217">
+                                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-element">
                                                     <children>
-                                                        <Label layoutX="113.0" layoutY="7.0" prefHeight="50.0"
-                                                               prefWidth="150.0" text="Change Admin Ability"/>
-                                                        <Label layoutX="113.0" layoutY="107.0" prefHeight="50.0"
-                                                               prefWidth="150.0" text="Reactivate Account"/>
-                                                        <Label layoutX="113.0" layoutY="207.0" prefHeight="50.0"
-                                                               prefWidth="150.0" text="Deactivate Account"/>
-                                                        <ComboBox fx:id="cboxAdminChange" layoutX="14.0" layoutY="57.0"
-                                                                  prefHeight="40.0" prefWidth="150.0">
+                                                        <Label layoutX="113.0" layoutY="7.0" prefHeight="50.0" prefWidth="150.0" text="Change Admin Ability" />
+                                                        <Label layoutX="113.0" layoutY="107.0" prefHeight="50.0" prefWidth="150.0" text="Reactivate Account" />
+                                                        <Label layoutX="113.0" layoutY="207.0" prefHeight="50.0" prefWidth="150.0" text="Deactivate Account" />
+                                                        <ComboBox fx:id="cboxAdminChange" layoutX="14.0" layoutY="57.0" prefHeight="40.0" prefWidth="150.0">
                                                             <items>
                                                                 <FXCollections fx:factory="observableArrayList">
-                                                                    <String fx:value="Item 1"/>
-                                                                    <String fx:value="Item 2"/>
-                                                                    <String fx:value="Item 3"/>
+                                                                    <String fx:value="Item 1" />
+                                                                    <String fx:value="Item 2" />
+                                                                    <String fx:value="Item 3" />
                                                                 </FXCollections>
                                                             </items>
                                                         </ComboBox>
-                                                        <ComboBox fx:id="cboxAdminReactivate" layoutX="14.0"
-                                                                  layoutY="158.0" prefHeight="40.0" prefWidth="150.0">
+                                                        <ComboBox fx:id="cboxAdminReactivate" layoutX="14.0" layoutY="158.0" prefHeight="40.0" prefWidth="150.0">
                                                             <items>
                                                                 <FXCollections fx:factory="observableArrayList">
-                                                                    <String fx:value="Item 1"/>
-                                                                    <String fx:value="Item 2"/>
-                                                                    <String fx:value="Item 3"/>
+                                                                    <String fx:value="Item 1" />
+                                                                    <String fx:value="Item 2" />
+                                                                    <String fx:value="Item 3" />
                                                                 </FXCollections>
                                                             </items>
                                                         </ComboBox>
-                                                        <ComboBox fx:id="cboxAdminDeactivate" layoutX="14.0"
-                                                                  layoutY="260.0" prefHeight="40.0" prefWidth="150.0">
+                                                        <ComboBox fx:id="cboxAdminDeactivate" layoutX="14.0" layoutY="260.0" prefHeight="40.0" prefWidth="150.0">
                                                             <items>
                                                                 <FXCollections fx:factory="observableArrayList">
-                                                                    <String fx:value="Item 1"/>
-                                                                    <String fx:value="Item 2"/>
-                                                                    <String fx:value="Item 3"/>
+                                                                    <String fx:value="Item 1" />
+                                                                    <String fx:value="Item 2" />
+                                                                    <String fx:value="Item 3" />
                                                                 </FXCollections>
                                                             </items>
                                                         </ComboBox>
-                                                        <CheckBox fx:id="cboxAdminAdminStatus" layoutX="168.0"
-                                                                  layoutY="52.0" mnemonicParsing="false"
-                                                                  prefHeight="50.0" prefWidth="100.0"
-                                                                  text="Administrator"/>
-                                                        <Button fx:id="btnAdminChangeSave" layoutX="273.0"
-                                                                layoutY="65.0" mnemonicParsing="false"
-                                                                onAction="#btnAdminChangeSaveAction" prefHeight="25.0"
-                                                                prefWidth="66.0" text="Save"/>
-                                                        <Button fx:id="btnAdminReactivate" layoutX="479.0"
-                                                                layoutY="165.0" mnemonicParsing="false"
-                                                                onAction="#btnAdminReactivateAction" prefHeight="25.0"
-                                                                prefWidth="99.0" text="Reactivate"/>
-                                                        <Button fx:id="btnAdminDeactivate" layoutX="169.0"
-                                                                layoutY="264.0" mnemonicParsing="false"
-                                                                onAction="#btnAdminDeactivateAction" prefHeight="32.0"
-                                                                prefWidth="99.0" text="Deactivate"/>
-                                                        <PasswordField fx:id="pwdAdminRePwd" layoutX="169.0"
-                                                                       layoutY="165.0" prefHeight="25.0"
-                                                                       prefWidth="150.0" promptText="Password"/>
-                                                        <PasswordField fx:id="pwdAdminReConfirm" layoutX="324.0"
-                                                                       layoutY="165.0" prefHeight="25.0"
-                                                                       prefWidth="150.0" promptText="Confirm Password"/>
+                                                        <CheckBox fx:id="cboxAdminAdminStatus" layoutX="168.0" layoutY="52.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Administrator" />
+                                                        <Button fx:id="btnAdminChangeSave" layoutX="273.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnAdminChangeSaveAction" prefHeight="25.0" prefWidth="66.0" styleClass="input-button" text="Save" />
+                                                        <Button fx:id="btnAdminReactivate" layoutX="479.0" layoutY="165.0" mnemonicParsing="false" onAction="#btnAdminReactivateAction" prefHeight="25.0" prefWidth="99.0" styleClass="input-button" text="Reactivate" />
+                                                        <Button fx:id="btnAdminDeactivate" layoutX="169.0" layoutY="264.0" mnemonicParsing="false" onAction="#btnAdminDeactivateAction" prefHeight="32.0" prefWidth="99.0" styleClass="input-button" text="Deactivate" />
+                                                        <PasswordField fx:id="pwdAdminRePwd" layoutX="169.0" layoutY="165.0" prefHeight="25.0" prefWidth="150.0" promptText="Password" />
+                                                        <PasswordField fx:id="pwdAdminReConfirm" layoutX="324.0" layoutY="165.0" prefHeight="25.0" prefWidth="150.0" promptText="Confirm Password" />
                                                     </children>
                                                 </AnchorPane>
                                             </content>
@@ -200,100 +124,70 @@
                 </Tab>
                 <Tab fx:id="tabStopManagement" closable="false" text="Stop">
                     <content>
-                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
-                                    style="-fx-background-color: #01A217">
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-element">
                             <children>
-                                <Label layoutX="54.0" layoutY="14.0" prefHeight="50.0" prefWidth="150.0"
-                                       text="Delete Stop"/>
-                                <Label layoutX="53.0" layoutY="104.0" prefHeight="50.0" prefWidth="150.0"
-                                       text="Create Stop"/>
-                                <Label layoutX="53.0" layoutY="220.0" prefHeight="50.0" prefWidth="150.0"
-                                       text="Update Stop"/>
-                                <ComboBox fx:id="cboxStopDelete" layoutX="15.0" layoutY="64.0" prefHeight="40.0"
-                                          prefWidth="150.0">
+                                <Label layoutX="54.0" layoutY="14.0" prefHeight="50.0" prefWidth="150.0" text="Delete Stop" />
+                                <Label layoutX="53.0" layoutY="104.0" prefHeight="50.0" prefWidth="150.0" text="Create Stop" />
+                                <Label layoutX="53.0" layoutY="220.0" prefHeight="50.0" prefWidth="150.0" text="Update Stop" />
+                                <ComboBox fx:id="cboxStopDelete" layoutX="15.0" layoutY="64.0" prefHeight="40.0" prefWidth="150.0">
                                     <items>
                                         <FXCollections fx:factory="observableArrayList">
-                                            <String fx:value="Item 1"/>
-                                            <String fx:value="Item 2"/>
-                                            <String fx:value="Item 3"/>
+                                            <String fx:value="Item 1" />
+                                            <String fx:value="Item 2" />
+                                            <String fx:value="Item 3" />
                                         </FXCollections>
                                     </items>
                                 </ComboBox>
-                                <Button fx:id="btnStopDelete" layoutX="182.0" layoutY="72.0" mnemonicParsing="false"
-                                        onAction="#btnStopDeleteAction" prefHeight="25.0" prefWidth="66.0"
-                                        text="Delete"/>
-                                <TextField fx:id="txtStopName" layoutX="14.0" layoutY="154.0" prefHeight="25.0"
-                                           prefWidth="150.0" promptText="Stop Name"/>
-                                <ComboBox fx:id="cboxStopRoute" layoutX="181.0" layoutY="145.0" prefHeight="40.0"
-                                          prefWidth="150.0">
+                                <Button fx:id="btnStopDelete" layoutX="182.0" layoutY="72.0" mnemonicParsing="false" onAction="#btnStopDeleteAction" prefHeight="25.0" prefWidth="66.0" styleClass="input-button" text="Delete" />
+                                <TextField fx:id="txtStopName" layoutX="14.0" layoutY="154.0" prefHeight="25.0" prefWidth="150.0" promptText="Stop Name" />
+                                <ComboBox fx:id="cboxStopRoute" layoutX="181.0" layoutY="145.0" prefHeight="40.0" prefWidth="150.0">
                                     <items>
                                         <FXCollections fx:factory="observableArrayList">
-                                            <String fx:value="Item 1"/>
-                                            <String fx:value="Item 2"/>
-                                            <String fx:value="Item 3"/>
+                                            <String fx:value="Item 1" />
+                                            <String fx:value="Item 2" />
+                                            <String fx:value="Item 3" />
                                         </FXCollections>
                                     </items>
                                 </ComboBox>
-                                <CheckBox fx:id="cboxStopCreateStudent" layoutX="41.0" layoutY="204.0"
-                                          mnemonicParsing="false" text="Student"/>
-                                <CheckBox fx:id="cboxStopUpdateAutoRemove" layoutX="174.0" layoutY="299.0"
-                                          mnemonicParsing="false" text="Auto Remove"/>
-                                <Button fx:id="btnStopCreate" layoutX="148.0" layoutY="199.0" mnemonicParsing="false"
-                                        onAction="#btnStopCreateAction" prefHeight="25.0" prefWidth="99.0"
-                                        text="Create Stop"/>
-                                <Button fx:id="btnStopClear" layoutX="265.0" layoutY="199.0" mnemonicParsing="false"
-                                        onAction="#btnStopClearAction" prefHeight="25.0" prefWidth="66.0" text="Clear"/>
-                                <ComboBox fx:id="cboxStopUpdate" layoutX="14.0" layoutY="274.0"
-                                          onAction="#cboxStopUpdateAction" prefHeight="40.0" prefWidth="150.0">
+                                <CheckBox fx:id="cboxStopCreateStudent" layoutX="41.0" layoutY="204.0" mnemonicParsing="false" text="Student" />
+                                <CheckBox fx:id="cboxStopUpdateAutoRemove" layoutX="174.0" layoutY="299.0" mnemonicParsing="false" text="Auto Remove" />
+                                <Button fx:id="btnStopCreate" layoutX="148.0" layoutY="199.0" mnemonicParsing="false" onAction="#btnStopCreateAction" prefHeight="25.0" prefWidth="99.0" styleClass="input-button" text="Create Stop" />
+                                <Button fx:id="btnStopClear" layoutX="265.0" layoutY="199.0" mnemonicParsing="false" onAction="#btnStopClearAction" prefHeight="25.0" prefWidth="66.0" styleClass="input-button" text="Clear" />
+                                <ComboBox fx:id="cboxStopUpdate" layoutX="14.0" layoutY="274.0" onAction="#cboxStopUpdateAction" prefHeight="40.0" prefWidth="150.0">
                                     <items>
                                         <FXCollections fx:factory="observableArrayList">
-                                            <String fx:value="Item 1"/>
-                                            <String fx:value="Item 2"/>
-                                            <String fx:value="Item 3"/>
+                                            <String fx:value="Item 1" />
+                                            <String fx:value="Item 2" />
+                                            <String fx:value="Item 3" />
                                         </FXCollections>
                                     </items>
                                 </ComboBox>
-                                <CheckBox fx:id="cboxStopUpdateStudent" layoutX="174.0" layoutY="274.0"
-                                          mnemonicParsing="false" text="Student"/>
-                                <Button fx:id="btnStopUpdateSave" layoutX="265.0" layoutY="282.0"
-                                        mnemonicParsing="false" onAction="#btnStopUpdateSaveAction" prefHeight="25.0"
-                                        prefWidth="66.0" text="Save"/>
+                                <CheckBox fx:id="cboxStopUpdateStudent" layoutX="174.0" layoutY="274.0" mnemonicParsing="false" text="Student" />
+                                <Button fx:id="btnStopUpdateSave" layoutX="265.0" layoutY="282.0" mnemonicParsing="false" onAction="#btnStopUpdateSaveAction" prefHeight="25.0" prefWidth="66.0" styleClass="input-button" text="Save" />
                             </children>
                         </AnchorPane>
                     </content>
                 </Tab>
                 <Tab fx:id="tabRouteManagement" closable="false" text="Route">
                     <content>
-                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
-                                    style="-fx-background-color: #01A217">
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-element">
                             <children>
-                                <TabPane layoutX="14.0" layoutY="0.0" prefHeight="541.0" prefWidth="772.0"
-                                         tabClosingPolicy="UNAVAILABLE">
+                                <TabPane layoutX="14.0" layoutY="0.0" prefHeight="541.0" prefWidth="772.0" tabClosingPolicy="UNAVAILABLE">
                                     <tabs>
                                         <Tab text="Edit Route">
                                             <content>
-                                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0"
-                                                            prefHeight="180.0" prefWidth="200.0"
-                                                            style="-fx-background-color: #01A217">
+                                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-element">
                                                     <children>
-                                                        <ListView fx:id="lviewRouteUnassigned" layoutX="111.0"
-                                                                  layoutY="75.0" prefHeight="400.0" prefWidth="200.0"/>
-                                                        <ListView fx:id="lviewRouteOnRoute" layoutX="461.0"
-                                                                  layoutY="75.0" prefHeight="400.0" prefWidth="200.0"/>
-                                                        <Button fx:id="btnRouteAdd" layoutX="337.0" layoutY="233.0"
-                                                                mnemonicParsing="false" onAction="#btnRouteAddAction"
-                                                                prefHeight="25.0" prefWidth="99.0" text="Add -&gt;"/>
-                                                        <Button fx:id="btnRouteRemove" layoutX="337.0" layoutY="293.0"
-                                                                mnemonicParsing="false" onAction="#btnRouteRemoveAction"
-                                                                prefHeight="25.0" prefWidth="99.0" text="&lt;- Remove"/>
-                                                        <ComboBox fx:id="cboxRouteSelect" layoutX="311.0" layoutY="35.0"
-                                                                  onAction="#cboxRouteSelectAction" prefHeight="40.0"
-                                                                  prefWidth="150.0">
+                                                        <ListView fx:id="lviewRouteUnassigned" layoutX="111.0" layoutY="75.0" prefHeight="400.0" prefWidth="200.0" styleClass="data-display" />
+                                                        <ListView fx:id="lviewRouteOnRoute" layoutX="461.0" layoutY="75.0" prefHeight="400.0" prefWidth="200.0" styleClass="data-display" />
+                                                        <Button fx:id="btnRouteAdd" layoutX="337.0" layoutY="233.0" mnemonicParsing="false" onAction="#btnRouteAddAction" prefHeight="25.0" prefWidth="99.0" styleClass="input-button" text="Add -&gt;" />
+                                                        <Button fx:id="btnRouteRemove" layoutX="337.0" layoutY="293.0" mnemonicParsing="false" onAction="#btnRouteRemoveAction" prefHeight="25.0" prefWidth="99.0" styleClass="input-button" text="&lt;- Remove" />
+                                                        <ComboBox fx:id="cboxRouteSelect" layoutX="311.0" layoutY="35.0" onAction="#cboxRouteSelectAction" prefHeight="40.0" prefWidth="150.0">
                                                             <items>
                                                                 <FXCollections fx:factory="observableArrayList">
-                                                                    <String fx:value="Item 1"/>
-                                                                    <String fx:value="Item 2"/>
-                                                                    <String fx:value="Item 3"/>
+                                                                    <String fx:value="Item 1" />
+                                                                    <String fx:value="Item 2" />
+                                                                    <String fx:value="Item 3" />
                                                                 </FXCollections>
                                                             </items>
                                                         </ComboBox>
@@ -303,66 +197,43 @@
                                         </Tab>
                                         <Tab text="Manage Routes">
                                             <content>
-                                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0"
-                                                            prefHeight="180.0" prefWidth="200.0"
-                                                            style="-fx-background-color: #01A217">
+                                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-element">
                                                     <children>
-                                                        <Label layoutX="64.0" layoutY="14.0" prefHeight="50.0"
-                                                               prefWidth="150.0" text="Delete Route"/>
-                                                        <ComboBox fx:id="cboxRouteDelete" layoutX="14.0" layoutY="64.0"
-                                                                  prefHeight="40.0" prefWidth="150.0">
+                                                        <Label layoutX="64.0" layoutY="14.0" prefHeight="50.0" prefWidth="150.0" text="Delete Route" />
+                                                        <ComboBox fx:id="cboxRouteDelete" layoutX="14.0" layoutY="64.0" prefHeight="40.0" prefWidth="150.0">
                                                             <items>
                                                                 <FXCollections fx:factory="observableArrayList">
-                                                                    <String fx:value="Item 1"/>
-                                                                    <String fx:value="Item 2"/>
-                                                                    <String fx:value="Item 3"/>
+                                                                    <String fx:value="Item 1" />
+                                                                    <String fx:value="Item 2" />
+                                                                    <String fx:value="Item 3" />
                                                                 </FXCollections>
                                                             </items>
                                                         </ComboBox>
-                                                        <Button fx:id="btnRouteDelete" layoutX="186.0" layoutY="64.0"
-                                                                mnemonicParsing="false" onAction="#btnRouteDeleteAction"
-                                                                prefHeight="40.0" prefWidth="99.0" text="Delete"/>
-                                                        <Button fx:id="btnRouteCreate" layoutX="186.0" layoutY="154.0"
-                                                                mnemonicParsing="false" onAction="#btnRouteCreateAction"
-                                                                prefHeight="40.0" prefWidth="99.0" text="Create"/>
-                                                        <TextField fx:id="txtRouteName" layoutX="14.0" layoutY="154.0"
-                                                                   prefHeight="40.0" prefWidth="150.0"
-                                                                   promptText="Route Name"/>
+                                                        <Button fx:id="btnRouteDelete" layoutX="186.0" layoutY="64.0" mnemonicParsing="false" onAction="#btnRouteDeleteAction" prefHeight="40.0" prefWidth="99.0" styleClass="input-button" text="Delete" />
+                                                        <Button fx:id="btnRouteCreate" layoutX="186.0" layoutY="154.0" mnemonicParsing="false" onAction="#btnRouteCreateAction" prefHeight="40.0" prefWidth="99.0" styleClass="input-button" text="Create" />
+                                                        <TextField fx:id="txtRouteName" layoutX="14.0" layoutY="154.0" prefHeight="40.0" prefWidth="150.0" promptText="Route Name" />
                                                     </children>
                                                 </AnchorPane>
                                             </content>
                                         </Tab>
                                         <Tab closable="false" text="Design Route">
                                             <content>
-                                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0"
-                                                            prefHeight="180.0" prefWidth="200.0"
-                                                            style="-fx-background-color: #01A217">
+                                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-element">
                                                     <children>
-                                                        <ComboBox fx:id="cboxDesignRoute" layoutX="311.0" layoutY="35.0"
-                                                                  onAction="#cboxDesignRouteAction" prefHeight="40.0"
-                                                                  prefWidth="150.0">
+                                                        <ComboBox fx:id="cboxDesignRoute" layoutX="311.0" layoutY="35.0" onAction="#cboxDesignRouteAction" prefHeight="40.0" prefWidth="150.0">
                                                             <items>
                                                                 <FXCollections fx:factory="observableArrayList">
-                                                                    <String fx:value="Item 1"/>
-                                                                    <String fx:value="Item 2"/>
-                                                                    <String fx:value="Item 3"/>
+                                                                    <String fx:value="Item 1" />
+                                                                    <String fx:value="Item 2" />
+                                                                    <String fx:value="Item 3" />
                                                                 </FXCollections>
                                                             </items>
                                                         </ComboBox>
-                                                        <ListView fx:id="lviewDesignStops" layoutX="286.0"
-                                                                  layoutY="80.0" prefHeight="400.0" prefWidth="200.0"/>
-                                                        <Button fx:id="btnDesignFirst" layoutX="182.0" layoutY="131.0"
-                                                                mnemonicParsing="false" onAction="#btnDesignFirstAction"
-                                                                prefHeight="25.0" prefWidth="99.0" text="First"/>
-                                                        <Button fx:id="btnDesignUp" layoutX="182.0" layoutY="161.0"
-                                                                mnemonicParsing="false" onAction="#btnDesignUpAction"
-                                                                prefHeight="25.0" prefWidth="99.0" text="Move Up"/>
-                                                        <Button fx:id="btnDesignDown" layoutX="491.0" layoutY="161.0"
-                                                                mnemonicParsing="false" onAction="#btnDesignDownAction"
-                                                                prefHeight="25.0" prefWidth="99.0" text="Move Down"/>
-                                                        <Button fx:id="btnDesignLast" layoutX="491.0" layoutY="191.0"
-                                                                mnemonicParsing="false" onAction="#btnDesignLastAction"
-                                                                prefHeight="25.0" prefWidth="99.0" text="Last"/>
+                                                        <ListView fx:id="lviewDesignStops" layoutX="286.0" layoutY="80.0" prefHeight="400.0" prefWidth="200.0" styleClass="data-display" />
+                                                        <Button fx:id="btnDesignFirst" layoutX="182.0" layoutY="131.0" mnemonicParsing="false" onAction="#btnDesignFirstAction" prefHeight="25.0" prefWidth="99.0" styleClass="input-button" text="First" />
+                                                        <Button fx:id="btnDesignUp" layoutX="182.0" layoutY="161.0" mnemonicParsing="false" onAction="#btnDesignUpAction" prefHeight="25.0" prefWidth="99.0" styleClass="input-button" text="Move Up" />
+                                                        <Button fx:id="btnDesignDown" layoutX="491.0" layoutY="161.0" mnemonicParsing="false" onAction="#btnDesignDownAction" prefHeight="25.0" prefWidth="99.0" styleClass="input-button" text="Move Down" />
+                                                        <Button fx:id="btnDesignLast" layoutX="491.0" layoutY="191.0" mnemonicParsing="false" onAction="#btnDesignLastAction" prefHeight="25.0" prefWidth="99.0" styleClass="input-button" text="Last" />
                                                     </children>
                                                 </AnchorPane>
                                             </content>
@@ -375,148 +246,91 @@
                 </Tab>
                 <Tab fx:id="tabCourierManagement" closable="false" text="Courier">
                     <content>
-                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
-                                    style="-fx-background-color: #01A217">
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-element">
                             <children>
-                                <Label layoutX="54.0" layoutY="14.0" prefHeight="50.0" prefWidth="150.0"
-                                       text="Delete Courier"/>
-                                <Label layoutX="53.0" layoutY="104.0" prefHeight="50.0" prefWidth="150.0"
-                                       text="Create Courier"/>
-                                <ComboBox id="cboxStopDelete" fx:id="cboxCourierDelete" layoutX="15.0" layoutY="64.0"
-                                          prefHeight="40.0" prefWidth="150.0">
+                                <Label layoutX="54.0" layoutY="14.0" prefHeight="50.0" prefWidth="150.0" text="Delete Courier" />
+                                <Label layoutX="53.0" layoutY="104.0" prefHeight="50.0" prefWidth="150.0" text="Create Courier" />
+                                <ComboBox id="cboxStopDelete" fx:id="cboxCourierDelete" layoutX="15.0" layoutY="64.0" prefHeight="40.0" prefWidth="150.0">
                                     <items>
                                         <FXCollections fx:factory="observableArrayList">
-                                            <String fx:value="Item 1"/>
-                                            <String fx:value="Item 2"/>
-                                            <String fx:value="Item 3"/>
+                                            <String fx:value="Item 1" />
+                                            <String fx:value="Item 2" />
+                                            <String fx:value="Item 3" />
                                         </FXCollections>
                                     </items>
                                 </ComboBox>
-                                <Button id="btnStopDelete" fx:id="btnCourierDelete" layoutX="182.0" layoutY="72.0"
-                                        mnemonicParsing="false" onAction="#btnCourierDeleteAction" prefHeight="25.0"
-                                        prefWidth="66.0" text="Delete"/>
-                                <TextField id="txtStopName" fx:id="txtCourierName" layoutX="14.0" layoutY="154.0"
-                                           prefWidth="150.0" promptText="Courier Name"/>
-                                <Button id="btnStopCreate" fx:id="btnCourierCreate" layoutX="182.0" layoutY="153.0"
-                                        mnemonicParsing="false" onAction="#btnCourierCreateAction" prefHeight="25.0"
-                                        prefWidth="99.0" text="Create Courier"/>
+                                <Button id="btnStopDelete" fx:id="btnCourierDelete" layoutX="182.0" layoutY="72.0" mnemonicParsing="false" onAction="#btnCourierDeleteAction" prefHeight="25.0" prefWidth="66.0" styleClass="input-button" text="Delete" />
+                                <TextField id="txtStopName" fx:id="txtCourierName" layoutX="14.0" layoutY="154.0" prefWidth="150.0" promptText="Courier Name" />
+                                <Button id="btnStopCreate" fx:id="btnCourierCreate" layoutX="182.0" layoutY="153.0" mnemonicParsing="false" onAction="#btnCourierCreateAction" prefHeight="25.0" prefWidth="99.0" styleClass="input-button" text="Create Courier" />
                             </children>
                         </AnchorPane>
                     </content>
                 </Tab>
                 <Tab id="tabEmailManagement" fx:id="tabEmailManagement" closable="false" text="Email">
                     <content>
-                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
-                                    style="-fx-background-color: #01A217">
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-element">
                             <children>
-                                <TabPane layoutX="7.0" layoutY="0.0" prefHeight="569.0" prefWidth="786.0"
-                                         tabClosingPolicy="UNAVAILABLE">
+                                <TabPane layoutX="7.0" layoutY="0.0" prefHeight="569.0" prefWidth="786.0" tabClosingPolicy="UNAVAILABLE">
                                     <tabs>
-                                        <Tab id="tabEmailMessage" fx:id="tabEmailMessage" closable="false"
-                                             text="Message">
+                                        <Tab id="tabEmailMessage" fx:id="tabEmailMessage" closable="false" text="Message">
                                             <content>
-                                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0"
-                                                            prefHeight="180.0" prefWidth="200.0"
-                                                            style="-fx-background-color: #01A217">
+                                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-element">
                                                     <children>
-                                                        <TextField id="" fx:id="txtEmailMessageReplyTo" layoutX="14.0"
-                                                                   layoutY="141.0" prefHeight="25.0" prefWidth="200.0"
-                                                                   promptText="Reply To Address"/>
-                                                        <ComboBox id="cboxEmailSendTime"
-                                                                  fx:id="cboxEmailMessageSendTime" layoutX="14.0"
-                                                                  layoutY="170.0" prefHeight="50.0" prefWidth="250.0"
-                                                                  promptText="Email Send Time" visibleRowCount="5">
+                                                        <TextField id="" fx:id="txtEmailMessageReplyTo" layoutX="14.0" layoutY="141.0" prefHeight="25.0" prefWidth="200.0" promptText="Reply To Address" />
+                                                        <ComboBox id="cboxEmailSendTime" fx:id="cboxEmailMessageSendTime" layoutX="14.0" layoutY="170.0" prefHeight="50.0" prefWidth="250.0" promptText="Email Send Time" visibleRowCount="5">
                                                             <items>
                                                                 <FXCollections fx:factory="observableArrayList">
-                                                                    <String fx:value="Item 1"/>
-                                                                    <String fx:value="Item 2"/>
-                                                                    <String fx:value="Item 3"/>
+                                                                    <String fx:value="Item 1" />
+                                                                    <String fx:value="Item 2" />
+                                                                    <String fx:value="Item 3" />
                                                                 </FXCollections>
                                                             </items>
                                                         </ComboBox>
-                                                        <TextArea id="" fx:id="txtEmailMessageContent" layoutX="14.0"
-                                                                  layoutY="224.0" prefHeight="250.0" prefWidth="758.0"
-                                                                  promptText="Email Message" wrapText="true"/>
-                                                        <Button fx:id="btnEmailMessageSave" layoutX="622.0"
-                                                                layoutY="484.0" mnemonicParsing="false"
-                                                                onAction="#btnEmailMessageSaveAction" prefHeight="40.0"
-                                                                prefWidth="150.0" text="Save"/>
+                                                        <TextArea id="" fx:id="txtEmailMessageContent" layoutX="14.0" layoutY="224.0" prefHeight="250.0" prefWidth="758.0" promptText="Email Message" wrapText="true" />
+                                                        <Button fx:id="btnEmailMessageSave" layoutX="622.0" layoutY="484.0" mnemonicParsing="false" onAction="#btnEmailMessageSaveAction" prefHeight="40.0" prefWidth="150.0" text="Save" />
                                                     </children>
                                                 </AnchorPane>
                                             </content>
                                         </Tab>
-                                        <Tab id="tabEmailSending" fx:id="tabEmailSending" closable="false"
-                                             text="Sending">
+                                        <Tab id="tabEmailSending" fx:id="tabEmailSending" closable="false" text="Sending">
                                             <content>
-                                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0"
-                                                            prefHeight="180.0" prefWidth="200.0"
-                                                            style="-fx-background-color: #01A217">
+                                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-element">
                                                     <children>
-                                                        <TextField fx:id="txtEmailSendingHost" layoutX="14.0"
-                                                                   layoutY="14.0" prefHeight="25.0" prefWidth="200.0"
-                                                                   promptText="Host Address"/>
-                                                        <TextField fx:id="txtEmailSendingPort" layoutX="14.0"
-                                                                   layoutY="44.0" prefHeight="25.0" prefWidth="200.0"
-                                                                   promptText="Host Port"/>
-                                                        <ComboBox fx:id="cboxEmailSendingAuthReq" layoutX="14.0"
-                                                                  layoutY="75.0"
-                                                                  onAction="#cboxEmailSendingAuthReqAction"
-                                                                  prefHeight="25.0" prefWidth="200.0"
-                                                                  promptText="Authenctication Required"
-                                                                  visibleRowCount="2">
+                                                        <TextField fx:id="txtEmailSendingHost" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="200.0" promptText="Host Address" />
+                                                        <TextField fx:id="txtEmailSendingPort" layoutX="14.0" layoutY="44.0" prefHeight="25.0" prefWidth="200.0" promptText="Host Port" />
+                                                        <ComboBox fx:id="cboxEmailSendingAuthReq" layoutX="14.0" layoutY="75.0" onAction="#cboxEmailSendingAuthReqAction" prefHeight="25.0" prefWidth="200.0" promptText="Authenctication Required" visibleRowCount="2">
                                                             <items>
                                                                 <FXCollections fx:factory="observableArrayList">
-                                                                    <String fx:value="Item 1"/>
-                                                                    <String fx:value="Item 2"/>
-                                                                    <String fx:value="Item 3"/>
+                                                                    <String fx:value="Item 1" />
+                                                                    <String fx:value="Item 2" />
+                                                                    <String fx:value="Item 3" />
                                                                 </FXCollections>
                                                             </items>
                                                         </ComboBox>
-                                                        <TextField fx:id="txtEmailSendingAuthUserName" disable="false"
-                                                                   layoutX="34.0" layoutY="105.0" prefHeight="25.0"
-                                                                   prefWidth="180.0" promptText="Username"/>
-                                                        <TextField fx:id="txtEmailSendingAuthPassword" disable="false"
-                                                                   layoutX="34.0" layoutY="135.0" prefHeight="25.0"
-                                                                   prefWidth="180.0" promptText="Password"/>
-                                                        <Button fx:id="btnEmailSendingSave" layoutX="114.0"
-                                                                layoutY="170.0" mnemonicParsing="false"
-                                                                onAction="#btnEmailSendingSaveAction" prefHeight="25.0"
-                                                                prefWidth="100.0" text="Save"/>
+                                                        <TextField fx:id="txtEmailSendingAuthUserName" disable="false" layoutX="34.0" layoutY="105.0" prefHeight="25.0" prefWidth="180.0" promptText="Username" />
+                                                        <TextField fx:id="txtEmailSendingAuthPassword" disable="false" layoutX="34.0" layoutY="135.0" prefHeight="25.0" prefWidth="180.0" promptText="Password" />
+                                                        <Button fx:id="btnEmailSendingSave" layoutX="114.0" layoutY="170.0" mnemonicParsing="false" onAction="#btnEmailSendingSaveAction" prefHeight="25.0" prefWidth="100.0" styleClass="input-button" text="Save" />
                                                     </children>
                                                 </AnchorPane>
                                             </content>
                                         </Tab>
-                                        <Tab id="tabEmailAddresses" fx:id="tabEmailAddresses" closable="false"
-                                             text="Addresses">
+                                        <Tab id="tabEmailAddresses" fx:id="tabEmailAddresses" closable="false" text="Addresses">
                                             <content>
-                                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0"
-                                                            prefHeight="180.0" prefWidth="200.0"
-                                                            style="-fx-background-color: #01A217">
+                                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-element">
                                                     <children>
-                                                        <ComboBox fx:id="cboxEmailAddressStop" layoutX="318.0"
-                                                                  layoutY="15.0" onAction="#cboxEmailAddressStopAction"
-                                                                  prefHeight="40.0" prefWidth="150.0">
+                                                        <ComboBox fx:id="cboxEmailAddressStop" layoutX="318.0" layoutY="15.0" onAction="#cboxEmailAddressStopAction" prefHeight="40.0" prefWidth="150.0">
                                                             <items>
                                                                 <FXCollections fx:factory="observableArrayList">
-                                                                    <String fx:value="Item 1"/>
-                                                                    <String fx:value="Item 2"/>
-                                                                    <String fx:value="Item 3"/>
+                                                                    <String fx:value="Item 1" />
+                                                                    <String fx:value="Item 2" />
+                                                                    <String fx:value="Item 3" />
                                                                 </FXCollections>
                                                             </items>
                                                         </ComboBox>
-                                                        <ListView fx:id="lviewEmailAddresses" layoutX="268.0"
-                                                                  layoutY="65.0" prefHeight="430.0" prefWidth="250.0"/>
-                                                        <TextField fx:id="txtEmailAddressAdd" layoutX="268.0"
-                                                                   layoutY="502.0" prefHeight="25.0" prefWidth="180.0"
-                                                                   promptText="Email Address"/>
-                                                        <Button fx:id="btnEmailAddressAdd" layoutX="462.0"
-                                                                layoutY="502.0" mnemonicParsing="false"
-                                                                onAction="#btnEmailAddressAddAction" prefHeight="25.0"
-                                                                prefWidth="56.0" text="Add"/>
-                                                        <Button fx:id="btnEmailAddressRemove" layoutX="528.0"
-                                                                layoutY="257.0" mnemonicParsing="false"
-                                                                onAction="#btnEmailAddressRemoveAction"
-                                                                prefHeight="25.0" text="Remove"/>
+                                                        <ListView fx:id="lviewEmailAddresses" layoutX="268.0" layoutY="65.0" prefHeight="430.0" prefWidth="250.0" />
+                                                        <TextField fx:id="txtEmailAddressAdd" layoutX="268.0" layoutY="502.0" prefHeight="25.0" prefWidth="180.0" promptText="Email Address" />
+                                                        <Button fx:id="btnEmailAddressAdd" layoutX="462.0" layoutY="502.0" mnemonicParsing="false" onAction="#btnEmailAddressAddAction" prefHeight="25.0" prefWidth="56.0" styleClass="input-button" text="Add" />
+                                                        <Button fx:id="btnEmailAddressRemove" layoutX="528.0" layoutY="257.0" mnemonicParsing="false" onAction="#btnEmailAddressRemoveAction" prefHeight="25.0" styleClass="input-button" text="Remove" />
                                                     </children>
                                                 </AnchorPane>
                                             </content>
@@ -529,27 +343,19 @@
                 </Tab>
                 <Tab fx:id="tabAbout" closable="false" text="About">
                     <content>
-                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
-                                    style="-fx-background-color: #01A217">
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-element">
                             <children>
-                                <Label fx:id="lblAboutVersion" alignment="CENTER_LEFT" layoutX="14.0" layoutY="14.0"
-                                       prefHeight="50.0" prefWidth="200.0" text="Verion: x.x.x">
+                                <Label fx:id="lblAboutVersion" alignment="CENTER_LEFT" layoutX="14.0" layoutY="14.0" prefHeight="50.0" prefWidth="200.0" text="Verion: x.x.x">
                                     <font>
-                                        <Font name="System Bold" size="15.0" fx:id="x1"/>
+                                        <Font name="System Bold" size="15.0" fx:id="x1" />
                                     </font>
                                 </Label>
-                                <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="64.0" prefHeight="50.0"
-                                       prefWidth="200.0" text="Developer: James Sitz"/>
-                                <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="114.0" prefHeight="50.0"
-                                       prefWidth="200.0" text="Credits"/>
-                                <Label alignment="CENTER_LEFT" layoutX="39.0" layoutY="139.0" prefHeight="50.0"
-                                       prefWidth="350.0" text="Tiwulfx: tiwulfx.panemu.com"/>
-                                <Label layoutX="39.0" layoutY="189.0" prefHeight="50.0" prefWidth="350.0"
-                                       text="SQLite JDBC: https://bitbucket.org/xerial/sqlite-jdbc/wiki/Home"/>
-                                <Label layoutX="39.0" layoutY="239.0" prefHeight="50.0" prefWidth="350.0"
-                                       text="PostgreSQL JDBC: http://jdbc.postgresql.org"/>
-                                <Label layoutX="39.0" layoutY="289.0" prefHeight="50.0" prefWidth="350.0"
-                                       text="Many Others"/>
+                                <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="64.0" prefHeight="50.0" prefWidth="200.0" text="Developer: James Sitz" />
+                                <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="114.0" prefHeight="50.0" prefWidth="200.0" text="Credits" />
+                                <Label alignment="CENTER_LEFT" layoutX="39.0" layoutY="139.0" prefHeight="50.0" prefWidth="350.0" text="Tiwulfx: tiwulfx.panemu.com" />
+                                <Label layoutX="39.0" layoutY="189.0" prefHeight="50.0" prefWidth="350.0" text="SQLite JDBC: https://bitbucket.org/xerial/sqlite-jdbc/wiki/Home" />
+                                <Label layoutX="39.0" layoutY="239.0" prefHeight="50.0" prefWidth="350.0" text="PostgreSQL JDBC: http://jdbc.postgresql.org" />
+                                <Label layoutX="39.0" layoutY="289.0" prefHeight="50.0" prefWidth="350.0" text="Many Others" />
                             </children>
                         </AnchorPane>
                     </content>

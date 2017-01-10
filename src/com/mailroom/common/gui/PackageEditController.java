@@ -1,9 +1,9 @@
 package com.mailroom.common.gui;
 
-import com.mailroom.common.database.DatabaseManagerFactory;
-import com.mailroom.common.objects.Courier;
+import com.mailroom.common.factories.DatabaseManagerFactory;
+import com.mailroom.common.objects.DbCourier;
+import com.mailroom.common.objects.DbStop;
 import com.mailroom.common.objects.Package;
-import com.mailroom.common.objects.Stop;
 import com.mailroom.mainclient.MainFrame;
 import com.mailroom.otherclient.OtherMainFrame;
 import com.panemu.tiwulfx.dialog.MessageDialog;
@@ -40,9 +40,9 @@ public class PackageEditController implements Initializable
     @FXML
     private TextField txtEmailAddress;
     @FXML
-    private ComboBox<Stop> cboxStops;
+    private ComboBox<DbStop> cboxStops;
     @FXML
-    private ComboBox<Courier> cboxCourier;
+    private ComboBox<DbCourier> cboxCourier;
     @FXML
     private Button btnSave;
     @FXML
@@ -66,13 +66,13 @@ public class PackageEditController implements Initializable
         curPackage = PackageEditWindow.getPackage();
 
         cboxStops.getItems().clear();
-        for (Stop s : DatabaseManagerFactory.getInstance().getStops())
+        for (DbStop s : DatabaseManagerFactory.getInstance().getDbStops())
         {
             cboxStops.getItems().add(s);
         }
 
         cboxCourier.getItems().clear();
-        for (Courier c : DatabaseManagerFactory.getInstance().getCouriers())
+        for (DbCourier c : DatabaseManagerFactory.getInstance().getDbCouriers())
         {
             cboxCourier.getItems().add(c);
         }
@@ -89,8 +89,8 @@ public class PackageEditController implements Initializable
             cboxAtStop.setSelected(curPackage.isAtStop());
             cboxPickedUp.setSelected(curPackage.isPickedUp());
             cboxReturned.setSelected(curPackage.isReturned());
-            cboxStops.setValue(curPackage.getStop());
-            cboxCourier.setValue(curPackage.getCourier());
+            cboxStops.setValue(curPackage.getDbStop());
+            cboxCourier.setValue(curPackage.getDbCourier());
         }
     }
 
@@ -107,7 +107,7 @@ public class PackageEditController implements Initializable
                 .getReceivedDate(), txtEmailAddress.getText(), txtFirstName
                 .getText(), txtLastName.getText(), txtBoxOffice.getText(),
                 cboxStops.getValue(), cboxCourier.getValue(), curPackage
-                .getUser(), cboxAtStop.isSelected(), cboxPickedUp
+                .getDbUser(), cboxAtStop.isSelected(), cboxPickedUp
                 .isSelected(), curPackage.getDatePickedUp(),
                 cboxReturned.isSelected())))
         {
@@ -168,8 +168,8 @@ public class PackageEditController implements Initializable
             txtLastName.setText(curPackage.getLastName());
             txtBoxOffice.setText(curPackage.getBoxOffice());
             txtEmailAddress.setText(curPackage.getEmailAddress());
-            cboxStops.setValue(curPackage.getStop());
-            cboxCourier.setValue(curPackage.getCourier());
+            cboxStops.setValue(curPackage.getDbStop());
+            cboxCourier.setValue(curPackage.getDbCourier());
         }
         PackageEditWindow.getWindow().hide();
     }
@@ -204,7 +204,7 @@ public class PackageEditController implements Initializable
         txtLastName.setText(p.getLastName());
         txtBoxOffice.setText(p.getBoxOffice());
         txtEmailAddress.setText(p.getEmailAddress());
-        cboxStops.setValue(p.getStop());
-        cboxCourier.setValue(p.getCourier());
+        cboxStops.setValue(p.getDbStop());
+        cboxCourier.setValue(p.getDbCourier());
     }
 }

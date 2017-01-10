@@ -13,6 +13,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import javax.net.ssl.HttpsURLConnection;
 import java.awt.*;
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -47,7 +48,7 @@ public class UpdateChecker implements Runnable
             String address = SERVER_ADDRESS + ":" + String.valueOf(SERVER_PORT) + "/products/" + PRODUCT_GUID;
 
             URL url = new URL(address);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("Accept", "application/json");
             Logger.logEvent("Connecting to Update Server", "UPDATER");
@@ -57,7 +58,7 @@ public class UpdateChecker implements Runnable
 
             switch (response)
             {
-                case HttpURLConnection.HTTP_OK:
+                case HttpsURLConnection.HTTP_OK:
                 {
                     String curVersion = version.getVersion();
 
@@ -104,7 +105,7 @@ public class UpdateChecker implements Runnable
 
                     break;
                 }
-                case HttpURLConnection.HTTP_NOT_FOUND:
+                case HttpsURLConnection.HTTP_NOT_FOUND:
                 {
                     Logger.logException(new Exception("Error Connecting to Update Server"));
                     break;
@@ -156,6 +157,10 @@ public class UpdateChecker implements Runnable
         catch (NullPointerException e)
         {
             //ignore this too
+        }
+        catch (Exception ex)
+        {
+            Logger.logException(ex);
         }
     }
 

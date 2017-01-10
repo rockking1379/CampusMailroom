@@ -18,9 +18,9 @@ public class Package
     private String firstName;
     private String lastName;
     private String boxOffice;
-    private Stop stop;
-    private Courier courier;
-    private User user;
+    private DbStop dbStop;
+    private DbCourier dbCourier;
+    private DbUser dbUser;
     private boolean atStop;
     private boolean pickedUp;
     private String pickUpDate;
@@ -36,17 +36,17 @@ public class Package
      * @param firstName first name of recipient
      * @param lastName last name of recipient
      * @param boxOffice box/office number of recipient
-     * @param stop Stop package to be delivered to
-     * @param courier Courier who brought the package
-     * @param user User who scanned it in
-     * @param atStop wether package is at its stop waiting for pick up or not
+     * @param dbStop DbStop package to be delivered to
+     * @param dbCourier DbCourier who brought the package
+     * @param dbUser DbUser who scanned it in
+     * @param atStop wether package is at its dbStop waiting for pick up or not
      * @param pickedUp wether package has been received by recipient or not
      * @param pickUpDate Date package was picked up by recipient
      * @param returned wether package was returned
      */
     public Package(int packageId, String trackingNumber, String receivedDate,
                    String emailAddress, String firstName, String lastName,
-                   String boxOffice, Stop stop, Courier courier, User user,
+                   String boxOffice, DbStop dbStop, DbCourier dbCourier, DbUser dbUser,
                    boolean atStop, boolean pickedUp, String pickUpDate,
                    boolean returned)
     {
@@ -57,9 +57,9 @@ public class Package
         this.firstName = firstName;
         this.lastName = lastName;
         this.boxOffice = boxOffice;
-        this.stop = stop;
-        this.courier = courier;
-        this.user = user;
+        this.dbStop = dbStop;
+        this.dbCourier = dbCourier;
+        this.dbUser = dbUser;
         this.atStop = atStop;
         this.pickedUp = pickedUp;
         this.pickUpDate = pickUpDate;
@@ -67,29 +67,29 @@ public class Package
     }
 
     /**
-     * Sets Stop package is to be delivered to
+     * Sets DbStop package is to be delivered to
      *
-     * @param s new Stop to be delivered to
+     * @param s new DbStop to be delivered to
      */
-    public void setStop(Stop s)
+    public void setDbStop(DbStop s)
     {
-        this.stop = s;
+        this.dbStop = s;
     }
 
     /**
-     * Sets Courier who brought the package
+     * Sets DbCourier who brought the package
      *
-     * @param c Courier who brought the package
+     * @param c DbCourier who brought the package
      */
-    public void setCourier(Courier c)
+    public void setDbCourier(DbCourier c)
     {
-        this.courier = c;
+        this.dbCourier = c;
     }
 
     /**
-     * Sets wether Package is at Stop or not
+     * Sets wether Package is at DbStop or not
      *
-     * @param atStop wether package is at stop or not
+     * @param atStop wether package is at dbStop or not
      */
     public void setAtStop(boolean atStop)
     {
@@ -210,37 +210,37 @@ public class Package
     }
 
     /**
-     * Gets Package delivery Stop
+     * Gets Package delivery DbStop
      *
-     * @return Stop package to be delivered to
+     * @return DbStop package to be delivered to
      */
-    public Stop getStop()
+    public DbStop getDbStop()
     {
-        return stop;
+        return dbStop;
     }
 
     /**
-     * Gets Package Courier
+     * Gets Package DbCourier
      *
-     * @return Courier who brought the Package
+     * @return DbCourier who brought the Package
      */
-    public Courier getCourier()
+    public DbCourier getDbCourier()
     {
-        return courier;
+        return dbCourier;
     }
 
     /**
-     * Gets User who scanned in package
+     * Gets DbUser who scanned in package
      *
-     * @return User who scanned in the package
+     * @return DbUser who scanned in the package
      */
-    public User getUser()
+    public DbUser getDbUser()
     {
-        return user;
+        return dbUser;
     }
 
     /**
-     * Gets if Package is at stop
+     * Gets if Package is at dbStop
      *
      * @return Wether Recipient is picked up or not
      */

@@ -93,7 +93,7 @@ public class Logger
      * Used for general purpose logging
      *
      * @param eventMessage Message of Event
-     * @param userName User Name of User logging event. Can and often will be 'SYSTEM'
+     * @param userName DbUser Name of DbUser logging event. Can and often will be 'SYSTEM'
      * @return status of logging success
      */
     public static boolean logEvent(String eventMessage, String userName)
@@ -143,6 +143,10 @@ public class Logger
         return retVal;
     }
 
+    /**
+     * Checks if a log exists
+     * @return boolean status of whether or not log exists
+     */
     private static boolean logExists()
     {
         File dir = new File("./Logs");
@@ -154,6 +158,10 @@ public class Logger
         return (dir.exists() && f.exists());
     }
 
+    /**
+     * Creates the log. is called only if log doesn't exist
+     * @return file creation status
+     */
     private static boolean createLog()
     {
         File dir = new File("./Logs");

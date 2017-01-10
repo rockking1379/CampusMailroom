@@ -1,29 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.panemu.tiwulfx.table.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane id="AnchorPane" fx:id="apaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" onKeyPressed="#keyPressedAction" prefHeight="600.0" prefWidth="800.0"
-            style="-fx-background-color: #01A217" xmlns:fx="http://javafx.com/fxml/1"
-            xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mailroom.mainclient.OpenPageController">
+<?scenebuilder-classpath-element ../../../../../lib/tiwulfx.jar?>
+
+<AnchorPane id="AnchorPane" fx:id="apaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressedAction" prefHeight="600.0" prefWidth="800.0" styleClass="background-element" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mailroom.mainclient.OpenPageController">
     <children>
-        <TableView fx:id="tblViewTable" layoutX="170.0" layoutY="14.0" onKeyPressed="#keyPressedAction"
-                   onMouseClicked="#tblMouseClickAction" prefHeight="500.0" prefWidth="625.0"/>
-        <Button fx:id="btnScanPackage" layoutX="14.0" layoutY="14.0" mnemonicParsing="false"
-                onAction="#btnScanPackageAction" prefHeight="85.0" prefWidth="150.0" text="Scan Package"/>
-        <Button fx:id="btnPrint" layoutX="14.0" layoutY="115.0" mnemonicParsing="false" onAction="#btnPrintAction"
-                prefHeight="85.0" prefWidth="150.0" text="Print"/>
-        <Button id="btnSearch" fx:id="btnSettings" layoutX="14.0" layoutY="216.0" mnemonicParsing="false"
-                onAction="#btnSettingsAction" prefHeight="85.0" prefWidth="150.0" text="Settings"/>
-        <Button id="btnSettings" fx:id="btnSearch" layoutX="14.0" layoutY="317.0" mnemonicParsing="false"
-                onAction="#btnSearchAction" prefHeight="85.0" prefWidth="150.0" text="Search"/>
-        <Button fx:id="btnRefresh" layoutX="14.0" layoutY="418.0" mnemonicParsing="false" onAction="#btnRefreshAction"
-                prefHeight="85.0" prefWidth="150.0" text="Refresh"/>
-        <Label fx:id="lblUserLabel" layoutX="14.0" layoutY="539.0" prefHeight="37.0" prefWidth="250.0"
-               text="&lt;first,last&gt;"/>
-        <Button fx:id="btnLogout" layoutX="727.0" layoutY="542.0" mnemonicParsing="false" onAction="#btnLogoutAction"
-                text="Logout"/>
-        <Button fx:id="btnQuit" layoutX="674.0" layoutY="542.0" mnemonicParsing="false" onAction="#btnQuitAction"
-                text="Quit"/>
+        <TableView fx:id="tblViewTable" layoutX="170.0" layoutY="14.0" onKeyPressed="#keyPressedAction" onMouseClicked="#tblMouseClickAction" prefHeight="500.0" prefWidth="625.0" styleClass="data-display" />
+        <Button fx:id="btnScanPackage" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnScanPackageAction" prefHeight="85.0" prefWidth="150.0" styleClass="input-button" text="Scan Package" />
+        <Button fx:id="btnPrint" layoutX="14.0" layoutY="115.0" mnemonicParsing="false" onAction="#btnPrintAction" prefHeight="85.0" prefWidth="150.0" styleClass="input-button" text="Print" />
+        <Button id="btnSearch" fx:id="btnSettings" layoutX="14.0" layoutY="216.0" mnemonicParsing="false" onAction="#btnSettingsAction" prefHeight="85.0" prefWidth="150.0" styleClass="input-button" text="Settings" />
+        <Button id="btnSettings" fx:id="btnSearch" layoutX="14.0" layoutY="317.0" mnemonicParsing="false" onAction="#btnSearchAction" prefHeight="85.0" prefWidth="150.0" styleClass="input-button" text="Search" />
+        <Button fx:id="btnRefresh" layoutX="14.0" layoutY="418.0" mnemonicParsing="false" onAction="#btnRefreshAction" prefHeight="85.0" prefWidth="150.0" styleClass="input-button" text="Refresh" />
+        <Label fx:id="lblUserLabel" layoutX="14.0" layoutY="539.0" prefHeight="37.0" prefWidth="250.0" styleClass="input-button" text="&lt;first,last&gt;" />
+        <Button fx:id="btnLogout" layoutX="727.0" layoutY="542.0" maxHeight="25.0" maxWidth="60.0" mnemonicParsing="false" onAction="#btnLogoutAction" prefHeight="25.0" prefWidth="60.0" styleClass="input-button" text="Logout" />
+        <Button fx:id="btnQuit" layoutX="674.0" layoutY="542.0" maxHeight="25.0" maxWidth="45.0" mnemonicParsing="false" onAction="#btnQuitAction" prefHeight="25.0" prefWidth="45.0" styleClass="input-button" text="Quit" />
     </children>
 </AnchorPane>

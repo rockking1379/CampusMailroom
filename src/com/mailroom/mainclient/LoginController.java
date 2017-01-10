@@ -1,11 +1,14 @@
 package com.mailroom.mainclient;
 
+import com.google.zxing.Result;
 import com.mailroom.common.database.DatabaseManager;
-import com.mailroom.common.database.DatabaseManagerFactory;
-import com.mailroom.common.objects.User;
+import com.mailroom.common.factories.DatabaseManagerFactory;
+import com.mailroom.common.objects.DbUser;
 import com.mailroom.common.utils.Logger;
 import com.mailroom.common.utils.UpdateChecker;
+import com.mailroom.common.utils.WebCamera;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,8 +22,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.security.MessageDigest;
@@ -39,6 +45,8 @@ public class LoginController implements Initializable
     @FXML
     public ImageView imgLogo;
     @FXML
+    public ImageView imgCameraPreview;
+    @FXML
     private TextField txtUserName;
     @FXML
     private PasswordField pwdPassword;
@@ -56,6 +64,15 @@ public class LoginController implements Initializable
         dbManager = DatabaseManagerFactory.getInstance();
         Platform.runLater(new UpdateChecker(MainFrame.stage));
         imgLogo.setImage(MainFrame.imageLogo);
+
+        if(WebCamera.getInstance().getCamera() == null)
+        {
+            imgCameraPreview.setVisible(false);
+        }
+        else
+        {
+            new AutoLogin();
+        }
     }
 
     /**
@@ -72,7 +89,7 @@ public class LoginController implements Initializable
         int hash = txtUserName.getText().hashCode() + pwd.hashCode();
 
         Logger.logEvent("Attempting Login Using Old Hashing", txtUserName.getText());
-        User u = dbManager.login(txtUserName.getText(), hash);
+        DbUser u = dbManager.login(txtUserName.getText(), hash);
 
         if (u.getUserId() < 0)
         {
@@ -113,13 +130,15 @@ public class LoginController implements Initializable
 
         if (u.getUserId() > 0)
         {
-            Logger.logEvent("User Login Successful", u.getUserName());
+            Logger.logEvent("DbUser Login Successful", u.getUserName());
             try
             {
-                MainFrame.cUser = u;
+                MainFrame.cDbUser = u;
                 Parent root = FXMLLoader.load(getClass().getResource(
                         "/com/mailroom/fxml/mainclient/OpenPageFx.fxml"));
                 Scene scene = new Scene(root);
+                scene.getStylesheets().add(getClass().getResource("/com/mailroom/resources/default.css").toString());
+                imgCameraPreview.setVisible(false);
                 MainFrame.stage.setScene(scene);
             }
             catch (IOException e)
@@ -129,7 +148,7 @@ public class LoginController implements Initializable
         }
         else
         {
-            Logger.logEvent("User Login Failed", txtUserName.getText());
+            Logger.logEvent("DbUser Login Failed", txtUserName.getText());
             lblLoginError.setVisible(true);
         }
     }
@@ -144,6 +163,8 @@ public class LoginController implements Initializable
         ae.consume();
         Logger.logEvent("System Exit Requested", "SYSTEM");
         MainFrame.saveProperties();
+
+        imgCameraPreview.setVisible(false);
 
         dbManager.dispose();
 
@@ -164,6 +185,46 @@ public class LoginController implements Initializable
         if (ke.getCode() == KeyCode.ESCAPE)
         {
             btnQuit.fire();
+        }
+    }
+
+    private class AutoLogin implements Runnable
+    {
+        public AutoLogin()
+        {
+            new Thread(this).start();
+        }
+
+        @Override
+        public void run()
+        {
+            while(imgCameraPreview.isVisible())
+            {
+                imgCameraPreview.setImage(SwingFXUtils.toFXImage(WebCamera.getInstance().getCamera().getImage(), null));
+
+                Result result = WebCamera.getInstance().getResult();
+
+                if(result != null)
+                {
+                    //attempt processing
+                    JSONObject obj = (JSONObject) JSONValue.parse(result.getText());
+
+                    txtUserName.setText(obj.get("username").toString());
+                    pwdPassword.setText(obj.get("password").toString());
+
+                    //well we got some data so...lets generate the enter key to login
+                    try
+                    {
+                        Robot myRobot = new Robot();
+                        myRobot.keyPress(java.awt.event.KeyEvent.VK_ENTER);
+                        myRobot.keyRelease(java.awt.event.KeyEvent.VK_ENTER);
+                    }
+                    catch(AWTException aex)
+                    {
+                        Logger.logException(aex);
+                    }
+                }
+            }
         }
     }
 }

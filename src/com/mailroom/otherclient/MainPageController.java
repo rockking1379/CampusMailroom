@@ -1,10 +1,10 @@
 package com.mailroom.otherclient;
 
 import com.mailroom.common.database.DatabaseManager;
-import com.mailroom.common.database.DatabaseManagerFactory;
+import com.mailroom.common.factories.DatabaseManagerFactory;
 import com.mailroom.common.gui.PackageEditWindow;
 import com.mailroom.common.objects.Package;
-import com.mailroom.common.objects.Stop;
+import com.mailroom.common.objects.DbStop;
 import com.mailroom.common.utils.Logger;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
@@ -51,7 +51,7 @@ public class MainPageController implements Initializable
     @FXML
     private TableView<Package> tblViewTable;
     @FXML
-    private ComboBox<Stop> cboxStopSelect;
+    private ComboBox<DbStop> cboxStopSelect;
 
     // Columns
     private TickColumn<Package> clmnDelivered;
@@ -100,11 +100,11 @@ public class MainPageController implements Initializable
         // Set Titles
         clmnFirstName.setText("First");
         clmnLastName.setText("Last");
-        clmnStop.setText("Stop");
+        clmnStop.setText("DbStop");
         clmnTrackingNumber.setText("Tracking");
         clmnCourier.setText("Carrier");
         clmnDateReceived.setText("Date");
-        clmnUserName.setText("User");
+        clmnUserName.setText("DbUser");
 
         // Define Max Width
         clmnDelivered.setMaxWidth(30);
@@ -132,12 +132,12 @@ public class MainPageController implements Initializable
 
         boolean found = false;
         cboxStopSelect.getItems().clear();
-        cboxStopSelect.getItems().add(new Stop(-1, "ALL", "nil", 0, false, false));
-        for (Stop s : dbManager.getStops())
+        cboxStopSelect.getItems().add(new DbStop(-1, "ALL", "nil", 0, false, false));
+        for (DbStop s : dbManager.getDbStops())
         {
             cboxStopSelect.getItems().add(s);
         }
-        for (Stop s : cboxStopSelect.itemsProperty().get())
+        for (DbStop s : cboxStopSelect.itemsProperty().get())
         {
             if (s.getStudent())
             {

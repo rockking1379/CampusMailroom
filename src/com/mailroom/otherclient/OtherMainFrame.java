@@ -1,9 +1,7 @@
 package com.mailroom.otherclient;
 
-import com.mailroom.common.database.*;
-import com.mailroom.common.exceptions.ConfigException;
+import com.mailroom.common.factories.DatabaseManagerFactory;
 import com.mailroom.common.gui.PackageEditWindow;
-import com.mailroom.common.utils.Logger;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
 import javafx.application.Application;
@@ -13,9 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Properties;
 
 /**

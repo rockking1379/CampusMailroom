@@ -1,7 +1,7 @@
 package com.mailroom.common.gui;
 
 import com.mailroom.common.database.DatabaseManager;
-import com.mailroom.common.database.DatabaseManagerFactory;
+import com.mailroom.common.factories.DatabaseManagerFactory;
 import com.mailroom.common.objects.Package;
 import com.mailroom.mainclient.MainFrame;
 import com.mailroom.otherclient.OtherMainFrame;
@@ -103,11 +103,11 @@ public class AdvSearchController implements Initializable
         clmnDelivered.setText("");
         clmnFirstName.setText("First");
         clmnLastName.setText("Last");
-        clmnStop.setText("Stop");
+        clmnStop.setText("DbStop");
         clmnTrackingNumber.setText("Tracking");
         clmnCourier.setText("Carrier");
         clmnDateReceived.setText("Date");
-        clmnUserName.setText("User");
+        clmnUserName.setText("DbUser");
 
         // Define Max Width
         clmnDelivered.setMaxWidth(50);

@@ -1,10 +1,10 @@
 package com.mailroom.mainclient;
 
 import com.mailroom.common.database.DatabaseManager;
-import com.mailroom.common.database.DatabaseManagerFactory;
+import com.mailroom.common.factories.DatabaseManagerFactory;
 import com.mailroom.common.gui.PackageEditWindow;
 import com.mailroom.common.objects.Package;
-import com.mailroom.common.objects.User;
+import com.mailroom.common.objects.DbUser;
 import com.mailroom.common.utils.Logger;
 import com.panemu.tiwulfx.dialog.MessageDialog;
 import com.panemu.tiwulfx.dialog.MessageDialogBuilder;
@@ -38,7 +38,7 @@ public class OpenPageController implements Initializable
 {
     // Misc//
     private DatabaseManager dbManager;
-    private User cUser;
+    private DbUser cDbUser;
     private PackageEditWindow editWindow;
 
     // UI Elements//
@@ -72,11 +72,11 @@ public class OpenPageController implements Initializable
         Logger.logEvent("Loading Main Screen", "SYSTEM");
         MainFrame.stage.setTitle("Main Page");
 
-        cUser = MainFrame.cUser;
+        cDbUser = MainFrame.cDbUser;
         dbManager = DatabaseManagerFactory.getInstance();
 
-        String name = "Welcome " + cUser.getFirstName() + " "
-                + cUser.getLastName();
+        String name = "   Welcome " + cDbUser.getFirstName() + " "
+                + cDbUser.getLastName();
         lblUserLabel.setText(name);
 
         // Columns
@@ -92,11 +92,11 @@ public class OpenPageController implements Initializable
         clmnDelivered = new TickColumn<Package>();
         clmnFirstName = new TextColumn<Package>("firstName");
         clmnLastName = new TextColumn<Package>("lastName");
-        clmnStop = new TextColumn<Package>("stop");
+        clmnStop = new TextColumn<Package>("dbStop");
         clmnTrackingNumber = new TextColumn<Package>("trackingNumber");
-        clmnCourier = new TextColumn<Package>("courier");
+        clmnCourier = new TextColumn<Package>("dbCourier");
         clmnDateReceived = new TextColumn<Package>("receivedDate");
-        clmnUserName = new TextColumn<Package>("user");
+        clmnUserName = new TextColumn<Package>("dbUser");
 
         // Set Resizable False
         clmnDelivered.setResizable(false);
@@ -113,7 +113,7 @@ public class OpenPageController implements Initializable
         clmnLastName.setText("Last");
         clmnStop.setText("Stop");
         clmnTrackingNumber.setText("Tracking");
-        clmnCourier.setText("Carrier");
+        clmnCourier.setText("Courier");
         clmnDateReceived.setText("Date");
         clmnUserName.setText("User");
 
@@ -166,6 +166,7 @@ public class OpenPageController implements Initializable
             Parent root = FXMLLoader.load(getClass().getResource(
                     "/com/mailroom/fxml/mainclient/ScanPageFx.fxml"));
             Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/com/mailroom/resources/default.css").toString());
             MainFrame.stage.setScene(scene);
         }
         catch (IOException e)
@@ -204,6 +205,7 @@ public class OpenPageController implements Initializable
                 Parent root = FXMLLoader.load(getClass().getResource(
                         "/com/mailroom/fxml/mainclient/PrintPageFx.fxml"));
                 Scene scene = new Scene(root);
+                scene.getStylesheets().add(getClass().getResource("/com/mailroom/resources/default.css").toString());
                 MainFrame.stage.setScene(scene);
             }
             catch (IOException e)
@@ -226,6 +228,7 @@ public class OpenPageController implements Initializable
             Parent root = FXMLLoader.load(getClass().getResource(
                     "/com/mailroom/fxml/common/AdvSearchFx.fxml"));
             Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/com/mailroom/resources/default.css").toString());
             MainFrame.stage.setScene(scene);
         }
         catch (IOException e)
@@ -284,6 +287,7 @@ public class OpenPageController implements Initializable
             Parent root = FXMLLoader.load(getClass().getResource(
                     "/com/mailroom/fxml/mainclient/SettingsPageFx.fxml"));
             Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/com/mailroom/resources/default.css").toString());
             MainFrame.stage.setScene(scene);
         }
         catch (IOException e)
@@ -301,7 +305,7 @@ public class OpenPageController implements Initializable
     public void btnLogoutAction(ActionEvent ae)
     {
         ae.consume();
-        Logger.logEvent("Logout Requested", cUser.getUserName());
+        Logger.logEvent("Logout Requested", cDbUser.getUserName());
         MessageDialog.Answer a = MessageDialogBuilder.confirmation()
                 .message("Confirm Logout?").title("Logout")
                 .buttonType(MessageDialog.ButtonType.YES_NO)
@@ -332,7 +336,7 @@ public class OpenPageController implements Initializable
     public void btnQuitAction(ActionEvent ae)
     {
         ae.consume();
-        Logger.logEvent("System Exit Requested", cUser.getUserName());
+        Logger.logEvent("System Exit Requested", cDbUser.getUserName());
         MessageDialog.Answer a = MessageDialogBuilder.confirmation()
                 .message("Confirm Quit?").title("Quit")
                 .buttonType(MessageDialog.ButtonType.YES_NO)
