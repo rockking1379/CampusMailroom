@@ -66,49 +66,25 @@ public class LoginController implements Initializable
     public void btnLoginAction(ActionEvent ae)
     {
         ae.consume();
+
+        User u = null;
+        String pwd = pwdPassword.getText();
+
         Logger.logEvent("Login Requested", "SYSTEM");
 
-        String pwd = pwdPassword.getText();
-        int hash = txtUserName.getText().hashCode() + pwd.hashCode();
-
-        Logger.logEvent("Attempting Login Using Old Hashing", txtUserName.getText());
-        User u = dbManager.login(txtUserName.getText(), hash);
-
-        if (u.getUserId() < 0)
+        try
         {
-            Logger.logEvent("Attempting Login Using New Hashing", txtUserName.getText());
-            try
-            {
-                MessageDigest digest = MessageDigest.getInstance("SHA-256");
-                byte[] pwdOutput = digest.digest(pwd.getBytes());
-                byte[] userOutput = digest.digest(txtUserName.getText().getBytes());
-                String combine = new HexBinaryAdapter().marshal(pwdOutput) + new HexBinaryAdapter().marshal(userOutput);
-                byte[] byteHash = digest.digest(combine.getBytes());
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] pwdOutput = digest.digest(pwd.getBytes());
+            byte[] userOutput = digest.digest(txtUserName.getText().getBytes());
+            String combine = new HexBinaryAdapter().marshal(pwdOutput) + new HexBinaryAdapter().marshal(userOutput);
+            byte[] byteHash = digest.digest(combine.getBytes());
 
-                u = dbManager.login(txtUserName.getText(), byteHash);
-            }
-            catch (NoSuchAlgorithmException nsae)
-            {
-                Logger.logException(nsae);
-            }
+            u = dbManager.login(txtUserName.getText(), byteHash);
         }
-        else
+        catch (NoSuchAlgorithmException nsae)
         {
-            Logger.logEvent("Switching UserName Hashing", txtUserName.getText());
-            try
-            {
-                MessageDigest digest = MessageDigest.getInstance("SHA-256");
-                byte[] pwdOutput = digest.digest(pwd.getBytes());
-                byte[] userOutput = digest.digest(txtUserName.getText().getBytes());
-                String combine = new HexBinaryAdapter().marshal(pwdOutput) + new HexBinaryAdapter().marshal(userOutput);
-                byte[] byteHash = digest.digest(combine.getBytes());
-
-                dbManager.changePassword(u, hash, byteHash);
-            }
-            catch (NoSuchAlgorithmException nsae)
-            {
-                Logger.logException(nsae);
-            }
+            Logger.logException(nsae);
         }
 
         if (u.getUserId() > 0)

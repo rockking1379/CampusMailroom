@@ -28,6 +28,7 @@ import javafx.stage.FileChooser;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.awt.*;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.security.MessageDigest;
@@ -248,7 +249,7 @@ public class SettingsController implements Initializable
     private Label lblAboutVersion;
 
     private DatabaseManager dbManager;
-    private Properties prefs;
+    private Properties prefs = new Properties();
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -256,7 +257,21 @@ public class SettingsController implements Initializable
         MainFrame.stage.setTitle("Settings");
 
         this.dbManager = DatabaseManagerFactory.getInstance();
-        this.prefs = MainFrame.properties;
+
+        try
+        {
+            File propFile = new File("./configuration.properties");
+
+            if (propFile.exists())
+            {
+                FileInputStream fileInputStream = new FileInputStream(propFile);
+                this.prefs.load(fileInputStream);
+            }
+        }
+        catch(IOException ioe)
+        {
+            Logger.logException(ioe);
+        }
 
         cboxDatabaseType.getItems().clear();
 
@@ -333,6 +348,7 @@ public class SettingsController implements Initializable
             tabStopManagement.setDisable(false);
             tabRouteManagement.setDisable(false);
             tabCourierManagement.setDisable(false);
+            tabEmailManagement.setDisable(false);
         }
         else
         {
@@ -342,6 +358,7 @@ public class SettingsController implements Initializable
             tabStopManagement.setDisable(true);
             tabRouteManagement.setDisable(true);
             tabCourierManagement.setDisable(true);
+            tabEmailManagement.setDisable(true);
             tabpaneMainPane.getSelectionModel().select(tabAccountManagement);
         }
 
@@ -370,25 +387,25 @@ public class SettingsController implements Initializable
             cboxEmailMessageSendTime.getItems().add("PRINT");
 //            cboxEmailMessageSendTime.getItems().add("CLOSING");
 
-            cboxEmailMessageSendTime.setValue(MainFrame.properties.getProperty("EMAILSEND"));
+            cboxEmailMessageSendTime.setValue(this.prefs.getProperty("EMAILSEND"));
 
             cboxEmailSendingAuthReq.getItems().clear();
 
             cboxEmailSendingAuthReq.getItems().add(true);
             cboxEmailSendingAuthReq.getItems().add(false);
 
-            cboxEmailSendingAuthReq.setValue(Boolean.valueOf(MainFrame.properties.getProperty("EMAILAUTHREQ")));
+            cboxEmailSendingAuthReq.setValue(Boolean.valueOf(this.prefs.getProperty("EMAILAUTHREQ")));
 
             if (cboxEmailSendingAuthReq.getValue())
             {
-                txtEmailSendingAuthUserName.setText(MainFrame.properties.getProperty("EMAILUSERNAME"));
-                txtEmailSendingAuthPassword.setText(MainFrame.properties.getProperty("EMAILPASSWORD"));
+                txtEmailSendingAuthUserName.setText(this.prefs.getProperty("EMAILUSERNAME"));
+                txtEmailSendingAuthPassword.setText(this.prefs.getProperty("EMAILPASSWORD"));
             }
 
-            txtEmailSendingHost.setText(MainFrame.properties.getProperty("EMAILHOST"));
-            txtEmailSendingPort.setText(MainFrame.properties.getProperty("EMAILPORT"));
-            txtEmailMessageReplyTo.setText(MainFrame.properties.getProperty("EMAILREPLYTO"));
-            txtEmailMessageContent.setText(MainFrame.properties.getProperty("EMAILMESSAGE"));
+            txtEmailSendingHost.setText(this.prefs.getProperty("EMAILHOST"));
+            txtEmailSendingPort.setText(this.prefs.getProperty("EMAILPORT"));
+            txtEmailMessageReplyTo.setText(this.prefs.getProperty("EMAILREPLYTO"));
+            txtEmailMessageContent.setText(this.prefs.getProperty("EMAILMESSAGE"));
         }
 
         loadAdminComboBoxes();
@@ -511,38 +528,38 @@ public class SettingsController implements Initializable
         {
             case SQLiteManager.dbId:
             {
-                MainFrame.properties.setProperty("DBTYPE", String.valueOf(0));
-                MainFrame.properties.setProperty("DATABASE",
+                this.prefs.setProperty("DBTYPE", String.valueOf(0));
+                this.prefs.setProperty("DATABASE",
                         txtDatabaseLocation.getText());
-                MainFrame.properties.setProperty("USERNAME", "");
-                MainFrame.properties.setProperty("PASSWORD", "");
-                MainFrame.properties.setProperty("DBNAME", "");
+                this.prefs.setProperty("USERNAME", "");
+                this.prefs.setProperty("PASSWORD", "");
+                this.prefs.setProperty("DBNAME", "");
 
                 break;
             }
             case MysqlManager.dbId:
             {
-                MainFrame.properties.setProperty("DBTYPE", String.valueOf(1));
-                MainFrame.properties.setProperty("DATABASE",
+                this.prefs.setProperty("DBTYPE", String.valueOf(1));
+                this.prefs.setProperty("DATABASE",
                         txtDatabaseLocation.getText());
-                MainFrame.properties.setProperty("USERNAME",
+                this.prefs.setProperty("USERNAME",
                         txtDatabaseUserName.getText());
-                MainFrame.properties.setProperty("PASSWORD",
+                this.prefs.setProperty("PASSWORD",
                         pwdDatabasePassword.getText());
-                MainFrame.properties.setProperty("DBNAME",
+                this.prefs.setProperty("DBNAME",
                         txtDatabaseName.getText());
                 break;
             }
             case PostgreSQLManager.dbId:
             {
-                MainFrame.properties.setProperty("DBTYPE", String.valueOf(2));
-                MainFrame.properties.setProperty("DATABASE",
+                this.prefs.setProperty("DBTYPE", String.valueOf(2));
+                this.prefs.setProperty("DATABASE",
                         txtDatabaseLocation.getText());
-                MainFrame.properties.setProperty("USERNAME",
+                this.prefs.setProperty("USERNAME",
                         txtDatabaseUserName.getText());
-                MainFrame.properties.setProperty("PASSWORD",
+                this.prefs.setProperty("PASSWORD",
                         pwdDatabasePassword.getText());
-                MainFrame.properties.setProperty("DBNAME",
+                this.prefs.setProperty("DBNAME",
                         txtDatabaseName.getText());
                 break;
             }
@@ -689,8 +706,8 @@ public class SettingsController implements Initializable
                     byte[] newPwdOutput = digest.digest(newPwd.getBytes());
                     byte[] userOutput = digest.digest(username.getBytes());
 
-                    String oldCombine = new HexBinaryAdapter().marshal(userOutput) + new HexBinaryAdapter().marshal(oldPwdOutput);
-                    String newCombine = new HexBinaryAdapter().marshal(userOutput) + new HexBinaryAdapter().marshal(newPwdOutput);
+                    String oldCombine = new HexBinaryAdapter().marshal(oldPwdOutput) + new HexBinaryAdapter().marshal(userOutput);
+                    String newCombine = new HexBinaryAdapter().marshal(newPwdOutput) + new HexBinaryAdapter().marshal(userOutput);
 
                     byte[] oldPassword = digest.digest(oldCombine.getBytes());
                     byte[] newPassword = digest.digest(newCombine.getBytes());
@@ -763,8 +780,8 @@ public class SettingsController implements Initializable
                 {
                     MessageDigest digest = MessageDigest.getInstance("SHA-256");
                     byte[] pwdOutput = digest.digest(pwd.getBytes());
-                    byte[] userOutput = digest.digest(cboxAdminReactivate.getValue().toString().getBytes());
-                    String combineOutput = new HexBinaryAdapter().marshal(userOutput) + new HexBinaryAdapter().marshal(pwdOutput);
+                    byte[] userOutput = digest.digest(txtCreateUserName.getText().getBytes());
+                    String combineOutput = new HexBinaryAdapter().marshal(pwdOutput) + new HexBinaryAdapter().marshal(userOutput);
                     password = digest.digest(combineOutput.getBytes());
                     if (dbManager.addUser(
                             new User(-1, txtCreateUserName.getText(),
@@ -858,7 +875,7 @@ public class SettingsController implements Initializable
                 MessageDigest digest = MessageDigest.getInstance("SHA-256");
                 byte[] pwdOutput = digest.digest(pwd.getBytes());
                 byte[] userOutput = digest.digest(cboxAdminReactivate.getValue().toString().getBytes());
-                String combineOutput = new HexBinaryAdapter().marshal(userOutput) + new HexBinaryAdapter().marshal(pwdOutput);
+                String combineOutput = new HexBinaryAdapter().marshal(pwdOutput) + new HexBinaryAdapter().marshal(userOutput);
                 password = digest.digest(combineOutput.getBytes());
 
 
@@ -1553,9 +1570,9 @@ public class SettingsController implements Initializable
     {
         ae.consume();
 
-        MainFrame.properties.setProperty("EMAILREPLYTO", txtEmailMessageReplyTo.getText());
-        MainFrame.properties.setProperty("EMAILMESSAGE", txtEmailMessageContent.getText());
-        MainFrame.properties.setProperty("EMAILSEND", cboxEmailMessageSendTime.getValue());
+        this.prefs.setProperty("EMAILREPLYTO", txtEmailMessageReplyTo.getText());
+        this.prefs.setProperty("EMAILMESSAGE", txtEmailMessageContent.getText());
+        this.prefs.setProperty("EMAILSEND", cboxEmailMessageSendTime.getValue());
 
         MainFrame.saveProperties();
     }
@@ -1569,14 +1586,14 @@ public class SettingsController implements Initializable
     {
         ae.consume();
 
-        MainFrame.properties.setProperty("EMAILHOST", txtEmailSendingHost.getText());
-        MainFrame.properties.setProperty("EMAILPORT", txtEmailSendingPort.getText());
-        MainFrame.properties.setProperty("EMAILAUTHREQ", cboxEmailSendingAuthReq.getValue().toString());
+        this.prefs.setProperty("EMAILHOST", txtEmailSendingHost.getText());
+        this.prefs.setProperty("EMAILPORT", txtEmailSendingPort.getText());
+        this.prefs.setProperty("EMAILAUTHREQ", cboxEmailSendingAuthReq.getValue().toString());
 
         if (cboxEmailSendingAuthReq.getValue())
         {
-            MainFrame.properties.setProperty("EMAILUSERNAME", txtEmailSendingAuthUserName.getText());
-            MainFrame.properties.setProperty("EMAILPASSWORD", txtEmailSendingAuthPassword.getText());
+            this.prefs.setProperty("EMAILUSERNAME", txtEmailSendingAuthUserName.getText());
+            this.prefs.setProperty("EMAILPASSWORD", txtEmailSendingAuthPassword.getText());
         }
 
         MainFrame.saveProperties();

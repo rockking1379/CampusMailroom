@@ -16,6 +16,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import javax.net.ssl.HttpsURLConnection;
 import java.awt.*;
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -124,7 +125,7 @@ public class UpdaterController implements Initializable
                         + ":" + String.valueOf(UpdateChecker.getServerPort());
 
                 URL url = new URL(sUrl + "/products/" + UpdateChecker.getProductGuid());
-                HttpURLConnection con = (HttpURLConnection) url
+                HttpsURLConnection con = (HttpsURLConnection) url
                         .openConnection();
                 con.setRequestMethod("GET");
                 con.setRequestProperty("Accept", "application/json");
@@ -136,7 +137,7 @@ public class UpdaterController implements Initializable
                 // only one really care about is OK(200)
                 switch (response)
                 {
-                    case HttpURLConnection.HTTP_OK:
+                    case HttpsURLConnection.HTTP_OK:
                     {
                         InputStreamReader isr = new InputStreamReader(
                                 con.getInputStream());
@@ -156,7 +157,7 @@ public class UpdaterController implements Initializable
 
                         url = new URL(sUrl + "/files/" + UpdateChecker.getProductGuid()
                                 + "/" + availVersion);
-                        con = (HttpURLConnection) url.openConnection();
+                        con = (HttpsURLConnection) url.openConnection();
                         con.setRequestMethod("GET");
                         con.setRequestProperty("Accept", "application/json");
                         con.connect();
@@ -204,7 +205,7 @@ public class UpdaterController implements Initializable
 
                         break;
                     }
-                    case HttpURLConnection.HTTP_NOT_FOUND:
+                    case HttpsURLConnection.HTTP_NOT_FOUND:
                     {
                         MessageDialogBuilder
                                 .error()

@@ -3,9 +3,7 @@ package com.mailroom.common.database;
 import com.mailroom.common.exceptions.ConfigException;
 import com.mailroom.common.utils.Logger;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Properties;
 
 /**
@@ -34,37 +32,64 @@ public class DatabaseManagerFactory
                     FileInputStream fileInputStream = new FileInputStream(propFile);
                     properties.load(fileInputStream);
 
-                    switch (Integer.valueOf(properties.getProperty("DBTYPE")))
+                    try
                     {
-                        case SQLiteManager.dbId:
+                        switch (Integer.valueOf(properties.getProperty("DBTYPE")))
                         {
-                            currentInstance = new SQLiteManager(
-                                    properties.getProperty("DATABASE"));
-                            break;
+                            case SQLiteManager.dbId:
+                            {
+                                currentInstance = new SQLiteManager(
+                                        properties.getProperty("DATABASE"));
+                                break;
+                            }
+                            case MysqlManager.dbId:
+                            {
+                                currentInstance = new MysqlManager(
+                                        properties.getProperty("DATABASE"),
+                                        properties.getProperty("USERNAME"),
+                                        properties.getProperty("PASSWORD"),
+                                        properties.getProperty("DBNAME"));
+                                break;
+                            }
+                            case PostgreSQLManager.dbId:
+                            {
+                                currentInstance = new PostgreSQLManager(
+                                        properties.getProperty("DATABASE"),
+                                        properties.getProperty("USERNAME"),
+                                        properties.getProperty("PASSWORD"),
+                                        properties.getProperty("DBNAME"));
+                                break;
+                            }
+                            default:
+                            {
+                                throw new ConfigException(
+                                        "Configuration Error\nUnknown Database Type");
+                            }
                         }
-                        case MysqlManager.dbId:
+                    }
+                    catch(NumberFormatException nfe)
+                    {
+                        Logger.logEvent("Old Configuration Found", "SYSTEM");
+                        Logger.logException(nfe);
+
+                        if(properties.getProperty("DBTYPE").equals("SQLITE"))
                         {
-                            currentInstance = new MysqlManager(
-                                    properties.getProperty("DATABASE"),
-                                    properties.getProperty("USERNAME"),
-                                    properties.getProperty("PASSWORD"),
-                                    properties.getProperty("DBNAME"));
-                            break;
+                            properties.setProperty("DBTYPE", "0");
                         }
-                        case PostgreSQLManager.dbId:
+                        if(properties.getProperty("DBTYPE").equals("MYSQL"))
                         {
-                            currentInstance = new PostgreSQLManager(
-                                    properties.getProperty("DATABASE"),
-                                    properties.getProperty("USERNAME"),
-                                    properties.getProperty("PASSWORD"),
-                                    properties.getProperty("DBNAME"));
-                            break;
+                            properties.setProperty("DBTYPE", "1");
                         }
-                        default:
+                        if(properties.getProperty("DBTYPE").equals("POSTGRESQL"))
                         {
-                            throw new ConfigException(
-                                    "Configuration Error\nUnknown Database Type");
+                            properties.setProperty("DBTYPE", "2");
                         }
+
+                        FileOutputStream outputStream = new FileOutputStream(propFile);
+                        properties.store(outputStream, "System Configuration");
+                        outputStream.close();
+
+                        System.exit(0);
                     }
                 }
                 else

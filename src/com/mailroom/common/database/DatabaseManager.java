@@ -87,17 +87,6 @@ public interface DatabaseManager
     boolean changePassword(User u, byte[] oldPassword, byte[] newPassword);
 
     /**
-     * Temporary method for converting between password schemes
-     *
-     * @param u User needing changed
-     * @param oldPassword old password hash
-     * @param newPassword new MessageDigest
-     * @return status of SQL Execution
-     */
-    @Deprecated
-    boolean changePassword(User u, int oldPassword, byte[] newPassword);
-
-    /**
      * Deletes User from System
      *
      * @param u User to Delete

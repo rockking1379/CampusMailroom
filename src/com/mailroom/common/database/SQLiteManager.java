@@ -207,34 +207,6 @@ public class SQLiteManager implements DatabaseManager
     }
 
     @Override
-    public boolean changePassword(User u, int oldPassword, byte[] newPassword)
-    {
-        // allow users to change their password
-        try
-        {
-            connect();
-            PreparedStatement stmnt = connection
-                    .prepareStatement("UPDATE Users SET password=? WHERE user_name=? AND password=?");
-            stmnt.setQueryTimeout(5);
-
-            stmnt.setBytes(1, newPassword);
-            stmnt.setString(2, u.getUserName());
-            stmnt.setInt(3, oldPassword);
-
-            return stmnt.executeUpdate() > 0;
-        }
-        catch (SQLException e)
-        {
-            Logger.logException(e);
-            return false;
-        }
-        finally
-        {
-            disconnect();
-        }
-    }
-
-    @Override
     public boolean deleteUser(User u)
     {
         boolean retValue = false;

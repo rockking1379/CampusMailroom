@@ -228,42 +228,6 @@ public class PostgreSQLManager implements DatabaseManager
     }
 
     @Override
-    public boolean changePassword(User u, int oldPassword, byte[] newPassword)
-    {
-        // allow users to change their password
-        try
-        {
-            connect();
-            PreparedStatement stmnt = connection
-                    .prepareStatement("UPDATE Users SET password=? WHERE user_name=? AND password=?");
-            stmnt.setQueryTimeout(5);
-
-            stmnt.setBytes(1, newPassword);
-            stmnt.setString(2, u.getUserName());
-            stmnt.setInt(3, oldPassword);
-
-            if (stmnt.executeUpdate() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        catch (SQLException e)
-        {
-            Logger.logException(e);
-            e.printStackTrace();
-            return false;
-        }
-        finally
-        {
-            disconnect();
-        }
-    }
-
-    @Override
     public boolean deleteUser(User u)
     {
         boolean retValue = false;
